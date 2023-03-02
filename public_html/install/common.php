@@ -1,13 +1,13 @@
 <?php
 
 /************************************************************************/
-/* Platinum Nuke Pro: Advanced Content Management System                         */
+/* Platinum Nuke Pro: Advanced Content Management System                */
 /* ==================================================================== */
 /*                                                                      */
 /* Copyright (c) 2007 by Francisco Burzi                                */
 /* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Platinum Nuke Pro Installer was based on Joomla Installer                     */
+/* Platinum Nuke Pro Installer was based on Joomla Installer            */
 /* Joomla is Copyright (c) by Open Source Matters                       */
 /************************************************************************/
 /* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
@@ -38,14 +38,21 @@
 /* along with this program; if not, write to the Free Software                 */
 /* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
 /*******************************************************************************/
-/************************************************************************/
+
+/******************************************
+ Patched PHP 8.2.3
+ 
+ Applied rules:
+ 
+ * RandomFunctionRector
+ * AddLiteralSeparatorToNumberRector (https://wiki.php.net/rfc/numeric_literal_separator)  
+ 
+ ******************************************/
 
 //if (file_exists( '../config.php' ) && filesize( '../config.php' ) != 4867) {
 //	header( 'Location: ../index.php' );
 //	exit();
 //}
-
-
 
 header ("Cache-Control: no-cache, must-revalidate");	// HTTP/1.1
 header ("Pragma: no-cache");	// HTTP/1.0
@@ -80,9 +87,9 @@ function mosMakePassword($length) {
 	$salt = "abcdefghiVHJVIKVFcvfufFU.,,JfrCFfgv^CDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	$len = strlen($salt);
 	$makepass="";
-	mt_srand(10000000*(double)microtime());
+	mt_srand(10_000_000*(double)microtime());
 	for ($i = 0; $i < $length; $i++)
-	$makepass .= $salt[mt_rand(0,$len - 1)];
+	$makepass .= $salt[random_int(0,$len - 1)];
 	return $makepass;
 }
 
