@@ -38,6 +38,7 @@
 /* along with this program; if not, write to the Free Software                 */
 /* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
 /*******************************************************************************/
+
 /******************************************
  Patched PHP 8.2.3
  
@@ -49,6 +50,7 @@
  * ReturnNeverTypeRector (https://wiki.php.net/rfc/noreturn_type)
   
  ******************************************/
+
 error_reporting(E_ALL);
 // Set flag that this is a parent file
 define( "_VALID_MOS", 1 );
