@@ -8,7 +8,10 @@ use Rector\Set\ValueObject\LevelSetList;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
-		  __DIR__ . '/install/install2.php',
+	      //__DIR__ . '/install/install.php',
+		  //__DIR__ . '/install/install1.php',
+		  //__DIR__ . '/install/install2.php',
+		  __DIR__ . '/install/includes/database.php',
     ]);
 
     // register a single rule
