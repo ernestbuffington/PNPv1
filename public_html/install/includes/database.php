@@ -1,13 +1,13 @@
 <?php
 
 /************************************************************************/
-/* Platinum Nuke Pro: Advanced Content Management System                         */
+/* Platinum Nuke Pro: Advanced Content Management System                */
 /* ==================================================================== */
 /*                                                                      */
 /* Copyright (c) 2007 by Francisco Burzi                                */
 /* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Platinum Nuke Pro Installer was based on Joomla Installer                     */
+/* Platinum Nuke Pro Installer was based on Joomla Installer            */
 /* Joomla is Copyright (c) by Open Source Matters                       */
 /************************************************************************/
 /* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
@@ -38,7 +38,29 @@
 /* along with this program; if not, write to the Free Software                 */
 /* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
 /*******************************************************************************/
-/************************************************************************/
+
+/******************************************
+ Patched PHP 8.2.3
+ 
+ Applied rules:
+ 
+ * OptionalParametersAfterRequiredRector (https://php.watch/versions/8.0#deprecate-required-param-after-optional)
+ * VarToPublicPropertyRector
+ * DirNameFileConstantToDirConstantRector
+ * TernaryToElvisRector (http://php.net/manual/en/language.operators.comparison.php#language.operators.comparison.ternary https://stackoverflow.com/a/1993455/1348344)
+ * LongArrayToShortArrayRector
+ * AddDefaultValueForUndefinedVariableRector (https://github.com/vimeo/psalm/blob/29b70442b11e3e66113935a2ee22e165a70c74a4/docs/fixing_code.md#possiblyundefinedvariable)
+ * Php4ConstructorRector (https://wiki.php.net/rfc/remove_php4_constructors)
+ * CountOnNullRector (https://3v4l.org/Bndc9)
+ * CurlyToSquareBracketArrayStringRector (https://www.php.net/manual/en/migration74.deprecated.php)
+ * ClassOnThisVariableObjectRector (https://wiki.php.net/rfc/class_name_scalars)
+ * ClassPropertyAssignToConstructorPromotionRector (https://wiki.php.net/rfc/constructor_promotion https://github.com/php/php-src/pull/5291)
+ * ClassOnObjectRector (https://wiki.php.net/rfc/class_name_literal_on_object)
+ * UnionTypesRector
+ * StrStartsWithRector (https://wiki.php.net/rfc/add_str_starts_with_and_ends_with_functions)
+ * NullToStrictStringFuncCallArgRector
+  
+ ******************************************/
 
 // no direct access
 defined( '_VALID_MOS' ) or die( 'Restricted access' );
@@ -50,31 +72,29 @@ defined( '_VALID_MOS' ) or die( 'Restricted access' );
 */
 class database {
 	/** @var string Internal variable to hold the query sql */
-	var $_sql			= '';
+	public $_sql			= '';
 	/** @var int Internal variable to hold the database error number */
-	var $_errorNum		= 0;
+	public $_errorNum		= 0;
 	/** @var string Internal variable to hold the database error message */
-	var $_errorMsg		= '';
-	/** @var string Internal variable to hold the prefix used on all database tables */
-	var $_table_prefix	= '';
+	public $_errorMsg		= '';
 	/** @var Internal variable to hold the connector resource */
-	var $_resource		= '';
+	public $_resource		= '';
 	/** @var Internal variable to hold the last query cursor */
-	var $_cursor		= null;
+	public $_cursor		= null;
 	/** @var boolean Debug option */
-	var $_debug			= 0;
+	public $_debug			= 0;
 	/** @var int The limit for the query */
-	var $_limit			= 0;
+	public $_limit			= 0;
 	/** @var int The for offset for the limit */
-	var $_offset		= 0;
+	public $_offset		= 0;
 	/** @var int A counter for the number of queries performed by the object instance */
-	var $_ticker		= 0;
+	public $_ticker		= 0;
 	/** @var array A log of queries */
-	var $_log			= null;
+	public $_log			= null;
 	/** @var string The null/zero date string */
-	var $_nullDate		= '0000-00-00 00:00:00';
+	public $_nullDate		= '0000-00-00 00:00:00';
 	/** @var string Quote for named objects */
-	var $_nameQuote		= '`';
+	public $_nameQuote		= '`';
 
 	/**
 	* Database object constructor
@@ -85,12 +105,13 @@ class database {
 	* @param string Common prefix for all tables
 	* @param boolean If true and there is an error, go offline
 	*/
-	function database( $host='localhost', $user, $pass, $db='', $table_prefix='', $goOffline=true ) {
+	function __construct( $user, $pass, $host='localhost', $db='', /** @var string Internal variable to hold the prefix used on all database tables */
+ public $_table_prefix='', $goOffline=true ) {
 		// perform a number of fatality checks, then die gracefully
 		if (!function_exists( 'mysql_connect' )) {
 			$mosSystemError = 1;
 			if ($goOffline) {
-				$basePath = dirname( __FILE__ );
+				$basePath = __DIR__;
 				include $basePath . '/../configuration.php';
 				include $basePath . '/../offline.php';
 				exit();
@@ -100,7 +121,7 @@ class database {
 			if (!($this->_resource = @mysql_connect( $host, $user, $pass ))) {
 				$mosSystemError = 2;
 				if ($goOffline) {
-					$basePath = dirname( __FILE__ );
+					$basePath = __DIR__;
 					include $basePath . '/../configuration.php';
 					include $basePath . '/../offline.php';
 					exit();
@@ -110,7 +131,7 @@ class database {
 			if (!($this->_resource = @mysql_connect( $host, $user, $pass, true ))) {
 				$mosSystemError = 2;
 				if ($goOffline) {
-					$basePath = dirname( __FILE__ );
+					$basePath = __DIR__;
 					include $basePath . '/../configuration.php';
 					include $basePath . '/../offline.php';
 					exit();
@@ -120,16 +141,15 @@ class database {
 		if ($db != '' && !mysql_select_db( $db, $this->_resource )) {
 			$mosSystemError = 3;
 			if ($goOffline) {
-				$basePath = dirname( __FILE__ );
+				$basePath = __DIR__;
 				include $basePath . '/../configuration.php';
 				include $basePath . '/../offline.php';
 				exit();
 			}
 		}
-		$this->_table_prefix = $table_prefix;
         //@mysql_query("SET NAMES 'utf8'", $this->_resource);
 		$this->_ticker = 0;
-		$this->_log = array();
+		$this->_log = [];
 	}
 	/**
 	 * @param int
@@ -147,7 +167,7 @@ class database {
 	* @return string The error message for the most recent query
 	*/
 	function getErrorMsg() {
-		return str_replace( array( "\n", "'" ), array( '\n', "\'" ), $this->_errorMsg );
+		return str_replace( ["\n", "'"], ['\n', "\'"], $this->_errorMsg );
 	}
 	/**
 	* Get a database escaped string
@@ -173,7 +193,7 @@ class database {
 		if (strlen( $q ) == 1) {
 			return $q . $s . $q;
 		} else {
-			return $q{0} . $s . $q{1};
+			return $q[0] . $s . $q[1];
 		}
 	}
 	/**
@@ -214,7 +234,7 @@ class database {
 	 * @author thede, David McKinnis
 	 */
 	function replacePrefix( $sql, $prefix='#__' ) {
-		$sql = trim( $sql );
+		$sql = trim( (string) $sql );
 
 		$escaped = false;
 		$quoteChar = '';
@@ -224,7 +244,7 @@ class database {
 		$startPos = 0;
 		$literal = '';
 		while ($startPos < $n) {
-			$ip = strpos($sql, $prefix, $startPos);
+			$ip = strpos($sql, (string) $prefix, $startPos);
 			if ($ip === false) {
 				break;
 			}
@@ -259,7 +279,7 @@ class database {
 					break;
 				}
 				$l = $k - 1;
-				while ($l >= 0 && $sql{$l} == '\\') {
+				while ($l >= 0 && $sql[$l] == '\\') {
 					$l--;
 					$escaped = !$escaped;
 				}
@@ -334,7 +354,7 @@ class database {
 		$this->_errorMsg = '';
 		if ($p_transaction_safe) {
 			$si = mysql_get_server_info( $this->_resource );
-			preg_match_all( "/(\d+)\.(\d+)\.(\d+)/i", $si, $m );
+			preg_match_all( "/(\d+)\.(\d+)\.(\d+)/i", (string) $si, $m );
 			if ($m[1] >= 4) {
 				$this->_sql = 'START TRANSACTION;' . $this->_sql . '; COMMIT;';
 			} else if ($m[2] >= 23 && $m[3] >= 19) {
@@ -346,7 +366,7 @@ class database {
 		$query_split = preg_split ("/[;]+/", $this->_sql);
 		$error = 0;
 		foreach ($query_split as $command_line) {
-			$command_line = trim( $command_line );
+			$command_line = trim( (string) $command_line );
 			if ($command_line != '') {
 				$this->_cursor = mysql_query( $command_line, $this->_resource );
 				if (!$this->_cursor) {
@@ -403,7 +423,7 @@ class database {
 	* @return int The number of rows returned from the most recent query.
 	*/
 	function getNumRows( $cur=null ) {
-		return mysql_num_rows( $cur ? $cur : $this->_cursor );
+		return mysql_num_rows( $cur ?: $this->_cursor );
 	}
 
 	/**
@@ -429,7 +449,7 @@ class database {
 		if (!($cur = $this->query())) {
 			return null;
 		}
-		$array = array();
+		$array = [];
 		while ($row = mysql_fetch_row( $cur )) {
 			$array[] = $row[$numinarray];
 		}
@@ -445,7 +465,7 @@ class database {
 		if (!($cur = $this->query())) {
 			return null;
 		}
-		$array = array();
+		$array = [];
 		while ($row = mysql_fetch_assoc( $cur )) {
 			if ($key) {
 				$array[$row[$key]] = $row;
@@ -501,7 +521,7 @@ class database {
 		if (!($cur = $this->query())) {
 			return null;
 		}
-		$array = array();
+		$array = [];
 		while ($row = mysql_fetch_object( $cur )) {
 			if ($key) {
 				$array[$row->$key] = $row;
@@ -537,7 +557,7 @@ class database {
 		if (!($cur = $this->query())) {
 			return null;
 		}
-		$array = array();
+		$array = [];
 		while ($row = mysql_fetch_row( $cur )) {
 			if ($key) {
 				$array[$row[$key]] = $row;
@@ -557,8 +577,10 @@ class database {
 	* @param [type] $verbose
 	*/
 	function insertObject( $table, &$object, $keyName = NULL, $verbose=false ) {
-		$fmtsql = "INSERT INTO $table ( %s ) VALUES ( %s ) ";
-		$fields = array();
+		$values = [];
+  $sql = null;
+  $fmtsql = "INSERT INTO $table ( %s ) VALUES ( %s ) ";
+		$fields = [];
 		foreach (get_object_vars( $object ) as $k => $v) {
 			if (is_array($v) or is_object($v) or $v === NULL) {
 				continue;
@@ -590,8 +612,9 @@ class database {
 	* @param [type] $updateNulls
 	*/
 	function updateObject( $table, &$object, $keyName, $updateNulls=true ) {
-		$fmtsql = "UPDATE $table SET %s WHERE %s";
-		$tmp = array();
+		$where = null;
+  $fmtsql = "UPDATE $table SET %s WHERE %s";
+		$tmp = [];
 		foreach (get_object_vars( $object ) as $k => $v) {
 			if( is_array($v) or is_object($v) or $k[0] == '_' ) { // internal or NA field
 				continue;
@@ -644,7 +667,7 @@ class database {
 	 * @return array A list the create SQL for the tables
 	 */
 	function getTableCreate( $tables ) {
-		$result = array();
+		$result = [];
 
 		foreach ($tables as $tblval) {
 			$this->setQuery( 'SHOW CREATE table ' . $this->getEscaped( $tblval ) );
@@ -661,13 +684,13 @@ class database {
 	 * @return array An array of fields by table
 	 */
 	function getTableFields( $tables ) {
-		$result = array();
+		$result = [];
 
 		foreach ($tables as $tblval) {
 			$this->setQuery( 'SHOW FIELDS FROM ' . $tblval );
 			$fields = $this->loadObjectList();
 			foreach ($fields as $field) {
-				$result[$tblval][$field->Field] = preg_replace("/[(0-9)]/",'', $field->Type );
+				$result[$tblval][$field->Field] = preg_replace("/[(0-9)]/",'', (string) $field->Type );
 			}
 		}
 
@@ -694,25 +717,19 @@ class database {
 * @author Andrew Eddie <eddieajau@users.sourceforge.net
 */
 class mosDBTable {
-	/** @var string Name of the table in the db schema relating to child class */
-	var $_tbl 		= '';
-	/** @var string Name of the primary key field in the table */
-	var $_tbl_key 	= '';
 	/** @var string Error message */
-	var $_error 	= '';
+	public $_error 	= '';
 	/** @var mosDatabase Database connector */
-	var $_db 		= null;
+	public $_db 		= null;
 
 	/**
-	*	Object constructor to set table and key field
-	*
-	*	Can be overloaded/supplemented by the child class
-	*	@param string $table name of the table in the db schema relating to child class
-	*	@param string $key name of the primary key field in the table
-	*/
-	function mosDBTable( $table, $key, &$db ) {
-		$this->_tbl = $table;
-		$this->_tbl_key = $key;
+  *	Object constructor to set table and key field
+  *
+  *	Can be overloaded/supplemented by the child class
+  * @param string $_tbl name of the table in the db schema relating to child class
+  * @param string $_tbl_key name of the primary key field in the table
+  */
+ function __construct( public $_tbl, public $_tbl_key, &$db ) {
 		$this->_db =& $db;
 	}
 
@@ -723,9 +740,9 @@ class mosDBTable {
 	function getPublicProperties() {
 		static $cache = null;
 		if (is_null( $cache )) {
-			$cache = array();
-			foreach (get_class_vars( get_class( $this ) ) as $key=>$val) {
-				if (substr( $key, 0, 1 ) != '_') {
+			$cache = [];
+			foreach (get_class_vars( static::class ) as $key=>$val) {
+				if (!str_starts_with($key, '_')) {
 					$cache[] = $key;
 				}
 			}
@@ -795,7 +812,7 @@ class mosDBTable {
 	*/
 	function bind( $array, $ignore='' ) {
 		if (!is_array( $array )) {
-			$this->_error = strtolower(get_class( $this ))."::bind failed.";
+			$this->_error = strtolower(static::class)."::bind failed.";
 			return false;
 		} else {
 			return mosBindArrayToObject( $array, $this, $ignore );
@@ -847,7 +864,7 @@ class mosDBTable {
 			$ret = $this->_db->insertObject( $this->_tbl, $this, $this->_tbl_key );
 		}
 		if( !$ret ) {
-			$this->_error = strtolower(get_class( $this ))."::store failed <br />" . $this->_db->getErrorMsg();
+			$this->_error = strtolower(static::class)."::store failed <br />" . $this->_db->getErrorMsg();
 			return false;
 		} else {
 			return true;
@@ -930,8 +947,8 @@ class mosDBTable {
 	function updateOrder( $where='' ) {
 		$k = $this->_tbl_key;
 
-		if (!array_key_exists( 'ordering', get_class_vars( strtolower(get_class( $this )) ) )) {
-			$this->_error = "WARNING: ".strtolower(get_class( $this ))." does not support ordering.";
+		if (!array_key_exists( 'ordering', get_class_vars( strtolower(static::class) ) )) {
+			$this->_error = "WARNING: ".strtolower(static::class)." does not support ordering.";
 			return false;
 		}
 
@@ -952,14 +969,14 @@ class mosDBTable {
 			return false;
 		}
 		// first pass, compact the ordering numbers
-		for ($i=0, $n=count( $orders ); $i < $n; $i++) {
+		for ($i=0, $n=is_countable($orders) ? count( $orders ) : 0; $i < $n; $i++) {
 			if ($orders[$i]->ordering >= 0) {
 				$orders[$i]->ordering = $i+1;
 			}
 		}
 
 		$shift = 0;
-		$n=count( $orders );
+		$n=is_countable($orders) ? count( $orders ) : 0;
 		for ($i=0; $i < $n; $i++) {
 			//echo "i=$i id=".$orders[$i]->$k." order=".$orders[$i]->ordering;
 			if ($orders[$i]->$k == $this->$k) {
@@ -972,7 +989,7 @@ class mosDBTable {
 		}
 	//echo '<pre>';print_r($orders);echo '</pre>';
 		// compact once more until I can find a better algorithm
-		for ($i=0, $n=count( $orders ); $i < $n; $i++) {
+		for ($i=0, $n=is_countable($orders) ? count( $orders ) : 0; $i < $n; $i++) {
 			if ($orders[$i]->ordering >= 0) {
 				$orders[$i]->ordering = $i+1;
 				$query = "UPDATE $this->_tbl"
@@ -1007,7 +1024,7 @@ class mosDBTable {
 	*	@param array Optional array to compiles standard joins: format [label=>'Label',name=>'table name',idfield=>'field',joinfield=>'field']
 	*	@return true|false
 	*/
-	function canDelete( $oid=null, $joins=null ) {
+	function canDelete( $oid=null, $joins=null ): bool|false {
 		$k = $this->_tbl_key;
 		if ($oid) {
 			$this->$k = intval( $oid );
@@ -1032,7 +1049,7 @@ class mosDBTable {
 				$this->_error = $this->_db->getErrorMsg();
 				return false;
 			}
-			$msg = array();
+			$msg = [];
 			foreach( $joins as $table ) {
 				$k = $table['idfield'];
 				if ($obj->$k) {
@@ -1086,8 +1103,8 @@ class mosDBTable {
 	 * @param int Object id
 	 */
 	function checkout( $user_id, $oid=null ) {
-		if (!array_key_exists( 'checked_out', get_class_vars( strtolower(get_class( $this )) ) )) {
-			$this->_error = "WARNING: ".strtolower(get_class( $this ))." does not support checkouts.";
+		if (!array_key_exists( 'checked_out', get_class_vars( strtolower(static::class) ) )) {
+			$this->_error = "WARNING: ".strtolower(static::class)." does not support checkouts.";
 			return false;
 		}
 		$k = $this->_tbl_key;
@@ -1129,8 +1146,8 @@ class mosDBTable {
 	 * @param int Object id
 	 */
 	function checkin( $oid=null ) {
-		if (!array_key_exists( 'checked_out', get_class_vars( strtolower(get_class( $this )) ) )) {
-			$this->_error = "WARNING: ".strtolower(get_class( $this ))." does not support checkin.";
+		if (!array_key_exists( 'checked_out', get_class_vars( strtolower(static::class) ) )) {
+			$this->_error = "WARNING: ".strtolower(static::class)." does not support checkin.";
 			return false;
 		}
 		$k = $this->_tbl_key;
@@ -1256,11 +1273,11 @@ class mosDBTable {
 	 * @since 1.0.4
 	 */
 	function publish( $cid=null, $publish=1, $user_id=0 ) {
-		mosArrayToInts( $cid, array() );
+		mosArrayToInts( $cid, [] );
 		$user_id = intval( $user_id );
 		$publish = intval( $publish );
 
-		if (count( $cid ) < 1) {
+		if ((is_countable($cid) ? count( $cid ) : 0) < 1) {
 			$this->_error = "No items selected.";
 			return false;
 		}
@@ -1278,7 +1295,7 @@ class mosDBTable {
 			return false;
 		}
 
-		if (count( $cid ) == 1) {
+		if ((is_countable($cid) ? count( $cid ) : 0) == 1) {
 			$this->checkin( $cid[0] );
 		}
 		$this->_error = '';
