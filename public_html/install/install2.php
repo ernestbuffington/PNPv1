@@ -1,13 +1,13 @@
 <?php
 
 /************************************************************************/
-/* Platinum Nuke Pro: Advanced Content Management System                         */
+/* Platinum Nuke Pro: Advanced Content Management System                */
 /* ==================================================================== */
 /*                                                                      */
 /* Copyright (c) 2007 by Francisco Burzi                                */
 /* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Platinum Nuke Pro Installer was based on Joomla Installer                     */
+/* Platinum Nuke Pro Installer was based on Joomla Installer            */
 /* Joomla is Copyright (c) by Open Source Matters                       */
 /************************************************************************/
 /* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
@@ -38,7 +38,9 @@
 /* along with this program; if not, write to the Free Software                 */
 /* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
 /*******************************************************************************/
-/************************************************************************/
+/******************************************
+ Patched PHP 8.2.3
+ ******************************************/
 error_reporting(E_ALL);
 // Set flag that this is a parent file
 define( "_VALID_MOS", 1 );
@@ -55,11 +57,11 @@ $DBname  	= mosGetParam( $_POST, 'DBname', '' );
 $DBprefix  	= mosGetParam( $_POST, 'DBprefix', '' );
 $DBcreated	= intval( mosGetParam( $_POST, 'DBcreated', 0 ) );
 $BUPrefix = 'old_';
-$configArray['sitename'] = trim( mosGetParam( $_POST, 'sitename', '' ) );
+$configArray['sitename'] = trim( (string) mosGetParam( $_POST, 'sitename', '' ) );
 
 $database = null;
 
-$errors = array();
+$errors = [];
 if (!$DBcreated){
 	if (!$DBhostname || !$DBuserName || !$DBname) {
 		db_err ("stepBack3","The database details provided are incorrect and/or empty.");
@@ -97,7 +99,7 @@ if (!$DBcreated){
 	// delete existing mos table if exists
 	$query = "SHOW TABLES FROM `$DBname`";
 	$database->setQuery( $query );
-	$errors = array();
+	$errors = [];
 	if ($tables = $database->loadResultArray()) {
 		foreach ($tables as $table) {
 				$query = "DROP TABLE IF EXISTS `$table`";
@@ -114,7 +116,7 @@ if (!$DBcreated){
 	$sqlfile = $version_number.'.sql';
 }
 
-function db_err($step, $alert) {
+function db_err($step, $alert): never {
 	global $DBhostname,$DBuserName,$DBpassword,$DBname,$DBprefix;
 	echo "<form name=\"$step\" method=\"post\" action=\"install1.php\">
 	<input type=\"hidden\" name=\"DBhostname\" value=\"$DBhostname\">
@@ -134,18 +136,18 @@ function db_err($step, $alert) {
 function populate_db( &$database, $sqlfile) {
 	global $errors;
 
-	$mqr = @get_magic_quotes_runtime();
-	@set_magic_quotes_runtime(0);
+	$mqr = get_magic_quotes_runtime();
+	set_magic_quotes_runtime(0);
 	$query = fread( fopen( 'sql/' . $sqlfile, 'r' ), filesize( 'sql/' . $sqlfile ) );
-	@set_magic_quotes_runtime($mqr);
+	set_magic_quotes_runtime($mqr);
 	$pieces  = split_sql($query);
 
-	for ($i=0; $i<count($pieces); $i++) {
-		$pieces[$i] = trim($pieces[$i]);
+	for ($i=0; $i<(is_countable($pieces) ? count($pieces) : 0); $i++) {
+		$pieces[$i] = trim((string) $pieces[$i]);
 		if(!empty($pieces[$i]) && $pieces[$i] != "#") {
 			$database->setQuery( $pieces[$i] );
 			if (!$database->query()) {
-				$errors[] = array ( $database->getErrorMsg(), $pieces[$i] );
+				$errors[] = [$database->getErrorMsg(), $pieces[$i]];
 			}
 		}
 	}
@@ -155,17 +157,17 @@ function populate_db( &$database, $sqlfile) {
  * @param string
  */
 function split_sql($sql) {
-	
+
 	global $DBprefix;
-	
-	$sql = trim($sql);
+
+	$sql = trim((string) $sql);
 	$sql = preg_replace("/\n#[^\n]*\n/", "\n", $sql);
 
 	// set DB prefix
-	$sql = preg_replace("/{prefix}/", $DBprefix, $sql);
-	
-	$buffer = array();
-	$ret = array();
+	$sql = preg_replace("/{prefix}/", (string) $DBprefix, $sql);
+
+	$buffer = [];
+	$ret = [];
 	$in_string = false;
 
 	for($i=0; $i<strlen($sql)-1; $i++) {
