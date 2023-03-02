@@ -12,7 +12,8 @@ return static function (RectorConfig $rectorConfig): void {
 		  //__DIR__ . '/install/install1.php',
 		  //__DIR__ . '/install/install2.php',
 		  //__DIR__ . '/install/includes/database.php',
-		  __DIR__ . '/install/common.php',
+		  //__DIR__ . '/install/common.php',
+		    __DIR__ . '/mainfile.php',
     ]);
 
     // register a single rule
