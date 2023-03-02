@@ -40,6 +40,14 @@
 /*******************************************************************************/
 /******************************************
  Patched PHP 8.2.3
+ 
+ Applied rules:
+ 
+ * LongArrayToShortArrayRector
+ * CountOnNullRector (https://3v4l.org/Bndc9)
+ * NullToStrictStringFuncCallArgRector
+ * ReturnNeverTypeRector (https://wiki.php.net/rfc/noreturn_type)
+  
  ******************************************/
 error_reporting(E_ALL);
 // Set flag that this is a parent file
