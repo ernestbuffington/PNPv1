@@ -106,7 +106,7 @@ class database {
 	* @param boolean If true and there is an error, go offline
 	*/
 	function __construct( $user, $pass, $host='localhost', $db='', /** @var string Internal variable to hold the prefix used on all database tables */
- public $_table_prefix='', $goOffline=true ) {
+    public $_table_prefix='', $goOffline=true ) {
 		// perform a number of fatality checks, then die gracefully
 		if (!function_exists( 'mysql_connect' )) {
 			$mosSystemError = 1;
@@ -118,7 +118,7 @@ class database {
 			}
 		}
 		if (phpversion() < '4.2.0') {
-			if (!($this->_resource = @mysql_connect( $host, $user, $pass ))) {
+			if (!($this->_resource = mysql_connect( $host, $user, $pass ))) {
 				$mosSystemError = 2;
 				if ($goOffline) {
 					$basePath = __DIR__;
@@ -128,7 +128,7 @@ class database {
 				}
 			}
 		} else {		
-			if (!($this->_resource = @mysql_connect( $host, $user, $pass, true ))) {
+			if (!($this->_resource = mysql_connect( $host, $user, $pass, true ))) {
 				$mosSystemError = 2;
 				if ($goOffline) {
 					$basePath = __DIR__;
@@ -147,7 +147,7 @@ class database {
 				exit();
 			}
 		}
-        //@mysql_query("SET NAMES 'utf8'", $this->_resource);
+        //mysql_query("SET NAMES 'utf8'", $this->_resource);
 		$this->_ticker = 0;
 		$this->_log = [];
 	}
@@ -331,7 +331,7 @@ class database {
 				//echo "<pre>" . $this->_sql . "</pre>\n";
 				if (function_exists( 'debug_backtrace' )) {
 					foreach( debug_backtrace() as $back) {
-						if (@$back['file']) {
+						if ($back['file']) {
 							echo '<br />'.$back['file'].':'.$back['line'];
 						}
 					}
@@ -1327,4 +1327,3 @@ class mosDBTable {
 		return $xml;
 	}
 }
-?>
