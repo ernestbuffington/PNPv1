@@ -28,6 +28,27 @@
 /* along with this program; if not, write to the Free Software                 */
 /* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
 /*******************************************************************************/
+
+/*******************************************
+ Patched PHP 8.2.3
+ 
+ Applied rules:
+ * ReplaceHttpServerVarsByServerRector (https://blog.tigertech.net/posts/php-5-3-http-server-vars/)
+ * LongArrayToShortArrayRector
+ * AddDefaultValueForUndefinedVariableRector (https://github.com/vimeo/psalm/blob/29b70442b11e3e66113935a2ee22e165a70c74a4/docs/fixing_code.md#possiblyundefinedvariable)
+ * RandomFunctionRector
+ * RemoveExtraParametersRector (https://www.reddit.com/r/PHP/comments/a1ie7g/is_there_a_linter_for_argumentcounterror_for_php/)
+ * ListToArrayDestructRector (https://wiki.php.net/rfc/short_list_syntax https://www.php.net/manual/en/migration71.new-features.php#migration71.new-features.symmetric-array-destructuring)
+ * SetCookieRector (https://www.php.net/setcookie https://wiki.php.net/rfc/same-site-cookie)
+ * CurlyToSquareBracketArrayStringRector (https://www.php.net/manual/en/migration74.deprecated.php)
+ * ArraySpreadInsteadOfArrayMergeRector (https://wiki.php.net/rfc/spread_operator_for_array)
+ * AddLiteralSeparatorToNumberRector (https://wiki.php.net/rfc/numeric_literal_separator)
+ * StrStartsWithRector (https://wiki.php.net/rfc/add_str_starts_with_and_ends_with_functions)
+ * StrContainsRector (https://externals.io/message/108562 https://github.com/php/php-src/pull/5179)
+ * NullToStrictStringFuncCallArgRector 
+ 
+ *******************************************/
+
 if(!defined('END_TRANSACTION'))
 {
 define('END_TRANSACTION', 2);
@@ -45,17 +66,17 @@ $phpver = phpversion();
 */
 if (!isset($_SERVER))
 {
-	$_GET = &$HTTP_GET_VARS;
-	$_POST = &$HTTP_POST_VARS;
-	$_ENV = &$HTTP_ENV_VARS;
-	$_SERVER = &$HTTP_SERVER_VARS;
-	$_COOKIE = &$HTTP_COOKIE_VARS;
-	$_REQUEST = array_merge($_GET, $_POST, $_COOKIE);
+	$_GET = &$_GET;
+	$_POST = &$_POST;
+	$_ENV = &$_ENV;
+	$_SERVER = &$_SERVER;
+	$_COOKIE = &$_COOKIE;
+	$_REQUEST = [...$_GET, ...$_POST, ...$_COOKIE];
 }
 $PHP_SELF = $_SERVER['PHP_SELF'];
 
 // Stupid handle to create REQUEST_URI for IIS 5 servers
-if (preg_match('/IIS/', $_SERVER['SERVER_SOFTWARE']) && isset($_SERVER['SCRIPT_NAME']))
+if (preg_match('/IIS/', (string) $_SERVER['SERVER_SOFTWARE']) && isset($_SERVER['SCRIPT_NAME']))
 {
     $requesturi = $_SERVER['SCRIPT_NAME'];
     if (isset($_SERVER['QUERY_STRING']))
@@ -73,7 +94,7 @@ if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME']))
 	exit('Access Denied');
 }
 
-if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) && strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== false && @extension_loaded('zlib') && !headers_sent())
+if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) && str_contains((string) $_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') && @extension_loaded('zlib') && !headers_sent())
 {
 	ob_start('ob_gzhandler');
 	ob_implicit_flush(0);
@@ -104,7 +125,7 @@ if((isset($admin) && $admin != $_COOKIE['admin']) OR (isset($user) && $user != $
 	{
 		function stripos_clone($haystack, $needle, $offset=0)
 		{
-			$return = strpos(strtoupper($haystack), strtoupper($needle), $offset);
+			$return = strpos(strtoupper((string) $haystack), strtoupper((string) $needle), $offset);
 				if ($return === false)
 				{
 					return false;
@@ -116,7 +137,7 @@ if((isset($admin) && $admin != $_COOKIE['admin']) OR (isset($user) && $user != $
 	// But when this is PHP5, we use the original function
 	function stripos_clone($haystack, $needle, $offset=0)
 	{
-		$return = stripos($haystack, $needle, $offset=0);
+		$return = stripos((string) $haystack, (string) $needle, $offset=0);
 		if ($return === false) {
 			return false;
 		} else {
@@ -133,7 +154,7 @@ function blocks_visible($side)
 
     $showblocks = ($showblocks == null) ? 3 : $showblocks;
 
-    $side = strtolower($side[0]);
+    $side = strtolower((string) $side[0]);
 
     //If there are no blocks for this module && not admin file
     if (!$showblocks && !defined('ADMIN_FILE')) return false;
@@ -148,7 +169,7 @@ function blocks_visible($side)
     if ($showblocks == 3) return true;
 
     //Count the blocks on the side
-    $blocks = blocks($side, true);
+    $blocks = blocks($side);
 
     //If there are no blocks
     if (!$blocks)
@@ -180,13 +201,13 @@ if(function_exists('imagecreatetruecolor') && function_exists('imageftbbox'))
  ******************************************************/
 if(isset($admin) && $admin == $_COOKIE['admin'])
 {
-   $admin = base64_decode($admin);
+   $admin = base64_decode((string) $admin);
    $admin = addslashes($admin);
    $admin = base64_encode($admin);
 }
 if(isset($user) && $user == $_COOKIE['user'])
 {
-   $user = base64_decode($user);
+   $user = base64_decode((string) $user);
    $user = addslashes($user);
    $user = base64_encode($user);
 }
@@ -252,7 +273,7 @@ $nukeurl = $row['nukeurl'];
 $site_logo = $row['site_logo'];
 $slogan = $row['slogan'];
 $startdate = $row['startdate'];
-$adminmail = stripslashes($row['adminmail']);
+$adminmail = stripslashes((string) $row['adminmail']);
 $anonpost = $row['anonpost'];
 $Default_Theme = $row['Default_Theme'];
 $foot1 = $row['foot1'];
@@ -289,9 +310,9 @@ $httprefmax = intval($row['httprefmax']);
 $CensorMode = intval($row['CensorMode']);
 $CensorReplace = $row['CensorReplace'];
 $copyright = $row['copyright'];
-$Version_Num = htmlentities(strip_tags($row['Version_Num']));
+$Version_Num = htmlentities(strip_tags((string) $row['Version_Num']));
 $login_bar = intval($row['login_bar']);
-$domain = str_replace("http://", "", $nukeurl);
+$domain = str_replace("http://", "", (string) $nukeurl);
 $mtime = microtime();
 $mtime = explode(" ",$mtime);
 $mtime = $mtime[1] + $mtime[0];
@@ -306,30 +327,30 @@ include_once('includes/gfx_check.php');
 if (!defined('FORUM_ADMIN')) {
 	$ThemeSel = get_theme();
 	include_once 'themes/' . $ThemeSel . '/theme.php';
-	if (($multilingual == 1) AND isset($newlang) AND !stristr($newlang,'.')) {
+	if (($multilingual == 1) AND isset($newlang) AND !stristr((string) $newlang,'.')) {
 		$newlang = check_html($newlang, 'nohtml');
 		if (file_exists('language/lang-' . $newlang . '.php')) {
-			setcookie('lang', $newlang, time() + 31536000);
+			setcookie('lang', (string) $newlang, ['expires' => time() + 31_536_000]);
 			include_once 'language/lang-' . $newlang . '.php';
 			$currentlang = $newlang;
 		} else {
-			setcookie('lang', $language, time() + 31536000);
+			setcookie('lang', (string) $language, ['expires' => time() + 31_536_000]);
 			include_once 'language/lang-' . $language . '.php';
 			$currentlang = $language;
 		}
-	} elseif (($multilingual == 1) AND isset($lang) AND !stristr($lang, '.')) {
+	} elseif (($multilingual == 1) AND isset($lang) AND !stristr((string) $lang, '.')) {
 		$lang = check_html($lang, 'nohtml');
 		if (file_exists('language/lang-' . $lang . '.php')) {
-			setcookie('lang', $lang, time() + 31536000);
+			setcookie('lang', (string) $lang, ['expires' => time() + 31_536_000]);
 			include_once 'language/lang-' . $lang . '.php';
 			$currentlang = $lang;
 		} else {
-			setcookie('lang', $language, time() + 31536000);
+			setcookie('lang', (string) $language, ['expires' => time() + 31_536_000]);
 			include_once 'language/lang-' . $language . '.php';
 			$currentlang = $language;
 		}
 	} else {
-		setcookie('lang', $language, time() + 31536000);
+		setcookie('lang', (string) $language, ['expires' => time() + 31_536_000]);
 		include_once 'language/lang-' . $language . '.php';
 		$currentlang = $language;
 	}
@@ -381,13 +402,13 @@ function is_admin($admin) {
     if (!$admin) { return 0; }
     if (isset($adminSave)) return $adminSave;
     if (!is_array($admin)) {
-        $admin = base64_decode($admin);
+        $admin = base64_decode((string) $admin);
         $admin = addslashes($admin);
         $admin = explode(':', $admin);
     }
     $aid = $admin[0];
     $pwd = $admin[1];
-    $aid = substr(addslashes($aid), 0, 25);
+    $aid = substr(addslashes((string) $aid), 0, 25);
     if (!empty($aid) && !empty($pwd)) {
         global $prefix, $db;
         $sql = "SELECT pwd FROM ".$prefix."_authors WHERE aid='$aid'";
@@ -405,7 +426,7 @@ function is_user($user) {
     static $userSave; 
     if (isset($userSave)) return $userSave;
     if (!is_array($user)) {
-        $user = base64_decode($user);
+        $user = base64_decode((string) $user);
         $user = addslashes($user);
         $user = explode(":", $user);
     }
@@ -416,7 +437,7 @@ function is_user($user) {
         global $db, $user_prefix;
         $sql = "SELECT user_password FROM ".$user_prefix."_users WHERE user_id='$uid'";
         $result = $db->sql_query($sql);
-        list($row) = $db->sql_fetchrow($result);
+        [$row] = $db->sql_fetchrow($result);
         $db->sql_freeresult($result);
         if ($row == $pwd && !empty($row)) { 
         	return $userSave = 1;
@@ -472,14 +493,14 @@ function update_points($id) {
   if (is_user($user)) {
     if(!is_array($user)) {
       $cookie = cookiedecode($user);
-      $username = trim($cookie[1]);
+      $username = trim((string) $cookie[1]);
     } else {
-      $username = trim($user[1]);
+      $username = trim((string) $user[1]);
     }
     if ($db->sql_numrows($db->sql_query("SELECT * FROM ".$prefix."_groups")) > '0') {
       $id = intval($id);
       $result = $db->sql_query("SELECT points FROM ".$prefix."_groups_points WHERE id='$id'");
-      list($points) = $db->sql_fetchrow($result);
+      [$points] = $db->sql_fetchrow($result);
 	  $db->sql_freeresult($result);
       $rpoints = intval($points);
       $db->sql_query("UPDATE ".$user_prefix."_users SET points=points+".$rpoints." WHERE username='$username'");
@@ -557,7 +578,8 @@ function render_blocks($side, $blockfile, $title, $content, $bid, $url) {
     }
 }
 function blocks($side) {
-/*****************************************************/
+$pos = null;
+ /*****************************************************/
 /* Addon - Conditional Blocks v.1.1.1          START */
 /*****************************************************/
 	global $storynum, $prefix, $multilingual, $currentlang, $db, $admin, $user, $name, $file, $home;
@@ -569,13 +591,13 @@ function blocks($side) {
     } else {
     	$querylang = "";
     }
-    if (strtolower($side[0]) == "l") {
+    if (strtolower((string) $side[0]) == "l") {
 		$pos = "l";
-    } elseif (strtolower($side[0]) == "r") {
+    } elseif (strtolower((string) $side[0]) == "r") {
 		$pos = "r";
-    }  elseif (strtolower($side[0]) == "c") {
+    }  elseif (strtolower((string) $side[0]) == "c") {
 		$pos = "c";
-    } elseif  (strtolower($side[0]) == "d") {
+    } elseif  (strtolower((string) $side[0]) == "d") {
 		$pos = "d";
     }
     $side = $pos;
@@ -590,9 +612,9 @@ function blocks($side) {
 /*****************************************************/
 /* Module - NSN Groups v.1.7.1                   END */
 /*****************************************************/
-	$title = stripslashes(check_html($row['title'], "nohtml"));
-	$content = stripslashes($row['content']);
-	$url = stripslashes($row['url']);
+	$title = stripslashes((string) check_html($row['title'], "nohtml"));
+	$content = stripslashes((string) $row['content']);
+	$url = stripslashes((string) $row['url']);
 	$blockfile = $row['blockfile'];
 	$view = intval($row['view']);
 /*****************************************************/
@@ -670,8 +692,8 @@ function message_box() {
 /*****************************************************/
 /* Module - NSN Groups v.1.7.1                   END */
 /*****************************************************/
-	    $title = stripslashes(check_html($row['title'], "nohtml"));
-	    $content = stripslashes($row['content']);
+	    $title = stripslashes((string) check_html($row['title'], "nohtml"));
+	    $content = stripslashes((string) $row['content']);
 	    $mdate = $row['date'];
 	    $expire = intval($row['expire']);
 	    $view = intval($row['view']);
@@ -785,8 +807,8 @@ function online() {
     $db->sql_query("DELETE FROM ".$prefix."_session WHERE time < '".$past."'");
     $result = $db->sql_query("SELECT time FROM ".$prefix."_session WHERE uname='$uname'");
     $ctime = time();
-    $custom_title = addslashes($name);
-    $url = preg_replace("/&/", "/&/", $url);
+    $custom_title = addslashes((string) $name);
+    $url = preg_replace("/&/", "/&/", (string) $url);
     if ($uname!="") {
     $uname = substr("$uname", 0,25);
     if ($row = $db->sql_fetchrow($result)) {
@@ -822,18 +844,20 @@ function blockfileinc($title, $blockfile, $side=0) {
     }
 }
 function selectlanguage() {
+    $menulist = [];
+    $languageslist = [];
     global $useflags, $currentlang;
     if ($useflags == 1) {
     $title = _SELECTLANGUAGE;
     $content = "<center><font class=\"content\">"._SELECTGUILANG."<br /><br />";
     $langdir = dir("language");
     while($func=$langdir->read()) {
-	if(substr($func, 0, 5) == "lang-") {
+	if(str_starts_with($func, "lang-")) {
     	    $menulist .= "$func ";
 	}
     }
     closedir($langdir->handle);
-    $menulist = explode(" ", $menulist);
+    $menulist = explode(" ", (string) $menulist);
     sort($menulist);
     for ($i=0; $i < sizeof($menulist); $i++) {
         if($menulist[$i]!="") {
@@ -857,7 +881,7 @@ function selectlanguage() {
 	        }
 	    }
 	    closedir($handle);
-	    $languageslist = explode(" ", $languageslist);
+	    $languageslist = explode(" ", (string) $languageslist);
 	    sort($languageslist);
 	    for ($i=0; $i < sizeof($languageslist); $i++) {
 		if($languageslist[$i]!="") {
@@ -877,15 +901,15 @@ function ultramode() {
 	fwrite($file, "General purpose self-explanatory file with news headlines\n");
 	$sql = "SELECT sid, aid, title, time, comments, topic FROM ".$prefix."_stories ORDER BY time DESC LIMIT 0,10";
 	$result = $db->sql_query($sql);
-	while (list($rsid, $raid, $rtitle, $rtime, $rcomments, $rtopic) = $db->sql_fetchrow($result)) {
+	while ([$rsid, $raid, $rtitle, $rtime, $rcomments, $rtopic] = $db->sql_fetchrow($result)) {
 		$rsid = intval($rsid);
-		$rtitle = stripslashes(check_html($rtitle, "nohtml"));
-		$rcomments = stripslashes($rcomments);
+		$rtitle = stripslashes((string) check_html($rtitle, "nohtml"));
+		$rcomments = stripslashes((string) $rcomments);
 		$rtopic = intval($rtopic);
 		$sql = "select topictext, topicimage from ".$prefix."_topics where topicid='$rtopic'";
                 $query = $db->sql_query($sql);
-		list($topictext, $topicimage) = $db->sql_fetchrow($query);
-		$topictext = stripslashes(check_html($topictext, "nohtml"));
+		[$topictext, $topicimage] = $db->sql_fetchrow($query);
+		$topictext = stripslashes((string) check_html($topictext, "nohtml"));
 		$content = "%%\n$rtitle\n/modules.php?name=News&file=article&sid=$rsid\n$rtime\n$raid\n$topictext\n$rcomments\n$topicimage\n";
 		fwrite($file, $content);
 	}
@@ -896,7 +920,7 @@ function cookiedecode($user) {
     global $cookie, $db, $user_prefix;
     static $pass;
     if(!is_array($user)) {
-        $user = base64_decode($user);
+        $user = base64_decode((string) $user);
         $user = addslashes($user);
         $cookie = explode(":", $user);
     } else {
@@ -905,7 +929,7 @@ function cookiedecode($user) {
     if (!isset($pass)) {
        $sql = "SELECT user_password FROM ".$user_prefix."_users WHERE username='$cookie[1]'";
        $result = $db->sql_query($sql);
-       list($pass) = $db->sql_fetchrow($result);
+       [$pass] = $db->sql_fetchrow($result);
        $db->sql_freeresult($result);
     }
     if ($cookie[2] == $pass && !empty($pass)) { return $cookie; }
@@ -933,7 +957,7 @@ function getusrinfo($user) {
     unset($userinfo);
 }
 function FixQuotes ($what = "") {
-	$what = str_replace("'","''",$what);
+	$what = str_replace("'","''",(string) $what);
 	while (stripos_clone($what, "\\\\'")) {
 		$what = str_replace("\\\\'","'",$what);
 	}
@@ -951,15 +975,15 @@ function check_words($Message) {
 	    $Replace = $CensorReplace;
 	    if ($CensorMode == 1) {
 		for ($i = 0; $i < count($CensorList); $i++) {
-		    $EditedMessage = preg_replace("/$CensorList[$i]([^a-zA-Z0-9])/","$Replace\\1",$EditedMessage);
+		    $EditedMessage = preg_replace("/$CensorList[$i]([^a-zA-Z0-9])/","$Replace\\1",(string) $EditedMessage);
 		}
 	    } elseif ($CensorMode == 2) {
 		for ($i = 0; $i < count($CensorList); $i++) {
-		    $EditedMessage = preg_replace("/(^|[^[:alnum:]])$CensorList[$i]/","\\1$Replace",$EditedMessage);
+		    $EditedMessage = preg_replace("/(^|[^[:alnum:]])$CensorList[$i]/","\\1$Replace",(string) $EditedMessage);
 		}
 	    } elseif ($CensorMode == 3) {
 		for ($i = 0; $i < count($CensorList); $i++) {
-		    $EditedMessage = preg_replace("/$CensorList[$i]/","$Replace",$EditedMessage);
+		    $EditedMessage = preg_replace("/$CensorList[$i]/","$Replace",(string) $EditedMessage);
 		}
 	    }
 	}
@@ -974,7 +998,7 @@ function delQuotes($string){
     $i=0;
     $attrib=-1; # Are us in an HTML attrib ?   -1: no attrib   0: name of the attrib   1: value of the atrib
     $quote=0;   # Is a string quote delimited opened ? 0=no, 1=yes
-    $len = strlen($string);
+    $len = strlen((string) $string);
     while ($i<$len) {
 	switch($string[$i]) { # What car is it in the buffer ?
 	    case "\"": #"       # a quote.
@@ -1014,7 +1038,7 @@ function delQuotes($string){
     }
     return $result;
 }
-function check_html ($string, $allowed_html = "", $allowed_protocols = array('http', 'https', 'ftp', 'news', 'nntp', 'gopher', 'mailto'))
+function check_html ($string, $allowed_html = "", $allowed_protocols = ['http', 'https', 'ftp', 'news', 'nntp', 'gopher', 'mailto'])
 { 
 	$stop = FALSE;
 	if(!function_exists('kses_no_null'))
@@ -1023,7 +1047,7 @@ function check_html ($string, $allowed_html = "", $allowed_protocols = array('ht
 	}
 	if (get_magic_quotes_gpc() == 1 )
 	{ 
-		$string = stripslashes($string ); 
+		$string = stripslashes((string) $string ); 
 	} 
 	$hotHtml = "nohtml"; 
 	$Zstrip = stripos_clone($allowed_html, $hotHtml); 
@@ -1032,7 +1056,7 @@ function check_html ($string, $allowed_html = "", $allowed_protocols = array('ht
 		global $AllowableHTML;
 		$allowed_html = $AllowableHTML; 
 	} else { 
-		$allowed_html = array('<null>'); 
+		$allowed_html = ['<null>']; 
 	}
 	$string = kses_no_null($string); 
 	$string = kses_js_entities($string); 
@@ -1091,7 +1115,7 @@ function filter_text($Message, $strip="") {
 function filter($what, $strip="", $save="", $type="") {
     if ($strip == "nohtml") {
         $what = check_html($what, $strip);
-        $what = htmlentities(trim($what), ENT_QUOTES);
+        $what = htmlentities(trim((string) $what), ENT_QUOTES);
         // If the variable $what doesn't comes from a preview screen should be converted
         if ($type != "preview" AND $save != 1) {
             $what = html_entity_decode($what, ENT_QUOTES);
@@ -1100,9 +1124,9 @@ function filter($what, $strip="", $save="", $type="") {
     if ($save == 1) {
         $what = check_words($what);
         $what = check_html($what, $strip);
-        $what = addslashes($what);
+        $what = addslashes((string) $what);
     } else {
-        $what = stripslashes(FixQuotes($what));
+        $what = stripslashes((string) FixQuotes($what));
         $what = check_words($what);
         $what = check_html($what, $strip);
     }
@@ -1115,7 +1139,7 @@ function formatTimestamp($time) {
     global $datetime, $locale;
     setlocale(LC_TIME, $locale);
     if (!is_numeric($time)) {
-        preg_match('/([0-9]{4})-([0-9]{1,2})-([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})/', $time, $datetime);
+        preg_match('/([0-9]{4})-([0-9]{1,2})-([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})/', (string) $time, $datetime);
         $time = gmmktime($datetime[4],$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]);
     }
     $time -= date("Z");
@@ -1135,8 +1159,8 @@ global $prefix, $db;
         $users[$aid] = $row;
         $db->sql_freeresult($result);
     }
-    $aidurl = stripslashes($row['url']);
-    $aidmail = encode_mail(stripslashes($row['email']));
+    $aidurl = stripslashes((string) $row['url']);
+    $aidmail = encode_mail(stripslashes((string) $row['email']));
     if ((isset($aidurl)) && ($aidurl != "http://")) {
         $aid = "<a href=\"".$aidurl."\">$aid</a>";
     } elseif (isset($aidmail)) {
@@ -1158,8 +1182,8 @@ global $prefix, $db;
         $users[$aid] = $row;
         $db->sql_freeresult($result);
     }
-    $aidurl = stripslashes($row['url']);
-    $aidmail = encode_mail(stripslashes($row['email']));
+    $aidurl = stripslashes((string) $row['url']);
+    $aidmail = encode_mail(stripslashes((string) $row['email']));
     if ((isset($aidurl)) && ($aidurl != "http://")) {
         $aid = "<a href=\"".$aidurl."\">$aid</a>";
     } elseif (isset($aidmail)) {
@@ -1189,7 +1213,7 @@ function adminblock() {
 	if (is_admin($admin)) {
 	        $sql = "SELECT title, content FROM ".$prefix."_blocks WHERE bkey='admin'";
 		$result = $db->sql_query($sql);
-		while (list($title, $content) = $db->sql_fetchrow($result)) {
+		while ([$title, $content] = $db->sql_fetchrow($result)) {
 			$content = "<span class=\"content\">".$content."</span>";
 			themesidebox($title, $content);
 		}
@@ -1216,9 +1240,9 @@ function adminblock() {
 }
 function loginbox($gfx_check) {
     global $user, $sitekey, $gfx_chk;
-    mt_srand ((double)microtime()*1000000);
-    $maxran = 1000000;
-    $random_num = mt_rand(0, $maxran);
+    mt_srand ((double)microtime()*1_000_000);
+    $maxran = 1_000_000;
+    $random_num = random_int(0, $maxran);
     $datekey = date('F j');
     $rcode = hexdec(md5($_SERVER['HTTP_USER_AGENT'] . $sitekey . $random_num . $datekey));
     $code = substr($rcode, 2, 6);
@@ -1232,7 +1256,7 @@ function loginbox($gfx_check) {
 /*****[BEGIN]******************************************
  [ Base:    GFX Code                           v1.0.0 ]
  ******************************************************/
-        $boxstuff .= security_code(array(2,4,5,7), 'stacked');
+        $boxstuff .= security_code([2, 4, 5, 7], 'stacked');
 /*****[END]********************************************
  [ Base:    GFX Code                           v1.0.0 ]
  ******************************************************/
@@ -1249,7 +1273,7 @@ function userblock() {
     if($userinfo['ublockon']) {
       $sql = "SELECT ublock FROM ".$user_prefix."_users WHERE user_id='$cookie[0]'";
       $result = $db->sql_query($sql);
-      list($ublock) = $db->sql_fetchrow($result);
+      [$ublock] = $db->sql_fetchrow($result);
       $title = _MENUFOR." ".$cookie[1];
       themesidebox($title, $ublock);
     }
@@ -1259,24 +1283,25 @@ function getTopics($s_sid) {
 	global $topicname, $topicimage, $topictext, $prefix, $db;
 	$sid = intval($s_sid);
 	$query = $db->sql_query("SELECT topic FROM ".$prefix."_stories WHERE sid='$sid'");
-	list($rtopic) = $db->sql_fetchrow($query);
+	[$rtopic] = $db->sql_fetchrow($query);
 	$result2 = $db->sql_query("SELECT topicid, topicname, topicimage, topictext FROM ".$prefix."_topics WHERE topicid='$rtopic'");
-	list($topicid, $topicname, $topicimage, $topictext) = $db->sql_fetchrow($result2);
+	[$topicid, $topicname, $topicimage, $topictext] = $db->sql_fetchrow($result2);
 	$topicid = intval($topicid);
-	$topictext = stripslashes(check_html($topictext, "nohtml"));
+	$topictext = stripslashes((string) check_html($topictext, "nohtml"));
 }
 function headlines($bid, $cenbox=0) {
+    $cont = null;
     global $prefix, $db;
     $bid = intval($bid);
     $result = $db->sql_query("SELECT title, content, url, refresh, time FROM ".$prefix."_blocks WHERE bid='$bid'");
-    list($title, $content, $url, $refresh, $otime) = $db->sql_fetchrow($result);
-    $title = stripslashes(check_html($title, "nohtml"));
-    $content = stripslashes($content);
+    [$title, $content, $url, $refresh, $otime] = $db->sql_fetchrow($result);
+    $title = stripslashes((string) check_html($title, "nohtml"));
+    $content = stripslashes((string) $content);
     $refresh = intval($refresh);
     $past = time()-$refresh;
     if ($otime < $past) {
 	$btime = time();
-	$rdf = parse_url($url);
+	$rdf = parse_url((string) $url);
 	$fp = fsockopen($rdf['host'], 80, $errno, $errstr, 15);
 	if (!$fp) {
 	    $content = "";
@@ -1329,7 +1354,7 @@ function headlines($bid, $cenbox=0) {
 	}
 	$db->sql_query("UPDATE ".$prefix."_blocks SET content='$content', time='$btime' WHERE bid='$bid'");
     }
-    $siteurl = str_replace("http://","",$url);
+    $siteurl = str_replace("http://","",(string) $url);
     $siteurl = explode("/",$siteurl);
     if (($cont == 1) OR (!empty($content))) {
 	$content .= "<br /><a href=\"http://$siteurl[0]\" target=\"blank\"><strong>"._HREADMORE."</strong></a></font>";
@@ -1343,6 +1368,7 @@ function headlines($bid, $cenbox=0) {
     }
 }
 function automated_news() { 
+   $tags = [];
    global $prefix, $multilingual, $currentlang, $db; 
    if ($multilingual == 1) { 
       $querylang = 'WHERE (alanguage=\''.$currentlang.'\' OR alanguage=\'\')'; /* the OR is needed to display stories who are posted to ALL languages */ 
@@ -1363,16 +1389,16 @@ function automated_news() {
    $min = $today['minutes']; 
    $sec = '00'; 
    $result = $db->sql_query('SELECT anid, time FROM '.$prefix.'_autonews '.$querylang); 
-   while (list($anid, $time) = $db->sql_fetchrow($result)) { 
-      preg_match('#([0-9]{4})-([0-9]{1,2})-([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})#', $time, $date); 
+   while ([$anid, $time] = $db->sql_fetchrow($result)) { 
+      preg_match('#([0-9]{4})-([0-9]{1,2})-([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})#', (string) $time, $date); 
       if (($date[1] <= $year) AND ($date[2] <= $month) AND ($date[3] <= $day)) { 
          if (($date[4] < $hour) AND ($date[5] >= $min) OR ($date[4] <= $hour) AND ($date[5] <= $min)) { 
             $result2 = $db->sql_query('SELECT * FROM '.$prefix.'_autonews WHERE anid=\''.$anid.'\''); 
             while ($row2 = $db->sql_fetchrow($result2)) { 
-               $title = stripslashes(FixQuotes(check_html($row2['title'], 'nohtml'))); 
-               $hometext = stripslashes(FixQuotes($row2['hometext'])); 
-               $bodytext = stripslashes(FixQuotes($row2['bodytext'])); 
-               $notes = stripslashes(FixQuotes($row2['notes'])); 
+               $title = stripslashes((string) FixQuotes(check_html($row2['title'], 'nohtml'))); 
+               $hometext = stripslashes((string) FixQuotes($row2['hometext'])); 
+               $bodytext = stripslashes((string) FixQuotes($row2['bodytext'])); 
+               $notes = stripslashes((string) FixQuotes($row2['notes'])); 
                $catid2 = intval($row2['catid']); 
                $aid2 = $row2['aid']; 
                $time2 = $row2['time']; 
@@ -1397,7 +1423,7 @@ function automated_news() {
                                 $tags[] = $row['tag']; 
                             } 
                             foreach ($tags as $tag) { 
-                                $tag = addslashes(check_words(check_html($tag, "nohtml"))); 
+                                $tag = addslashes((string) check_words(check_html($tag, "nohtml"))); 
                                 $db->sql_query("INSERT INTO " . $prefix . "_tags (tag,cid,whr) VALUES ('" . trim 
                                     ($tag) . "', '$lastid', '3')"); 
                             } 
@@ -1423,6 +1449,8 @@ if(!function_exists("themecenterbox")) {
   }
 }
 function public_message() {
+    $t_off = null;
+    $public_msg = null;
     global $prefix, $user_prefix, $db, $user, $admin, $p_msg, $cookie, $broadcast_msg;
     if ($broadcast_msg == 1) {
     if (is_user($user)) {
@@ -1441,7 +1469,7 @@ function public_message() {
 	$t_off = "";
     }
     if (!is_user($user) OR (is_user($user) AND ($pm_show == 1))) {
-	$c_mid = base64_decode($p_msg);
+	$c_mid = base64_decode((string) $p_msg);
 	$c_mid = addslashes($c_mid);
 	$c_mid = intval($c_mid);
         $result2 = $db->sql_query("SELECT mid, content, date, who FROM ".$prefix."_public_messages WHERE mid > '$c_mid' ORDER BY date ASC LIMIT 1");
@@ -1474,7 +1502,7 @@ function public_message() {
 	    } else {
     		$mid = base64_encode($mid);
     		$mid = addslashes($mid);
-		setcookie("p_msg",$mid,time()+600);
+		setcookie("p_msg",$mid,['expires' => time()+600]);
 	    }
 	}
     }
@@ -1508,7 +1536,7 @@ function removecrlf($str) {
     return strtr($str, "\015\012", ' ');
 }
 function validate_mail($email) {
-  if(strlen($email) < 7 || !preg_match("/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/", $email)) {
+  if(strlen((string) $email) < 7 || !preg_match("/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/", (string) $email)) {
      //include_once("header.php");
      OpenTable();
      echo _ERRORINVEMAIL;
@@ -1521,13 +1549,13 @@ function validate_mail($email) {
 }
 function encode_mail($email) {
   $finished = "";
-  for($i=0; $i<strlen($email); ++$i) {
-    $n = rand(0, 1);
+  for($i=0; $i<strlen((string) $email); ++$i) {
+    $n = random_int(0, 1);
     if($n) {
-      $finished .= '&#x'.sprintf("%X",ord($email{$i})).';';
+      $finished .= '&#x'.sprintf("%X",ord($email[$i])).';';
     }
     else {
-      $finished .= '&#'.ord($email{$i}).';';
+      $finished .= '&#'.ord($email[$i]).';';
     }
   }
   return $finished;
@@ -1555,7 +1583,7 @@ function paid() {
 				$subject = "$sitename: "._SUBEXPIRED."";
 				$body = ""._HELLO." $cookie[1]:\n\n"._SUBSCRIPTIONAT." $sitename "._HASEXPIRED."\n$renew\n\n"._HOPESERVED."\n\n$sitename "._TEAM."\n$nukeurl";
 				$row = $db->sql_fetchrow($db->sql_query("SELECT user_email FROM ".$user_prefix."_users WHERE id='$cookie[0]' AND nickname='$cookie[1]' AND password='$cookie[2]'"));
-				mail($row['user_email'], $subject, $body, "From: $from\nX-Mailer: PHP/" . phpversion());
+				mail((string) $row['user_email'], $subject, $body, "From: $from\nX-Mailer: PHP/" . phpversion());
 			}
 			return 1;
 		}
@@ -1564,6 +1592,7 @@ function paid() {
 	}
 }
 function platinum_technology() {
+    $currenttime = null;
     global $db, $prefix, $mainprefix;
     $vcheck = $db->sql_fetchrow($db->sql_query("SELECT value from ".$prefix."_platinum_technology where name = 'versioncheck'"));
     $last_check = $db->sql_fetchrow($db->sql_query("SELECT value from ".$prefix."_platinum_technology where name = 'lastupdatecheck'"));
@@ -1672,11 +1701,11 @@ if (defined('FORUM_ADMIN')) {
 /*****************************************************/
     function UsernameColor($color, $username)
         {
-        if(strlen($color) < 6)
+        if(strlen((string) $color) < 6)
             {
         $username = $username;
             }
-        elseif(strlen($color) == 6)
+        elseif(strlen((string) $color) == 6)
             {
         $username = "<font color='#". $color ."'><strong>". $username ."</strong></font>";
             }
@@ -1693,16 +1722,18 @@ if (defined('FORUM_ADMIN')) {
  Added for Advertizing module from v7.8
 ****************************************************************/
 function makePass() {
+    $con = [];
+    $voc = [];
     $cons = "bcdfghjklmnpqrstvwxyz";
     $vocs = "aeiou";
     for ($x=0; $x < 6; $x++) {
-        mt_srand ((double) microtime() * 1000000);
-        $con[$x] = substr($cons, mt_rand(0, strlen($cons)-1), 1);
-        $voc[$x] = substr($vocs, mt_rand(0, strlen($vocs)-1), 1);
+        mt_srand ((double) microtime() * 1_000_000);
+        $con[$x] = substr($cons, random_int(0, strlen($cons)-1), 1);
+        $voc[$x] = substr($vocs, random_int(0, strlen($vocs)-1), 1);
     }
-    mt_srand((double)microtime()*1000000);
-    $num1 = mt_rand(0, 9);
-    $num2 = mt_rand(0, 9);
+    mt_srand((double)microtime()*1_000_000);
+    $num1 = random_int(0, 9);
+    $num2 = random_int(0, 9);
     $makepass = $con[0] . $voc[0] .$con[2] . $num1 . $num2 . $con[3] . $voc[3] . $con[4];
     return($makepass);
 }
@@ -1715,14 +1746,14 @@ function ads($position) {
     $numrows = $db->sql_numrows($db->sql_query('SELECT * FROM '.$prefix.'_banner WHERE position='.$position.' AND active=\'1\''));
     if ($numrows > 1) {
         $numrows = $numrows-1;
-        mt_srand((double)microtime()*1000000);
-        $bannum = mt_rand(0, $numrows);
+        mt_srand((double)microtime()*1_000_000);
+        $bannum = random_int(0, $numrows);
     } else {
         $bannum = 0;
     }
     $sql = 'SELECT bid, impmade, imageurl, clickurl, alttext FROM '.$prefix.'_banner WHERE position='.$position.' AND active=1 LIMIT '.$bannum.',1';
     $result = $db->sql_query($sql);
-    list($bid, $impmade, $imageurl, $clickurl, $alttext) = $db->sql_fetchrow($result);
+    [$bid, $impmade, $imageurl, $clickurl, $alttext] = $db->sql_fetchrow($result);
     $bid = intval($bid);
     $imageurl = filter($imageurl, 'nohtml');
     $clickurl = filter($clickurl, 'nohtml');
@@ -1731,7 +1762,7 @@ function ads($position) {
     if($numrows > 0) {
         $sql2 = 'SELECT cid, imptotal, impmade, clicks, date, ad_class, ad_code, ad_width, ad_height FROM '.$prefix.'_banner WHERE bid=\''.$bid.'\'';
         $result2 = $db->sql_query($sql2);
-        list($cid, $imptotal, $impmade, $clicks, $date, $ad_class, $ad_code, $ad_width, $ad_height) = $db->sql_fetchrow($result2);
+        [$cid, $imptotal, $impmade, $clicks, $date, $ad_class, $ad_code, $ad_width, $ad_height] = $db->sql_fetchrow($result2);
         $cid = intval($cid);
         $imptotal = intval($imptotal);
         $impmade = intval($impmade);
@@ -1743,7 +1774,7 @@ function ads($position) {
             $db->sql_query('UPDATE '.$prefix.'_banner SET active=0 WHERE bid=\''.$bid.'\'');
             $sql3 = 'SELECT name, contact, email FROM '.$prefix.'_banner_clients WHERE cid=\''.$cid.'\'';
             $result3 = $db->sql_query($sql3);
-            list($c_name, $c_contact, $c_email) = $db->sql_fetchrow($result3);
+            [$c_name, $c_contact, $c_email] = $db->sql_fetchrow($result3);
             $c_name = filter($c_name, 'nohtml');
             $c_contact = filter($c_contact, 'nohtml');
             $c_email = filter($c_email, 'nohtml');
@@ -1767,7 +1798,7 @@ function ads($position) {
             }
         }
         if ($ad_class == 'code') {
-            $ad_code = stripslashes(FixQuotes($ad_code));
+            $ad_code = stripslashes((string) FixQuotes($ad_code));
             $ads = '<center>'.$ad_code.'</center>';
         } elseif ($ad_class == 'flash') {
             $ads = '<center>
@@ -1819,22 +1850,22 @@ require_once NUKE_INCLUDE_DIR . 'csrf-magic.php';
 function addCSSToHead($content, $type='file') {
 	global $headCSS;
 	// Duplicate external file?
-	if (($type == 'file') && (count($headCSS) > 0) && (in_array(array($type, $content), $headCSS))) return;
-	$headCSS[] = array($type, $content);
+	if (($type == 'file') && (count($headCSS) > 0) && (in_array([$type, $content], $headCSS))) return;
+	$headCSS[] = [$type, $content];
 	return;
 }
 function addJSToHead($content, $type='file') {
 	global $headJS;
 	// Duplicate external file?
-	if (($type == 'file') && (count($headJS) > 0) && (in_array(array($type, $content), $headJS))) return;
-	$headJS[] = array($type, $content);
+	if (($type == 'file') && (count($headJS) > 0) && (in_array([$type, $content], $headJS))) return;
+	$headJS[] = [$type, $content];
 	return;
 }
 function addJSToBody($content, $type='file') {
 	global $bodyJS;
 	// Duplicate external file?
-	if (($type == 'file') && (count($bodyJS) > 0) && (in_array(array($type, $content), $bodyJS))) return;
-	$bodyJS[] = array($type, $content);
+	if (($type == 'file') && (count($bodyJS) > 0) && (in_array([$type, $content], $bodyJS))) return;
+	$bodyJS[] = [$type, $content];
 	return;
 }
 function writeHEAD() {
@@ -1873,7 +1904,7 @@ function writeBODYJS() {
 	return;
 }
 function readDIRtoArray($dir, $filter) {
-	$files = array();
+	$files = [];
 	$handle = opendir($dir);
 	while (false !== ($file = readdir($handle))) {
 		if (preg_match($filter, $file)) {
