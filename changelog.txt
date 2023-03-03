@@ -3,10 +3,10 @@
 /*  - Updated Database Layer for PHP 8.2.3                            */
 /*  - Started Portinng Process for PHP 8.2.3                          */
 /*                                                                    */
-/* 7.6b4 (March 19, 2006)
-/* Added the bbtonuke 2.0.19 update patch and fixes to date
-/* Fixed security exploit within mainfile.php
-/* Removed games from arcade that would not submit high score
+/* 7.6b4 (March 19, 2006)                                             */
+/* Added the bbtonuke 2.0.19 update patch and fixes to date           */
+/* Fixed security exploit within mainfile.php                         */
+/* Removed games from arcade that would not submit high score         */
 /* 7.6.b.4  (December 22, 2005)                                       */
 /*  - Updated Sentinel to pl1 patch                                   */
 /*  - Readded Protector System with customized version to work in     */
