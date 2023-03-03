@@ -1,5 +1,5 @@
 /**********************************************************************/
-/* PHP-Nuke Platinum v.7.6.b.4                               WARRANTY */
+/* PHP-Nuke Platinum v.7.6.b.5                               WARRANTY */
 /*                                                                    */
 /* Because PHP-Nuke Platinum is licensed free of charge, there is no  */
 /* warranty for the package, to the extent permitted by applicable    */
