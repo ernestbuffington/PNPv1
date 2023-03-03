@@ -1,21 +1,22 @@
 /**********************************************************************/
-/* PHP-Nuke Platinum v.7.6.b.4                           REQUIREMENTS */
+/* PHP-Nuke Platinum v.7.6.b.5                           REQUIREMENTS */
 /*                                                                    */
 /* - PHP [http://www.php.net]                                         */
 /*               Type: Necessary                                      */
-/*            Version: 4.3.x or above                                 */
-/*        Recommended: 4.3.10 - latest stable                         */
+/*            Version: 8.2.x or above                                 */
+/*        Recommended: 8.2.3 or latest stable                         */
 /*                                                                    */
-/* - MySQL [http://www.mysql.com]                                     */
+/* - MariaDB [https://mariadb.org/]                                   */
 /*               Type: Necessary                                      */
-/*            Version: 4.x.x or above                                 */
+/*            Version: 10.3.38 or above                               */
 /*        Recommended: 4.1.0.0 - latest stable                        */
 /*                                                                    */
 /* - Apache [http://www.apache.org]                                   */
 /*               Type: Necessary                                      */
+*/            Version: 2.4 or above                                   */
 /*                                                                    */
-/* - Server / Host [http://www.viperwebhosting.net]                   */
-/*             System: Linux or Windows                               */
+/* - Server / Host [http://www.86it.us]                               */
+/*             System: Linux Alma 8 or Linux Rocky 8                  */
 /*                                                                    */
 /**********************************************************************/
 /* Copyright (c) 2004 - 2006 by http://www.techgfx.com                */
