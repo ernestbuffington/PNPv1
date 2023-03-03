@@ -66,15 +66,15 @@ endif;
 define('NUKE_EVO', '2.0.9e');
 define('NUKE_TITANIUM', '4.0.4');
 define('PHPBB_TITANIUM', '2.0.25');
-define('PHPBB_TITANIUM_LAST_UPDATE', 'Tuesday Jan 28th, 2023');
-define('TITANIUM_BUILD', '20940402282023');
+define('PHPBB_PLATINUM_LAST_UPDATE', 'Tuesday Jan 28th, 2023');
+define('PLATINUM_BUILD', '20940402282023');
 define('CUR_EVO', 'NUKE_EVO');
 define('CUR_TITANIUM', 'NUKE_TITANIUM');
 define('EVO_EDITION', 'Xtreme');
-define('TITANIUM_EDITION', 'AN602');
+define('PLATINUM_EDITION', 'AN602');
 define('PHPVERS', phpversion());
 define('EVO_VERSION', NUKE_EVO . ' ' . EVO_EDITION);
-define('TITANIUM_VERSION', NUKE_TITANIUM . ' ' . TITANIUM_EDITION);
+define('PLATINUM_VERSION', NUKE_TITANIUM . ' ' . PLATINUM_EDITION);
 define('PHP_5', version_compare(PHPVERS, '5.0.0', '>='));
 
 if(!ini_get('register_globals')): 
@@ -188,70 +188,70 @@ unset ($server_ary);
 unset ($script_abs_path);
 
 # BASE Directory
-define('TITANIUM_BASE_DIR', __DIR__ . '/');
+define('PLATINUM_BASE_DIR', __DIR__ . '/');
 
 # HTTP & HTTPS
 define('HTTPS', $href_path . '/');
 define('HTTP', $href_path_http . '/');
 
 # Modules Directory
-define('MODULES', TITANIUM_BASE_DIR . 'modules/');
+define('MODULES', PLATINUM_BASE_DIR . 'modules/');
 
 # ADMIN Directory
-define('TITANIUM_ADMIN_DIR', TITANIUM_BASE_DIR . 'admin/'); 
-define('TITANIUM_ADMIN_MODULE_DIR', TITANIUM_ADMIN_DIR . 'modules/');
+define('PLATINUM_ADMIN_DIR', PLATINUM_BASE_DIR . 'admin/'); 
+define('PLATINUM_ADMIN_MODULE_DIR', PLATINUM_ADMIN_DIR . 'modules/');
 
 # INCLUDES Directories
-define('TITANIUM_INCLUDE_DIR', TITANIUM_BASE_DIR . 'includes/');
-define('TITANIUM_INCLUDE_HREF_DIR', $href_path . '/includes/');
+define('PLATINUM_INCLUDE_DIR', PLATINUM_BASE_DIR . 'includes/');
+define('PLATINUM_INCLUDE_HREF_DIR', $href_path . '/includes/');
 
 # CSS Directory
-define('TITANIUM_CSS_DIR', TITANIUM_INCLUDE_DIR . 'css/');
+define('PLATINUM_CSS_DIR', PLATINUM_INCLUDE_DIR . 'css/');
 
 # CERT Directory
-define('TITANIUM_CERT_DIR', TITANIUM_INCLUDE_DIR . 'certs'); // pem directory
+define('PLATINUM_CERT_DIR', PLATINUM_INCLUDE_DIR . 'certs'); // pem directory
 
 # GLOBAL CSS DIR
-define('TITANIUM_CSS_HREF_DIR', $href_path . '/includes/css/');
+define('PLATINUM_CSS_HREF_DIR', $href_path . '/includes/css/');
 
 # lytebox
-define('TITANIUM_LYTEBOX_HREF_DIR', $href_path . '/includes/lytebox/');
+define('PLATINUM_LYTEBOX_HREF_DIR', $href_path . '/includes/lytebox/');
 
 # lightbox
-define('TITANIUM_LIGHTBOX_HREF_DIR', $href_path . '/includes/lightbox/');
+define('PLATINUM_LIGHTBOX_HREF_DIR', $href_path . '/includes/lightbox/');
 
 # cache
-define('TITANIUM_CACHE_DIR', TITANIUM_INCLUDE_DIR . 'cache/');
+define('PLATINUM_CACHE_DIR', PLATINUM_INCLUDE_DIR . 'cache/');
 
 # classes
-define('TITANIUM_CLASSES_DIR', TITANIUM_INCLUDE_DIR . 'classes/');
+define('PLATINUM_CLASSES_DIR', PLATINUM_INCLUDE_DIR . 'classes/');
 
 # DB Directory
-define('TITANIUM_DB_DIR', TITANIUM_INCLUDE_DIR . 'db/');
+define('PLATINUM_DB_DIR', PLATINUM_INCLUDE_DIR . 'db/');
 
 # MODULES Directory
-define('TITANIUM_HREF_MODULES_DIR', $href_path . '/modules/'); 
-define('TITANIUM_MODULES_DIR', TITANIUM_BASE_DIR . 'modules/');
-define('TITANIUM_MODULES_IMAGE_DIR', $href_path . '/modules/');
+define('PLATINUM_HREF_MODULES_DIR', $href_path . '/modules/'); 
+define('PLATINUM_MODULES_DIR', PLATINUM_BASE_DIR . 'modules/');
+define('PLATINUM_MODULES_IMAGE_DIR', $href_path . '/modules/');
 # BLOCKS Directory
-define('TITANIUM_BLOCKS_DIR', TITANIUM_BASE_DIR . 'blocks/');
+define('PLATINUM_BLOCKS_DIR', PLATINUM_BASE_DIR . 'blocks/');
 # IMAGES Directory
-define('TITANIUM_IMAGES_DIR', TITANIUM_BASE_DIR . '/images/');
-define('TITANIUM_IMAGES_BASE_DIR', $href_path . '/images/');
+define('PLATINUM_IMAGES_DIR', PLATINUM_BASE_DIR . '/images/');
+define('PLATINUM_IMAGES_BASE_DIR', $href_path . '/images/');
 # LANGUAGE Directory
-define('TITANIUM_LANGUAGE_DIR', TITANIUM_BASE_DIR . 'language/');
-define('TITANIUM_LANGUAGE_CUSTOM_DIR', TITANIUM_LANGUAGE_DIR . 'custom/');
+define('PLATINUM_LANGUAGE_DIR', PLATINUM_BASE_DIR . 'language/');
+define('PLATINUM_LANGUAGE_CUSTOM_DIR', PLATINUM_LANGUAGE_DIR . 'custom/');
 # STYLE Directory
-define('TITANIUM_THEMES_DIR', TITANIUM_BASE_DIR . 'themes/');
-define('TITANIUM_THEMES_IMAGE_DIR', $href_path . '/themes/');
-define('TITANIUM_THEMES_MAIN_DIR',  $href_path . '/themes/');
+define('PLATINUM_THEMES_DIR', PLATINUM_BASE_DIR . 'themes/');
+define('PLATINUM_THEMES_IMAGE_DIR', $href_path . '/themes/');
+define('PLATINUM_THEMES_MAIN_DIR',  $href_path . '/themes/');
 # FORUMS Directory
-define('TITANIUM_FORUMS_DIR', TITANIUM_MODULES_DIR . 'Forums/');
-define('TITANIUM_FORUMS_ADMIN_DIR', TITANIUM_FORUMS_DIR . 'admin/');
-define('TITANIUM_FORUMS_ADMIN_HREF_DIR', $href_path . '/modules/Forums/admin/');
+define('PLATINUM_FORUMS_DIR', PLATINUM_MODULES_DIR . 'Forums/');
+define('PLATINUM_FORUMS_ADMIN_DIR', PLATINUM_FORUMS_DIR . 'admin/');
+define('PLATINUM_FORUMS_ADMIN_HREF_DIR', $href_path . '/modules/Forums/admin/');
 # OTHER Directories
-define('TITANIUM_RSS_DIR', TITANIUM_INCLUDE_DIR . 'rss/');
-define('TITANIUM_STATS_DIR', TITANIUM_THEMES_DIR);
+define('PLATINUM_RSS_DIR', PLATINUM_INCLUDE_DIR . 'rss/');
+define('PLATINUM_STATS_DIR', PLATINUM_THEMES_DIR);
 # Absolute Path Mod - 01/01/2012 by Ernest Allen Buffington END
 
 # Inspired by phoenix-cms at website-portals.net

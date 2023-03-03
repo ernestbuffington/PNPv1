@@ -86,13 +86,13 @@ function head()
 
 	#################################################################
 	echo "\n<!-- Loadiing class.browsers.php from header.php -->\n";#
-	if (file_exists(TITANIUM_CLASSES_DIR . 'class.browsers.php'))   #      Added by Ernest Buffington
-	include(TITANIUM_CLASSES_DIR . 'class.browsers.php');           #----- Load Browser class - used for checking your browser types
+	if (file_exists(PLATINUM_CLASSES_DIR . 'class.browsers.php'))   #      Added by Ernest Buffington
+	include(PLATINUM_CLASSES_DIR . 'class.browsers.php');           #----- Load Browser class - used for checking your browser types
                                                                     #      Start date Jan 1st 2012 till Present - It is a work in progress!
     #################################################################
 	echo "\n<!-- Loadiing cookies.php from header.php -->\n";       #
-	if (file_exists(TITANIUM_INCLUDE_DIR . 'cookies.php'))          #            Added by Ernest Buffington Jan 1st 2012 
-	include(TITANIUM_INCLUDE_DIR . 'cookies.php');                  #----------- Load the custom cookies file if it exist COOKIE CONTROL
+	if (file_exists(PLATINUM_INCLUDE_DIR . 'cookies.php'))          #            Added by Ernest Buffington Jan 1st 2012 
+	include(PLATINUM_INCLUDE_DIR . 'cookies.php');                  #----------- Load the custom cookies file if it exist COOKIE CONTROL
     ########################################################################               
 	echo "\n<!-- Loadiing includes/javascript.php from header.php -->\n";  #------ Javascript Loader 09/21/2019
 	include_once(NUKE_INCLUDE_DIR.'javascript.php');                       #

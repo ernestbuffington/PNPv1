@@ -263,8 +263,8 @@ function title_and_meta_tags() {
 
             endif;
 
-            if (file_exists(TITANIUM_THEMES_DIR . '/includes/facebook/' . $module_name . '/' . $module_name . '.php')): # Added by Ernest Buffington
-                include(TITANIUM_THEMES_DIR . '/includes/facebook/' . $module_name . '/' . $module_name . '.php');           # Load extra meta settings from each module
+            if (file_exists(PLATINUM_THEMES_DIR . '/includes/facebook/' . $module_name . '/' . $module_name . '.php')): # Added by Ernest Buffington
+                include(PLATINUM_THEMES_DIR . '/includes/facebook/' . $module_name . '/' . $module_name . '.php');           # Load extra meta settings from each module
             endif;
 
         # do all this shit if you are on the index.php page
@@ -339,8 +339,8 @@ function title_and_meta_tags() {
             $structured_data .= "\n\n\n" . '}' . "\n";
             $structured_data .= '</script>' . "\n";
 
-            if (file_exists(TITANIUM_THEMES_DIR . '/includes/facebook/Index/Index.php')): # Added by Ernest Buffington  
-                include(TITANIUM_THEMES_DIR . '/includes/facebook/Index/Index.php');           # Load extra meta settings for Index
+            if (file_exists(PLATINUM_THEMES_DIR . '/includes/facebook/Index/Index.php')): # Added by Ernest Buffington  
+                include(PLATINUM_THEMES_DIR . '/includes/facebook/Index/Index.php');           # Load extra meta settings for Index
             endif;
         endif;
         

@@ -17,11 +17,11 @@ $this_title = 'The 30/360 US Rule';
 $module_name = basename(dirname(__FILE__));
 get_lang($module_name); 
 $index = 0;
-include (TITANIUM_MODULES_DIR.$module_name.'/includes/Array-Months.php');
-include (TITANIUM_MODULES_DIR.$module_name.'/includes/func-isNumber.php');
-include (TITANIUM_MODULES_DIR.$module_name.'/includes/func-makeSeperator.php'); 
-include (TITANIUM_MODULES_DIR.$module_name.'/includes/func-padMe.php');
-include (TITANIUM_MODULES_DIR.$module_name.'/includes/objLoan.php');  
+include (PLATINUM_MODULES_DIR.$module_name.'/includes/Array-Months.php');
+include (PLATINUM_MODULES_DIR.$module_name.'/includes/func-isNumber.php');
+include (PLATINUM_MODULES_DIR.$module_name.'/includes/func-makeSeperator.php'); 
+include (PLATINUM_MODULES_DIR.$module_name.'/includes/func-padMe.php');
+include (PLATINUM_MODULES_DIR.$module_name.'/includes/objLoan.php');  
 
 $ins = [];
 
@@ -349,7 +349,7 @@ echo '</style>';
  BEGIN CASE 3  Builds a thank you page, Posts: step = 1 
 /***************************************************************************************************************************************************************/ 
    case 3: 
-   //include (TITANIUM_MODULES_DIR.$module_name.'/includes/LoanNdxScroll.php');
+   //include (PLATINUM_MODULES_DIR.$module_name.'/includes/LoanNdxScroll.php');
    include("header.php"); 
    $pagetitle = 'PHP-Nuke Titanium :: Loan Calculator';
    $title = 'Thank You';

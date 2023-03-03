@@ -12,7 +12,7 @@ $index = 0;
 
 global $domain, $facebook_plugin_width, $facebookappid, $module_name, $ThemeSel, $name; //globals 
 
-include (TITANIUM_MODULES_DIR.$module_name.'/includes/isNumber.php');
+include (PLATINUM_MODULES_DIR.$module_name.'/includes/isNumber.php');
 
 echo "<link rel=\"StyleSheet\" href=\"modules/Proof Of God/styles/buttons-layers.css\" type=\"text/css\">";
 echo "<link rel=\"StyleSheet\" href=\"modules/Proof Of God/styles/Jackies.css\" type=\"text/css\">";

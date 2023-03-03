@@ -69,8 +69,8 @@ class tmhOAuth {
         // you can get the latest cacert.pem from here http://curl.haxx.se/ca/cacert.pem
         // if you're getting HTTP 0 responses, check cacert.pem exists and is readable
         // without it curl won't be able to create an SSL connection
-        'curl_cainfo'                => TITANIUM_CERT_DIR. DIRECTORY_SEPARATOR . 'cacert.pem',
-        'curl_capath'                => TITANIUM_CERT_DIR,
+        'curl_cainfo'                => PLATINUM_CERT_DIR. DIRECTORY_SEPARATOR . 'cacert.pem',
+        'curl_capath'                => PLATINUM_CERT_DIR,
 
         // in some cases (very very odd ones) the SSL version must be set manually.
         // unless you know why your are changing this, you should leave it as false

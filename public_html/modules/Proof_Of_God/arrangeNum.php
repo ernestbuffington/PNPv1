@@ -9,7 +9,7 @@ if (!defined('MODULE_FILE')) {
     }                                                                                      #Oct 10th 2012
 ############################################################################################	
 global $domain, $facebook_plugin_width, $facebookappid, $module_name, $ThemeSel, $name; //globals 
-include (TITANIUM_MODULES_DIR.$module_name.'/includes/facebook_connector.php'); //loaded for facebook purposes
+include (PLATINUM_MODULES_DIR.$module_name.'/includes/facebook_connector.php'); //loaded for facebook purposes
 require_once("mainfile.php");
 $module_name = basename(dirname(__FILE__));
 get_lang($module_name); 
@@ -17,7 +17,7 @@ $index = 0;
 
 echo "<link rel=\"StyleSheet\" href=\"modules/ArrangeItems/styles/buttons-layers.css\" type=\"text/css\">";
 
-include (TITANIUM_MODULES_DIR.$module_name.'/includes/isNumber.php');
+include (PLATINUM_MODULES_DIR.$module_name.'/includes/isNumber.php');
 
    include("header.php"); 
    $pagetitle = 'Arrange Items';
