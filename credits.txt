@@ -1,6 +1,10 @@
 /**********************************************************************/
-/* PHP-Nuke Platinum v.7.6.b.2 thru 7.6.b.4                   CREDITS */
+/* PHP-Nuke Platinum v.7.6.b.2 thru 7.6.b.5                   CREDITS */
 /* [UPDATES]                                                          */
+/*    Name:      Ernest Allen Buffington / TheGhost                   */
+/*    Email:     ernest.buffington@gmail.com                          */
+/*    Website:   http://www.platinum.coders.exchange                  */
+/*    Version:   7.6.b.4 thru 7.6.b.5                                 */
 /*                                                                    */
 /*    Name:      Loki /Teknerd aka Scott Partee                       */
 /*    Email:     loki@nukeplanet.com                                  */
