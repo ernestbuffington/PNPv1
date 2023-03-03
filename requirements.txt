@@ -9,7 +9,7 @@
 /* - MariaDB [https://mariadb.org/]                                   */
 /*               Type: Necessary                                      */
 /*            Version: 10.3.38 or above                               */
-/*        Recommended: 4.1.0.0 - latest stable                        */
+/*        Recommended: 10.3.38 - latest stable                        */
 /*                                                                    */
 /* - Apache [http://www.apache.org]                                   */
 /*               Type: Necessary                                      */
