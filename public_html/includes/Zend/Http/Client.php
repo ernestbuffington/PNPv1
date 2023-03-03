@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework Modified for PHP-Nuke Titanium
+ * Zend Framework Modified for PHP-Nuke Platinum
  *
  * LICENSE
  *
@@ -13,7 +13,7 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend for PHP-Nuke Titanium
+ * @category   Zend for PHP-Nuke Platinum
  * @package    Zend_Http
  * @subpackage Client
  * @version    $Id$
@@ -62,7 +62,7 @@ require_once NUKE_ZEND_DIR.'Http/Response/Stream.php';
  * authentication and cookie persistence (using a Zend_Http_CookieJar object)
  *
  * @todo Implement proxy settings
- * @category   Zend for PHP-Nuke Titanium
+ * @category   Zend for PHP-Nuke Platinum
  * @package    Zend_Http
  * @subpackage Client
  * @throws     Zend_Http_Client_Exception

@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 
@@ -10,7 +10,7 @@
    Copyright (c) 2005 by The Nuke-Evolution Team
 
    Filename      : functions_browser.php
-   Author        : Technocrat (www.php-nuke-titanium.86it.us)
+   Author        : Technocrat (www.platinum.coders.exchange)
    Version       : 1.0.1
    Date          : 01.06.2005 (mm.dd.yyyy)
 

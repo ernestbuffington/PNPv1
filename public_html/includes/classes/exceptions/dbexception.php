@@ -1,7 +1,7 @@
 <?php
 
 /* -- -----------------------------------------------------------
- * // Nuke-Evolution Xtreme: Enhanced PHP-Nuke Web Portal System
+ * // Nuke-Evolution Xtreme: Enhanced PHP-Nuke Titanium
  * -- -----------------------------------------------------------
  *
  * >> Exception Handler
@@ -24,7 +24,7 @@
  * the Free Software Foundation; either version 2 of the license.
  */
 
-if (!defined('NUKE_EVO')) {
+if (!defined('NUKE_TITANIUM')) {
 	die('You can\'t access this file directly...');
 }
 

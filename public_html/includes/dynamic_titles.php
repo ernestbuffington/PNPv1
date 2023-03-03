@@ -1,6 +1,6 @@
 <?php
 ######################################################################
-# PHP-Nuke Titanium : Enhanced PHP-Nuke Web Portal System            #
+# PHP-Nuke Platinum : Enhanced PHP-Nuke Titanium            #
 ######################################################################
 # CHANGES                                                            #
 # Dynamic facebook meta tagging                    v1.0 Jan 1st 2012 #
@@ -24,7 +24,7 @@
 /* includes/dynamic_titles.php.                                     */
 /********************************************************************/
 /*==================================================================
- PHP-Nuke Titanium Network : Enhanced PHP-Nuke Web Portal System
+ PHP-Nuke Platinum Network : Enhanced PHP-Nuke Titanium
  ===================================================================*/
 if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) { exit('Access Denied'); }
 

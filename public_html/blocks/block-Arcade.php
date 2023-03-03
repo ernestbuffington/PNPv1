@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 
@@ -28,7 +28,7 @@
       Advanced Username Color                  v1.0.5       09/20/2005
  ************************************************************************/
 
-if(!defined('NUKE_EVO')) exit;
+if(!defined('NUKE_TITANIUM')) exit;
 
 define("_TOPGAMERS", "The Top Players");
 define("_VICTOIRES", "Number Of Wins :");

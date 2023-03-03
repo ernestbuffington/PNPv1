@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium v3.0.0 : Enhanced PHP-Nuke Web Portal System  
+ PHP-Nuke Platinum v3.0.0 : Enhanced PHP-Nuke Titanium  
  =======================================================================*/
 
 /************************************************************************/
@@ -28,7 +28,7 @@
  ************************************************************************/
  echo "\n<!-- Loading blocks/block-Titanium_Portal_Menu.php -->\n";
 
- if(!defined('NUKE_EVO')): 
+ if(!defined('NUKE_TITANIUM')): 
    exit;
  endif;
 

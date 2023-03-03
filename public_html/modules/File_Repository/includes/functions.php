@@ -95,7 +95,7 @@ $more_js .= '	var lang_show_local			= "'.$lang_new[$module_name]['SHOW_LOCAL'].'
 $more_js .= '	var uppercase_text			= "'.$settings['utext'].'";'."\n";
 $more_js .= '	var uploaddir				= "'._FILE_REPOSITORY_DIR.'";'."\n";
 $more_js .= '	var version_installed		= "'.$settings['version'].'";'."\n";
-$more_js .= '	var which_cms				= "'.((!defined('NUKE_EVO')) ? 'ravennuke' : 'evolution').'";'."\n";
+$more_js .= '	var which_cms				= "'.((!defined('NUKE_TITANIUM')) ? 'ravennuke' : 'evolution').'";'."\n";
 
 $more_js .= '	var image_viewer 			= "'.addslashes(get_image_viewer('screens')).'";'."\n";
 
@@ -168,7 +168,7 @@ if(!file_exists('includes/classes/class.paginator.php'))
 //---------------------------------------------------------------------
 //	OK, LETS ADD ALL THE ABOVE FILE AND VARIABLES - RAVEN ONLY
 //---------------------------------------------------------------------
-// if(!defined('NUKE_EVO')) 
+// if(!defined('NUKE_TITANIUM')) 
 // {
 // 	addJSToBody($more_js,'inline');
 // }
@@ -317,7 +317,7 @@ function _bgColor($bgColor)
 // 	$captcha .= 'font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; ';
 // 	$captcha .= 'letter-spacing: 1px; ';
 // 	$captcha .= 'margin: 0px 1px 1px; ';
-// 	$captcha .= ((!defined('NUKE_EVO')) ? 'padding: 4px; ' : 'padding: 5px; ');
+// 	$captcha .= ((!defined('NUKE_TITANIUM')) ? 'padding: 4px; ' : 'padding: 5px; ');
 // 	$captcha .= 'text-transform: '.(($settings['utext'] == 1) ? 'uppercase' : 'none').';">';
 // 	foreach ($imgs as $img) 
 // 	{
@@ -483,7 +483,7 @@ function _category_parents($name,$value=0)
 	$category_list .= 'font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; ';
 	$category_list .= 'letter-spacing: 1px; ';
 	$category_list .= 'margin: 0px 1px 1px; ';
-	$category_list .= ((!defined('NUKE_EVO')) ? 'padding: 4px; ' : 'padding: 5px; ');
+	$category_list .= ((!defined('NUKE_TITANIUM')) ? 'padding: 4px; ' : 'padding: 5px; ');
 	$category_list .= 'text-transform: '.(($settings['utext'] == 1) ? 'uppercase' : 'none').';" name="'.$name.'">';
 	$category_list .= '  <option value="'.intval($row['cid'] ?? '').'">'.$lang_new[$module_name]['CATEGORY_PARENT_NEW'].'</option>';
 	if($db->sql_numrows($result))
@@ -510,7 +510,7 @@ function _category_parents_and_children($name,$value,$search=false,$onlyShowAllo
 	$category_list .= 'font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; ';
 	$category_list .= 'letter-spacing: 1px; ';
 	$category_list .= 'margin: 0px 1px 1px; ';
-	$category_list .= ((!defined('NUKE_EVO')) ? 'padding: 4px; ' : 'padding: 5px; ');
+	$category_list .= ((!defined('NUKE_TITANIUM')) ? 'padding: 4px; ' : 'padding: 5px; ');
 	$category_list .= 'text-transform: '.(($settings['utext'] == 1) ? 'uppercase' : 'none').';" name="'.$name.'">';
 	if($search == true)
 		$category_list .= '  <option value="0">'.isset($lang_new[$module_name]['CATEGORY_ALL']).'</option>'."\n";
@@ -663,7 +663,7 @@ function _collect_iteminfo($id,$isfile=false)
 	list( $total_attach_files ) = $db->sql_ufetchrow( "select count(*) from `"._FILE_REPOSITORY_FILES."` where `did`='".$id."'" );
 
 	if($row['author'])
-		$iteminfo['author']			= (!defined('NUKE_EVO')) ? $row['author'] : UsernameColor($row['author']);
+		$iteminfo['author']			= (!defined('NUKE_TITANIUM')) ? $row['author'] : UsernameColor($row['author']);
 	else
 		$iteminfo['author']			= $lang_new[$module_name]['NA'];
 	$iteminfo['author_email'] 	= $row['author_email'];
@@ -978,7 +978,7 @@ function _decode_bbcode_text($text,$parse_smilies=false)
 function _escape_string($query)
 {
 	global $db;
-	return (!defined('NUKE_EVO')) ? FixQuotes($query) : Fix_Quotes($query);
+	return (!defined('NUKE_TITANIUM')) ? FixQuotes($query) : Fix_Quotes($query);
 }
 //---------------------------------------------------------------------
 
@@ -1310,7 +1310,7 @@ function _list_available_permission_groups($name, $value)
 	$groups .= 'font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; ';
 	$groups .= 'letter-spacing: 1px; ';
 	$groups .= 'margin: 0px 1px 1px; ';
-	$groups .= ((!defined('NUKE_EVO')) ? 'padding: 4px; ' : 'padding: 5px; ');
+	$groups .= ((!defined('NUKE_TITANIUM')) ? 'padding: 4px; ' : 'padding: 5px; ');
 	$groups .= 'text-transform: '.(($settings['utext'] == 1) ? 'uppercase' : 'none').';" name="'.$name.'">';
 	$groups .= '        <optgroup label="'.$lang_new[$module_name]['GROUPS_GENERAL'].'">'."\n";
 	$groups .= '          <option value="0" '.(($value == '' || $value == 0) ? 'selected="selected"' : '').'>'.$lang_new[$module_name]['ALL_VISITORS'].'</option>'."\n";
@@ -1462,7 +1462,7 @@ function _selectbox($n,$ops,$v,$r=false)
 	$select .= 'font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; ';
 	$select .= 'letter-spacing: 1px; ';
 	$select .= 'margin: 0px 1px 1px; ';
-	$select .= (!defined('NUKE_EVO')) ? 'padding: 4px; ' : 'padding: 5px; ';
+	$select .= (!defined('NUKE_TITANIUM')) ? 'padding: 4px; ' : 'padding: 5px; ';
 	$select .= 'text-transform: '.(($settings['utext'] == 1) ? 'uppercase' : 'none').';';
 	$select .= '"'.(($r <> false) ? ' required' : '').'>';
 	foreach($ops as $value => $option) {
@@ -1592,7 +1592,7 @@ function _user_is_within_group_name($gid,$isallowed=true)
 		{
 			$group_id = ($gid - 2);
 			list($group_name) = $db->sql_fetchrow($db->sql_query("SELECT `group_name` FROM `"._GROUPS_TABLE."` WHERE `group_id`='$group_id'"));
-			$groupname = ((!defined('NUKE_EVO')) ? _sut($group_name) : _sut(GroupColor($group_name)));
+			$groupname = ((!defined('NUKE_TITANIUM')) ? _sut($group_name) : _sut(GroupColor($group_name)));
 		}
 	}
 	return $groupname;

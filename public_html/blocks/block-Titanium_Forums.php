@@ -1,6 +1,6 @@
 <?php
 
-if(!defined('NUKE_EVO')): 
+if(!defined('NUKE_TITANIUM')): 
  exit;
 endif;
 

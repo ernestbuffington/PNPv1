@@ -1,9 +1,9 @@
 <?php
 /*======================================================
- PHP-Nuke Titanium: Enhanced PHP-Nuke Web Portal System
+ PHP-Nuke Platinum: Enhanced PHP-Nuke Titanium
  =======================================================*/
 /********************************************************/
-/* PHP-Nuke Titanium(tm)                                */
+/* PHP-Nuke Platinum(tm)                                */
 /* By: The 86it Social Network                          */
 /* http://cvs.86it.us                                   */
 /* Copyright (c) 2000-2017 by SEBASTIAN ENTERPRISES     */

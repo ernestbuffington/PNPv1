@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /************************************************************************/
@@ -54,7 +54,7 @@
       SiteMap Mod                              v1.0.0       04/26/2021
 	  Dynamic CSS, JS and PHPCSS               v1.0.0       04/29/2021
  ************************************************************************/
-if((defined('NUKE_EVO')) || (defined('NUKE_TITANIUM'))):
+if((defined('NUKE_TITANIUM')) || (defined('NUKE_PLATINUM'))):
   return;
 endif;
 
@@ -63,18 +63,18 @@ if(realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])):
 endif;
 
 # Define File
-define('NUKE_EVO', '2.0.9e');
 define('NUKE_TITANIUM', '4.0.4');
+define('NUKE_PLATINUM', '7.6.5');
 define('PHPBB_TITANIUM', '2.0.25');
-define('PHPBB_PLATINUM_LAST_UPDATE', 'Tuesday Jan 28th, 2023');
-define('PLATINUM_BUILD', '20940402282023');
-define('CUR_EVO', 'NUKE_EVO');
+define('PHPBB_TITANIUM_LAST_UPDATE', 'Tuesday Jan 28th, 2023');
+define('PLATINUM_BUILD', '7.6.b.5');
 define('CUR_TITANIUM', 'NUKE_TITANIUM');
-define('EVO_EDITION', 'Xtreme');
-define('PLATINUM_EDITION', 'AN602');
+define('CUR_PLATINUM', 'NUKE_PLATINUM');
+define('TITANIUM_EDITION', 'AN602');
+define('PLATINUM_EDITION', 'PNPv2');
 define('PHPVERS', phpversion());
-define('EVO_VERSION', NUKE_EVO . ' ' . EVO_EDITION);
-define('PLATINUM_VERSION', NUKE_TITANIUM . ' ' . PLATINUM_EDITION);
+define('TITANIUM_VERSION', NUKE_TITANIUM . ' ' . TITANIUM_EDITION);
+define('PLATINUM_VERSION', NUKE_PLATINUM . ' ' . PLATINUM_EDITION);
 define('PHP_5', version_compare(PHPVERS, '5.0.0', '>='));
 
 if(!ini_get('register_globals')): 
@@ -83,7 +83,7 @@ if(!ini_get('register_globals')):
 	if (function_exists('import_request_variables')):
 		import_request_variables('GPC');
 	else: 
-		function pnt_import_globals($array)
+		function platinum_import_globals($array)
 		{
 			foreach ($array as $k => $v):
 			  global $$k;
@@ -91,13 +91,13 @@ if(!ini_get('register_globals')):
 			endforeach;
 		}
 		if(!empty($_GET)):
-		  pnt_import_globals($_GET);
+		  platinum_import_globals($_GET);
 		endif;
 		if(!empty($_POST)):
-		  pnt_import_globals($_POST);
+		  platinum_import_globals($_POST);
 		endif;
 		if(!empty($_COOKIE)):
-		  pnt_import_globals($_COOKIE);
+		  platinum_import_globals($_COOKIE);
 		endif;
 	endif;
 endif;
@@ -435,16 +435,21 @@ require_once(NUKE_INCLUDE_DIR.'functions_database.php');
 
 require_once(NUKE_INCLUDE_DIR.'functions_cache.php');
 
-# Network Support START
-# PHP-Nuke Titanium v3.0.0 START
+# PHP-Nuke Platinum v7.6.b.5 START
+require_once(NUKE_INCLUDE_DIR.'functions_platinum.php');          
+require_once(NUKE_INCLUDE_DIR.'functions_platinum_custom.php');
+# PHP-Nuke Platinum v7.6.b.5 END
+
+# PHP-Nuke Titanium v4.0.4 START
 require_once(NUKE_INCLUDE_DIR.'function_img.php');                
 require_once(NUKE_INCLUDE_DIR.'functions_titanium.php');          
 require_once(NUKE_INCLUDE_DIR.'functions_titanium_custom.php');
-# Network Support END
-# PHP-Nuke Titanium END
+# PHP-Nuke Titanium v4.0.4 END
 
+# PHP-Nuke Evolution v2.0.9f START
 require_once(NUKE_INCLUDE_DIR.'functions_evo.php');
 require_once(NUKE_INCLUDE_DIR.'functions_evo_custom.php');
+# PHP-Nuke Evolution v2.0.9f END
 
 include_once(NUKE_INCLUDE_DIR.'validation.php');
 

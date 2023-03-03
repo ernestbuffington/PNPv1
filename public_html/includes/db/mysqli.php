@@ -635,7 +635,7 @@ class sql_db
     function mariadb_version()
 	{
 	  if($this->db_connect_id):
-	  $result  = '<div class="poweredby"> <a class="poweredby" href="http://www.php-nuke-titanium.86it.us/" target="_blank">Powered by PHP-Nuke Titanium v'.NUKE_TITANIUM.' | &copy; 2005, 2022 PHP-Nuke Titanium Group</a></div>';
+	  $result  = '<div class="poweredby"> <a class="poweredby" href="http://www.platinum.coders.exchange/" target="_blank">Powered by PHP-Nuke Platinum v'.NUKE_PLATINUM.' | &copy; 2005, 2022 PHP-Nuke Platinum Group</a></div>';
 	  $result .= 'MySQL Database Server: ';
 	  $result .= mysqli_get_server_info($this->db_connect_id);
 	  return $result;

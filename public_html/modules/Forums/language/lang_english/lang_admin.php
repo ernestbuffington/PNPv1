@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /***************************************************************************
@@ -143,7 +143,7 @@ $lang['Rebuild_Search'] = 'Rebuild Search';
 $lang['Admin'] = 'Administration';
 $lang['Not_admin'] = 'You are not authorized to administer this board';
 $lang['Welcome_phpBB'] = 'Welcome to phpBB';
-$lang['Admin_intro'] = 'Thank you for choosing PHP-Nuke Titanium and phpBB Titanium as your CMS solution. This screen will give you a quick overview of all the various statistics of your forums. You can get back to this page by clicking on the <u>Admin [Forums]</u> link in the left pane. To return to the index of your board, click the <u>Forums Index</u> link or the phpBB logo also in the left pane. The other links on the left hand side of this screen will allow you to control every aspect of your forum experience. Each screen will have instructions on how to use the tools.';
+$lang['Admin_intro'] = 'Thank you for choosing PHP-Nuke Platinum and phpBB Titanium as your CMS solution. This screen will give you a quick overview of all the various statistics of your forums. You can get back to this page by clicking on the <u>Admin [Forums]</u> link in the left pane. To return to the index of your board, click the <u>Forums Index</u> link or the phpBB logo also in the left pane. The other links on the left hand side of this screen will allow you to control every aspect of your forum experience. Each screen will have instructions on how to use the tools.';
 $lang['Main_index'] = 'Forum Index';
 $lang['Forum_stats'] = 'Forum Statistics';
 $lang['Preview_forum'] = 'Preview Forum';
@@ -151,8 +151,8 @@ $lang['Preview_forum'] = 'Preview Forum';
  [ Mod:     Forum ACP Administration Links     v1.0.0 ]
  ******************************************************/
 $lang['Admin_Index'] = 'phpBB Titanium Admin';
-$lang['Admin_Nuke'] = 'PHP-Nuke Titanium Admin';
-$lang['Home_Nuke'] = 'PHP-Nuke Titanium Home';
+$lang['Admin_Nuke'] = 'PHP-Nuke Platinum Admin';
+$lang['Home_Nuke'] = 'PHP-Nuke Platinum Home';
 /*****[END]********************************************
  [ Mod:     Forum ACP Administration Links     v1.0.0 ]
  ******************************************************/
@@ -750,7 +750,7 @@ $lang['Latest_version_info'] = 'The latest available version is <strong>phpBB Ti
 $lang['Current_version_info'] = 'You are running <strong>phpBB Titanium '.PHPBB_TITANIUM.'</strong>.';
 $lang['Connect_socket_error'] = 'Unable to open connection to phpBB Titanium Server, reported error is:<br />%s';
 $lang['Socket_functions_disabled'] = 'Unable to use socket functions.';
-$lang['Mailing_list_subscribe_reminder'] = 'For the latest information on updates for phpBB Titanium, send a <u><a href="https://www.php-nuke-titanium.86it.us/modules.php?name=Private_Messages&mode=post&u=3/" target="_new">Private Message</a></u> to Ernest Allen Buffington.';
+$lang['Mailing_list_subscribe_reminder'] = 'For the latest information on updates for phpBB Titanium, send a <u><a href="https://www.platinum.coders.exchange/modules.php?name=Private_Messages&mode=post&u=3/" target="_new">Private Message</a></u> to Ernest Allen Buffington.';
 $lang['Version_information'] = 'Version Information';
 
 /*****[BEGIN]******************************************
@@ -766,7 +766,7 @@ $lang['Deactivated_Users'] = 'Members in need of Activation';
 $lang['Users_with_Admin_Privileges'] = 'Members with administrator privileges';
 $lang['Users_with_Mod_Privileges'] = 'Members with moderator privileges';
 $lang['DB_size'] = 'Size of the database';
-$lang['Version_of_board'] = 'Version of <a href="http://www.php-nuke-titanium.86it.us" target="_blank">phpBB Titanium</a>';
+$lang['Version_of_board'] = 'Version of <a href="http://www.platinum.coders.exchange" target="_blank">phpBB Titanium</a>';
 $lang['Version_of_PHP'] = 'Version of <a href="http://www.php.net/" target="_blank">PHP</a>';
 $lang['Version_of_MySQL'] = 'Version of <a href="https://mariadb.org/" target="_blank">MariaDB</a>';
 /*****[END]********************************************

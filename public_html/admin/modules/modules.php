@@ -1,6 +1,6 @@
 <?php
 /*====================================================================== 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System                JOHN 3:16
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium                JOHN 3:16
  =======================================================================*/
 if(!defined('ADMIN_FILE')) 
 die ("Illegal File Access");

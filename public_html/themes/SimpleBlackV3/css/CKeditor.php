@@ -2,7 +2,7 @@
 #---------------------------------------------------------------------------------------#
 # CMS INFO                                                                              #
 # PHP-Nuke Copyright (c) 2002 by Francisco Burzi phpnuke.org                            #
-# PHP-Nuke Titanium (c) 2019 : Enhanced PHP-Nuke Web Portal System                      #
+# PHP-Nuke Platinum (c) 2019 : Enhanced PHP-Nuke Titanium                      #
 #---------------------------------------------------------------------------------------#
 global $theme_name;
 echo "/* themes/".$theme_name."/css/CKeditor.php - Fly Kit CKeditor Style Sheet */\n"; 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Zend Framework Modified for PHP-Nuke Titanium
+ * Zend Framework Modified for PHP-Nuke Platinum
  *
  * LICENSE
  *
@@ -12,7 +12,7 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend for PHP-Nuke Titanium
+ * @category   Zend for PHP-Nuke Platinum
  * @package    Zend_Crypt
  * @subpackage Hmac
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
@@ -31,7 +31,7 @@ require_once NUKE_ZEND_DIR.'Crypt.php';
  *
  * @todo  Patch for refactoring failed tests (key block sizes >80 using internal algo)
  * @todo       Check if mhash() is a required alternative (will be PECL-only soon)
- * @category   Zend for PHP-Nuke Titanium
+ * @category   Zend for PHP-Nuke Platinum
  * @package    Zend_Crypt
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License

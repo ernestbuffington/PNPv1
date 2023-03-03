@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
  
@@ -17,7 +17,7 @@
    Notes         : Simple block to allow theme selection from homepage
 ************************************************************************/
 
-if(!defined('NUKE_EVO')) exit;
+if(!defined('NUKE_TITANIUM')) exit;
 
 if (is_user()) {
     $content  = "<center>\n"; 

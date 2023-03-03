@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 
@@ -21,7 +21,7 @@
       Nuke Patched                             v3.1.0       06/26/2005
  ************************************************************************/
 
-if(!defined('NUKE_EVO')) exit;
+if(!defined('NUKE_TITANIUM')) exit;
 
 include_once(NUKE_MODULES_DIR .'Evo_UserBlock/addons/core.php');
 global $lang_evo_userblock;

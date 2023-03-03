@@ -1,6 +1,6 @@
 <?php
 /**
- * Zend Framework Modified for PHP-Nuke Titanium
+ * Zend Framework Modified for PHP-Nuke Platinum
  *
  * LICENSE
  *
@@ -30,7 +30,7 @@ require_once NUKE_ZEND_DIR.'Locale.php';
  *
  * This class can only handle numbers without precision
  *
- * @category   Zend for PHP-Nuke Titanium
+ * @category   Zend for PHP-Nuke Platinum
  * @package    Zend_Measure
  * @subpackage Zend_Measure_Number
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)

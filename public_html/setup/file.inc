@@ -1,9 +1,9 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium : Enhanced and Advanced PHP-Nuke Web Portal System
+ PHP-Nuke Platinum : Enhanced and Advanced PHP-Nuke Titanium
  =======================================================================*/
 /************************************************************************
-  PHP-Nuke Titanium / Nuke-Evolution: Advanced Installer
+  PHP-Nuke Platinum / Nuke-Evolution: Advanced Installer
   ============================================
   Copyright (c) 2023 by The Titanium Group
 
@@ -15,7 +15,7 @@
 
   Notes              : You may NOT use this installer for your own
                        needs or script. It is written specifically
-                       for PHP-Nuke Titanium, Nuke-Evolution and/or Xtreme
+                       for PHP-Nuke Platinum, Nuke-Evolution and/or Xtreme
 
 ************************************************************************/
 

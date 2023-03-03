@@ -1,12 +1,12 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /************************************************************************
-PHP-Nuke Titanium : Titanium Functions
+PHP-Nuke Platinum : Titanium Functions
 =========================================================================
-Copyright (c) 2022 The PHP-Nuke Titanium Group
+Copyright (c) 2022 The PHP-Nuke Platinum Group
 
 Filename      : functions_titanium_custom.php
 Author        : Ernest Allen Buffington 
@@ -25,7 +25,7 @@ function facebook_likes() {
         global $sid, $appID, $my_url;
 		
 		# IFRAME LOADER
-		#echo '<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.php-nuke-titanium.86it.us%2Fmodules.php%3Fname%3DBlogs%26file%3Darticle%26sid%3D' . $sid . '%26mode%3Dnested%26order%3D0%26thold%3D0&tabs=timeline&width=180&height=70&small_header=false&adapt_container_width=true&hide_cover=true&show_facepile=true&appId=' . $appID . '" width="180" height="70" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>';
+		#echo '<iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.platinum.coders.exchange%2Fmodules.php%3Fname%3DBlogs%26file%3Darticle%26sid%3D' . $sid . '%26mode%3Dnested%26order%3D0%26thold%3D0&tabs=timeline&width=180&height=70&small_header=false&adapt_container_width=true&hide_cover=true&show_facepile=true&appId=' . $appID . '" width="180" height="70" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>';
         # NORMAL LOADER
 		//echo '<div class="fb-page" data-href="https://' . $my_url . '/modules.php?name=Blogs&amp;file=article&amp;sid=' . $sid . '&amp;mode=nested&amp;order=0&amp;thold=0" data-tabs="timeline" data-width="180" data-height="70" data-small-header="false" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"></div>';
 
@@ -91,7 +91,7 @@ function title_and_meta_tags() {
 
         if (!defined('HOME_FILE')):
 
-            # PHP-Nuke Titanium Shout Box Module v1.0 -------------------------------------------------------------------------------------------------
+            # PHP-Nuke Platinum Shout Box Module v1.0 -------------------------------------------------------------------------------------------------
             if ($module_name == "Shout_Box"):
 
                 # each module has a logo image file START
@@ -107,15 +107,15 @@ function title_and_meta_tags() {
                 $newpagetitle = $sitename . ' ' . $item_delim . ' Shout Box';
 
                 $facebook_og_title = '<meta property="og:title" content="' . $newpagetitle . '">' . "\n";
-                $facebook_ogdescription = '<meta property="og:description" content="PHP-Nuke Titanium ' . $item_delim . ' Shout Box Module v1.0">' . "\n";
+                $facebook_ogdescription = '<meta property="og:description" content="PHP-Nuke Platinum ' . $item_delim . ' Shout Box Module v1.0">' . "\n";
 
                 $facebookimagetype = '<meta property="og:image:type" content="image/png">' . "\n";
                 $facebook_ogimage_width = '<meta property="og:image:width" content="1200">' . "\n";
                 $facebook_ogimage_height = '<meta property="og:image:height" content="628">' . "\n";
                 $facebookimage_alt = '<meta property="og:image:alt" content="' . $newpagetitle . '">' . "\n";
                 $facebook_ogurl = '<meta property="og:url" content="' . HTTPS . 'modules.php?name=' . $name . '" />' . "\n";
-            # PHP-Nuke Titanium Shout Box Module v1.0 -------------------------------------------------------------------------------------------------
-            # PHP-Nuke Titanium Google Site Map Module v1.0 --------------------------------------------------------------------------------------------
+            # PHP-Nuke Platinum Shout Box Module v1.0 -------------------------------------------------------------------------------------------------
+            # PHP-Nuke Platinum Google Site Map Module v1.0 --------------------------------------------------------------------------------------------
             elseif ($module_name == "Google-Site-Map"):
 
                 # each module has a logo image file START
@@ -138,7 +138,7 @@ function title_and_meta_tags() {
                 $facebook_ogimage_height = '<meta property="og:image:height" content="628">' . "\n";
                 $facebookimage_alt = '<meta property="og:image:alt" content="Google Site Map Module v1.0">' . "\n";
                 $facebook_ogurl = '<meta property="og:url" content="' . HTTPS . 'modules.php?name=' . $name . '">' . "\n";
-            # PHP-Nuke Titanium Google Site Map Module v1.0 --------------------------------------------------------------------------------------------
+            # PHP-Nuke Platinum Google Site Map Module v1.0 --------------------------------------------------------------------------------------------
             
             # PHP-Nuke Arcade v4.0 --------------------------------------------------------------------------------------------
             elseif ($module_name == "Forums"):
@@ -461,7 +461,7 @@ function get_titanium_timeago($ptime) {
 /**
  * Send mail, similar to PHP's mail
  *
- * @since PHP-Nuke Titanium 4.0.3
+ * @since PHP-Nuke Platinum 4.0.3
  *
  * A true return value does not automatically mean that the user received the
  * email successfully. It just only means that the method used was able to

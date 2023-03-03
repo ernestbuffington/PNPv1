@@ -1,11 +1,11 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 
 /************************************************************************
-   PHP-Nuke Titanium Database Monitor Models
+   PHP-Nuke Platinum Database Monitor Models
    ============================================
    Copyright (c) 2021 by The 86it Developers Network
 

@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 // ==========================================
@@ -408,7 +408,7 @@ function manageShouts($page, $pruned) {
     //echo "<input type=\"hidden\" name=\"cn\" value=\"Comments\" /><p align=\"center\">";
     //echo "<input type=\"image\" src=\"modules/$module_name/images/paypal.gif\" alt=\"Please donate. Thank you!\" name=\"submit\" title=\"Please donate. Thank you!\" /></p></form><p align=\"center\" class=\"content\">Our community appreciates your monitary support!</p>";
 	
-	echo "<p align=\"center\" class=\"content\">Released under the <a target=\"_blank\" href=\"".$sbURL."http://www.gnu.org\">GNU/GPL license</a> and distributed by <a target=\"_blank\" href=\"".$sbURL."https://php-nuke-titanium.86it.us\">The Titanium Group</a>.<br />Copyright &copy; 2002-2023 by SuiteSoft Solutions. All rights reserved.</p>";
+	echo "<p align=\"center\" class=\"content\">Released under the <a target=\"_blank\" href=\"".$sbURL."http://www.gnu.org\">GNU/GPL license</a> and distributed by <a target=\"_blank\" href=\"".$sbURL."https://platinum.coders.exchange\">The Titanium Group</a>.<br />Copyright &copy; 2002-2023 by SuiteSoft Solutions. All rights reserved.</p>";
     CloseTable();
     // END OF COPYRIGHT.
     include_once(NUKE_BASE_DIR.'footer.php');

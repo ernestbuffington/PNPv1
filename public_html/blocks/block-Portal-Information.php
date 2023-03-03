@@ -1,5 +1,5 @@
 <?php 
-if(!defined('NUKE_EVO')) exit;
+if(!defined('NUKE_TITANIUM')) exit;
 global $heading_color, $db, $textcolor1;
 
 $heading_color = 'green';
@@ -8,7 +8,7 @@ $content = '<hr>';
 $content .= '<div align="center">';
 $content .= '<strong><span style="color:'.$heading_color.';">Dedicated Rack 68</span></strong><br />Intel(R) Xeon(R)<br /> CPU E3-1230 v5 @ 3.40GHz<br />Data Center: Tampa, Florida<br />Hosting: $500.00 Monthly';
 $content .= '<hr>';
-$content .= '<strong><span style="color:'.$heading_color.';">CMS</span></strong><br />PHP-Nuke Titanium v'.NUKE_TITANIUM.'<br />';
+$content .= '<strong><span style="color:'.$heading_color.';">CMS</span></strong><br />PHP-Nuke Platinum v'.NUKE_PLATINUM.'<br />';
 $content .= '<hr>';
 $content .= '<strong><span style="color:'.$heading_color.';">Linux</span></strong><br />Alma Linux v8.7.0<br />STANDARD<br />';
 $content .= '<hr>';

@@ -1,14 +1,14 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium : Nuke-Evolution | Enhanced and Advnanced
+ PHP-Nuke Platinum : Nuke-Evolution | Enhanced and Advnanced
  =======================================================================*/
 
 /************************************************************************
    Nuke-Evolution    : Server Info Administration
-   PHP-Nuke Titanium : Server Info Administration
+   PHP-Nuke Platinum : Server Info Administration
    ============================================
    Copyright (c) 2005 by The Nuke-Evolution Team
-   Copyright (c) 2022 by The PHP-Nuke Titanium Group
+   Copyright (c) 2022 by The PHP-Nuke Platinum Group
 
    Filename      : case.php
    Author(s)     : Ernest Allen Buffington, Technocrat
@@ -30,11 +30,11 @@ if (!defined('ADMIN_FILE')) {
 
 define('USE_DRAG_DROP', true);
 
-define('NUKE_EVO_USERBLOCK', dirname(dirname(__FILE__)) . '/');
-define('NUKE_EVO_USERBLOCK_ADDONS', NUKE_EVO_USERBLOCK . '/addons/');
-define('NUKE_EVO_USERBLOCK_ADMIN', dirname(__FILE__) . '/');
-define('NUKE_EVO_USERBLOCK_ADMIN_INCLUDES', NUKE_EVO_USERBLOCK_ADMIN . 'includes/');
-define('NUKE_EVO_USERBLOCK_ADMIN_ADDONS', NUKE_EVO_USERBLOCK_ADMIN . 'addons/');
+define('NUKE_TITANIUM_USERBLOCK', dirname(dirname(__FILE__)) . '/');
+define('NUKE_TITANIUM_USERBLOCK_ADDONS', NUKE_TITANIUM_USERBLOCK . '/addons/');
+define('NUKE_TITANIUM_USERBLOCK_ADMIN', dirname(__FILE__) . '/');
+define('NUKE_TITANIUM_USERBLOCK_ADMIN_INCLUDES', NUKE_TITANIUM_USERBLOCK_ADMIN . 'includes/');
+define('NUKE_TITANIUM_USERBLOCK_ADMIN_ADDONS', NUKE_TITANIUM_USERBLOCK_ADMIN . 'addons/');
 
 global $prefix, $db, $admin_file, $admdata, $lang_evo_userblock;
 
@@ -45,9 +45,9 @@ if(!is_mod_admin($module_name)):
  die();
 endif;
 
-include_once(NUKE_EVO_USERBLOCK_ADMIN_INCLUDES . 'functions.php');
+include_once(NUKE_TITANIUM_USERBLOCK_ADMIN_INCLUDES . 'functions.php');
 
-include_once(NUKE_EVO_USERBLOCK_ADDONS.'core.php');
+include_once(NUKE_TITANIUM_USERBLOCK_ADDONS.'core.php');
 
 require_once(NUKE_INCLUDE_DIR.'ajax/Sajax.php');
 
@@ -339,8 +339,8 @@ if (isset($_POST['evouserinfo_ec']) && is_int(intval($_POST['evouserinfo_ec'])))
 }
 
 if (!empty($file)){
-    if(file_exists(NUKE_EVO_USERBLOCK_ADMIN_ADDONS . $file . '.php')) {
-        include_once(NUKE_EVO_USERBLOCK_ADMIN_ADDONS . $file . '.php');
+    if(file_exists(NUKE_TITANIUM_USERBLOCK_ADMIN_ADDONS . $file . '.php')) {
+        include_once(NUKE_TITANIUM_USERBLOCK_ADMIN_ADDONS . $file . '.php');
     } else {
         redirect($admin_file.".php?op=evo-userinfo");
     }

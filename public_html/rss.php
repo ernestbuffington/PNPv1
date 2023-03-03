@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium | Nuke-Evolution Basic : Enhanced and Advanced
+ PHP-Nuke Platinum | Nuke-Evolution Basic : Enhanced and Advanced
  =======================================================================*/
 
 /************************************************************************
@@ -9,7 +9,7 @@
    Copyright (c) 2005 by The Nuke-Evolution Team
 
    Filename      : rss.php
-   Author        : Quake (www.php-nuke-titanium.86it.us)
+   Author        : Quake (www.platinum.coders.exchange)
    Version       : 2.5.0
    Date          : 02/05/2006 (dd-mm-yyyy)
 

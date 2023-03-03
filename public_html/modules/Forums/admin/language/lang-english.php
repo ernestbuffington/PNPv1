@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 
@@ -113,7 +113,7 @@ define_once("_LAST","Last");
 define_once("_GO","Go!");
 define_once("_CURRENTPOLL","Current Poll");
 define_once("_STORYID","Blog ID");
-define_once("_BANNERS_ADMIN_HEADER", "PHP-Nuke Titanium Banners :: Modules Admin Panel");
+define_once("_BANNERS_ADMIN_HEADER", "PHP-Nuke Platinum Banners :: Modules Admin Panel");
 define_once("_BANNERS_RETURNMAIN", "Return to Main Administration");
 define_once("_ACTIVEBANNERS","Current Active Banners");
 define_once("_ACTIVEBANNERS2","Active Banners");
@@ -198,7 +198,7 @@ define_once("_EDITHEADLINE","Edit Headlines");
 define_once("_SURE2DELHEADLINE","WARNING: Are you sure you want to delete this Headline?");
 define_once("_CUSTOM","Custom");
 define_once("_AUTHORSADMIN","Author's Administration");
-define_once("_AUTHORS_ADMIN_HEADER", "PHP-Nuke Titanium Edit Admins :: Admin Panel");
+define_once("_AUTHORS_ADMIN_HEADER", "PHP-Nuke Platinum Edit Admins :: Admin Panel");
 define_once("_AUTHORS_RETURNMAIN", "Return to Main Administration");
 define_once("_FAQADMIN","FAQ Administration");
 define_once("_ACTIVEFAQS","Active FAQs");
@@ -288,7 +288,7 @@ define_once("_EDITBLOGPOST","Edit Blog");
 define_once("_NO_BLOG_SUBMISSIONS","No New Blog Submissions");
 define_once("_NEW_BLOG_SUBMISSIONS","New Blog Submissions");
 define_once("_NOFUNCTIONS","---------");
-define_once("_REFERER_ADMIN_HEADER", "PHP-Nuke Titanium HTTP Referers :: Admin Panel");
+define_once("_REFERER_ADMIN_HEADER", "PHP-Nuke Platinum HTTP Referers :: Admin Panel");
 define_once("_REFERER_RETURNMAIN", "Return to Main Administration");
 define_once("_NOTAUTHORIZED_EDIT1","You aren't authorized to touch this Article!");
 define_once("_NOTAUTHORIZED_EDIT2","You can't edit and/or delete blog posts that you did not publish");
@@ -335,7 +335,7 @@ define_once("_USERUPDATE","Update User");
 define_once("_USERID","User ID");
 define_once("_USERNOEXIST","User Doesn't Exist!");
 define_once("_PASSWDNOMATCH","Sorry, the new passwords doesn't match. Go Back and Try Again");
-define_once("_SETTINGS_ADMIN_HEADER", "PHP-Nuke Titanium Preferences :: Admin Panel");
+define_once("_SETTINGS_ADMIN_HEADER", "PHP-Nuke Platinum Preferences :: Admin Panel");
 define_once("_SETTINGS_RETURNMAIN", "Return to Main Administration");
 define_once("_DELETEUSER","Delete User");
 define_once("_SURE2DELETE","Are you sure you want to delete user");
@@ -502,7 +502,7 @@ define_once("_THANKS4YOURSUBMISSION","Thanks for your submission!");
 define_once("_TEAM","Team.");
 define_once("_MESSAGES","Messages");
 define_once("_MESSAGESADMIN","Messages Administration");
-define_once("_MESSAGES_ADMIN_HEADER", "PHP-Nuke Titanium Messages :: Admin Panel");
+define_once("_MESSAGES_ADMIN_HEADER", "PHP-Nuke Platinum Messages :: Admin Panel");
 define_once("_MESSAGES_RETURNMAIN", "Return to Main Administration");
 define_once("_MESSAGETITLE","Title");
 define_once("_MESSAGECONTENT","Content");
@@ -530,7 +530,7 @@ define_once("_ADDMSG","Add message");
 define_once("_ALLMESSAGES","Overview messages");
 define_once("_VIEW","Visible to");
 define_once("_REMOVEMSG","Are you sure you want to remove this message ? ");
-define_once("_MODULES_ADMIN_HEADER", "PHP-Nuke Titanium Modules :: Admin Panel");
+define_once("_MODULES_ADMIN_HEADER", "PHP-Nuke Platinum Modules :: Admin Panel");
 define_once("_MODULES_BLOCK", "Modules Block EDIT");
 define_once("_MODULES_RETURNMAIN", "Return to Main Administration");
 define_once("_ANNOUNCEPOLL","Announce this new Survey in your site");

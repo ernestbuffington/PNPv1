@@ -1,6 +1,6 @@
 <?php
 global $theme_name;
-echo "/* Loading themes/".$theme_name."/css/header.php Fly Kit for PHP-Nuke Titanium - Design Themes On The Fly */\n"; 
+echo "/* Loading themes/".$theme_name."/css/header.php Fly Kit for PHP-Nuke Platinum - Design Themes On The Fly */\n"; 
 echo "/* When we are done we will move this code to style.css */\n"; 
 global $screen_width, $screen_height, $textcolor1, $textcolor2, $bgcolor1, $bgcolor2, $bgcolor3, $bgcolor4, $bgcolor5, $fieldset_border_width, $locked_width;
 $bgcolor5 ='#262525';

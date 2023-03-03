@@ -1,8 +1,8 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
-if(!defined('NUKE_EVO')) exit;
+if(!defined('NUKE_TITANIUM')) exit;
 define_once('_BROWSERS','Browsers');
 define_once('_OPERATINGSYS','Operating System');
 define_once('_UNKNOWN','Unknown');
@@ -19,8 +19,8 @@ define_once('_LINKSINLINKS','Web Resource Links:');
 define_once('_LINKSCAT','Web Resource Link Categories:');
 define_once('_NEWSWAITING','Blog Posts Waiting to be Published:');
 define_once('_EVOVER','PHP-Nuke Evolution Version:');
-define_once('_TITANIUMVER','PHP-Nuke Titanium Version:');
-define_once('_TITANIUMFORUMVER','phpBB Titanium Version:');
+define_once('_PLATINUMVER','PHP-Nuke Platinum Version:');
+define_once('_PLATINUMFORUMVER','phpBB Titanium Version:');
 define_once('_SEARCHENGINES','Search Engines');
 define_once('_STATS','Access Statistics');
 define_once('_HITS','Hits');

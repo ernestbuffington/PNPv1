@@ -1,6 +1,6 @@
 <?php 
 global $theme_name;
-echo "/* themes/".$theme_name."/css/links.php Fly Kit for PHP-Nuke Titanium - Design Themes On The Fly */\n"; 
+echo "/* themes/".$theme_name."/css/links.php Fly Kit for PHP-Nuke Platinum - Design Themes On The Fly */\n"; 
 echo "/* When we are done we will move this code to style.css */\n"; 
 
 global $font_color, $screen_width, $screen_height, $textcolor1, $textcolor2, $bgcolor1, $bgcolor2, $bgcolor3, $bgcolor4, $bgcolor5;

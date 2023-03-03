@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium: Enhanced and Advanced PHP-Nuke Web Portal System
+ PHP-Nuke Platinum: Enhanced and Advanced PHP-Nuke Titanium
  =======================================================================*/
 
 /***************************************************************************

@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium | Nuke-Evolution Xtreme 
+ PHP-Nuke Platinum | Nuke-Evolution Xtreme 
  ========================================================================
  (c) 2021 - 2022 by The 86it DEvelopers Network - https://86it.us
  (c) 2007 - 2018 by Lonestar Modules - https://lonestar-modules.com

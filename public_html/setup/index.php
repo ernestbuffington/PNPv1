@@ -2,11 +2,11 @@
 
 /**
 *****************************************************************************************
-** PHP-Nuke Titanium v4.0.4 - Project Start Date 11/04/2022 Friday 4:09 am             **
+** PHP-Nuke Platinum v4.0.4 - Project Start Date 11/04/2022 Friday 4:09 am             **
 *****************************************************************************************
-** https://www.php-nuke-titanium.86it.us
+** https://www.platinum.coders.exchange
 ** https://github.com/ernestbuffington/PHP-Nuke.Titanium.Dev.4
-** https://www.php-nuke-titanium.86it.us/index.php (DEMO)
+** https://www.platinum.coders.exchange/index.php (DEMO)
 ** Apache License, Version 2.0. MIT license 
 ** Copyright (C) 2022
 ** Formerly Known As PHP-Nuke by Francisco Burzi <fburzi@gmail.com>
@@ -26,7 +26,7 @@ require_once("setup_config.php");
 require_once("functions.php");
 require_once(SETUP_NUKE_INCLUDES_DIR.'functions_selects.php');
 
-$nuke_name = "PHP-Nuke Titanium Dev 4 (US Version) ";
+$nuke_name = "PHP-Nuke Platinum Dev 4 (US Version) ";
 $sql_version = '10.3.37-MariaDB'; //mysqli_get_server_info();
 
 if (!isset($_SESSION['language']) || $_SESSION['language'] == 'english'){
@@ -129,7 +129,7 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www
 echo '<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">';
 echo '<head>';
 echo '<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />';
-echo '<title>PHP-Nuke Titanium (US Version) Installer</title>';
+echo '<title>PHP-Nuke Platinum (US Version) Installer</title>';
 echo "<link rel=\"StyleSheet\" href=\"graphics/style.css\" type=\"text/css\">\n";
 
 if (isset($language) AND $language != "" AND is_readable(SETUP_LANGUAGE_DIR."".$language.".php")) {

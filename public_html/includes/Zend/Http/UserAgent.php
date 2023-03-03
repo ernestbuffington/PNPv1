@@ -1,6 +1,6 @@
 <?php
 /**
- * Zend Framework Modified for PHP-Nuke Titanium
+ * Zend Framework Modified for PHP-Nuke Platinum
  *
  * LICENSE
  *
@@ -12,7 +12,7 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend for PHP-Nuke Titanium
+ * @category   Zend for PHP-Nuke Platinum
  * @package    Zend_Http_UserAgent
  * @subpackage UserAgent
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
@@ -28,7 +28,7 @@
  * - http://en.wikipedia.org/wiki/List_of_user_agents_for_mobile_phones
  * - http://www.mobilemultimedia.be/fr/
  *
- * @category   Zend for PHP-Nuke Titanium
+ * @category   Zend for PHP-Nuke Platinum
  * @package    Zend_Http_UserAgent
  * @subpackage UserAgent
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)

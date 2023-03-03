@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /*****[CHANGES]**********************************************************
@@ -11,7 +11,7 @@
       Last 5 Reviews                           v1.0.0       06/10/2005
  ************************************************************************/
 
-if(!defined('NUKE_EVO')) exit;
+if(!defined('NUKE_TITANIUM')) exit;
 
 global $prefix, $db;
 

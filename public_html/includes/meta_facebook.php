@@ -1,6 +1,6 @@
 <?php 
 #########################################################################
-# PHP-Nuke Titanium Network : Enhanced PHP-Nuke Web Portal System       #
+# PHP-Nuke Platinum Network : Enhanced PHP-Nuke Titanium       #
 #########################################################################
 # [CHANGES]                                                             #
 # fixed closing meta tag                                                #
@@ -15,7 +15,7 @@
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-if (!defined('NUKE_EVO')) { die("You can't access this file directly..."); }
+if (!defined('NUKE_TITANIUM')) { die("You can't access this file directly..."); }
 
   global $db, $prefix, $cache;
 

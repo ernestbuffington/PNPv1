@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 
@@ -29,12 +29,12 @@ if (!defined('ADMIN_FILE')){
    die ("Illegal File Access");
 }
 
-define('CUR_EVO', strtolower(EVO_EDITION));
+define('CUR_TITANIUM', strtolower(TITANIUM_EDITION));
 
 // Set the data to send to the server
 // Trying to access the version tracker without using the
 // $_POST method will return an "Access Denied" error
-$postdata = 'v='.NUKE_EVO;
+$postdata = 'v='.NUKE_TITANIUM;
 
 // Make a new connection to the version tracker
 // We can either connect using cURL or fsockopen
@@ -86,7 +86,7 @@ function version_check()
 function evo_check_version() {
 	global $version_info;	
     $ver = $version_info['current_version'];
-    return (NUKE_EVO == $ver) ? 0 : 1;
+    return (NUKE_TITANIUM == $ver) ? 0 : 1;
 }
 
 function evo_get_version_curl($postdata)
@@ -122,7 +122,7 @@ function evo_compare(){
  ******************************************************/
         return '<div class="col-12"><span style="color:green">'.$admlang['versions']['version_current'].'</span></div>';
     }
-    $current = NUKE_EVO;
+    $current = NUKE_TITANIUM;
     $s = strpos($log_raw,$current);
     if (!$s){
         return -1;
@@ -131,7 +131,7 @@ function evo_compare(){
 }
 
 function evo_changelog() {
-    $data = @file('https://versions.evolution-xtreme.co.uk/changelog_'.CUR_EVO.'.txt');
+    $data = @file('https://versions.evolution-xtreme.co.uk/changelog_'.CUR_TITANIUM.'.txt');
     $log_evo = "";
     $names = array(
 		"TECHNOCRAT" => "Technocrat",
@@ -174,7 +174,7 @@ function evo_changelog() {
 }
 
 function evo_get_download(){
-    $contents = @file_get_contents('https://versions.evolution-xtreme.co.uk/download_'.CUR_EVO.'.txt');
+    $contents = @file_get_contents('https://versions.evolution-xtreme.co.uk/download_'.CUR_TITANIUM.'.txt');
 
     if (substr($contents,strlen($contents)-1) == "\r\n"){
         $contents = substr($contents,0,strlen($contents)-1);
@@ -201,7 +201,7 @@ function evo_version()
 	else:
 
 		echo '<div class="col-12 center">';
-		echo "<strong>".$admlang['versions']['version']."</strong> ".$ret_ver." ".EVO_EDITION."<br /><strong>".$admlang['versions']['your_version']."</strong> ".EVO_VERSION."<br />";
+		echo "<strong>".$admlang['versions']['version']."</strong> ".$ret_ver." ".TITANIUM_EDITION."<br /><strong>".$admlang['versions']['your_version']."</strong> ".TITANIUM_VERSION."<br />";
         
 		if ($download = evo_get_download())
 			$log_evo  = '<a href="'.$download.'" target="_blank">Download v'.$ret_ver.'</a></strong><br /><br />';       

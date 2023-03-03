@@ -1,6 +1,6 @@
 <?php
 /**
- * Zend Framework Modified for PHP-Nuke Titanium
+ * Zend Framework Modified for PHP-Nuke Platinum
  *
  * LICENSE
  *
@@ -12,7 +12,7 @@
  * through the world-wide-web, please send a note to license@zend.com
  * so we can mail you a copy immediately.
  *
- * @category   Zend for PHP-Nuke Titanium
+ * @category   Zend for PHP-Nuke Platinum
  * @package    Zend_Barcode
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -25,7 +25,7 @@ require_once NUKE_ZEND_DIR.'Barcode/Exception.php';
 /**
  * Zend_Barcode_Renderer_Exception
  *
- * @category   Zend for PHP-Nuke Titanium
+ * @category   Zend for PHP-Nuke Platinum
  * @package    Zend_Barcode
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License

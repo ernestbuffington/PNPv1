@@ -1,12 +1,12 @@
 <?php
 
 /*=======================================================================
- PHP-Nuke Titanium Dev 4: Enhanced PHP-Nuke Web Portal System
+ PHP-Nuke Platinum Dev 4: Enhanced PHP-Nuke Titanium
  =======================================================================*/
 /************************************************************************
   Nuke-Evolution: Advanced Installer
   ============================================
-  Copyright (c) 2010 by The PHP-Nuke Titanium Team
+  Copyright (c) 2010 by The PHP-Nuke Platinum Team
 
   Filename           : lang-install.php
   Author             : Technocrat
@@ -41,11 +41,11 @@ $install_lang['chmod_check'] = "CHMOD File/Folder Check";
 $install_lang['mysql_info'] = "MySQL Connection Info";
 $install_lang['mysql_check'] = "MySQL Connection Check";
 $install_lang['server_check'] = "Server Check";
-$install_lang['sql_install'] = "Importing PHP-Nuke Titanium Database";
-$install_lang['sql2_install'] = "Importing PHP-Nuke Titanium IP to Country Database";
+$install_lang['sql_install'] = "Importing PHP-Nuke Platinum Database";
+$install_lang['sql2_install'] = "Importing PHP-Nuke Platinum IP to Country Database";
 
-$install_lang['sql_install_success'] = "Importing PHP-Nuke Titanium Database Was Successful";
-$install_lang['sql2_install_success'] = "Importing PHP-Nuke Titanium IP to Country Database Was Successful";
+$install_lang['sql_install_success'] = "Importing PHP-Nuke Platinum Database Was Successful";
+$install_lang['sql2_install_success'] = "Importing PHP-Nuke Platinum IP to Country Database Was Successful";
 
 $install_lang['retry_sql'] = "Retry SQL Installation";
 $install_lang['setup_admin'] = "Setup Your First Admin Account";
@@ -103,11 +103,11 @@ $install_lang['configure'] = "Configure Site";
 $install_lang['cant_open'] = "Cannot open file";
 $install_lang['cantwrite'] = "Cannot write to file";
 $install_lang['chmod_failed'] = "One or more files has failed, please manually chmod them.";
-$install_lang['config_success'] = "PHP-Nuke Titanium's Config.php was generated Successfully.";
+$install_lang['config_success'] = "PHP-Nuke Platinum's Config.php was generated Successfully.";
 $install_lang['cookie_name'] = "Cookie Name:";
 $install_lang['cookie_path'] = "Cookie Path:";
 $install_lang['cookie_domain'] = "Cookie Domain:";
-$install_lang['config_failed'] = "PHP-Nuke Titanium's Config.php generation failed.";
+$install_lang['config_failed'] = "PHP-Nuke Platinum's Config.php generation failed.";
 $install_lang['installer_heading'] = "Installer :: Step";
 $install_lang['installer_heading2'] = "of";
 $install_lang['dbhost'] = "DB Host:";
@@ -152,11 +152,11 @@ $install_lang['site_email'] = "Site E-Mail:";
 $install_lang['default_lang'] = "Default Language:";
 $install_lang['server_name'] = "Server Name:";
 $install_lang['server_port'] = "Server Port:";
-$install_lang['done'] = "Thank you for choosing PHP-Nuke Titanium.<br /><br /><a href=index.php>Goto your homepage</a>";
+$install_lang['done'] = "Thank you for choosing PHP-Nuke Platinum.<br /><br /><a href=index.php>Goto your homepage</a>";
 $install_lang['delete'] = "<font color=\"red\">Please delete install.php and the install folder</font>";
 $install_lang['install_complete_header'] = " :: Installation Complete";
 $install_lang['general_message'] = "General Message";
 $install_lang['data_error'] = "Cannot open data.txt";
-$install_lang['safe_mode'] = "Your php is currently in safe mode.<br /><br />This will keep the installer from finishing.<br /><br />You must install PHP-Nuke Titanium manually.<br /><br />Please see the install help file to manually install.";
+$install_lang['safe_mode'] = "Your php is currently in safe mode.<br /><br />This will keep the installer from finishing.<br /><br />You must install PHP-Nuke Platinum manually.<br /><br />Please see the install help file to manually install.";
 
 ?>

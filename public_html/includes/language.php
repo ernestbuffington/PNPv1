@@ -16,7 +16,7 @@
 **********************************************/
 
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 
@@ -27,7 +27,7 @@
       Custom Language File                     v1.0.1       06/02/2005
  ************************************************************************/
 
-if (!defined('NUKE_EVO')) {
+if (!defined('NUKE_TITANIUM')) {
     die("You can't access this file directly...");
 }
 

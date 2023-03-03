@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /***************************************************************************
@@ -29,7 +29,7 @@
       Advanced Time Management                 v2.2.0       07/26/2005
  ************************************************************************/
 
-if(!defined('NUKE_EVO')) {
+if(!defined('NUKE_TITANIUM')) {
    die('You can\'t access this file directly...');
 }
 

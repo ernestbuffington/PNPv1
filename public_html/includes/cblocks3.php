@@ -12,7 +12,7 @@
 /* http://www.benfield.ws                               */
 /********************************************************/
 
-if(!defined('NUKE_EVO')) {
+if(!defined('NUKE_TITANIUM')) {
     Header("Location: ../index.php");
     exit;
 }

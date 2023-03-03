@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 
@@ -25,7 +25,7 @@
       Nuke Patched                             v3.1.0       06/26/2005
  ************************************************************************/
 
-if(!defined('NUKE_EVO')) exit;
+if(!defined('NUKE_TITANIUM')) exit;
 
 // Position "1" by default is for block advertising. You can change this from your admin panel
 $position = 1;

@@ -1,9 +1,9 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium : Enhanced and Advanced PHP-Nuke Web Portal System
+ PHP-Nuke Platinum : Enhanced and Advanced PHP-Nuke Titanium
  =======================================================================*/
 /************************************************************************
-  PHP-Nuke Titanium / Nuke-Evolution: Advanced Installer
+  PHP-Nuke Platinum / Nuke-Evolution: Advanced Installer
   ============================================
   Copyright (c) 2023 by The Titanium Group
 
@@ -15,7 +15,7 @@
 
   Notes              : You may NOT use this installer for your own
                        needs or script. It is written specifically
-                       for PHP-Nuke Titanium, Nuke-Evolution and/or Xtreme
+                       for PHP-Nuke Platinum, Nuke-Evolution and/or Xtreme
 					   
  * TernaryToElvisRector (http://php.net/manual/en/language.operators.comparison.php#language.operators.comparison.ternary https://stackoverflow.com/a/1993455/1348344)
  * LongArrayToShortArrayRector
@@ -579,7 +579,7 @@ function site_form($display=1,$return=false){
 	mysqli_free_result($result);
     
 	if(empty($sitename))
-	$sitename = 'A PHP-Nuke Titanium Web Portal';
+	$sitename = 'A PHP-Nuke Platinum Web Portal';
 
 	if(empty($nukeurl))
 	$nukeurl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";

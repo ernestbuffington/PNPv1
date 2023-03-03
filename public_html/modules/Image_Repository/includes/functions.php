@@ -42,7 +42,7 @@ if(!isset($_GET['op']))
 $_GET['op'] = '';
 
 $JStoHead  = '<script>';
-$JStoHead .= '	var jquery_prefix				= '.((defined('NUKE_EVO')) ? 'nuke_jq' : '$').';'."\n";
+$JStoHead .= '	var jquery_prefix				= '.((defined('NUKE_TITANIUM')) ? 'nuke_jq' : '$').';'."\n";
 $JStoHead .= '	var module_name 				= "'.$module_name.'";'."\n";
 $JStoHead .= '	var version_installed			= "'._IREPOSITORY_VERSION.'";'."\n";
 $JStoHead .= '	var upload_dir					= "'._IREPOSITORY_DIR._IREPOSITORY_USER_FOLDER.'"'."\n";

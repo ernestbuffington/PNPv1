@@ -1,6 +1,6 @@
 <?php 
 /*===================================================================== */
-/* PHP-Nuke Titanium | Nuke-Evolution Xtreme : A PHP-Nuke Fork          */
+/* PHP-Nuke Platinum | Nuke-Evolution Xtreme : A PHP-Nuke Fork          */
 /* ==================================================================== */
 /* PHP-NUKE: Advanced Content Management System                         */
 /* ============================================                         */

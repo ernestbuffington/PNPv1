@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /************************************************************************
@@ -9,7 +9,7 @@
    Copyright (c) 2005 by The Nuke-Evolution Team
 
    Filename      : board_once.php
-   Author        : Technocrat (www.php-nuke-titanium.86it.us)
+   Author        : Technocrat (www.platinum.coders.exchange)
    Version       : 1.0.0
    Date          : 06.12.2006 (mm.dd.yyyy)
    Description   : Enhanced General Admin Configuration with DHTML menu.

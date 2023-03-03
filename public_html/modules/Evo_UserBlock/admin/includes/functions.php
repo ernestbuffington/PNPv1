@@ -1,14 +1,14 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium : Nuke-Evolution | Enhanced and Advnanced
+ PHP-Nuke Platinum : Nuke-Evolution | Enhanced and Advnanced
  =======================================================================*/
 
 /************************************************************************
    Nuke-Evolution    : Server Info Administration
-   PHP-Nuke Titanium : Server Info Administration
+   PHP-Nuke Platinum : Server Info Administration
    ============================================
    Copyright (c) 2005 by The Nuke-Evolution Team
-   Copyright (c) 2022 by The PHP-Nuke Titanium Group
+   Copyright (c) 2022 by The PHP-Nuke Platinum Group
 
    Filename      : functions.php
    Author(s)     : Ernest Allen Buffington, Technocrat
@@ -106,8 +106,8 @@ function evouserinfo_write_addon ($ext, $values) {
 
 function evouserinfo_load_addon ($name) {
     $content = '';
-    if(file_exists(NUKE_EVO_USERBLOCK_ADDONS.$name.'.php')){
-        include_once(NUKE_EVO_USERBLOCK_ADDONS.$name.'.php');
+    if(file_exists(NUKE_TITANIUM_USERBLOCK_ADDONS.$name.'.php')){
+        include_once(NUKE_TITANIUM_USERBLOCK_ADDONS.$name.'.php');
         if(defined('NO_EVO_USERBLOCK_ADMIN')) {
             return '';
         }

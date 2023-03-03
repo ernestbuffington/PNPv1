@@ -1,6 +1,6 @@
 <?php
 global $theme_name;
-echo "/* " . $theme_name . "/css/arcade_tables.php Fly Kit for PHP-Nuke Titanium - Design Themes On The Fly */\n";
+echo "/* " . $theme_name . "/css/arcade_tables.php Fly Kit for PHP-Nuke Platinum - Design Themes On The Fly */\n";
 echo "/* When we are done we will move this code to style.css */\n";
 
 global $screen_width, $screen_height, $bgcolor1, $bgcolor2, $bgcolor3, $bgcolor4;

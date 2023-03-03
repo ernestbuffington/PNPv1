@@ -9,7 +9,7 @@
 # the Free Software Foundation; either version 2 of the License.        #
 #########################################################################
 #########################################################################
-# PHP-Nuke Titanium : Enhanced PHP-Nuke Web Portal System               #
+# PHP-Nuke Platinum : Enhanced PHP-Nuke Titanium               #
 #########################################################################
 # [CHANGES]                                                             #
 # Table Header Module Fix by TheGhost               v1.0.0   01/30/2012 #

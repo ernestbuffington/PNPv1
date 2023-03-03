@@ -77,8 +77,8 @@ define('THEME_DOWNLOAD_LINK', $theme_download_link);
 global $portaladmin, $above_marquee_left, $above_marquee_right;
 $portaladmin = 3;
 echo "<!-- Setting MAIN ADMIN TO ".$portaladmin." in themes/".$theme_name."/theme.php -->\n";
-$above_marquee_left = '<span style="color:#b8a265"><strong>Welcome to PHP-Nuke Titanium, Please Enjoy Your Visit...</strong></span>';
-$above_marquee_right = '<span style="color:#b8a265"><strong>This is the Sponsor Tron for the PHP-Nuke Titanium Project...</strong></span>';
+$above_marquee_left = '<span style="color:#b8a265"><strong>Welcome to PHP-Nuke Platinum, Please Enjoy Your Visit...</strong></span>';
+$above_marquee_right = '<span style="color:#b8a265"><strong>This is the Sponsor Tron for the PHP-Nuke Platinum Project...</strong></span>';
 
 /*
     list($portaladminname, 
@@ -86,7 +86,7 @@ $above_marquee_right = '<span style="color:#b8a265"><strong>This is the Sponsor 
 				   $email) = $db->sql_ufetchrow("SELECT `username`,`user_avatar`, `user_email` FROM `nuke_users` WHERE `user_id`=$portaladmin", SQL_NUM);
 
 $eighty_six_it = '<div class="eightysixit1stline"><a href="https://www.86it.us" target="_blank" rel="noopener noreferrer">Programmers Making Connections. Coders Making a Difference.</a></div>';
-$my_welcome_message = '<div class="eightysixit2ndline"><a href="'.HTTPS.'"><font color="#FF9900" size="5">PHP-Nuke Titanium</font> </a><font align="absmiddle" color="#FF9900" size="1">(Desktop Version)</font></div>';
+$my_welcome_message = '<div class="eightysixit2ndline"><a href="'.HTTPS.'"><font color="#FF9900" size="5">PHP-Nuke Platinum</font> </a><font align="absmiddle" color="#FF9900" size="1">(Desktop Version)</font></div>';
 */
 
 $opacity = '0.9';

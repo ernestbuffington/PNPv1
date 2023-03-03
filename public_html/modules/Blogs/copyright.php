@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium v4.0.3 : Enhanced PHP-Nuke Web Portal System
+ PHP-Nuke Platinum v4.0.3 : Enhanced PHP-Nuke Titanium
  =======================================================================*/
 
 /************************************************************************/
@@ -41,7 +41,7 @@ $license = "GNU/GPL";
 $download_location = "http://www.86it.us";
 $module_version = "3.0.0";
 $release_date = "08/27/2019";
-$module_description = "PHP-Nuke Titanium Blog Module";
+$module_description = "PHP-Nuke Platinum Blog Module";
 
 show_copyright($author_name, $author_email, $author_homepage, $license, $download_location, $module_version, $module_description);
 ?>

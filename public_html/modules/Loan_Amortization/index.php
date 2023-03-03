@@ -1,6 +1,6 @@
 <?php
 /*======================================================================
-  PHP-Nuke Titanium v3.0.0 : Enhanced PHP-Nuke Web Portal System
+  PHP-Nuke Platinum v3.0.0 : Enhanced PHP-Nuke Titanium
  =======================================================================*/
 
 /***************************************************************************
@@ -152,7 +152,7 @@ echo '</style>';
  ****************/
    case 2:
    include("header.php"); 
-   $pagetitle = 'PHP-Nuke Titanium :: Loan Data Calculations';
+   $pagetitle = 'PHP-Nuke Platinum :: Loan Data Calculations';
    $title = 'Review Your Loan';
 
 
@@ -351,7 +351,7 @@ echo '</style>';
    case 3: 
    //include (PLATINUM_MODULES_DIR.$module_name.'/includes/LoanNdxScroll.php');
    include("header.php"); 
-   $pagetitle = 'PHP-Nuke Titanium :: Loan Calculator';
+   $pagetitle = 'PHP-Nuke Platinum :: Loan Calculator';
    $title = 'Thank You';
 
 echo '<style> ';
@@ -446,7 +446,7 @@ echo '</style>';
  **************************************************************************************************************************************************************/
    case 4:
    include("header.php"); 
-   $pagetitle = 'PHP-Nuke Titanium :: Loan Amortization';
+   $pagetitle = 'PHP-Nuke Platinum :: Loan Amortization';
    $title = 'Loan Schedule';
 
 echo '<style> ';

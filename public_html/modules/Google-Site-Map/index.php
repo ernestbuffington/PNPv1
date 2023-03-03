@@ -718,7 +718,7 @@ while ($row2 = $db->sql_fetchrow($result2)):
 				$ciduser=$row11['user_id'];
 				print '<tr><td></td><td><i style="vertical-align: middle;" 
 				class="fa fa-unlock-alt green"></i> <a 
-				href="modules.php?name=Profile&amp;mode=viewprofile&amp;u='.$ciduser.'">PHP-Nuke Titanium &#187; User Profile &#187; '.$user.'</a></td>';
+				href="modules.php?name=Profile&amp;mode=viewprofile&amp;u='.$ciduser.'">PHP-Nuke Platinum &#187; User Profile &#187; '.$user.'</a></td>';
 				if($xml):
                 $sitemap->addItem('/modules.php?name=Profile&mode=viewprofile&u='.$ciduser.'', '0.8', 'daily', 'Today');
                 endif;

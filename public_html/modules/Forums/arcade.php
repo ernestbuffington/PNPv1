@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /***************************************************************************
@@ -17,7 +17,7 @@
       Nuke Patched                             v3.1.0       09/20/2005
 -=[Mod]=-
       Advanced Username Color                  v1.0.5       09/20/2005
-	  PHP-Nuke Titanium Patched                v4.0.3       10/31/2022 
+	  PHP-Nuke Platinum Patched                v4.0.3       10/31/2022 
  ************************************************************************/
 
 if (!defined('MODULE_FILE')) {

@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /************************************************************************/
@@ -74,9 +74,9 @@ if(isset($has_echoed) && $has_echoed == 1) return;
 # powered by information and credits START
 global $powered_by, $ThemeSel;
 	
-$powered_by = '<font size="3">PHP-Nuke Titanium (US Version) Copyright &copy; 2010 2021<br /> by Ernest Allen Buffington and The 86it Developers Network.<br /> 
+$powered_by = '<font size="3">PHP-Nuke Platinum (US Version) Copyright &copy; 2010 2021<br /> by Ernest Allen Buffington and The 86it Developers Network.<br /> 
  All logos, trademarks and posts in this site are property of their respective owners, all the rest <br />&copy; '.date('l jS \of F Y h:i:s A').' by Brandon Maintenance Management, LLC.<br />
- Powered by PHP-Nuke Titanium v4.0.0b (US Version)<br /><br />
+ Powered by PHP-Nuke Platinum v4.0.0b (US Version)<br /><br />
  <strong>CREDITS</strong><br />
  PHP-Nuke Copyright &copy; 2006 by Francisco Burzi.<br /> 
  Bob Marion of NukeScripts.Net<br />  
@@ -117,7 +117,7 @@ endif;
 # PLAY FAIR AND SUPPORT THE DEVELOPERS, PLEASE!
 global $theme_business, $theme_title, $theme_author, $theme_date, $theme_name, $theme_download_link, $name; 
 if(($name) && $name === 'Forums'):
-$footmsg .= '<a class="poweredby" href="http://www.php-nuke-titanium.86it.us/" target="_blank">Forums Powered by phpBB Titanium v'.PHPBB_TITANIUM.'</a> | <a class="poweredby" href="https://www.phpbb.com/about/" target="_blank">phpBB v2.0.23 Core &copy; 2001 - 2022 phpBB Limited</a><br />';
+$footmsg .= '<a class="poweredby" href="http://www.platinum.coders.exchange/" target="_blank">Forums Powered by phpBB Titanium v'.PHPBB_TITANIUM.'</a> | <a class="poweredby" href="https://www.phpbb.com/about/" target="_blank">phpBB v2.0.23 Core &copy; 2001 - 2022 phpBB Limited</a><br />';
 endif;
 
 $footmsg .= '<a class="tooltip-html copyright" href="'.$theme_download_link.'" data-toggle="modal" data-target="'.$theme_download_link.'" title="'.$theme_title; 

@@ -1,6 +1,6 @@
 <?php 
 /*=======================================================================
- PHP-Nuke Titanium : Enhanced and Advanced Web Portal System
+ PHP-Nuke Platinum : Enhanced and Advanced Web Portal System
  ========================================================================
  (c) 2007 - 2008 by DarkForgeGFX - http://www.darkforgegfx.com
  ========================================================================
@@ -19,7 +19,7 @@
 -=[Base]=-
 -=[Mod]=-
  ************************************************************************/
-if(!defined('NUKE_EVO')) exit;
+if(!defined('NUKE_TITANIUM')) exit;
 
 global $prefix, $db, $sitename, $nukeurl;
 

@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium | Nuke-Evolution Basic : Enhanced and Advanced
+ PHP-Nuke Platinum | Nuke-Evolution Basic : Enhanced and Advanced
  =======================================================================*/
 
 /************************************************************************
@@ -17,7 +17,7 @@
                    about your website.
 ************************************************************************/
 
-if(!defined('NUKE_EVO')) {
+if(!defined('NUKE_TITANIUM')) {
     exit;
 }
 

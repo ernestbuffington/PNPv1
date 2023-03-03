@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /************************************************************************
@@ -208,7 +208,7 @@ function downloadTheme($theme)
 
 function theme_footer()
 {
-    echo "<div align='right'>&copy; <a href='http://php-nuke-titanium.86it.us/modules.php?name=Forums&file=viewforum&f=5' target='_blank'>Theme Management</a>&nbsp;&nbsp;</div>\n"; #OD #CD
+    echo "<div align='right'>&copy; <a href='http://platinum.coders.exchange/modules.php?name=Forums&file=viewforum&f=5' target='_blank'>Theme Management</a>&nbsp;&nbsp;</div>\n"; #OD #CD
 }
 
 function display_main()

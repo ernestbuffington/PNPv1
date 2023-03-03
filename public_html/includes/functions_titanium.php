@@ -1,15 +1,15 @@
 <?php
 /*=======================================================================
-PHP-Nuke Titnaium v3.0.0 : Enhanced PHP-Nuke Web Portal System
+PHP-Nuke Titnaium v3.0.0 : Enhanced PHP-Nuke Titanium
 =======================================================================*/
 
 /************************************************************************
 PHP-Nuke Titnaium : Evolution Functions
 ============================================
-Copyright (c) 2005 by The PHP-Nuke Titanium Team
+Copyright (c) 2005 by The PHP-Nuke Platinum Team
 
 Filename      : functions_titnaium.php
-Author        : The PHP-Nuke Titanium Team
+Author        : The PHP-Nuke Platinum Team
 Version       : 1.0.0
 Date          : 08.16.2019 (mm.dd.yyyy)
 

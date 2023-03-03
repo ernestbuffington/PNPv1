@@ -163,7 +163,7 @@ INSERT INTO `#prefix#_bbconfig` (`config_name`, `config_value`) VALUES
 ('ftr_who', '2'),
 ('ftr_installed', ''),
 ('global_title', 'www.your.domain.name'),
-('global_announcement', 'PHP-Nuke Titanium brings you a 23 year old CMS revived!'),
+('global_announcement', 'PHP-Nuke Platinum brings you a 23 year old CMS revived!'),
 ('global_enable', '1'),
 ('marquee_disable', '1'),
 ('version_check_delay', '1241641548'),

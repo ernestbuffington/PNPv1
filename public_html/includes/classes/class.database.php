@@ -1,12 +1,12 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /************************************************************************
-   PHP-Nuke Titanium: SQL Control System
+   PHP-Nuke Platinum: SQL Control System
    ============================================
-   Copyright (c) 2022 by The PHP-Nuke Titanium Group
+   Copyright (c) 2022 by The PHP-Nuke Platinum Group
   
    Filename      : class.database.php
    Author(s)     : Ernest Allen Buffington (www.theghost.86it.us)

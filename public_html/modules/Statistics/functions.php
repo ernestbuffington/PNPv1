@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium v4.0.3 : Enhanced PHP-Nuke Web Portal System
+ PHP-Nuke Platinum v4.0.3 : Enhanced PHP-Nuke Titanium
  =======================================================================*/
 
 /************************************************************************/
@@ -98,7 +98,7 @@ function Stats_Main() {
     [$snum] = $db->sql_ufetchrow('SELECT COUNT(*) FROM `'.$prefix.'_blogs`');
     [$cnum] = $db->sql_ufetchrow('SELECT COUNT(*) FROM `'.$prefix.'_blogs_comments`');
     [$subnum] = $db->sql_ufetchrow('SELECT COUNT(*) FROM `'.$prefix.'_blogs_queue`');
-    $evover = ucfirst((string) EVO_EDITION);
+    $evover = ucfirst((string) TITANIUM_EDITION);
     echo '<tr>
         <td colspan="3" class="cat"><div class="cattitle" align="center">'._MISCSTATS.'</div></td>
     </tr><tr align="left">
@@ -129,11 +129,11 @@ function Stats_Main() {
     </tr>';
 
     echo '<tr align="left">
-        <td class="row1" colspan="2"><span class="gen"><img src="modules/'.$module_name.'/images/sections.gif" alt="" />&nbsp;'._TITANIUMVER.'</span></td><td class="row3"><span class="gen">v'.NUKE_TITANIUM.'</span></td>
+        <td class="row1" colspan="2"><span class="gen"><img src="modules/'.$module_name.'/images/sections.gif" alt="" />&nbsp;'._PLATINUMVER.'</span></td><td class="row3"><span class="gen">v'.NUKE_PLATINUM.'</span></td>
     </tr>';
 
     echo '<tr align="left">
-        <td class="row1" colspan="2"><span class="gen"><img src="modules/'.$module_name.'/images/sections.gif" alt="" />&nbsp;'._TITANIUMFORUMVER.'</span></td><td class="row3"><span class="gen">v'.PHPBB_TITANIUM.'</span></td>
+        <td class="row1" colspan="2"><span class="gen"><img src="modules/'.$module_name.'/images/sections.gif" alt="" />&nbsp;'._PLATINUMFORUMVER.'</span></td><td class="row3"><span class="gen">v'.PHPBB_TITANIUM.'</span></td>
     </tr>';
 	
 	echo '</table>';

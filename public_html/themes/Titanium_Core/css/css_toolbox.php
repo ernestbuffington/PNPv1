@@ -1,6 +1,6 @@
 <?php
 global $theme_name; 
-echo "/* themes/".$theme_name."/css/css_toolbox.php Fly Kit for PHP-Nuke Titanium - Design Themes On The Fly */\n"; 
+echo "/* themes/".$theme_name."/css/css_toolbox.php Fly Kit for PHP-Nuke Platinum - Design Themes On The Fly */\n"; 
 echo "/* When we are done we will move this code to style.css */\n"; 
 ######################################################################################################
    //USE background-position: CENTER CENTER; to squuze top to bottom 

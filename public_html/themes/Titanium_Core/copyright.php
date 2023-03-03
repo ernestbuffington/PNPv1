@@ -13,7 +13,7 @@ echo '<br /><i class="bi bi-arrow-right-square-fill"></i> Copyright: <i class="f
 echo '<br /><i class="bi bi-arrow-right-square-fill"></i> Creation Date: '.THEME_DATE.''."\n";
 echo '<br /><i class="bi bi-arrow-right-square-fill"></i> Author: '.THEME_AUTHOR.''."\n";
 echo '<br /><i class="bi bi-arrow-right-square-fill"></i> License: GNU General Public License'."\n";
-echo '<br /><i class="bi bi-arrow-right-square-fill"></i> Core Support: PHP-Nuke Titanium v4.0.2 <> 4.x.x'."\n";
+echo '<br /><i class="bi bi-arrow-right-square-fill"></i> Core Support: PHP-Nuke Platinum v4.0.2 <> 4.x.x'."\n";
 echo '</h1>'."\n";
 echo '</div>'."\n";
 echo '<div class="modal-body">'."\n";

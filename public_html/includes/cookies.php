@@ -1,15 +1,15 @@
 <?php 
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /************************************************************************
-   PHP-Nuke Titanium: Cookie Functions
+   PHP-Nuke Platinum: Cookie Functions
    ============================================
    Copyright (c) 2022 by The Titanium Group
 
    Filename      : includes/cookies.php
-   Author        : Ernest Allen Buffington (www.php-nuke-titanium.86it.us)
+   Author        : Ernest Allen Buffington (www.platinum.coders.exchange)
    Version       : 4.0.3
    Date          : 12.28.2022 (mm.dd.yyyy)
 

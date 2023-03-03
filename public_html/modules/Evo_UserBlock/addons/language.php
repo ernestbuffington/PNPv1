@@ -1,14 +1,14 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium : Nuke-Evolution | Enhanced and Advnanced
+ PHP-Nuke Platinum : Nuke-Evolution | Enhanced and Advnanced
  =======================================================================*/
 
 /************************************************************************
    Nuke-Evolution    : Server Info Administration
-   PHP-Nuke Titanium : Server Info Administration
+   PHP-Nuke Platinum : Server Info Administration
    ============================================
    Copyright (c) 2005 by The Nuke-Evolution Team
-   Copyright (c) 2022 by The PHP-Nuke Titanium Group
+   Copyright (c) 2022 by The PHP-Nuke Platinum Group
 
    Filename      : avatar.php
    Author(s)     : Ernest Allen Buffington, Technocrat
@@ -19,7 +19,7 @@
    Notes         : Evo User Block Language Module
 ************************************************************************/
 
-if(!defined('NUKE_EVO')):
+if(!defined('NUKE_TITANIUM')):
   die("Illegal File Access");
 endif;
 

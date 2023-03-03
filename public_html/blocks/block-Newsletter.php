@@ -1,6 +1,6 @@
 <?php
 
-if(!defined('NUKE_EVO')) exit;
+if(!defined('NUKE_TITANIUM')) exit;
 
 global $db, $user_prefix, $userinfo;
 

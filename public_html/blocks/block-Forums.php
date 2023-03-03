@@ -1,6 +1,6 @@
 <?php
 
-if(!defined('NUKE_EVO')) 
+if(!defined('NUKE_TITANIUM')) 
 	exit;
 
 global $db, $block_title, $user_prefix, $prefix, $cache, $blockslang, $images, $board_config, $board_config, $userinfo;

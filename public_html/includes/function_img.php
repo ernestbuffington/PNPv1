@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
-            PHP-Nuke Titanium (CMS) Enhanced And Advanced
+            PHP-Nuke Platinum (CMS) Enhanced And Advanced
   =======================================================================*/
 if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
     exit('Access Denied');

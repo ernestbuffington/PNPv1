@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /************************************************************************/
@@ -363,12 +363,12 @@ function track_titanium_current_version()
 	 * Version checker json
 	 */
 	$version_refresh = get_query_var( 'check-version', 'get', 'string', false );
-	$version_check_cache = cache_json_data('https://php-nuke-titanium.86it.us/versions/titanium-version.json', dirname(__FILE__).'/version.cache', $version_refresh); 
+	$version_check_cache = cache_json_data('https://platinum.coders.exchange/versions/titanium-version.json', dirname(__FILE__).'/version.cache', $version_refresh); 
 
-	if($version_check_cache['version'] == NUKE_TITANIUM):
+	if($version_check_cache['version'] == NUKE_PLATINUM):
 
 		$version_desc = $admlang['admin']['version_is_current'];
-		$new_version_number = NUKE_TITANIUM;
+		$new_version_number = NUKE_PLATINUM;
 		$update_url = $admin_file.'.php?check-version=true';
 
 	else:
@@ -383,7 +383,7 @@ function track_titanium_current_version()
 	$return = '';
 
 	$return .= '  <tr>'."\n";
-	$return .= '    <td style="height:15px; font-size: 13px; width:65%;">PHP-Nuke Titanium '.$new_version_number.'&nbsp;&nbsp;<font size="1">'.$version_desc.'</font></td>'."\n";
+	$return .= '    <td style="height:15px; font-size: 13px; width:65%;">PHP-Nuke Platinum '.$new_version_number.'&nbsp;&nbsp;<font size="1">'.$version_desc.'</font></td>'."\n";
 	$return .= '    <td style="height:15px; font-size: 13px; width:25%; text-align:center;"><a href="'.$update_url.'">Check Version</a></td>'."\n";
 	$return .= '  </tr>'."\n";
 
@@ -409,7 +409,7 @@ function GraphicAdmin($pos=1)
 	echo '  <tr>';
 
 	/*
-    | START | LIVE NEWS FEED DIRECTLY FROM https://php-nuke-titanium.86it.us
+    | START | LIVE NEWS FEED DIRECTLY FROM https://platinum.coders.exchange
     */
 	global $domain;
 
@@ -425,7 +425,7 @@ function GraphicAdmin($pos=1)
 	echo '<table style="font-family: monospace !important; width: 100%;" border="0" cellpadding="3" cellspacing="1" class="livefeed">';
     
 	$agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36';
-    $curl = curl_init('https://php-nuke-titanium.86it.us/versions/feed.php');
+    $curl = curl_init('https://platinum.coders.exchange/versions/feed.php');
     curl_setopt($curl, CURLOPT_USERAGENT, $agent);
     curl_setopt($curl, CURLOPT_USERAGENT, $agent);
     curl_setopt($curl, CURLOPT_REFERER, 'https://'.$domain.'/');
@@ -448,14 +448,14 @@ function GraphicAdmin($pos=1)
     
 	echo '</td>';
     /*
-    | END | LIVE NEWS FEED DIRECTLY FROM https://php-nuke-titanium.86it.us
+    | END | LIVE NEWS FEED DIRECTLY FROM https://platinum.coders.exchange
     */
 	
 	/**
 	 * Retrieve the live news json feed
 	 */
 	$version_refresh = get_query_var( 'check-version', 'get', 'string', false );
-	$live_news_feed_cache = cache_json_data('https://php-nuke-titanium.86it.us/versions/titanium-live-feed.json', dirname(__FILE__).'/live-feed.cache', $version_refresh);
+	$live_news_feed_cache = cache_json_data('https://platinum.coders.exchange/versions/titanium-live-feed.json', dirname(__FILE__).'/live-feed.cache', $version_refresh);
 
 	echo '<td style="vertical-align: top; width: 36%;">';
 	echo '<table style="width: 100%;" border="0" cellpadding="3" cellspacing="1" class="forumline">';
@@ -728,14 +728,14 @@ function track_titanium_current_version_bs()
 	 * Version checker json
 	 */
 	$version_refresh = get_query_var( 'check-version', 'get', 'string', false );
-	$version_check_cache = cache_json_data('https://php-nuke-titanium.86it.us/versions/titanium-version.json', dirname(__FILE__).'/version.cache', $version_refresh); 
+	$version_check_cache = cache_json_data('https://platinum.coders.exchange/versions/titanium-version.json', dirname(__FILE__).'/version.cache', $version_refresh); 
 
-	if ( $version_check_cache['version'] == NUKE_TITANIUM):
+	if ( $version_check_cache['version'] == NUKE_PLATINUM):
 
 		$version_desc = $admlang['admin']['version_is_current'];
 		$class = 'bg-dark';
 		$update_available = false;
-		$new_version_number = NUKE_TITANIUM;
+		$new_version_number = NUKE_PLATINUM;
 		$update_url = $admin_file.'.php?check-version=true';
 
 	else:
@@ -743,7 +743,7 @@ function track_titanium_current_version_bs()
 		$version_desc = $admlang['admin']['version_is_out-of-date'];
 		$class = 'bg-warning';
 		$update_available = true;
-		$new_version_number = NUKE_TITANIUM;
+		$new_version_number = NUKE_PLATINUM;
 		$update_url = $version_check_cache['download'];
 
 	endif;
@@ -793,7 +793,7 @@ function administration_panel( $pos = 1 )
 				</h3>
 				<div class="feed-Bx">
 						
-					<?php $live_news_feed_cache = cache_json_data('https://php-nuke-titanium.86it.us//versions/titanium-live-feed.json', dirname(__FILE__).'/live-feed.cache', $refresh_feed); ?>
+					<?php $live_news_feed_cache = cache_json_data('https://platinum.coders.exchange//versions/titanium-live-feed.json', dirname(__FILE__).'/live-feed.cache', $refresh_feed); ?>
 					<table style="width: 100%;" border="0" cellpadding="3" cellspacing="1">                                             
 						<?php foreach( array_reverse($live_news_feed_cache) as $key => $value ): $color_title = ($value['color']) ? ' style="color:'.$value['color'].'"' : ''; ?>
 
@@ -852,7 +852,7 @@ function administration_panel( $pos = 1 )
 			<div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 admin-info-cubes">
 				<a href="<?php echo $versioncheck['update_url']; ?>">
 					<div class="small-box <?php echo $versioncheck['class'] ?>">
-						<h2 class="title"><?php echo $versioncheck['new_version_number'].' '.EVO_EDITION ?></h2>
+						<h2 class="title"><?php echo $versioncheck['new_version_number'].' '.TITANIUM_EDITION ?></h2>
 						<span class="desc"><?php echo $versioncheck['message']; ?></span>
 						<div class="icon">
 							<i class="fas fa-code-branch"></i>
@@ -937,7 +937,7 @@ function administration_panel( $pos = 1 )
             <!-- <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 admin-info-cubes">
                 <a href="<?php echo $versioncheck['update_url']; ?>">
                     <div class="small-box <?php echo $versioncheck['class'] ?>">
-                        <h2 class="title"><?php echo $versioncheck['new_version_number'].' '.EVO_EDITION ?></h2>
+                        <h2 class="title"><?php echo $versioncheck['new_version_number'].' '.TITANIUM_EDITION ?></h2>
                         <span class="desc"><?php echo $versioncheck['message']; ?></span>
                         <div class="icon">
                             <i class="fas fa-code-branch"></i>

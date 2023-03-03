@@ -10,12 +10,12 @@
 #---------------------------------------------------------------------------------------#
 # Designed By: Ernest Buffington                                                        #
 # Web Site: https://www.theghost.86it.us                                                #
-# Purpose: PHP-Nuke Titanium v4.0.2                                                     #
+# Purpose: PHP-Nuke Platinum v4.0.2                                                     #
 #---------------------------------------------------------------------------------------#
 # CMS INFO                                                                              #
 # PHP-Nuke Copyright (c) 2002    : Francisco Burzi phpnuke.org                          #
-# Nuke Evolution Xtreme (c) 2010 : Enhanced PHP-Nuke Web Portal System                  #
-# PHP-Nuke Titanium (c) 2022     : Enhanced and Advanced PHP-Nuke Web Portal System     #
+# Nuke Evolution Xtreme (c) 2010 : Enhanced PHP-Nuke Titanium                  #
+# PHP-Nuke Platinum (c) 2022     : Enhanced and Advanced PHP-Nuke Titanium     #
 #---------------------------------------------------------------------------------------#
 #                                                                                       #
 # Special Honorable Mentions                                                            #
@@ -96,7 +96,7 @@ print '<tr><td width="39" style="background: repeat-x; background-image: url('.H
 
 print '<img src="'.HTTPS.'themes/'.$theme_name.'/images/BLOG/top_left_corner.png" border="0" width="39" height="50"></td>'."\n";
 
-print '<td valign="top" align="center" style="background: repeat-x; background-image: url('.HTTPS.'themes/'.$theme_name.'/images/BLOG/top_middle_piece.png);"><br>PHP-Nuke Titanium (US Version)</td>'."\n";
+print '<td valign="top" align="center" style="background: repeat-x; background-image: url('.HTTPS.'themes/'.$theme_name.'/images/BLOG/top_middle_piece.png);"><br>PHP-Nuke Platinum (US Version)</td>'."\n";
 
 print '<td align="right" width="39">'."\n";
 

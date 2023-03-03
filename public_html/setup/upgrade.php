@@ -2,11 +2,11 @@
 
 /**
 *****************************************************************************************
-** PHP-Nuke Titanium v4.0.4 - Project Start Date 11/04/2022 Friday 4:09 am             **
+** PHP-Nuke Platinum v4.0.4 - Project Start Date 11/04/2022 Friday 4:09 am             **
 *****************************************************************************************
-** https://www.php-nuke-titanium.86it.us
+** https://www.platinum.coders.exchange
 ** https://github.com/ernestbuffington/PHP-Nuke.Titanium.Dev.4
-** https://www.php-nuke-titanium.86it.us/index.php (DEMO)
+** https://www.platinum.coders.exchange/index.php (DEMO)
 ** Apache License, Version 2.0. MIT license 
 ** Copyright (C) 2022
 ** Formerly Known As PHP-Nuke by Francisco Burzi <fburzi@gmail.com>
@@ -55,8 +55,8 @@ $sql = "SELECT * FROM ".$db_prefix."_config LIMIT 1;";
 
 $configquery = $db->sql_query($sql);
 
-if (!$configquery) die($sql."PHP-Nuke Titanium not correctly installed! Ensure you have run setup!!");
-if (!$row = $db->sql_fetchrow($configquery)) die("PHP-Nuke Titanium not correctly installed! Ensure you have run setup!!");
+if (!$configquery) die($sql."PHP-Nuke Platinum not correctly installed! Ensure you have run setup!!");
+if (!$row = $db->sql_fetchrow($configquery)) die("PHP-Nuke Platinum not correctly installed! Ensure you have run setup!!");
 $sitename = $row["sitename"];
 $siteurl = $row["siteurl"];
 $admin_email = $row["admin_email"];

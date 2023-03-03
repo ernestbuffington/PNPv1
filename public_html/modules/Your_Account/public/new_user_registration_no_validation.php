@@ -1,12 +1,12 @@
 <?php 
 /*======================================================================= 
-  PHP-Nuke Titanium : Enhanced and Advanced JOHN 3:16
+  PHP-Nuke Platinum : Enhanced and Advanced JOHN 3:16
  =======================================================================*/
 
 /*======================================================================= 
   This is a re-write of new_user3.php from CNB Your Account
   Copyright (c) 2022 by Brandon Maintenance Management LLC
-  PHP-Nuke Titanium https://www.php-nuke-titanium.86it.us/
+  PHP-Nuke Platinum https://www.platinum.coders.exchange/
   Contact Author: ernest.buffington@gmail.com
   
   Thank you Bob Marion, menelaos61, and Escudero for the concept and ideas!

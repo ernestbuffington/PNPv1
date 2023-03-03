@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
  
 /***********************************************************************
@@ -49,7 +49,7 @@
       Who viewed a topic                       v1.0.3
  ************************************************************************/
 
-if (!defined('IN_PHPBB') && !defined('NUKE_EVO')):
+if (!defined('IN_PHPBB') && !defined('NUKE_TITANIUM')):
  die('Hacking attempt');
 endif;
 
@@ -197,7 +197,7 @@ define_once('AUTH_GLOBALANNOUNCE', 12);
 define_once('HIDDEN_CAT', 0); // NOTE: change this value to the forum id, of the forum, that you would like to be hidden
 # Mod: Global Announcements v1.2.8 END
 
-# PHP-Nuke Titanium/Evolution Core Tables
+# PHP-Nuke Platinum/Evolution Core Tables
 define_once('_AUTHOR_TABLE', $prefix.'_authors');
 define_once('_AUTONEWS_TABLE', $prefix.'_blogs_autoblog');
 define_once('_BLOCKS_TABLE', $prefix.'_blocks');

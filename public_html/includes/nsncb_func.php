@@ -23,7 +23,7 @@
       Caching System                           v1.0.0       10/29/2005
  ************************************************************************/
 
-if(!defined('NUKE_EVO')) {
+if(!defined('NUKE_TITANIUM')) {
    die ("Illegal File Access");
 }
 

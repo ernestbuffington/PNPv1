@@ -45,10 +45,10 @@ function _file_repository_comments()
 			echo '  <tr'._bgColor(1).'>'."\n";	
 			echo '    <td'._tdcss('50%','right',_sc()).'>'._sut($lang_new[$module_name]['SECURITY_CODE']).'</td>'."\n";
 			echo '    <td'._tdcss('50%',false,_sc(),(($screenshots['count'] == 0) ? 1 : 2)).'>'."\n";
-		 	echo (!defined('NUKE_EVO')) ? '<img style="border: 1px solid black;" src="images/captcha.php?size=small&file='.$settings['captcha'].'" border="0" alt="" />' : security_code(array(2,4,5,7), 'normal', '0.95')."\n";
+		 	echo (!defined('NUKE_TITANIUM')) ? '<img style="border: 1px solid black;" src="images/captcha.php?size=small&file='.$settings['captcha'].'" border="0" alt="" />' : security_code(array(2,4,5,7), 'normal', '0.95')."\n";
 			echo '</td>'."\n";
 			echo '  </tr>'."\n";
-			if (!defined('NUKE_EVO')) {
+			if (!defined('NUKE_TITANIUM')) {
 				echo '  <tr'._bgColor(1).'>'."\n";	
 				echo '    <td'._tdcss('50%','right',_sc()).'>'._sut($lang_new[$module_name]['SECURITY_TYPE']).'</td>'."\n";
 				echo '    <td'._tdcss('50%',false,_sc(),(($screenshots['count'] == 0) ? 1 : 2)).'>'._input('text','gfx_check','100px','',false,false,true).'</td>'."\n";
@@ -101,7 +101,7 @@ function _file_repository_save_my_comment()
 	$did      	= (!empty($_POST['did'])) ? intval($_POST['did']) : '';
 	$iteminfo 	= _collect_iteminfo($did);
 	$rating   	= (!empty($_POST['rating'])) ? intval($_POST['rating']) : '0';
-	$gfxcheck 	= (!defined('NUKE_EVO')) ? security_code_check($_POST['gfx_check'],array(2,4,5,7)) : security_code_check($_POST['g-recaptcha-response'], array(2,4,5,7));
+	$gfxcheck 	= (!defined('NUKE_TITANIUM')) ? security_code_check($_POST['gfx_check'],array(2,4,5,7)) : security_code_check($_POST['g-recaptcha-response'], array(2,4,5,7));
 	if (!$gfxcheck && _check_users_permissions($iteminfo['groups']) == true && $settings['usegfxcheck'] == true) 
 	{
 		OpenTable();

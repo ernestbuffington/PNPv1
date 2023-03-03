@@ -1,7 +1,7 @@
 <?php
 
 /*=======================================================================
- PHP-Nuke Titanium : Enhanced and Advanced PHP-Nuke Web Portal System
+ PHP-Nuke Platinum : Enhanced and Advanced PHP-Nuke Titanium
  =======================================================================*/
 
 /************************************************************************/
@@ -22,7 +22,7 @@ if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
 
 /*----[ Welcome! ] ---------------------------------------
 |                                                         |
-| Welcome to PHP-Nuke Titanium, an advanced content       |
+| Welcome to PHP-Nuke Platinum, an advanced content       |
 | management system based on PHP-Nuke                     |
 |                                                         |
 ---------------------------------------------------------*/
@@ -72,14 +72,14 @@ $dbtype = '%dbtype%';
 
 /*----[ $prefix ] ----------------------------------------
 |                                                         |
-| The prefix for your PHP-Nuke Titanium tables            |
+| The prefix for your PHP-Nuke Platinum tables            |
 |                                                         |
 ---------------------------------------------------------*/
 $prefix = '%prefix%';
 
 /*----[ $user_prefix ] -----------------------------------
 |                                                         |
-| The prefix for your PHP-Nuke Titanium tables            |
+| The prefix for your PHP-Nuke Platinum tables            |
 | Do not change this unless it is really needed           |
 |                                                         |
 ---------------------------------------------------------*/
@@ -175,7 +175,7 @@ $persistency = false;
 /* your new site.                                                     */
 /*                                                                    */
 /* Congratulations! Now you have the webs best portal installed!      */
-/* Thanks for choosing PHP-Nuke Titanium, we hope you enjoy using it! */
+/* Thanks for choosing PHP-Nuke Platinum, we hope you enjoy using it! */
 /*                                                                    */
 /**********************************************************************/
 

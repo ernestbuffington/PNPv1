@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 
@@ -38,7 +38,7 @@
 	  Country Flags                            v2.0.7       08/30/2005
  ************************************************************************/
 
-if (!defined('NUKE_EVO')) exit;
+if (!defined('NUKE_TITANIUM')) exit;
 
 $module_name = basename(dirname(__FILE__));
 require(NUKE_FORUMS_DIR.'nukebb.php');

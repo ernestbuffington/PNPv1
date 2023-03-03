@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 
@@ -105,7 +105,7 @@ echo '<tr><td bgcolor="'.$bgcolor2.'">'.help_img(_AB_HELP_016).' '._AB_EMAILLOOK
 $hostname = gethostbyaddr($_SERVER['SERVER_ADDR']);
 $hostname = exec('hostname');
 $targetEmail = 'ernest.buffington@gmail.com';
-$subject = 'This is a Test e-mail from ADMIN Blocker Settings in PHP-Nuke Titanium v'.NUKE_TITANIUM.'!';
+$subject = 'This is a Test e-mail from ADMIN Blocker Settings in PHP-Nuke Platinum v'.NUKE_PLATINUM.'!';
 $message = 'Sent From Server: '.$hostname.' This message was sent by NukeSentinel v2.6.0.9~!';
 $mailtest = mail($targetEmail, $subject, $message);
 

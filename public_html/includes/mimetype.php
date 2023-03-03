@@ -1,16 +1,16 @@
 <?php
 /*=======================================================================
-            PHP-Nuke Titanium (CMS) Enhanced And Advanced
+            PHP-Nuke Platinum (CMS) Enhanced And Advanced
  ========================================================================
 
  /*****[CHANGES]**********************************************************
   The Nuke-Evo Base Engine : v2.1.0 RC3 dated May 4th, 2009 is what we
   used to build our new content management system. 
    
-  This file was re-written for PHP-Nuke Titanium and all modifications
+  This file was re-written for PHP-Nuke Platinum and all modifications
   were done by Ernest Allen Buffington of Sebastian Enterprises.
   
-  PHP-Nuke Titanium is written for Social Networking and uses a centralized 
+  PHP-Nuke Platinum is written for Social Networking and uses a centralized 
   database that is chained to The Scorpion Network & The 86it Social Network
 
   It is not intended for single user platforms and has the requirement of
@@ -27,13 +27,13 @@
   say thge least. 
   
   The core engine from Nuke Evolution was used to create 
-  PHP-Nuke Titanium. Almost all versions of PHP-Nuke were unstable and not 
+  PHP-Nuke Platinum. Almost all versions of PHP-Nuke were unstable and not 
   very secure. We have made it so that it is enhanced and advanced!
   
-  PHP-Nuke Titanium is now a secure custom FORK of the ORIGINAL PHP-Nuke
+  PHP-Nuke Platinum is now a secure custom FORK of the ORIGINAL PHP-Nuke
   that was purchased by Ernest Buffington of Sebastian Enterprises.
   
-  PHP-Nuke Titanium is not backward compatible to any of the prior versions of
+  PHP-Nuke Platinum is not backward compatible to any of the prior versions of
   PHP-Nuke, Nuke-Evoltion or Nuke-Evo.
   
   The module framework of PHP-Nuke is the only thing that still functions 

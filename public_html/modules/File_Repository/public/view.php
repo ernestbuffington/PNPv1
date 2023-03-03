@@ -117,7 +117,7 @@ function _view_downloadinfo()
 				echo '  <tr'._bgColor(1).'>'."\n";	
 				echo '    <td'._tdcss(false,'right',_sc(),1).'>'._sut($lang_new[$module_name]['SECURITY_CODE']).'</td>'."\n";
 
-				if (!defined('NUKE_EVO'))
+				if (!defined('NUKE_TITANIUM'))
 				{
 					echo '    <td'._tdcss(false,false,_sc(),(($screenshots['count'] == 0) ? 1 : 2)).'><img style="border: 1px solid black;" src="images/captcha.php?size=small&file='.$settings['captcha'].'" border="0" alt="" /></td>'."\n";
 					echo '  </tr>'."\n";
@@ -227,7 +227,7 @@ function _view_the_mutiple_files()
 	global $db, $lang_new, $module_name, $settings, $admin;
 	$did = _escape_string($_GET['did']);
 	$iteminfo 	 = _collect_iteminfo($did);
-	$gfxcheck 	 = (!defined('NUKE_EVO')) ? security_code_check($_POST['gfx_check'],array(2,4,5,7)) : security_code_check($_POST['g-recaptcha-response'],array(0,1,2,3,4,5,6,7));
+	$gfxcheck 	 = (!defined('NUKE_TITANIUM')) ? security_code_check($_POST['gfx_check'],array(2,4,5,7)) : security_code_check($_POST['g-recaptcha-response'],array(0,1,2,3,4,5,6,7));
 	$adminBypass = ($settings['adminBypass'] == true && is_admin($admin)) ? false : true;
 	OpenTable();
 	_index_navigation_header();
@@ -287,7 +287,7 @@ function _retrieve_files()
 	global $db, $lang_new, $module_name, $settings, $do_gzip_compress, $admin;
 	$fid 		= _escape_string($_GET['fid']);
 	$iteminfo 	= _collect_iteminfo($fid,true);
-	// $gfxcheck 	= (!defined('NUKE_EVO')) ? security_code_check($_POST['gfx_check'],array(2,4,5,7)) : security_code_check($_POST['g-recaptcha-response'],array(2,4,5,7));
+	// $gfxcheck 	= (!defined('NUKE_TITANIUM')) ? security_code_check($_POST['gfx_check'],array(2,4,5,7)) : security_code_check($_POST['g-recaptcha-response'],array(2,4,5,7));
 	$adminBypass = ($settings['adminBypass'] == true && is_admin($admin)) ? false : true;
 
 	if (!security_code_check($_POST['g-recaptcha-response'],array(0,1,2,3,4,5,6,7)) && _check_users_permissions($iteminfo['groups']) == true && $settings['usegfxcheck'] == true && !isset($_COOKIE['gfx_code-'.$iteminfo['did']]) && $adminBypass && get_evo_option('recap_site_key') && get_evo_option('recap_priv_key'))

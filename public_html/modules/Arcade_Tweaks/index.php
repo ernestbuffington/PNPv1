@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
- Nuke-Evolution Basic: Enhanced PHP-Nuke Web Portal System
+ Nuke-Evolution Basic: Enhanced PHP-Nuke Titanium
  =======================================================================*/
 
 /**
@@ -708,7 +708,7 @@ function setCheckboxes(do_check)
 
 <?php
 /*=======================================================================
- Nuke-Evolution Basic: Enhanced PHP-Nuke Web Portal System
+ Nuke-Evolution Basic: Enhanced PHP-Nuke Titanium
  =======================================================================*/
     menu();
     OpenTable();
@@ -1120,7 +1120,7 @@ function setCheckboxes(do_check)
 </script>
 <?php
 /*=======================================================================
- Nuke-Evolution Basic: Enhanced PHP-Nuke Web Portal System
+ Nuke-Evolution Basic: Enhanced PHP-Nuke Titanium
  =======================================================================*/
         $catid = intval($catid);
         $sql = "SELECT * FROM " . $prefix . "_bbgames WHERE arcade_catid=$catid ORDER BY `game_name`";

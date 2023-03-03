@@ -79,8 +79,8 @@ define('THEME_DOWNLOAD_LINK', $theme_download_link);
 # your admin id - this will normally be 2 Set this to the MAIN ADMIN NUMBER
 global $portaladmin, $above_marquee_left, $above_marquee_right;
 echo "<!-- Setting MAIN ADMIN TO ".$portaladmin." in themes/".$theme_name."/theme.php -->\n";
-$above_marquee_left = '<span style="color:#b8a265"><strong>Welcome to PHP-Nuke Titanium, Please Enjoy Your Visit...</strong></span>';
-$above_marquee_right = '<span style="color:#b8a265"><strong>This is the Sponsor Tron for the PHP-Nuke Titanium Project...</strong></span>';
+$above_marquee_left = '<span style="color:#b8a265"><strong>Welcome to PHP-Nuke Platinum, Please Enjoy Your Visit...</strong></span>';
+$above_marquee_right = '<span style="color:#b8a265"><strong>This is the Sponsor Tron for the PHP-Nuke Platinum Project...</strong></span>';
 
 $opacity = '0.9';
 echo "<!-- Setting Main Opacity to ".$opacity." in themes/".$theme_name."/theme.php -->\n";

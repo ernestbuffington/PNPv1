@@ -176,22 +176,22 @@ function _file_repository_configuration()
 //---------------------------------------------------------------------
 //	THEME SETTINGS
 //---------------------------------------------------------------------
-	if(!defined('NUKE_EVO') && $settings['download_view'] == 1)
+	if(!defined('NUKE_TITANIUM') && $settings['download_view'] == 1)
 	{
 		$alternateWidth = '20%';
 		$colspan 		= false;
 	}
-	elseif(!defined('NUKE_EVO') && $settings['download_view'] == 0)
+	elseif(!defined('NUKE_TITANIUM') && $settings['download_view'] == 0)
 	{
 		$alternateWidth = false;
 		$colspan 		= 2;
 	}
-	elseif(defined('NUKE_EVO') && $settings['download_view'] == 1)
+	elseif(defined('NUKE_TITANIUM') && $settings['download_view'] == 1)
 	{
 		$alternateWidth = '25%';
 		$colspan 		= false;
 	}
-	elseif(defined('NUKE_EVO') && $settings['download_view'] == 0)
+	elseif(defined('NUKE_TITANIUM') && $settings['download_view'] == 0)
 	{
 		$alternateWidth = false;
 		$colspan 		= 2;
@@ -208,7 +208,7 @@ function _file_repository_configuration()
 //---------------------------------------------------------------------
 //	HIDE THIS OPTION IN EVOLUTION NUKE, AS IT CANT BE USED
 //---------------------------------------------------------------------
-	if(!defined('NUKE_EVO'))
+	if(!defined('NUKE_TITANIUM'))
 		echo '          <td'._tdcss($alternateWidth,false,_sh()).'>'._suh($lang_new[$module_name]['THEME_BLOCKS_SHOW']).'</td>'."\n";
 //---------------------------------------------------------------------
 	echo '          <td'._tdcss($alternateWidth,false,_sh($settings['download_view'])).'>'._suh($lang_new[$module_name]['THEME_FILES']).'</td>'."\n";
@@ -251,7 +251,7 @@ function _file_repository_configuration()
 //---------------------------------------------------------------------
 //	HIDE THIS OPTION IN EVOLUTION NUKE, AS IT CANT BE USED
 //---------------------------------------------------------------------
-			if(!defined('NUKE_EVO')) 
+			if(!defined('NUKE_TITANIUM')) 
 				echo '    <td'._tdcss($alternateWidth,false,_sc()).'>'._selectbox('show_left'.$i,array('1' => $lang_new[$module_name]['SHOWN'], '0' => $lang_new[$module_name]['HIDDEN']),$row['show_left']).'</td>'."\n";
 //---------------------------------------------------------------------
 			echo '    <td'._tdcss($alternateWidth,false,_sc($settings['download_view'])).'>'._selectbox('per_row'.$i,array('1' => '1', '2' => '2', '3' => '3'),$row['per_row']).'</td>'."\n";

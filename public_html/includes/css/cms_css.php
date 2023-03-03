@@ -1,5 +1,5 @@
 <?php
-echo "/* includes/css/cms_css.php Fly Kit for PHP-Nuke Titanium - Design Themes On The Fly */\n"; 
+echo "/* includes/css/cms_css.php Fly Kit for PHP-Nuke Platinum - Design Themes On The Fly */\n"; 
 echo "/* When we are done we will move this code to style.css */\n";
 global $ThemeSel, $br, $fieldset_color, $fieldset_border_width, $digits_color, $poweredby_color, $poweredby_hover_color;
 $br = '<div align="center" style="padding-top:2px;"></div>';

@@ -1,12 +1,12 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium v3.0.0 : Enhanced PHP-Nuke Web Portal System
+ PHP-Nuke Platinum v3.0.0 : Enhanced PHP-Nuke Titanium
  =======================================================================*/
  
 /************************************************************************
-   PHP-Nuke Titanium v3.0.0
+   PHP-Nuke Platinum v3.0.0
    ======================================================================
-   Copyright (c) 2019 by The PHP-Nuke Titanium Team
+   Copyright (c) 2019 by The PHP-Nuke Platinum Team
   
    Filename      : block-Titanium_Last_Seen.php
    Author        : Ernest Buffington / lonestar 
@@ -17,7 +17,7 @@
    Notes         : Simple block to allow people to see who was last seen 
                  : on the website.
 ************************************************************************/
-defined('NUKE_EVO') or die('Just go away, Shit Head!');
+defined('NUKE_TITANIUM') or die('Just go away, Shit Head!');
 
 global $db, $prefix, $userinfo;
 global $evouserinfo_avatar, $board_config, $userinfo; 

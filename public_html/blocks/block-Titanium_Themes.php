@@ -1,12 +1,12 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium v3.0.0 : Enhanced PHP-Nuke Web Portal System
+ PHP-Nuke Platinum v3.0.0 : Enhanced PHP-Nuke Titanium
  =======================================================================*/
  
 /************************************************************************
-   PHP-Nuke Titanium v3.0.0
+   PHP-Nuke Platinum v3.0.0
    ======================================================================
-   Copyright (c) 2019 by The PHP-Nuke Titanium Team
+   Copyright (c) 2019 by The PHP-Nuke Platinum Team
   
    Filename      : block-Titanium_Themes.php
    Author        : Ernest Buffington / JeFFb68CAM 
@@ -16,7 +16,7 @@
                                                                         
    Notes         : Simple block to allow theme selection from homepage
 ************************************************************************/
-if(!defined('NUKE_TITANIUM')) 
+if(!defined('NUKE_PLATINUM')) 
 exit;
 
 global $module_name, $userinfo;

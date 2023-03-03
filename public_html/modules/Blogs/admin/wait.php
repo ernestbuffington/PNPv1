@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium v3.0.0 : Enhanced PHP-Nuke Web Portal System
+ PHP-Nuke Platinum v3.0.0 : Enhanced PHP-Nuke Titanium
  =======================================================================*/
 
 /************************************************************************/
@@ -30,7 +30,7 @@
       Display Writes                           v1.0.0       10/14/2005
 	  Titanium Patched                         v3.0.0       08/26/2019
  ************************************************************************/
-if(!defined('NUKE_EVO')) exit;
+if(!defined('NUKE_TITANIUM')) exit;
 
 global $admin_file, $db, $prefix, $cache;
 

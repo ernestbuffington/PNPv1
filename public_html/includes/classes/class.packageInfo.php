@@ -16,7 +16,7 @@ namespace titanium\fileLogger {
                 'gehaxelt' => array(
                     'github' => 'https://github.com/ernestbuffington/PHP-Nuke.Titanium.Dev.4',
                     'email' => 'ernest.buffington@gmail.com',
-                    'site' => 'https://www.php-nuke-titanium.86it.us'
+                    'site' => 'https://www.platinum.coders.exchange'
                 ),
                 
                 'pedzed' => array(

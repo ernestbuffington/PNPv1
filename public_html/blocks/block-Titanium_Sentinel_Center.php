@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium : Enhanced and Advanced Web Portal System 
+ PHP-Nuke Platinum : Enhanced and Advanced Web Portal System 
  =======================================================================*/
 
 /********************************************************/
@@ -10,7 +10,7 @@
 /* See CREDITS.txt for ALL contributors                 */
 /********************************************************/
 
-if(!defined('NUKE_EVO')) exit;
+if(!defined('NUKE_TITANIUM')) exit;
 
 global $db, $prefix, $ab_config, $currentlang, $cache;
 

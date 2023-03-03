@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /***************************************************************************
@@ -44,7 +44,7 @@
       12/12/2022 10:51 am Ernest Allen Buffington      	  
  ************************************************************************/
 
-if (!defined('IN_PHPBB') && !defined('NUKE_EVO'))
+if (!defined('IN_PHPBB') && !defined('NUKE_TITANIUM'))
 {
     die('Hacking attempt');
 }

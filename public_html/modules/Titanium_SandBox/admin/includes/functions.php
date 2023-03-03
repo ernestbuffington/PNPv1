@@ -1,10 +1,10 @@
 <?php
 
 /*=======================================================================
-  PHP-Nuke Titanium : Enhanced PHP-Nuke Web Portal System
+  PHP-Nuke Platinum : Enhanced PHP-Nuke Titanium
  =======================================================================*/
 /************************************************************************
-  PHP-Nuke Titanium : Advanced Installer
+  PHP-Nuke Platinum : Advanced Installer
   ============================================
   Copyright (c) 2010 by The 86it Developers Network
 
@@ -17,7 +17,7 @@
 
   Notes              : You may NOT use this installer for your own
                        needs or script. It is written specifically
-                       for PHP-Nuke Titanium
+                       for PHP-Nuke Platinum
 ************************************************************************/
 if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
     exit('Access Denied');

@@ -110,7 +110,7 @@ class="blink-one">Opera Rocks!</span> ::: This browser is hauling ass and about 
 
 $scrollmsg .= ' Ezekiel 25,17. "The path of the righteous man is beset of all sides by the iniquities of the selfish and the tyranny of evil men. Blessed is he who, in the name of the charity and goodwill, shepherds the weak through the valley of darkness, for he is truly his brother’s keeper and the finder of lost children. And I will strike down upon thee with great vengeance and furious anger those who attempt to poison and destroy my brothers. And you will know my name is the Lord when I lay my vengeance upon thee.” ::: ';
 
-$scrollmsg .= 'The current Beta release of PHP-Nuke Titanium is v'.NUKE_TITANIUM.' and we are running on PHP v'.PHPVERS.' ::: ';
+$scrollmsg .= 'The current Beta release of PHP-Nuke Platinum is v'.NUKE_PLATINUM.' and we are running on PHP v'.PHPVERS.' ::: ';
 
 //$detect = new Mobile_Detect;
 $detect = new \Detection\MobileDetect;
@@ -236,9 +236,9 @@ echo '</td>'.PHP_EOL;
 echo '<td align="center" class="bannerRightSide" height="auto" width="33.3%"><div align="right">'.network_ads(0).'</div>'.PHP_EOL;
 echo '</td>'.PHP_EOL;
 
-echo '<tr><td style="height: 23px !important; width: 33.3%;"><div class="above_marquee_one" align="center">PHP-Nuke Titanium v'.NUKE_TITANIUM.' / PHP v'.PHPVERS.'</div></td>'.PHP_EOL;
+echo '<tr><td style="height: 23px !important; width: 33.3%;"><div class="above_marquee_one" align="center">PHP-Nuke Platinum v'.NUKE_PLATINUM.' / PHP v'.PHPVERS.'</div></td>'.PHP_EOL;
 echo '<td style="height: 23px !important; width: 33.3%;"><div align="center"></div></td>'.PHP_EOL;
-echo '<td style="height: 23px !important; width: 33.3%;"><div class="above_marquee_two" align="center">Sponsor Tron for PHP-Nuke Titanium</div></td></tr>'.PHP_EOL;
+echo '<td style="height: 23px !important; width: 33.3%;"><div class="above_marquee_two" align="center">Sponsor Tron for PHP-Nuke Platinum</div></td></tr>'.PHP_EOL;
 
 # marquees for left and right side
 echo '<tr><td style="height: 23px !important; width: 33.3%;"><div align="center" class="marquee_one">'.$marquee_one.'</div></td>'.PHP_EOL;

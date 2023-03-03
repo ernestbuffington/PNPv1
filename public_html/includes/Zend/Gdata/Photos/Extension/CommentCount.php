@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Zend Framework Modified for PHP-Nuke Titanium
+ * Zend Framework Modified for PHP-Nuke Platinum
  *
  * LICENSE
  *
@@ -13,7 +13,7 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend for PHP-Nuke Titanium
+ * @category   Zend for PHP-Nuke Platinum
  * @package    Zend_Gdata
  * @subpackage Photos
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
@@ -36,7 +36,7 @@ require_once NUKE_ZEND_DIR.'Gdata/Photos.php';
  * class represents the number of comments attached to an entry and is usually contained
  * within an instance of Zend_Gdata_Photos_PhotoEntry or AlbumEntry.
  *
- * @category   Zend for PHP-Nuke Titanium
+ * @category   Zend for PHP-Nuke Platinum
  * @package    Zend_Gdata
  * @subpackage Photos
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)

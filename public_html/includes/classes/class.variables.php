@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium | Nuke-Evolution Basic : Enhanced and Advanced
+ PHP-Nuke Platinum | Nuke-Evolution Basic : Enhanced and Advanced
  =======================================================================*/
 
 /**
@@ -17,7 +17,7 @@
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  */
 
-defined('NUKE_EVO') || die('Direct access is not allowed');
+defined('NUKE_TITANIUM') || die('Direct access is not allowed');
 
 # Valid domains
 define('REGEXP_TLD', '/(\.AC

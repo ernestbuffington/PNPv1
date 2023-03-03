@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 
@@ -1246,7 +1246,7 @@ function evo_mail($to, $subject, $content, $header='', $params='', $batch=false)
 function evo_mail_batch($array_recipients)
 {
     if (!is_array($array_recipients)) return '';
-	$recipients = (new Swift_Message('PHP-Nuke Titanium'));
+	$recipients = (new Swift_Message('PHP-Nuke Platinum'));
     foreach ($array_recipients as $username => $email){
         $recipients->addTo($email, $username);
     }

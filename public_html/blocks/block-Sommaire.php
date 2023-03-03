@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 
@@ -31,7 +31,7 @@
       Module Simplifications                   v1.0.0       11/17/2005
  ************************************************************************/
 
-if(!defined('NUKE_EVO')) exit;
+if(!defined('NUKE_TITANIUM')) exit;
 
 global $db, $admin, $user, $prefix, $user_prefix, $cookie, $def_module, $currentlang, $cookie, $cache;
 

@@ -56,7 +56,7 @@ LI.list1     { list-style: square inside; color: #FED192; }
     <td style="height: 30px; width: 500px;">
      <ul>
       <li class="list1"><strong><font class="small">COPYRIGHT</font></strong>:&nbsp;<font class="textcontent">Php-Nuke &copy; 2002 F.Burzi</font></li>
-      <li class="list1"><strong><font class="small">POWERED BY</font></strong>:&nbsp;<font class="textcontent"><a href="https://www.php-nuke-titanium.86it.us/" target="_blank">(US) PHP-Nuke Titanium CMS Software</a></font></li>
+      <li class="list1"><strong><font class="small">POWERED BY</font></strong>:&nbsp;<font class="textcontent"><a href="https://www.platinum.coders.exchange/" target="_blank">(US) PHP-Nuke Platinum CMS Software</a></font></li>
      </ul>
     </td>
  </tr>

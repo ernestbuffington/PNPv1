@@ -13,12 +13,12 @@
 #---------------------------------------------------------------------------------------#
 # Designed By: Ernest Buffington                                                        #
 # Web Site: https://www.theghost.86it.us                                                #
-# Purpose: PHP-Nuke Titanium v4.0.2                                                     #
+# Purpose: PHP-Nuke Platinum v4.0.2                                                     #
 #---------------------------------------------------------------------------------------#
 # CMS INFO                                                                              #
 # PHP-Nuke Copyright (c) 2002    : Francisco Burzi phpnuke.org                          #
-# Nuke Evolution Xtreme (c) 2010 : Enhanced PHP-Nuke Web Portal System                  #
-# PHP-Nuke Titanium (c) 2022     : Enhanced and Advanced PHP-Nuke Web Portal System     #
+# Nuke Evolution Xtreme (c) 2010 : Enhanced PHP-Nuke Titanium                  #
+# PHP-Nuke Platinum (c) 2022     : Enhanced and Advanced PHP-Nuke Titanium     #
 #---------------------------------------------------------------------------------------#
 #                                                                                       #
 # Special Honorable Mentions                                                            #

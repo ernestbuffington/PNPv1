@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium : Enhanced and Advanced
+ PHP-Nuke Platinum : Enhanced and Advanced
  =======================================================================*/
 
 define_once("_MENU_NEWPM","New Private Messages !!");

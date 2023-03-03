@@ -1,6 +1,6 @@
 <?php
 /* -- -----------------------------------------------------------
- * PHP-Nuke Titanium : Enhanced and Advanced
+ * PHP-Nuke Platinum : Enhanced and Advanced
  * -- -----------------------------------------------------------
  *
  * >> Database
@@ -23,7 +23,7 @@
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
  */
-if (!defined('NUKE_EVO') || isset($_REQUEST['dbtype'])) 
+if (!defined('NUKE_TITANIUM') || isset($_REQUEST['dbtype'])) 
 die('Quit trying to hack my website!');
 $dbtype = 'mysqli';
 $dbtype = strtolower($dbtype);

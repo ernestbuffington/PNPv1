@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /***************************************************************************
@@ -1038,10 +1038,10 @@ $sql = "SELECT VERSION() AS mysql_version";
     $errno = 0;
     $errstr = $version_info = '';
 
-    if ($fsock = fsockopen('www.php-nuke-titanium.86it.us', 80, $errno, $errstr, 10))  
+    if ($fsock = fsockopen('www.platinum.coders.exchange', 80, $errno, $errstr, 10))  
     {
         fputs($fsock, "GET /versions/20x.txt HTTP/1.1\r\n");
-        fputs($fsock, "HOST: www.php-nuke-titanium.86it.us\r\n");
+        fputs($fsock, "HOST: www.platinum.coders.exchange\r\n");
         fputs($fsock, "Connection: close\r\n\r\n"); 
 
         $get_info = false;

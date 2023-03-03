@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium v3.0.0 : Enhanced PHP-Nuke Web Portal System
+ PHP-Nuke Platinum v3.0.0 : Enhanced PHP-Nuke Titanium
  =======================================================================*/
 
 /************************************************************************/
@@ -155,9 +155,9 @@ define_once("_BLOG_YES","Yes");
 define_once("_BLOG_HOMETOPIC","Blog Post Topics in Home");
 define_once("_BLOG_ALLTOPICS","All Blog Post Topics");
 define_once("_BLOG_HOMENUMBER","Blog Posts in Home");
-define_once("_BLOG_NUKEDEFAULT","PHP-Nuke Titanium Default");
+define_once("_BLOG_NUKEDEFAULT","PHP-Nuke Platinum Default");
 define_once("_BLOG_ARTICLES","Blog Posts");
-define_once("_BLOG_HOMENUMNOTE","This will override user preferences<br />if set other than PHP-Nuke Titanium Default");
+define_once("_BLOG_HOMENUMNOTE","This will override user preferences<br />if set other than PHP-Nuke Platinum Default");
 define_once("_BLOG_SAVECHANGES","Save Changes");
 /*****[END]********************************************
  [ Mod:     NSN Blogs                           v1.1.0 ]

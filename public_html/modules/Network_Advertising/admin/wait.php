@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 
@@ -18,7 +18,7 @@
                    about your website.
 ************************************************************************/
 
-if(!defined('NUKE_EVO')) {
+if(!defined('NUKE_TITANIUM')) {
     exit;
 }
 

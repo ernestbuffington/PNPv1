@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium v3.0.0
+ PHP-Nuke Platinum v3.0.0
  =======================================================================*/
 
 /************************************************************************/
@@ -44,7 +44,7 @@ if (!defined('_NORELATED')) define("_NORELATED","There are no related links for 
 if (!defined('_EDITRELATED')) define("_EDITRELATED","Edit Related Link");
 if (!defined('_YES')) define("_YES","Yes");
 if (!defined('_NO')) define("_NO","No");
-if (!defined('_TOPICS_ADMIN_HEADER')) define("_TOPICS_ADMIN_HEADER", "PHP-Nuke Titanium Topics Admin Panel");
+if (!defined('_TOPICS_ADMIN_HEADER')) define("_TOPICS_ADMIN_HEADER", "PHP-Nuke Platinum Topics Admin Panel");
 if (!defined('_TOPICS_RETURNMAIN')) define("_TOPICS_RETURNMAIN", "Return to Main Administration");
 if (!defined('_TOPICSMANAGER')) define("_TOPICSMANAGER","Blog Topics Manager");
 if (!defined('_DELETETOPIC')) define("_DELETETOPIC","Delete Blog Topic");

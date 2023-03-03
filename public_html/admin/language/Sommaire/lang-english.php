@@ -1,10 +1,10 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 
-define("_SOM_ADMIN_HEADER","PHP-Nuke Titanium Sommaire Menu :: Admin Panel");
+define("_SOM_ADMIN_HEADER","PHP-Nuke Platinum Sommaire Menu :: Admin Panel");
 define("_SOM_RETURNMAIN","Return to Main Administration");
 define("_SOMMAIRE","Sommaire Menu");
 define("_SOMADMINTITLE","<strong>Administration Menu</strong>");

@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /************************************************************************/
@@ -24,7 +24,7 @@
       12/15/2022 3:49 pm Ernest Allen Buffington	  
  ************************************************************************/
  
-if (!defined('NUKE_EVO')): 
+if (!defined('NUKE_TITANIUM')): 
   die("You can't access this file directly...");
 endif;
 
@@ -92,7 +92,7 @@ foreach ($metatags as $i => $metatag) {
 
 // IF YOU REALLY NEED TO REMOVE IT AND HAVE MY WRITTEN AUTHORIZATION CHECK: http://phpnuke.org/modules.php?name=Commercial_License
 // PLAY FAIR AND SUPPORT THE DEVELOPMENT, PLEASE!
-$metastring .= '<meta name="generator" content="The US Version of PHP-Nuke Titanium Copyright (c) 2021 by Brandon Maintenance Management, LLC">'."\n";
+$metastring .= '<meta name="generator" content="The US Version of PHP-Nuke Platinum Copyright (c) 2021 by Brandon Maintenance Management, LLC">'."\n";
 
 echo $metastring;
 

@@ -34,13 +34,13 @@ if(is_mod_admin($pnt_module))
         case 'TitaniumSandboxMenu':
 		OpenTable();
 		serverinfo();
-		case_menu($admin_file.'.php?op=step1','PHP-Nuke Titanium Server Specifications', 'content.png');
-		case_menu($admin_file.'.php?op=step2','PHP-Nuke Titanium CHMOD File/Folder Check', 'content.png');
+		case_menu($admin_file.'.php?op=step1','PHP-Nuke Platinum Server Specifications', 'content.png');
+		case_menu($admin_file.'.php?op=step2','PHP-Nuke Platinum CHMOD File/Folder Check', 'content.png');
         CloseTable();
 		break;
   case 'step1':
   OpenTable();
-  $nuke_name = "PHP-Nuke Titanium (Network Version)";
+  $nuke_name = "PHP-Nuke Platinum (Network Version)";
   $step = (isset($_REQUEST['step'])) ? $_REQUEST['step'] : 0;
   if (!$step) $step = '1';
   $total_phpbb2_steps = '2';

@@ -1,6 +1,6 @@
 <?php # JOHN 3:16 #
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 use function PHP81_BC\strftime;
 /************************************************************************/

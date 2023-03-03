@@ -1,12 +1,12 @@
 <?php
 /*=======================================================================
- PHP-Nuke Titanium: Enhanced PHP-Nuke Web Portal System
+ PHP-Nuke Platinum: Enhanced PHP-Nuke Titanium
  =======================================================================*/
 /**
 *
 * This file is part of the Titanium SandBox package.
 *
-* @copyright (c) PHP-Nuke Titanium 2022 
+* @copyright (c) PHP-Nuke Platinum 2022 
 * <https://github.com/ernestbuffington/PHP-Nuke.Titanium.Dev.4>
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
@@ -21,8 +21,8 @@ if (!defined('MODULE_FILE')) {
     Header("Location: /index.php");
 	exit();
 }         
-$pagetitle = 'Titanium SandBox '.NUKE_TITANIUM;
-$title = 'Titanium SandBox Module '.NUKE_TITANIUM;
+$pagetitle = 'Titanium SandBox '.NUKE_PLATINUM;
+$title = 'Titanium SandBox Module '.NUKE_PLATINUM;
 
 require_once("mainfile.php");
 
@@ -56,7 +56,7 @@ include (MODULES.'Titanium_SandBox/includes/functions.php');
 if(!function_exists('OpenTableModule'))
 {
   OpenTable();
-  echo '<div align="center"><h1>Titanium SandBox '.NUKE_TITANIUM.'</h1></div>';
+  echo '<div align="center"><h1>Titanium SandBox '.NUKE_PLATINUM.'</h1></div>';
 }
 else
 OpenTable();
@@ -99,10 +99,10 @@ $fpr_img = "<img align=\"absbottom\" width=\"25\" src=\"$fpr\" border=\"0\">";
         <?
         echo '<fieldset style="border-color: '.$textcolor1.'; border-width: '.$fieldset_border_width.'; border-style: solid;">';
         echo '<br /><font size="3" color="'.$textcolor1.'">The <strong>Titanium </strong> Sandbox Module '
-		. ' v'.NUKE_TITANIUM.' : This module is only for <strong>PHP-Nuke Titanium</strong> '
+		. ' v'.NUKE_PLATINUM.' : This module is only for <strong>PHP-Nuke Platinum</strong> '
 		. 'application builders. A sandbox is a testing environment that isolates '
 		. 'untested code changes. This module was designed for the developers over at The 86it Developers Network, it gives the user a place to test random PHP code and is a good way '
-		. 'to start learning PHP-Nuke Titanium, PHP, Java, cURL or just about any online programming language you can think of. There are no limits when it comes to The 86it Developers Network, they allow you full '
+		. 'to start learning PHP-Nuke Platinum, PHP, Java, cURL or just about any online programming language you can think of. There are no limits when it comes to The 86it Developers Network, they allow you full '
 		. 'access to any programming language that you would like to explore.<br /><br />'
 		
 		

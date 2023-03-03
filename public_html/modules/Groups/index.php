@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /***************************************************************************
@@ -35,7 +35,7 @@ Remote Avatar Resize                     v2.0.0       11/19/2005
 Online/Offline/Hidden                    v2.2.7       01/24/2006
 Auto Group                               v1.2.2       11/06/2006
 ************************************************************************/
-if(!defined('NUKE_EVO')) exit;
+if(!defined('NUKE_TITANIUM')) exit;
 
 $module_name = basename(dirname(__FILE__));
 require(NUKE_FORUMS_DIR . 'nukebb.php');

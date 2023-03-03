@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 
@@ -28,7 +28,7 @@
 /* Block to fit perfectly in the center of the site, remember that not all
    blocks looks good on Center, just try and see yourself what fits your needs */
 
-if(!defined('NUKE_EVO')) exit;
+if(!defined('NUKE_TITANIUM')) exit;
 
 global $prefix, $multilingual, $currentlang, $db;
 

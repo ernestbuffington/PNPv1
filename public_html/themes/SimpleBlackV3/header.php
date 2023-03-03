@@ -1,6 +1,6 @@
 <?php
 /*=======================================================================
- Nuke-Evolution Basic: Enhanced PHP-Nuke Web Portal System
+ Nuke-Evolution Basic: Enhanced PHP-Nuke Titanium
  =======================================================================*/
 echo PHP_EOL.'<!-- Preload Logo Images START -->'.PHP_EOL;
 

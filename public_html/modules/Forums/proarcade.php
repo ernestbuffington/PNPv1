@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
 /***************************************************************************
@@ -8,7 +8,7 @@
  *                            -------------------
  *                                Arcade v4.0
  *
- *   Evo Xtreme Ported Arcade - http://www.php-nuke-titanium.86it.us
+ *   Evo Xtreme Ported Arcade - http://www.platinum.coders.exchange
  *   Ported to Titanium by Ernest Allen Buffington aka TheGhost
  *   10/27/2022 8:41 pm Thursday
  *
@@ -19,11 +19,11 @@
 
 /*****[CHANGES]**********************************************************
 -=[Fixes]=-
-       PHP-Nuke Titanium Session Handling
+       PHP-Nuke Platinum Session Handling
 	   PM Arcade Messages 
 -=[Base]=-
       Nuke Patched                             v3.1.0       09/20/2005
-	  PHP-Nuke Titanium Patched                v4.0.3       10/27/2022
+	  PHP-Nuke Platinum Patched                v4.0.3       10/27/2022
  ************************************************************************/
 if(!defined('MODULE_FILE')):
   die('You can\'t access this file directly...');

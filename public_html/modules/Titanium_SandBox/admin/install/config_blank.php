@@ -1,7 +1,7 @@
 <?php
 
 /*=======================================================================
- PHP-Nuke Titanium: Enhanced PHP-Nuke Web Portal System
+ PHP-Nuke Platinum: Enhanced PHP-Nuke Titanium
  =======================================================================*/
 
 /************************************************************************/
@@ -21,7 +21,7 @@ if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
 }
 
 /*----[ Welcome! ] ---------------------------------------
-| Welcome to PHP-Nuke Titanium, an advanced content       |
+| Welcome to PHP-Nuke Platinum, an advanced content       |
 | management system based on PHP-Nuke                     |
 ---------------------------------------------------------*/
 
@@ -59,14 +59,14 @@ $pnt_dbpass = '%dbpass%';
 $pnt_dbtype = '%dbtype%';
 
 /*----[ $pnt_prefix ] -------------------------------
-| The prefix for your PHP-Nuke Titanium tables            |
+| The prefix for your PHP-Nuke Platinum tables            |
 |                                                         |
 | Default: titanium                                       |
 ---------------------------------------------------------*/
 $pnt_prefix = '%prefix%';
 
 /*----[ $pnt_user_prefix ] --------------------------
-| The prefix for your PHP-Nuke Titanium user-related      |
+| The prefix for your PHP-Nuke Platinum user-related      |
 | tables Do not change this unless it is really needed    |
 |                                                         |
 | Default: titanium                                       |
@@ -150,6 +150,6 @@ $persistency = false;
 /* your new site.                                                    */
 /*                                                                   */
 /* Congratulations! Now you have the webs best portal installed!     */
-/* Thanks for choosing PHP-Nuke Titanium: The Future of the Web!     */
+/* Thanks for choosing PHP-Nuke Platinum: The Future of the Web!     */
 /*********************************************************************/
 ?>

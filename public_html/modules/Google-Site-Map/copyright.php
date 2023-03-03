@@ -9,7 +9,7 @@ $module = basename(dirname(__FILE__));
 $mod_name = 'Google Site Map';
 $author_name = 'Ernest Buffington';
 $author_email = 'ernest.buffington@gmail.com';
-$author_homepage = 'http://php-nuke-titanium.86it.us';
+$author_homepage = 'http://platinum.coders.exchange';
 $license = 'GNU/GPL';
 $download_location = 'http://www.86it.us';
 $module_version = 'v2.0';
@@ -42,7 +42,7 @@ function show_copyright()
 	if ($download_location != "") { print '&#8226;&nbsp;<strong>Download:</strong> <a href="'.$download_location.'" target="new">www.86it.us</a>'; }
 	
 	print '<hr>';
-	print '<div align="center">'.$mod_name.' for <a href="http://www.86it.us" target="_blank">PHP-Nuke Titanium</a><br /><br />[<a href="javascript:void(0)" onClick=javascript:self.close()>Close</a>]</font></div></td>';
+	print '<div align="center">'.$mod_name.' for <a href="http://www.86it.us" target="_blank">PHP-Nuke Platinum</a><br /><br />[<a href="javascript:void(0)" onClick=javascript:self.close()>Close</a>]</font></div></td>';
 
 	print '<hr />';
     print '</font>';
