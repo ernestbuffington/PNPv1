@@ -13,9 +13,9 @@
 /*                                                                    */
 /**********************************************************************/
 /* Copyright (c) 2004 - 2023 by http://www.techgfx.coders.exchange    */
-/*       Graeme Allan - Techgfx       (goose@techgfx.coders.exchange) */
-/*       Scott Partee - Loki        (loki@nukeplanet.coders.exchange) */
-/*       Ernest Allen Buffington        (ernest.buffington@gmail.com) */
+/* Graeme Allan - Techgfx             (goose@techgfx.coders.exchange) */
+/* Scott Partee - Loki              (loki@nukeplanet.coders.exchange) */
+/* Ernest Allen Buffington - TheGhost   (ernest.buffington@gmail.com) */
 /**********************************************************************/
 /* All content and includes from this package is intellectual         */
 /* property of TechGFX.coders.exchange unless stated otherwise.       */
