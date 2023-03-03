@@ -1,0 +1,51 @@
+Q. Do you plan to update this?
+A. Yes, I have several new features I plan on adding to the next version, but
+   welcome more suggestions..
+
+Q. Where do Images go?
+A. /shop/images/
+
+Q. What format can images be?
+   The mod checks for a .jpg first, then uses .gif without a check. If there is
+   neither a picture error box will appear.
+
+Q. How do you add an item?
+A. In the admin panel update the shop you wish to add the item to.
+
+Q. Does removing a shop delete all the items from the people who own them?
+A. Yes, if your forum is rather large, it's probably not a good idea to do this
+   while it's busy as it does take quite a few large loops to complete.
+
+Q. What does restocking do?
+A. It increases the item stock until it reaches the max amount, every amount of
+   time specified by you.
+
+Q. What does multiple item buying do?
+A. Allows your users to buy more than 1 of each item.
+
+Q. What does Viewtopic Type do?
+A. This is a setting to allow you to disable images while viewing topic. It's
+   mainly there so people with huge amounts of items don't flood your forum's
+   screens. Link just leaves the link to their "inventory", Images leaves the
+   link and Images.
+
+Q. What does selling rate do?
+A. Changes the amount people are given back when returning an item. This is in
+   a %. 100% is a full refund.
+
+Q. How do I make the effects shop work?
+A. In the admin control panel for the shop, click on the edit button next to 
+   special shop.
+
+Q. What is the access forum field for?
+A. It allows you to set up private forums that can only be accessed when a user 
+   owns a certain item. Make sure view/post/read/edit are all set to PRIVATE if 
+   you want to make use of this feature.
+
+Q. Do you have more modifications?
+A. Yes, visit http://www.knightsofchaos.com/zarath/mods/ to view a list of them.
+
+
+And more questions, suggestions or comments? Email me at zarath@knightsofchaos.com
+If you wish to donate money (anything over a dollar) to help support to creation of 
+my modifications, paypal to ice_rain_@hotmail.com

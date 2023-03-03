@@ -8,7 +8,6 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Php80\NodeAnalyzer\PhpAttributeAnalyzer;
 use Rector\PHPUnit\NodeAnalyzer\AssertCallAnalyzer;
 use Rector\PHPUnit\NodeAnalyzer\MockedVariableAnalyzer;
 use Rector\PHPUnit\NodeAnalyzer\TestsNodeAnalyzer;
@@ -37,17 +36,11 @@ final class AddDoesNotPerformAssertionToNonAssertingTestRector extends AbstractR
      * @var \Rector\PHPUnit\NodeAnalyzer\MockedVariableAnalyzer
      */
     private $mockedVariableAnalyzer;
-    /**
-     * @readonly
-     * @var \Rector\Php80\NodeAnalyzer\PhpAttributeAnalyzer
-     */
-    private $phpAttributeAnalyzer;
-    public function __construct(TestsNodeAnalyzer $testsNodeAnalyzer, AssertCallAnalyzer $assertCallAnalyzer, MockedVariableAnalyzer $mockedVariableAnalyzer, PhpAttributeAnalyzer $phpAttributeAnalyzer)
+    public function __construct(TestsNodeAnalyzer $testsNodeAnalyzer, AssertCallAnalyzer $assertCallAnalyzer, MockedVariableAnalyzer $mockedVariableAnalyzer)
     {
         $this->testsNodeAnalyzer = $testsNodeAnalyzer;
         $this->assertCallAnalyzer = $assertCallAnalyzer;
         $this->mockedVariableAnalyzer = $mockedVariableAnalyzer;
-        $this->phpAttributeAnalyzer = $phpAttributeAnalyzer;
     }
     public function getRuleDefinition() : RuleDefinition
     {
@@ -109,9 +102,6 @@ CODE_SAMPLE
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         if ($phpDocInfo->hasByNames(['doesNotPerformAssertions', 'expectedException'])) {
-            return \true;
-        }
-        if ($this->phpAttributeAnalyzer->hasPhpAttribute($classMethod, 'PHPUnit\\Framework\\Attributes\\DoesNotPerformAssertions')) {
             return \true;
         }
         $this->assertCallAnalyzer->resetNesting();

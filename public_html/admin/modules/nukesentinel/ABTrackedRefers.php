@@ -1,15 +1,19 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 
 /********************************************************/
 /* NukeSentinel(tm)                                     */
 /* By: NukeScripts Network (webmaster@nukescripts.net)  */
-/* http://www.nukescripts.net                           */
-/* Copyright © 2000-2007 by NukeScripts Network         */
+/* http://nukescripts.86it.us                           */
+/* Copyright (c) 2000-2008 by NukeScripts Network       */
 /* See CREDITS.txt for ALL contributors                 */
 /********************************************************/
 
 $pagetitle = _AB_NUKESENTINEL.": "._AB_TRACKEDREFERS;
-include_once("header.php");
+include_once(NUKE_BASE_DIR.'header.php');
 OpenTable();
 OpenMenu(_AB_TRACKEDREFERS);
 ipbanmenu();
@@ -30,8 +34,8 @@ $totalselected = $db->sql_numrows($db->sql_query("SELECT DISTINCT(`refered_from`
 if($totalselected > 0) {
   $selcolumn3=$selcolumn4=$selcolumn5='';
   $seldirection1=$seldirection2='';
-  echo "<table width='100%' cellpadding='2' cellspacing='2' bgcolor='$bgcolor2' border='0'>\n";
-  echo "<tr><td colspan='$tbcol'><table width='100%' cellpadding='0' cellspacing='0' border='0'>\n";
+  echo "<table summary='' width='100%' cellpadding='2' cellspacing='2' bgcolor='$bgcolor2' border='0'>\n";
+  echo "<tr><td colspan='$tbcol'><table summary='' width='100%' cellpadding='0' cellspacing='0' border='0'>\n";
   echo "<tr>\n";
   // Page Sorting
   echo "<td align='left' bgcolor='$bgcolor2' width='50%'>";
@@ -39,17 +43,17 @@ if($totalselected > 0) {
   echo "<input type='hidden' name='min' value='$min' />\n";
   echo "<strong>"._AB_SORT.":</strong> <select name='column'>\n";
   if($column == 6) $column = 4;
-  if($column == "date") $selcolumn3 = "selected";
+  if($column == "date") $selcolumn3 = "selected='selected'";
   echo "<option value='date' $selcolumn3>"._AB_DATE."</option>\n";
-  if($column == "refered_from") $selcolumn4 = "selected";
+  if($column == "refered_from") $selcolumn4 = "selected='selected'";
   echo "<option value='refered_from' $selcolumn4>"._AB_USERREFER."</option>\n";
-  if($column == 4) $selcolumn5 = "selected";
+  if($column == 4) $selcolumn5 = "selected='selected'";
   echo "<option value=4 $selcolumn5>"._AB_HITS."</option>\n";
   echo "</select> ";
   echo "<select name='direction'>\n";
-  if($direction == "asc") $seldirection1 = "selected";
+  if($direction == "asc") $seldirection1 = "selected='selected'";
   echo "<option value='asc' $seldirection1>"._AB_ASC."</option>\n";
-  if($direction == "desc") $seldirection2 = "selected";
+  if($direction == "desc") $seldirection2 = "selected='selected'";
   echo "<option value='desc' $seldirection2>"._AB_DESC."</option>\n";
   echo "</select> <input type='submit' value='"._AB_SORT."' />\n";
   echo "</form></td>";
@@ -104,7 +108,7 @@ if($totalselected > 0) {
     $counter = 1;
     $currentpage = ($max / $perpage);
     echo "<tr bgcolor='$bgcolor1'><td colspan='5'><img src='images/pix.gif' height='2' width='2' alt='' title='' /></td></tr>\n";
-    echo "<tr>\n<td colspan='5'>\n<table border='0' cellpadding='0' cellspacing='0' width='100%'>\n<tr>\n";
+    echo "<tr>\n<td colspan='5'>\n<table summary='' border='0' cellpadding='0' cellspacing='0' width='100%'>\n<tr>\n";
 
     echo "<td width='25%'>";
     echo "<form action='".$admin_file.".php?op=ABTrackedRefers' method='post'>\n";
@@ -128,7 +132,7 @@ if($totalselected > 0) {
       $cpage = $counter;
       $mintemp = ($perpage * $counter) - $perpage;
       if($counter == $currentpage) {
-        echo "<option selected>$counter</option>";
+        echo "<option selected='selected'>$counter</option>";
       } else {
         echo "<option value='$mintemp'>$counter</option>";
       }
@@ -158,6 +162,6 @@ if($totalselected > 0) {
   echo "<center><strong>"._AB_NOIPS."</strong></center>\n";
 }
 CloseTable();
-include_once("footer.php");
+include_once(NUKE_BASE_DIR.'footer.php');
 
 ?>

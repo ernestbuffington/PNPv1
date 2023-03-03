@@ -1,3 +1,0 @@
-<filesmatch "\.txt$">
-  deny from all
-</filesmatch>

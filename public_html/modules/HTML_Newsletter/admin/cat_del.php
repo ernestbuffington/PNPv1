@@ -1,33 +1,15 @@
 <?php
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
 /************************************************************************/
 /* HTML Newsletter 1.0 module for PHP-Nuke 6.5 - 7.6                    */
 /* By: NukeWorks (webmaster@nukeworks.biz)                              */
@@ -44,7 +26,7 @@
 ************************************************************************/
 /************************************************************************
 * Script:			HTML Newsletter module for PHP-Nuke 6.5 - 7.6
-* Version:		01.03.02
+* Version:		01.03.01
 * Author:			Rob Herder (aka: montego) of montegoscripts.com
 * Contact:		montego@montegoscripts.com
 * Copyright:	Copyright © 2006 by Montego Scripts
@@ -117,7 +99,7 @@ if ( !$result ) {
 	
 	} else { //No impact, so go ahead and just do the deletes
 
-		@include_once("modules/$msnl_sModuleNm/admin/cat_del_apply.php");
+		@include("modules/$msnl_sModuleNm/admin/cat_del_apply.php");
 	
 	}
 

@@ -1,1090 +1,552 @@
 <?php
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
-function report_notify($cat_id, $info, $text)
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
+
+/***************************************************************************
+ *                            functions_report.php
+ *                            --------------------
+ *   begin                : Sunday, Jun 19, 2005
+ *   copyright            : (C) 2001 The phpBB Group
+ *   email                : support@phpbb.com
+ *
+ *   $Id: functions_report.php,v 1.2.3.2 2005/08/17 14:18:00 chatasos Exp $
+ *
+ ***************************************************************************/
+
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ ***************************************************************************/
+
+/*****[CHANGES]**********************************************************
+-=[Mod]=-
+      Advanced Username Color                  v1.0.5       08/30/2005
+ ************************************************************************/
+
+if (!defined('IN_PHPBB'))
 {
-	global $board_config, $phpEx, $db, $phpbb_root_path, $userdata, $lang;
-	
-	$cat_id = intval($cat_id);
-	$info = intval($info);
-
-	$sql_array = array();
-
-	if ($board_config['report_notify'] == 2)
-	{
-		$sql_array[] = 'SELECT user_email, user_lang
-			FROM ' . USERS_TABLE . ' u
-			WHERE user_level = ' . ADMIN . '
-				AND user_id <> ' . $userdata['user_id'];
-	}
-	else if ($board_config['report_notify'] == 1)
-	{
-		$sql = 'SELECT cat_id
-			FROM ' . REPORT_CAT_TABLE . "
-			WHERE cat_id = $cat_id
-				AND cat_auth = 0";
-		if (!($result = $db->sql_query($sql)))
-		{
-			message_die(GENERAL_ERROR, 'Could not check report category', '', __LINE__, __FILE__, $sql);
-		}
-
-		if ($cat_id = $db->sql_fetchfield('cat_id', 0, $result))
-		{
-			if ($cat_id == REPORT_POST_ID || $cat_id == REPORT_TOPIC_ID)
-			{
-				$sql_array[] = 'SELECT user_email, user_lang
-					FROM ' . USERS_TABLE . ' u
-					WHERE user_level = ' . ADMIN . '
-						AND user_id <> ' . $userdata['user_id'];
-
-				if ($cat_id == REPORT_POST_ID)
-				{
-					$sql_array[] = 'SELECT u.user_email, u.user_lang
-						FROM ' . POSTS_TABLE . ' p
-						INNER JOIN ' . AUTH_ACCESS_TABLE . ' aa
-							ON aa.forum_id = p.forum_id
-								AND aa.auth_mod = 1
-						INNER JOIN ' . USER_GROUP_TABLE . ' ug
-							ON ug.group_id = aa.group_id
-								AND ug.user_id <> ' . $userdata['user_id'] . '
-								AND ug.user_pending = 0
-						INNER JOIN ' . USERS_TABLE . ' u
-							ON u.user_id = ug.user_id
-								AND u.user_level = ' . MOD . "
-						WHERE p.post_id = $info
-						GROUP BY u.user_id";
-				}
-				else
-				{
-					$sql_array[] = 'SELECT u.user_email, u.user_lang
-					  FROM ' . TOPICS_TABLE . ' t
-					  INNER JOIN ' . AUTH_ACCESS_TABLE . ' aa
-						ON aa.forum_id = t.forum_id
-							AND aa.auth_mod = 1
-						INNER JOIN ' . USER_GROUP_TABLE . ' ug
-							ON ug.group_id = aa.group_id
-								AND ug.user_id <> ' . $userdata['user_id'] . '
-								AND ug.user_pending = 0
-						INNER JOIN ' . USERS_TABLE . ' u
-							ON u.user_id = ug.user_id
-								AND u.user_level = ' . MOD . "
-						WHERE t.topic_id = $info
-						GROUP BY u.user_id";
-				}
-			}
-			else
-			{
-				$sql_array[] = 'SELECT user_email, user_lang
-					FROM ' . USERS_TABLE . '
-					WHERE user_level IN(' . ADMIN . ', ' . MOD . ')
-						AND user_id <> ' . $userdata['user_id'];
-			}
-		}
-		else
-		{
-			$sql_array[] = 'SELECT user_email, user_lang
-				FROM ' . USERS_TABLE . ' u
-				WHERE user_level = ' . ADMIN . '
-					AND user_id <> ' . $userdata['user_id'];
-		}
-		$db->sql_freeresult($result);
-	}
-	else
-	{
-	  return;
-	}
-
-	if (!count($sql_array))
-	{
-		return;
-	}
-
-	$bcc_list_ary = array();
-	foreach ($sql_array as $sql)
-	{
-		if (!($result = $db->sql_query($sql)))
-		{
-			message_die(GENERAL_ERROR, 'Could not obtain notify list', '', __LINE__, __FILE__, $sql);
-		}
-
-		while ($row = $db->sql_fetchrow($result))
-		{
-			$bcc_list_ary[$row['user_lang']][] = $row['user_email'];
-		}
-		$db->sql_freeresult($result);
-	}
-
-	if (!count($bcc_list_ary))
-	{
-		return;
-	}
-	
-	// Sixty second limit
-	@set_time_limit(60);
-
-	//
-	// Let's do some checking to make sure that mass mail functions
-	// are working in win32 versions of php.
-	//
-	if (preg_match('/[c-z]:\\\.*/i', getenv('PATH')) && !$board_config['smtp_delivery'])
-	{
-		$ini_val = (@phpversion() >= '4.0.0') ? 'ini_get' : 'get_cfg_var';
-
-		// We are running on windows, force delivery to use our smtp functions
-		// since php's are broken by default
-		$board_config['smtp_delivery'] = 1;
-		$board_config['smtp_host'] = @$ini_val('SMTP');
-	}
-
-	include_once("emailer.php");
-	$emailer = new emailer($board_config['smtp_delivery']);
-
-	$server_name = trim($board_config['server_name']);
-	$server_protocol = ($board_config['cookie_secure']) ? 'https://' : 'http://';
-	$server_port = ($board_config['server_port'] <> 80) ? ':' . trim($board_config['server_port']) . '/' : '/';
-	$script_path = preg_replace('/^\/?(.*?)\/?$/', '\1/', trim($board_config['script_path']));
-	$server_full = $server_protocol . $server_name . $server_port . $script_path;
-	
-	switch ($cat_id)
-	{
-		case REPORT_POST_ID:
-			$info = "{$server_full}viewtopic.$phpEx?" . POST_POST_URL . "=$info#$info";
-		break;
-		
-		case REPORT_TOPIC_ID:
-			$info = "{$server_full}viewtopic.$phpEx?" . POST_TOPIC_URL . "=$info";
-		break;
-		
-		case REPORT_USER_ID:
-			$info = "{$server_full}profile.$phpEx?mode=viewprofile&" . POST_USERS_URL . "=$info";
-		break;
-	}
-
-	$emailer->from($board_config['board_email']);
-	$emailer->replyto($board_config['board_email']);
-
-	@reset($bcc_list_ary);
-	foreach ($bcc_list_ary as $user_lang => $bcc_list)
-	{
-		$emailer->use_template('report_notify', $user_lang);
-
-		foreach ($bcc_list as $bcc)
-		{
-			$emailer->bcc($bcc);
-		}
-
-		// The Report_notification lang string below will be used
-		// if for some reason the mail template subject cannot be read
-		// ... note it will not necessarily be in the posters own language!
-		$emailer->set_subject($lang['Report_notification']);
-
-		// This is a nasty kludge to remove the username var ... till (if?)
-		// translators update their templates
-		$emailer->msg = preg_replace('#[ ]?{USERNAME}#', '', $emailer->msg);
-
-		$emailer->assign_vars(array(
-			'EMAIL_SIG' => (!empty($board_config['board_email_sig'])) ? str_replace('<br />', "\n", "-- \n" . $board_config['board_email_sig']) : '',
-			'SITENAME' => $board_config['sitename'],
-			'REPORT_INFO' => (!empty($info)) ? $info : '-',
-			'REPORT_TEXT' => (!empty($text)) ? $text : '-',
-			
-			'U_REPORT_PAGE' => "{$server_full}report.$phpEx?" . POST_CAT_URL . "=$cat_id")
-		);
-
-		$emailer->send();
-		$emailer->reset();
-	}
+    die('Hacking attempt');
 }
 
-function report_auth($mode, $id)
+//define('REPORT_POST_NEW', 1);
+//define('REPORT_POST_CLOSED', 2);
+
+function insert_report($post_id, $comments)
 {
-	global $db, $userdata;
+    global $db, $userdata;
 
-	// Administrators
-	if ($userdata['user_level'] == ADMIN)
-	{
-		return true;
-	}
+    $sql = "INSERT INTO " . POST_REPORTS_TABLE . " (post_id, reporter_id, report_time, report_status, report_comments)
+        VALUES ($post_id, " . $userdata['user_id'] . ", " . time() . ", " . REPORT_POST_NEW . ", '" . str_replace("\'", "''", $comments) . "')";
+    if ( !$db->sql_query($sql) )
+    {
+        message_die(GENERAL_ERROR, 'Could not insert report', '', __LINE__, __FILE__, $sql);
+    }
 
-	$id = intval($id);
-
-	// Moderators
-	switch ($mode)
-	{
-		case 'report':
-			$sql = 'SELECT r.report_info, r.cat_id
-				FROM ' . REPORT_TABLE . ' r
-				INNER JOIN ' . REPORT_CAT_TABLE . " c
-				  ON c.cat_id = r.cat_id
-						AND c.cat_auth = 0
-				WHERE r.report_id = $id";
-			if (!($result = $db->sql_query($sql)))
-			{
-				message_die(GENERAL_ERROR, 'Could not get report info', '', __LINE__, __FILE__, $sql);
-			}
-
-			$row = $db->sql_fetchrow($result);
-			$db->sql_freeresult($result);
-
-			if ($row)
-			{
-				switch ($row['cat_id'])
-				{
-					case REPORT_POST_ID:
-						$post_id = intval($row['report_info']);
-					break;
-
-					case REPORT_TOPIC_ID:
-						$topic_id = intval($row['report_info']);
-					break;
-
-					default:
-						return true;
-				}
-			}
-		break;
-
-		case 'cat':
-			$sql = 'SELECT cat_id
-				FROM ' . REPORT_CAT_TABLE . "
-				WHERE cat_auth = 0
-					AND cat_id = $id";
-			if (!($result = $db->sql_query($sql)))
-			{
-				message_die(GENERAL_ERROR, 'Could not get cat info', '', __LINE__, __FILE__, $sql);
-			}
-
-			$cat_id = $db->sql_fetchfield('cat_id', 0, $result);
-			$db->sql_freeresult($result);
-
-			return ($cat_id) ? true : false;
-		break;
-
-		case 'post':
-			$post_id = $id;
-		break;
-
-		case 'topic':
-			$topic_id = $id;
-		break;
-
-	}
-
-	if (isset($post_id))
-	{
-		$sql = 'SELECT post_id
-			FROM ' . POSTS_TABLE . ' p
-			INNER JOIN ' . AUTH_ACCESS_TABLE . ' aa
-				ON aa.forum_id = p.forum_id
-					AND aa.auth_mod = 1
-			INNER JOIN ' . USER_GROUP_TABLE . ' ug
-				ON ug.group_id = aa.group_id
-					AND ug.user_id = ' . $userdata['user_id'] . "
-			WHERE p.post_id = $post_id";
-		if (!($result = $db->sql_query($sql)))
-		{
-			message_die(GENERAL_ERROR, 'Could not get moderator info', '', __LINE__, __FILE__, $sql);
-		}
-		$post_id = $db->sql_fetchfield('post_id', 0, $result);
-		$db->sql_freeresult($result);
-
-		if ($post_id)
-		{
-			return true;
-		}
-	}
-	else if (isset($topic_id))
-	{
-		$sql = 'SELECT COUNT(topic_id) AS count
-			FROM ' . TOPICS_TABLE . ' t, ' . AUTH_ACCESS_TABLE . ' aa, ' . USER_GROUP_TABLE . ' ug
-			WHERE t.forum_id = aa.forum_id
-				AND aa.group_id = ug.group_id
-				AND aa.auth_mod = 1
-				AND ug.user_id = ' . $userdata['user_id'] . "
-				AND t.topic_id = $topic_id";
-		if (!($result = $db->sql_query($sql)))
-		{
-			message_die(GENERAL_ERROR, 'Could not get moderator info', '', __LINE__, __FILE__, $sql);
-		}
-
-		$topic_id = $db->sql_fetchfield('count', 0, $result);
-		$db->sql_freeresult($result);
-
-		if ($topic_id)
-		{
-			return true;
-		}
-	}
-
-	return false;
+    return;
 }
 
-function report_count($mode = '')
+function email_report($forum_id, $post_id, $topic_title, $comments)
 {
-	global $db, $userdata;
+    global $db, $phpEx, $userdata, $board_config, $lang;
 
-	if ($userdata['user_level'] == MOD)
-	{
-		$sql_add = 'INNER JOIN ' . REPORT_CAT_TABLE . ' c
-			ON c.cat_id = r.cat_id
-				AND c.cat_auth = 0';
-	}
-	else
-	{
-	  $sql_add = '';
-	}
+    //
+    // Obtain list of moderators of each forum
+    // First users, then groups ... broken into two queries
+    //
+    $sql = "SELECT u.user_email
+        FROM " . AUTH_ACCESS_TABLE . " aa, " . USER_GROUP_TABLE . " ug, " . GROUPS_TABLE . " g, " . USERS_TABLE . " u
+        WHERE aa.forum_id = $forum_id
+            AND aa.auth_mod = " . TRUE . "
+            AND g.group_single_user = 1
+            AND ug.group_id = aa.group_id
+            AND g.group_id = aa.group_id
+            AND u.user_id = ug.user_id
+            AND u.user_report_optout = 0
+        GROUP BY u.user_id, u.username
+        ORDER BY u.user_id";
+    if ( !($result = $db->sql_query($sql)) )
+    {
+        message_die(GENERAL_ERROR, 'Could not query forum moderator information', '', __LINE__, __FILE__, $sql);
+    }
 
-	switch ($mode)
-	{
-		case 'notcleared':
-			$sql = 'SELECT r.cat_id, r.report_info
-				FROM ' . REPORT_TABLE . " r
-				$sql_add
-				WHERE report_status = " . REPORT_NOT_CLEARED;
-		break;
+    $moderators = array();
+    while( $row = $db->sql_fetchrow($result) )
+    {
+        $moderators[] = $row['user_email'];
+    }
 
-		case 'process':
-			$sql = 'SELECT r.cat_id, r.report_info
-				FROM ' . REPORT_TABLE . " r
-				$sql_add
-				WHERE r.report_status = " . REPORT_IN_PROCESS;
-		break;
+    $sql = "SELECT g.group_id
+        FROM " . AUTH_ACCESS_TABLE . " aa, " . USER_GROUP_TABLE . " ug, " . GROUPS_TABLE . " g
+        WHERE aa.forum_id = $forum_id
+            AND aa.auth_mod = " . TRUE . "
+            AND g.group_single_user = 0
+            AND g.group_type <> ". GROUP_HIDDEN ."
+            AND ug.group_id = aa.group_id
+            AND g.group_id = aa.group_id
+        GROUP BY g.group_id, g.group_name
+        ORDER BY g.group_id";
+    if ( !($result = $db->sql_query($sql)) )
+    {
+        message_die(GENERAL_ERROR, 'Could not query forum group moderator information', '', __LINE__, __FILE__, $sql);
+    }
 
-		case 'cleared':
-			$sql = 'SELECT r.cat_id, r.report_info
-				FROM ' . REPORT_TABLE . " r
-				$sql_add
-				WHERE r.report_status = " . REPORT_CLEARED;
-		break;
+    $groups = array();
+    while( $row = $db->sql_fetchrow($result) )
+    {
+        $groups[] = $row['group_id'];
+    }
 
-		default:
-			$sql = 'SELECT r.cat_id, r.report_info
-				FROM ' . REPORT_TABLE . " r
-				$sql_add";
-		break;
-	}
+    if ( count($groups) )
+    {
+        $sql = "SELECT u.user_email
+            FROM " . USER_GROUP_TABLE . " ug, " . GROUPS_TABLE . " g, " . USERS_TABLE . " u
+            WHERE ug.group_id = g.group_id
+                AND g.group_single_user = 0
+                AND g.group_id IN (" . implode(',', $groups) . ")
+                AND ug.user_id = u.user_id
+                AND u.user_report_optout = 0";
+        if ( !($result = $db->sql_query($sql)) )
+        {
+            message_die(GENERAL_ERROR, 'Could not query forum moderator information', '', __LINE__, __FILE__, $sql);
+        }
 
-	if (!($result = $db->sql_query($sql)))
-	{
-		message_die(GENERAL_ERROR, 'Could not get report count', '', __LINE__, __FILE__, $sql);
-	}
+        while( $row = $db->sql_fetchrow($result) )
+        {
+            if ( !in_array($row['user_email'], $moderators) )
+            {
+                $moderators[] = $row['user_email'];
+            }
+        }
+    }
 
-	$count = 0;
-	while ($row = $db->sql_fetchrow($result))
-	{
-		switch ($row['cat_id'])
-		{
-			case REPORT_POST_ID:
-				$report_auth = report_auth('post', $row['report_info']);
-			break;
+    // get admins and email them
+    $sql = "SELECT user_email FROM " . USERS_TABLE . "
+        WHERE user_level = " . ADMIN . "
+        AND user_report_optout = 0";
+    if ( !($result = $db->sql_query($sql)) )
+    {
+        message_die(GENERAL_ERROR, 'Could not query forum admin information', '', __LINE__, __FILE__, $sql);
+    }
 
-			case REPORT_TOPIC_ID:
-				$report_auth = report_auth('topic', $row['report_info']);
-			break;
+    while( $row = $db->sql_fetchrow($result) )
+    {
+        if ( !in_array($row['user_email'], $moderators) )
+        {
+                $moderators[] = $row['user_email'];
+        }
+    }
 
-			default:
-				$report_auth = true;
-			break;
-		}
+    // include('includes/emailer.'.$phpEx);
 
-		if ($report_auth)
-		{
-			$count++;
-		}
-	}
-	$db->sql_freeresult($result);
+    // $emailer = new emailer($board_config['smtp_delivery']);
 
-	return $count;
+    // $emailer->from($board_config['board_email']);
+    // $emailer->replyto($board_config['board_email']);
+
+    // foreach($moderators as $email)
+    // {
+    //     $emailer->bcc($email);
+    // }
+
+    // $emailer->use_template('report_post');
+    // $emailer->email_address($board_config['board_email']);
+    // $emailer->set_subject($lang['Report_post'] . ' - ' . $topic_title);
+
+    // $email_headers = 'X-AntiAbuse: Board servername - ' . $board_config['server_name'] . "\n";
+    // $email_headers .= 'X-AntiAbuse: User_id - ' . $userdata['user_id'] . "\n";
+    // $email_headers .= 'X-AntiAbuse: Username - ' . $userdata['username'] . "\n";
+    // $email_headers .= 'X-AntiAbuse: User IP - ' . decode_ip($user_ip) . "\n";
+    // $emailer->extra_headers($email_headers);
+
+    $script_name = preg_replace('/^\/?(.*?)\/?$/', "\\1", trim($board_config['script_path']));
+    $script_name = ( $script_name != '' ) ? 'modules.php?name=Forums&file=viewtopic&' : 'modules.php?name=Forums&file=viewtopic&';
+    $server_name = trim($board_config['server_name']);
+    $server_protocol = ( $board_config['cookie_secure'] ) ? 'https://' : 'http://';
+    $server_port = ( $board_config['server_port'] <> 80 ) ? ':' . trim($board_config['server_port']) . '/' : '/';
+
+    // $server_url = $server_protocol . $server_name . $server_port . $script_name;
+    // $report_url = $server_protocol . $server_name . $server_port . 'modules.php?name=Forums&file=viewpost_reports';
+
+    // $emailer->assign_vars(array(
+    //     'SITENAME'        => $board_config['sitename'],
+    //     'USERNAME'        => $userdata['username'],
+    //     'POST_ID'        => $post_id,
+    //     'TOPIC_TITLE'    => $topic_title,
+    //     'COMMENTS'        => $comments,
+    //     'EMAIL_SIG'        => (!empty($board_config['board_email_sig'])) ? str_replace('<br />', "\n", "-- \n" . $board_config['board_email_sig']) : '',
+    //     'REPORT_URL'    => urldecode($report_url),
+
+    //     'U_VIEW_POST'    => urldecode($server_url . POST_POST_URL . '=' . $post_id . '#' . $post_id))
+    // );
+    // $emailer->send();
+    // $emailer->reset();
+
+    $server_url = $server_protocol . $server_name . $server_port . $script_name;
+    $report_url = $server_protocol . $server_name . $server_port . 'modules.php?name=Forums&file=viewpost_reports';
+
+    $content = str_replace( '{SITENAME}', $board_config['sitename'], $lang['report_post_template'] );
+    $content = str_replace( '{USERNAME}', $userdata['username'], $content );
+    $content = str_replace( '{POST_ID}', $post_id, $content );
+    $content = str_replace( '{TOPIC_TITLE}', $topic_title, $content );
+    $content = str_replace( '{COMMENTS}', $comments, $content );
+    $content = str_replace( '{EMAIL_SIG}', ((!empty($board_config['board_email_sig'])) ? str_replace('<br />', "\n", "-- \n" . $board_config['board_email_sig']) : ''), $content );
+    $content = str_replace( '{REPORT_URL}', '<a href="'.$report_url.'">'.$report_url.'</a>', $content );
+    $content = str_replace( '{U_VIEW_POST}', '<a href="'.$server_url . POST_POST_URL . '=' . $post_id . '#' . $post_id.'">'.$server_url . POST_POST_URL . '=' . $post_id . '#' . $post_id.'</a>', $content );
+
+    // $headers = array( 'Content-Type: text/html; charset=UTF-8', 'From: '.$board_config['board_email'], 'Reply-To: '.$board_config['board_email'], 'Return-Path: '.$board_config['board_email'] );
+
+    $subject = $lang['Report_post'] . ' - ' . $topic_title;
+
+    $headers[] = 'Content-Type: text/html; charset=UTF-8';
+    $headers[] = 'From: '.$board_config['board_email'];
+    $headers[] = 'Reply-To: '.$board_config['board_email'];
+    $headers[] = 'Return-Path: '.$board_config['board_email'];  
+
+    $headers[] = 'X-AntiAbuse: Board servername - ' . $board_config['server_name'] . "\n";
+    $headers[] = 'X-AntiAbuse: User_id - ' . $userdata['user_id'] . "\n";
+    $headers[] = 'X-AntiAbuse: Username - ' . $userdata['username'] . "\n";
+    $headers[] = 'X-AntiAbuse: User IP - ' . decode_ip($user_ip) . "\n";
+
+    foreach($moderators as $email)
+    {
+        $headers[] = 'Bcc: '.$email;
+        // $addbcc[] = $bcc_list[$i]; 
+    }
+
+    phpmailer( $board_config['board_email'], $subject, $content, $headers );
+
+    return;
 }
 
-function report_prepare_errors($error_msg)
+function show_reports($status = REPORT_POST_NEW)
 {
-	$error_msg_count = count($error_msg);
-	switch ($error_msg_count)
-	{
-		case 0:
-			return false;
-		break;
+    global $db, $board_config, $template, $lang, $phpEx, $userdata;
 
-		case 1:
-			$msg = $error_msg[0];
-		break;
+    // find the forums where the user is a moderator
+    $forum_ids = array();
+    $forum_ids = get_forums_auth_mod();
 
-		default:
-			$msg = '';
-			foreach ($error_msg as $this_msg)
-			{
-				$msg = '<p style="margin-bottom: 5px">' . $this_msg . '</p>';
-			}
-		break;
-	}
+    if ( empty($forum_ids) )
+    {
+        return;
+    }
+    else
+    {
+        $where_sql2 = ' AND p.forum_id IN (' . implode(',', $forum_ids) . ')';
+    }
 
-	return $msg;
+    $where_sql = ( $status == 'all') ? '' : ' AND pr.report_status = ' . intval($status);
+
+    // get the reports from the user's moderated forums
+
+    $sql = "SELECT pr.*, u.username, t.topic_title, f.forum_id, f.forum_name
+        FROM " . POST_REPORTS_TABLE . " pr, " . USERS_TABLE . " u, " . POSTS_TABLE . " p, " . TOPICS_TABLE . " t, " . FORUMS_TABLE . " f
+        WHERE u.user_id = pr.reporter_id
+            AND pr.post_id = p.post_id
+            AND p.topic_id = t.topic_id
+            AND t.forum_id = f.forum_id
+            $where_sql
+            $where_sql2
+        ORDER BY report_time DESC";
+
+    if ( !($result = $db->sql_query($sql)) )
+    {
+        message_die(GENERAL_ERROR, 'Could not query reports', '', __LINE__, __FILE__, $sql);
+    }
+
+    $i = 0;
+
+    while( $row = $db->sql_fetchrow($result) )
+    {
+
+        $comments_temp = array();
+        $comments_temp = create_comments($row);
+
+        $last_action             = $comments_temp['last_action'];
+        $comments                 = $comments_temp['comments'];
+        $last_action_comments    = $comments_temp['last_action_comments'];
+
+        $row_class = ( !($i % 2) ) ? 'row1' : 'row2';
+
+        $template->assign_block_vars('postrow', array(
+            'ROW_CLASS'            => $row_class,
+
+            'REPORT_ID'            => $row['report_id'],
+            'TOPIC_TITLE'        => $row['topic_title'],
+/*****[BEGIN]******************************************
+ [ Mod:    Advanced Username Color             v1.0.5 ]
+ ******************************************************/
+            'REPORTER'            => '<a href="modules.php?name=Profile&amp;mode=viewprofile&amp;' . POST_USERS_URL . '=' . $row['reporter_id'] . '">' . UsernameColor($row['username']) . '</a>',
+/*****[END]********************************************
+ [ Mod:    Advanced Username Color             v1.0.5 ]
+ ******************************************************/
+            'COMMENTS'            => $comments,
+            'DATE'                => create_date($board_config['default_dateformat'], $row['report_time'], $board_config['board_timezone']),
+            'FORUM'                => $row['forum_name'],
+
+            'LAST_ACTION'                => $last_action,
+            'LAST_ACTION_COMMENTS'  => $last_action_comments,
+
+            'L_CLOSE_REPORT'    => ( $row['report_status'] == REPORT_POST_NEW ) ? $lang['Close'] : $lang['Open'],
+
+            'U_VIEW_POST'        => append_sid('viewtopic.' . $phpEx . '?' . POST_POST_URL . '=' . $row['post_id'] . '#' . $row['post_id']),
+            'U_CLOSE_REPORT'    => ( $row['report_status'] == REPORT_POST_NEW ) ? append_sid('viewpost_reports.' . $phpEx . '?mode=closereport&amp;report=' . $row['report_id']) : append_sid('viewpost_reports.' . $phpEx . '?mode=openreport&amp;report=' . $row['report_id']))
+        );
+
+        $i++;
+    }
+
+    //
+    // do a little bit of cleanup
+    //
+
+    // find how many reports with non-existent posts will be deleted
+    $delete_ids = array();
+    $delete_ids = get_reports_with_no_posts();
+
+    if ( !empty($delete_ids) )
+    {
+        // delete the specific reports
+        $sql = "DELETE FROM " . POST_REPORTS_TABLE . "
+            WHERE report_id IN (" . implode(',', $delete_ids) . ")";
+
+        if ( !$db->sql_query($sql) )
+        {
+            message_die(GENERAL_ERROR, 'Could not delete reports', '', __LINE__, __FILE__, $sql);
+        }
+        $deleted_reports = sprintf($lang['Non_existent_posts'], count($delete_ids));
+    }
+    else
+    {
+        $deleted_reports = '&nbsp;';
+    }
+
+    $template->assign_vars(array(
+        'DELETED_REPORTS'    => $deleted_reports)
+    );
+
+    return;
 }
 
-function insert_report($cat_id, $report_info, $report_text)
+function report_flood()
 {
-	global $userdata, $db;
-	
-	$cat_id = intval($cat_id);
-	$report_info = str_replace("'", "''", trim($report_info));
-	$report_text = str_replace("'", "''", trim($report_text));	
+    global $db, $board_config, $userdata;
 
-	$sql = 'INSERT INTO ' . REPORT_TABLE . " (cat_id, report_status, report_date, report_user_id, report_info, report_text)
-		VALUES($cat_id, " . REPORT_NOT_CLEARED . ', ' . time() . ', ' . $userdata['user_id'] . ", '$report_info', '$report_text')";
-	if (!($db->sql_query($sql)))
-	{
-		message_die(GENERAL_ERROR, 'Could not insert report', '', __LINE__, __FILE__, $sql);
-	}
+    $sql = "SELECT MAX(report_time) AS latest_time FROM " . POST_REPORTS_TABLE . "
+        WHERE reporter_id = " . $userdata['user_id'];
+    if ( !($result = $db->sql_query($sql)) )
+    {
+        message_die(GENERAL_ERROR, 'Could not get most recent report', '', __LINE__, __FILE__, $sql);
+    }
+    $row = $db->sql_fetchrow($result);
 
-	return $db->sql_nextid();
+    $current_time = time();
+    if ( ($current_time - $row['latest_time']) < $board_config['flood_interval'] )
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
-function insert_report_cat($cat_name, $cat_explain, $cat_type = REPORT_NORMAL, $cat_auth = 0)
+// get the number of open/closed reports
+function reports_count($status = REPORT_POST_NEW)
 {
-	global $db;
+    global $db;
 
-	$cat_name = str_replace("'", "''", trim($cat_name));
-	$cat_explain = str_replace("'", "''", trim($cat_explain));
-	$cat_type = intval($cat_type);
-	$cat_auth = intval($cat_auth);
+    $forum_ids = array();
+    $forum_ids = get_forums_auth_mod();
 
-	$sql = 'INSERT INTO ' . REPORT_CAT_TABLE . " (cat_name, cat_explain, cat_type, cat_auth)
-		VALUES ('$cat_name', '$cat_explain', $cat_type, $cat_auth)";
-	if (!($db->sql_query($sql)))
-	{
-		message_die(GENERAL_ERROR, 'Could not insert category', '', __LINE__, __FILE__, $sql);
-	}
+    // if the user is not a moderator return 0
+    // normally this shouldn't happen since we are checking it while calling the function
+    if ( empty($forum_ids) )
+    {
+        return 0;
+    }
+    else
+    {
+        $where_sql = ' AND p.forum_id IN (' . implode(',', $forum_ids) . ')';
+    }
 
-	return $db->sql_nextid();
+    // get the number of open reports for all the forums the user is a moderator
+    $sql = "SELECT COUNT(pr.report_id) as total
+        FROM " . POST_REPORTS_TABLE . " pr, " . POSTS_TABLE . " p
+        WHERE pr.report_status = " . intval($status) . "
+            AND pr.post_id = p.post_id
+            " . $where_sql;
+
+    if ( !($result = $db->sql_query($sql)) )
+    {
+        message_die(GENERAL_ERROR, 'Could not get reports count', '', __LINE__, __FILE__, $sql);
+    }
+    $row = $db->sql_fetchrow($result);
+    $db->sql_freeresult($result);
+
+    return ( $row['total'] ) ? $row['total'] : 0;
 }
 
-function update_report_cat($cat_id, $cat_name, $cat_explain, $cat_type, $cat_auth)
+// check if a post has already been reported
+function report_exists($post_id)
 {
-	global $db;
+    global $db;
 
-	$cat_id = intval($cat_id);
-	$cat_name = str_replace("'", "''", trim($cat_name));
-	$cat_explain = str_replace("'", "''", trim($cat_explain));
-	$cat_type = intval($cat_type);
-	$cat_auth = intval($cat_auth);
+    // maybe we have to check if the report is closed too in order to reopen it after the 2nd report
+    $sql = "SELECT report_id FROM " . POST_REPORTS_TABLE . "
+        WHERE post_id = $post_id
+        AND report_status = " . REPORT_POST_NEW;
 
-	$sql  = 'UPDATE ' . REPORT_CAT_TABLE . "
-		SET
-			cat_name = '$cat_name',
-			cat_explain = '$cat_explain',
-			cat_type = $cat_type,
-			cat_auth = $cat_auth
-		WHERE cat_id = $cat_id";
-	if (!($db->sql_query($sql)))
-	{
-		message_die(GENERAL_ERROR, 'Could not update category', '', __LINE__, __FILE__, $sql);
-	}
+    if ( !($result = $db->sql_query($sql)) )
+    {
+        message_die(GENERAL_ERROR, 'Could not get report', '', __LINE__, __FILE__, $sql);
+    }
+    $row = $db->sql_fetchrow($result);
 
-	return true;
+    return ( $row ) ? TRUE : FALSE;
 }
 
-function delete_report_cat($mode, $cat_id, $new_cat_id = -1)
+// get the already stored report comments
+function get_report_comments($report_id)
 {
-	global $db;
+    global $db;
 
-	$cat_id = intval($cat_id);
-	switch ($mode)
-	{
-		case 'delete':
-			$sql = 'DELETE FROM ' . REPORT_TABLE . "
-				WHERE cat_id = $cat_id";
-			if (!($db->sql_query($sql)))
-			{
-				message_die(GENERAL_ERROR, 'Could not delete reports', '', __LINE__, __FILE__, $sql);
-			}
-		break;
+    $sql = "SELECT last_action_comments FROM " . POST_REPORTS_TABLE . "
+        WHERE report_id = " . $report_id;
 
-		case 'move':
-			$new_cat_id = intval($new_cat_id);
-			$sql = 'UPDATE ' . REPORT_TABLE . "
-				SET cat_id = $new_cat_id
-				WHERE cat_id = $cat_id";
-			if (!($db->sql_query($sql)))
-			{
-				message_die(GENERAL_ERROR, 'Could not move reports', '', __LINE__, __FILE__, $sql);
-			}
-		break;
-	}
+    if ( !($result = $db->sql_query($sql)) )
+    {
+        message_die(GENERAL_ERROR, 'Could not get report comments', '', __LINE__, __FILE__, $sql);
+    }
+    $row = $db->sql_fetchrow($result);
 
-	$sql = 'DELETE FROM ' . REPORT_CAT_TABLE . "
-		WHERE cat_id = $cat_id";
-	if (!($db->sql_query($sql)))
-	{
-		message_die(GENERAL_ERROR, 'Could not delete category', '', __LINE__, __FILE__, $sql);
-	}
-
-	return true;
+    return ( $row['last_action_comments'] && $row['last_action_comments'] != '' ) ? $row['last_action_comments'] : '';
 }
 
-function change_report_status($mode, $id)
+// get the forums where the user is a moderator
+function get_forums_auth_mod()
 {
-	global $db, $userdata;
+    global $userdata;
 
-	$id = intval($id);
-	switch ($mode)
-	{
-		case 'clear':
-			$sql = 'UPDATE ' . REPORT_TABLE . '
-				SET
-					report_status = ' . REPORT_CLEARED . ',
-					report_update_user = ' . $userdata['user_id'] . ',
-					report_update_time = ' . time() . "
-				WHERE report_id = $id";
-		break;
+    $auth = auth(AUTH_MOD, AUTH_LIST_ALL, $userdata);
 
-		case 'process':
-			$sql = 'UPDATE ' . REPORT_TABLE . '
-				SET
-					report_status = ' . REPORT_IN_PROCESS . ',
-					report_update_user = ' . $userdata['user_id'] . ',
-					report_update_time = ' . time() . "
-				WHERE report_id = $id";
-		break;
+    // create an array to store the moderated forums
+    $forums_auth = array();
 
-		case 'clearpost':
-			$sql = 'UPDATE ' . REPORT_TABLE . '
-				SET
-					report_status = ' . REPORT_CLEARED . ',
-					report_update_user = ' . $userdata['user_id'] . ',
-					report_update_time = ' . time() . '
-				WHERE cat_id = ' . REPORT_POST_ID . "
-					AND report_info = $id";
-		break;
+    //while ( list($forum) = each($auth) )
+	foreach (array_keys($auth) as $forum)
+    {
+        if ( $auth[$forum]['auth_mod'] )
+        {
+            $forums_auth[] = $forum;
+        }
+    }
 
-		case 'cleartopic':
-			$sql = 'UPDATE ' . REPORT_TABLE . '
-				SET
-					report_status = ' . REPORT_CLEARED . ',
-					report_update_user = ' . $userdata['user_id'] . ',
-					report_update_time = ' . time() . '
-				WHERE cat_id = ' . REPORT_TOPIC_ID . "
-					AND report_info = $id";
-		break;
-
-		case 'unclear':
-			$sql = 'UPDATE ' . REPORT_TABLE . '
-				SET
-					report_status = ' . REPORT_NOT_CLEARED . ',
-					report_update_user = ' . $userdata['user_id'] . ',
-					report_update_time = ' . time() . "
-				WHERE report_id = $id";
-		break;
-	}
-	if (!($db->sql_query($sql)))
-	{
-		message_die(GENERAL_ERROR, 'Could not change report status', '', __LINE__, __FILE__, $sql);
-	}
-
-	return true;
+    return $forums_auth;
 }
 
-function delete_report($mode, $id)
+// create the comments from the reports
+function create_comments($row)
 {
-	global $db;
+    global $db, $board_config, $lang, $phpEx;
 
-	$id = intval($id);
-	switch ($mode)
-	{
-		case 'report':
-			$sql = 'DELETE FROM ' . REPORT_TABLE . "
-				WHERE report_id = $id";
-		break;
+        // find if we have a last action user_id and last action time
+        if ( $row['last_action_user_id'] != 0 && $row['last_action_time'] != 0 )
+        {
+            $sql2 = "SELECT username FROM " . USERS_TABLE . "
+                WHERE user_id = " . $row['last_action_user_id'];
 
-		case 'cat':
-			$sql = 'DELETE FROM ' . REPORT_TABLE . "
-				WHERE cat_id = $id";
-		break;
-	}
-	if (!($db->sql_query($sql)))
-	{
-		message_die(GENERAL_ERROR, 'Could not delete report(s)', '', __LINE__, __FILE__, $sql);
-	}
+            if ( !($result2 = $db->sql_query($sql2)) )
+            {
+                message_die(GENERAL_ERROR, 'Could not get last action user id information', '', __LINE__, __FILE__, $sql2);
+            }
 
-	return true;
+            $row2 = $db->sql_fetchrow($result2);
+
+/*****[BEGIN]******************************************
+ [ Mod:    Advanced Username Color             v1.0.5 ]
+ ******************************************************/
+            $last_action_user = '<a href="modules.php?name=Profile&amp;mode=viewprofile&amp;' . POST_USERS_URL . '=' . $row['last_action_user_id'] . '">' . UsernameColor($row2['username']) . '</a>';
+/*****[END]********************************************
+ [ Mod:    Advanced Username Color             v1.0.5 ]
+ ******************************************************/
+            $last_action_date = create_date($board_config['default_dateformat'], $row['last_action_time'], $board_config['board_timezone']);
+
+            if ( $row['report_status'] == REPORT_POST_NEW )
+            {
+                $last_action = sprintf($lang['Opened_by_user_on_date'], $last_action_user, $last_action_date);
+            }
+            else
+            {
+                $last_action = sprintf($lang['Closed_by_user_on_date'], $last_action_user, $last_action_date);
+            }
+
+            $last_action_comments = $row['last_action_comments'];
+        }
+        else
+        {
+            $last_action = ( $row['report_status'] == REPORT_POST_NEW ) ? $lang['Opened'] : $lang['Closed'];
+            $last_action_comments = '';
+        }
+
+         // replace "\n" with "\n<br />\n" for correct html output on browser
+        $comments = str_replace("\n", "\n<br />\n", $row['report_comments']);
+        $last_action_comments = str_replace("\n", "\n<br />\n", $last_action_comments);
+
+        $comments_temp = array('last_action' => $last_action,
+                                    'comments' => $comments,
+                                    'last_action_comments' => $last_action_comments
+                                    );
+
+        return $comments_temp;
 }
 
-function get_report_status($mode, $id, $post_ids = false)
+// find which reports have their posts non-existent
+function get_reports_with_no_posts()
 {
-	global $db;
+    global $db;
 
-	$id = intval($id);
-	switch ($mode)
-	{
-		case 'topic_posts':
-			if (is_array($post_ids))
-			{
-				$post_id_list = '';
-				$reported_info = array(
-					-1 => REPORT_CLEARED
-				);
-				foreach ($post_ids as $post_id)
-				{
-					$post_id = intval($post_id);
-					$reported_info[$post_id] = REPORT_CLEARED;
-					$post_id_list .= ($post_id_list != '') ? ", $post_id" : $post_id;
-				}
-			
-				$sql = 'SELECT cat_id, report_status, report_info
-					FROM ' . REPORT_TABLE . '
-					WHERE 
-						((cat_id = ' . REPORT_TOPIC_ID . " AND report_info = $id)
-							OR (cat_id = " . REPORT_POST_ID . " AND report_info IN($post_id_list)))
-						AND report_status <> " . REPORT_CLEARED . '
-					ORDER BY report_status DESC';
-				unset($post_id_list);
-				if (!($result = $db->sql_query($sql)))
-				{
-					message_die(GENERAL_ERROR, 'Could not get reported info', '', __LINE__, __FILE__, $sql);
-				}
+    $sql = "SELECT pr.post_id FROM " . POST_REPORTS_TABLE . ' pr, ' . POSTS_TABLE . " p
+        WHERE pr.post_id = p.post_id";
 
-				while ($row = $db->sql_fetchrow($result))
-				{
-					if ($row['cat_id'] == REPORT_TOPIC_ID)
-					{
-						$reported_info[-1] = $row['report_status'];
-					}
-					else
-					{
-						$reported_info[$row['report_info']] = $row['report_status'];
-					}
-				}
-				$db->sql_freeresult($result);
-				
-				return $reported_info;
-			}
-			else
-			{
-				return false;
-			}
-		break;
-			
-		case 'topic':
-			$sql = 'SELECT report_status
-				FROM ' . REPORT_TABLE . '
-				WHERE cat_id = ' . REPORT_TOPIC_ID . "
-					AND report_info = $id";
-			if (!($result = $db->sql_query($sql)))
-			{
-				message_die(GENERAL_ERROR, 'Could not get reported info', '', __LINE__, __FILE__, $sql);
-			}
+    if ( !($result = $db->sql_query($sql)) )
+    {
+        message_die(GENERAL_ERROR, 'Could not query reports', '', __LINE__, __FILE__, $sql);
+    }
 
-			$report_status = ($db->sql_numrows($result)) ? $db->sql_fetchfield('report_status', 0, $result) : REPORT_CLEARED;
-			$db->sql_freeresult($result);
-			
-			return $report_status;
-		break;
-			
-		case 'post':
-			$sql = 'SELECT report_status
-				FROM ' . REPORT_TABLE . '
-				WHERE cat_id = ' . REPORT_POST_ID . "
-					AND report_info = $id";
-			if (!($result = $db->sql_query($sql)))
-			{
-				message_die(GENERAL_ERROR, 'Could not get reported info', '', __LINE__, __FILE__, $sql);
-			}
+    // create an array with all the common post_ids of the reports and posts table
+    $common_post_ids = array();
+    while( $row = $db->sql_fetchrow($result) )
+    {
+        $common_post_ids[] = $row['post_id'];
+    }
 
-			$report_status = ($db->sql_numrows($result)) ? $db->sql_fetchfield('report_status', 0, $result) : REPORT_CLEARED;
-			$db->sql_freeresult($result);
-			
-			return $report_status;
-		break;
-	}
-}
+    // get all the post_ids from the reports table
+    $sql = "SELECT report_id, post_id
+        FROM " . POST_REPORTS_TABLE ;
 
-function get_topic_title($mode, $id)
-{
-	global $db;
+    if ( !($result = $db->sql_query($sql)) )
+    {
+        message_die(GENERAL_ERROR, 'Could not query reports', '', __LINE__, __FILE__, $sql);
+    }
 
-	$id = intval($id);
-	switch ($mode)
-	{
-		case 'post':
-			$sql = 'SELECT t.topic_title, pt.post_subject
-				FROM ' . POSTS_TABLE . ' p
-				INNER JOIN ' . POSTS_TEXT_TABLE . ' pt
-					ON pt.post_id = p.post_id
-				INNER JOIN ' . TOPICS_TABLE . " t
-					ON t.topic_id = p.topic_id
-				WHERE p.post_id = $id";
-		break;
+    // find which reports exist in the reports table but do not exist in the posts table
+    $delete_ids = array();
+    while( $row = $db->sql_fetchrow($result) )
+    {
+        if ( !in_array($row['post_id'], $common_post_ids) )
+        {
+            $delete_ids[] = $row['report_id'];
+        }
+    }
 
-		case 'topic':
-			$sql = 'SELECT topic_title
-				FROM ' . TOPICS_TABLE . "
-				WHERE topic_id = $id";
-		break;
-	}
-	if (!($result = $db->sql_query($sql)))
-	{
-		message_die(GENERAL_ERROR, 'Could not get topic title', '', __LINE__, __FILE__, $sql);
-	}
-
-	$row = $db->sql_fetchrow($result);
-	$db->sql_freeresult($result);
-
-	if ($row)
-	{
-		return (!empty($row['post_subject'])) ? $row['post_subject'] : $row['topic_title'];
-	}
-	else
-	{
-	  return false;
-	}
-}
-
-function get_username($user_id)
-{
-	global $db;
-
-	$user_id = intval($user_id);
-	$sql = 'SELECT username
-		FROM ' . USERS_TABLE . "
-		WHERE user_id = $user_id";
-	if (!($result = $db->sql_query($sql)))
-	{
-		message_die(GENERAL_ERROR, 'Could not get username', '', __LINE__, __FILE__, $sql);
-	}
-
-	$username = $db->sql_fetchfield('username', 0, $result);
-	$db->sql_freeresult($result);
-
-	return ($username) ? $username : false;
-}
-
-function obtain_report_cats($mode, $id = -1)
-{
-	global $db, $phpEx, $phpbb_root_path, $lang;
-	
-	include_once("bbcode.php");
-
-	$id = intval($id);
-	$sql_add = ($id > -1) ? "AND c.cat_id <> $id" : '';
-
-	switch ($mode)
-	{
-		case 'cat':
-			$sql = 'SELECT c.*, COUNT(r.report_id) AS report_count
-				FROM ' . REPORT_CAT_TABLE . ' c
-				LEFT JOIN ' . REPORT_TABLE . " r
-					ON r.cat_id = c.cat_id
-				WHERE c.cat_id = $id
-				GROUP BY c.cat_id";
-		break;
-
-		case 'normal':
-			$sql = 'SELECT c.*, COUNT(r.report_id) AS report_count
-				FROM ' . REPORT_CAT_TABLE . ' c
-				LEFT JOIN ' . REPORT_TABLE . " r
-					ON r.cat_id = c.cat_id
-				WHERE c.cat_type = " . REPORT_NORMAL . "
-					$sql_add
-				GROUP BY c.cat_id";
-		break;
-
-		case 'ext':
-			$sql = 'SELECT c.*, COUNT(r.report_id) AS report_count
-				FROM ' . REPORT_CAT_TABLE . ' c
-				LEFT JOIN ' . REPORT_TABLE . " r
-					ON r.cat_id = c.cat_id
-				WHERE c.cat_type = " . REPORT_EXT . "
-					$sql_add
-				GROUP BY c.cat_id";
-		break;
-
-		default:
-			$sql_add = ($id > -1) ? "WHERE c.cat_id <> $id" : '';
-
-			$sql = 'SELECT c.*, COUNT(r.report_id) AS report_count
-				FROM ' . REPORT_CAT_TABLE . ' c
-				LEFT JOIN ' . REPORT_TABLE . " r
-					ON r.cat_id = c.cat_id
-				$sql_add
-				GROUP BY c.cat_id";
-		break;
-	}
-
-	if (!($result = $db->sql_query($sql)))
-	{
-		message_die(GENERAL_ERROR, 'Could not get categories', '', __LINE__, __FILE__, $sql);
-	}
-
-	if (!$db->sql_numrows($result))
-	{
-		return false;
-	}
-	
-	$rows = array();
-	while ($row = $db->sql_fetchrow($result))
-	{
-		$row['cat_name'] = (isset($lang[$row['cat_name']])) ? $lang[$row['cat_name']] : htmlspecialchars($row['cat_name']);
-		$row['cat_explain'] = (isset($lang[$row['cat_explain']])) ? $lang[$row['cat_explain']] : (($row['cat_explain'] != '') ? nl2br(make_clickable(htmlspecialchars($row['cat_explain']))) : '-');
-
-		$rows[$row['cat_id']] = $row;
-	}
-	$db->sql_freeresult($result);
-
-	return ($mode == 'cat') ? $rows[$id] : $rows;
-}
-
-/*
-	array
-	(
-		[cats] = array
-		(
-			[cat_id],
-			[cat_name],
-			[cat_explain],
-			[report_count] = array
-			(
-				[-1],
-				[0],
-				[1],
-				[2]
-			),
-			[reports] = array
-			(
-				[report_id],
-				[report_status],
-				[report_date],
-				[report_user_id],
-				[report_username],
-				[report_info],
-				[report_text]
-			)
-		),
-		[all] = array
-		(
-			[report_count] = array
-			(
-				[-1],
-				[0],
-				[1],
-				[2]
-			)
-		)
-	)
-*/
-function obtain_reports($mode, $auth_check = true, $id = -1)
-{
-	global $userdata, $db, $lang, $phpEx, $phpbb_root_path;
-
-	include_once("bbcode.php");
-
-	$id = intval($id);
-	$sql_add = ($userdata['user_level'] == MOD) ? 'AND c.cat_auth = 0' : '';
-
-	switch ($mode)
-	{
-		// get data for a single report
-		case 'report':
-			$sql = 'SELECT c.*, r.*, u.username, u2.username AS update_username
-				FROM ' . REPORT_TABLE . ' r
-				INNER JOIN ' . REPORT_CAT_TABLE . " c
-					ON c.cat_id = r.cat_id
-						$sql_add
-				INNER JOIN " . USERS_TABLE . " u
-					ON u.user_id = r.report_user_id
-				LEFT JOIN " . USERS_TABLE . " u2
-					ON u2.user_id = r.report_update_user
-				WHERE r.report_id = $id";
-		break;
-
-		// get data for a category
-		case 'cat':
-			$sql = 'SELECT c.*, r.*, u.username, u2.username AS update_username, c.cat_id AS cat_id
-				FROM ' . REPORT_CAT_TABLE . ' c
-				LEFT JOIN ' . REPORT_TABLE . " r
-					ON c.cat_id = r.cat_id
-						$sql_add
-				LEFT JOIN " . USERS_TABLE . " u
-					ON u.user_id = r.report_user_id
-				LEFT JOIN " . USERS_TABLE . " u2
-					ON u2.user_id = r.report_update_user
-				WHERE c.cat_id = $id 
-				ORDER BY r.report_status ASC, r.report_date DESC";
-		break;
-
-		// get all reports
-		default:
-			$sql_add = ($userdata['user_level'] == MOD) ? 'WHERE c.cat_auth = 0' : '';
-
-			$sql = 'SELECT c.*, r.*, u.username, u2.username AS update_username, c.cat_id AS cat_id
-				FROM ' . REPORT_CAT_TABLE . ' c
-				LEFT JOIN ' . REPORT_TABLE . ' r
-					ON r.cat_id = c.cat_id
-				LEFT JOIN ' . USERS_TABLE . " u
-					ON u.user_id = r.report_user_id
-				LEFT JOIN " . USERS_TABLE . " u2
-					ON u2.user_id = r.report_update_user
-				$sql_add
-				ORDER BY c.cat_id ASC, r.report_status ASC, r.report_date DESC";
-		break;
-	}
-
-	if (!($result = $db->sql_query($sql)))
-	{
-		message_die(GENERAL_ERROR, 'Could not get reports', '', __LINE__, __FILE__, $sql);
-	}
-
-	if (!$db->sql_numrows($result))
-	{
-		return false;
-	}
-
-	$report_data = array();
-	$report_count = array();
-
-	$report_count[-1] = array(
-		-1 => 0,
-		REPORT_NOT_CLEARED => 0,
-		REPORT_IN_PROCESS => 0,
-		REPORT_CLEARED => 0
-	);
-	while ($row = $db->sql_fetchrow($result))
-	{
-		$cat_id = $row['cat_id'];
-
-		if (!isset($report_count[$cat_id]))
-		{
-			$report_count[$cat_id] = array(
-				-1 => 0,
-				REPORT_NOT_CLEARED => 0,
-				REPORT_IN_PROCESS => 0,
-				REPORT_CLEARED => 0
-			);
-		}
-
-		if (isset($row['report_id']))
-		{
-			// show report in list?
-			if ($auth_check)
-			{
-				switch ($cat_id)
-				{
-					case REPORT_POST_ID:
-						$report_auth = report_auth('post', $row['report_info']);
-					break;
-
-					case REPORT_TOPIC_ID:
-						$report_auth = report_auth('topic', $row['report_info']);
-					break;
-
-					default:
-						$report_auth = true;
-					break;
-				}
-			}
-			else
-			{
-				$report_auth = true;
-			}
-
-			if ($report_auth)
-			{
-				$report = array(
-					'report_id' => $row['report_id'],
-					'report_status' => $row['report_status'],
-					'report_date' => $row['report_date'],
-					'report_user_id' => $row['report_user_id'],
-					'report_username' => $row['username'],
-					'report_update_user' => $row['report_update_user'],
-					'report_update_username' => $row['update_username'],
-					'report_update_time' => $row['report_update_time'],
-					'report_info' => (!empty($row['report_info'])) ? make_clickable(htmlspecialchars($row['report_info'])) : '-',
-					'report_text' => (!empty($row['report_text'])) ? nl2br(make_clickable(htmlspecialchars($row['report_text']))) : '-'
-				);
-
-				$report_count[$cat_id][$row['report_status']]++;
-				$report_count[$cat_id][-1]++;
-				$report_count[-1][$row['report_status']]++;
-
-				switch ($cat_id)
-				{
-					case REPORT_POST_ID:
-						if (is_numeric($report['report_info']))
-						{
-							$report['topic_title'] = get_topic_title('post', $report['report_info']);
-						}
-					break;
-
-					case REPORT_TOPIC_ID:
-						if (is_numeric($report['report_info']))
-						{
-							$report['topic_title'] = get_topic_title('topic', $report['report_info']);
-						}
-					break;
-
-					case REPORT_USER_ID:
-						if (is_numeric($report['report_info']))
-						{
-							$report['username'] = get_username($report['report_info']);
-						}
-					break;
-				}
-			}
-		}
-		else if ($mode == 'report')
-		{
-			return false;
-		}
-		
-		$report_data['cats'][$cat_id]['cat_id'] = $cat_id;
-		$report_data['cats'][$cat_id]['cat_name'] = (isset($lang[$row['cat_name']])) ? $lang[$row['cat_name']] : htmlspecialchars($row['cat_name']);
-		$report_data['cats'][$cat_id]['cat_explain'] = (isset($lang[$row['cat_explain']])) ? $lang[$row['cat_explain']] : (($row['cat_explain'] != '') ? nl2br(make_clickable(htmlspecialchars($row['cat_explain']))) : '-');
-		$report_data['cats'][$cat_id]['report_count'] = $report_count;
-		if (isset($report))
-		{
-			$report_data['cats'][$cat_id]['reports'][] = $report;
-		}
-		unset($report);
-	}
-	$db->sql_freeresult($result);
-
-	$cat_ids = array_keys($report_data['cats']);
-	foreach ($cat_ids as $cat_id)
-	{
-		$report_data['cats'][$cat_id]['report_count'] = $report_count[$cat_id];
-	}
-	unset($cat_ids);
-
-	$report_count[-1][-1] = $report_count[-1][REPORT_NOT_CLEARED] + $report_count[-1][REPORT_IN_PROCESS] + $report_count[-1][REPORT_CLEARED];
-	$report_data['all']['report_count'] = $report_count[-1];
-
-	return $report_data;
+    return $delete_ids;
 }
 
 ?>

@@ -114,13 +114,13 @@ CODE_SAMPLE
             $nodeToReturn = $this->refactorFileWithoutNamespace($node);
         }
         // 1. remove this node
-        if ($nodeToReturn instanceof Node) {
+        if ($nodeToReturn !== null) {
             return $nodeToReturn;
         }
-        $isInAddedFiles = (bool) \array_filter($this->removedAndAddedFilesCollector->getAddedFilesWithContent(), function (AddedFileWithContent $addedFileWithContent) : bool {
+        $isInaddedFiles = \array_filter($this->removedAndAddedFilesCollector->getAddedFilesWithContent(), function (AddedFileWithContent $addedFileWithContent) : bool {
             return $addedFileWithContent->getFilePath() === $this->file->getFilePath();
         });
-        if ($isInAddedFiles === \false) {
+        if ($isInaddedFiles === []) {
             // 2. nothing to return - remove the file
             $this->removedAndAddedFilesCollector->removeFile($this->file->getFilePath());
         }
@@ -144,6 +144,7 @@ CODE_SAMPLE
                 $nodeToReturn = $newNamespace;
                 continue;
             }
+            // 2. new file
             $this->printNewNodes($classLike, $newNamespace);
         }
         return $nodeToReturn;

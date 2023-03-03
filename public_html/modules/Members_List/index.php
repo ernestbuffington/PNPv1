@@ -1,12 +1,27 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 /***************************************************************************
  *                              memberlist.php
  *                            -------------------
+ *   update               : Monday, May 17, 2021
+ *   copyright            : (C) 2001 Ernest Allen Buffington
+ *   email                : ernest.buffington@gmail.com
+ *	 version              : 2.0
+ *
+ *
  *   begin                : Friday, May 11, 2001
  *   copyright            : (C) 2001 The phpBB Group
  *   email                : support@phpbb.com
  *
- *   $Id: memberlist.php,v 1.36.2.13 2006/12/16 13:11:24 acydburn Exp $
+ *   $Id: memberlist.php,v 1.36.2.10 2004/07/11 16:46:15 acydburn Exp $
+ *
+ *	Module Description: Display's all registered user's.
+ *	Module Name: Members List	
+ *	Module Version: 1.36.2.10
+ *	Original Modifications: Lonestar (http://lonestar-modules.com)	
  *
  ***************************************************************************/
 
@@ -18,464 +33,468 @@
  *   (at your option) any later version.
  *
  ***************************************************************************/
-if ( !defined('MODULE_FILE') )
-{
-    die("You can't access this file directly...");
-}
-$module_name = basename(dirname(__FILE__));
-require("modules/Forums/nukebb.php");
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Nuke Patched                             v3.1.0       06/26/2005
+-=[Mod]=-
+      Advanced Username Color                  v1.0.5       06/11/2005
+      Memberlist Find User                     v1.0.0       07/06/2005
+      Online/Offline/Hidden (Selection Order)  v1.0.0       08/21/2005
+      Online/Offline/Hidden                    v2.2.7       01/24/2006
+	  Member Country Flags                     v2.0.7
+	  Birthdays                                v3.0.0
+ ************************************************************************/
+if (!defined('MODULE_FILE'))die('You can\'t access this file directly...');
+
+$module_name = basename(__DIR__);
+require(NUKE_FORUMS_DIR.'/nukebb.php');
 
 define('IN_PHPBB', true);
-define('IN_CASHMOD', true);
-define('CM_MEMBERLIST', true);
-include_once($phpbb_root_path . 'extension.inc');
-include_once($phpbb_root_path . 'common.'.$phpEx);
+include($phpbb_root_path.'extension.inc');
+include($phpbb_root_path.'common.'.$phpEx);
 
-//
-// Start session management
-//
-$userdata = session_pagestart($user_ip, PAGE_VIEWMEMBERS, $nukeuser);
+# Start session management
+$userdata = session_pagestart($user_ip, PAGE_VIEWMEMBERS);
 init_userprefs($userdata);
-//
-// End session management
-//
 
-$start = ( isset($_GET['start']) ) ? intval($_GET['start']) : 0;
-$start = ($start < 0) ? 0 : $start;
-if ( isset($_GET['mode']) || isset($_POST['mode']) )
-{
-	$mode = ( isset($_POST['mode']) ) ? htmlspecialchars($_POST['mode']) : htmlspecialchars($_GET['mode']);
-}
-else
-{
-	$mode = 'joined';
-}
+$pageroot = (!empty($_GET['page'])) ? $_GET['page'] : 1;
+$page = (isset($pageroot)) ? intval($pageroot) : 1;
 
-if(isset($_POST['order']))
-{
-	$sort_order = ($_POST['order'] == 'ASC') ? 'ASC' : 'DESC';
-}
-else if(isset($_GET['order']))
-{
-	$sort_order = ($_GET['order'] == 'ASC') ? 'ASC' : 'DESC';
-}
-else
-{
-	$sort_order = 'ASC';
-}
+$calc = $board_config['topics_per_page'] * $page;
+$start = $calc - $board_config['topics_per_page'];
 
-//
-// Memberlist sorting
-//
-$mode_types_text = array($lang['Sort_Joined'], $lang['Sort_Username'], $lang['Sort_Location'], $lang['Sort_Posts'], $lang['Sort_Email'],  $lang['Sort_Website'], $lang['Sort_Top_Ten'], $lang['Theme']);
-$mode_types = array('joined', 'username', 'location', 'posts', 'email', 'website', 'topten', 'theme');
+# just another instance where code is changed without explanation START
 
-$select_sort_mode = '<select name="mode">';
-for($i = 0; $i < count($mode_types_text); $i++)
-{
-	$selected = ( $mode == $mode_types[$i] ) ? ' selected="selected"' : '';
-	$select_sort_mode .= '<option value="' . $mode_types[$i] . '"' . $selected . '>' . $mode_types_text[$i] . '</option>';
-}
-$select_sort_mode .= '</select>';
+# it appears as if a new function was created called get_query_var and
+# was used to replace the original code.
+// if(isset($HTTP_GET_VARS['mode']) || isset($HTTP_POST_VARS['mode']))
+// 	$mode = (isset($HTTP_POST_VARS['mode'])) ? htmlspecialchars($HTTP_POST_VARS['mode']) : htmlspecialchars($HTTP_GET_VARS['mode']);
+// else
+// 	$mode = 'joined';
 
-$select_sort_order = '<select name="order">';
-if($sort_order == 'ASC')
-{
-	$select_sort_order .= '<option value="ASC" selected="selected">' . $lang['Sort_Ascending'] . '</option><option value="DESC">' . $lang['Sort_Descending'] . '</option>';
-}
-else
-{
-	$select_sort_order .= '<option value="ASC">' . $lang['Sort_Ascending'] . '</option><option value="DESC" selected="selected">' . $lang['Sort_Descending'] . '</option>';
-}
-$select_sort_order .= '</select>';
+# just another instance where code is changed without explanation END
 
-//
-// Generate page
-//
+$mode = get_query_var('mode', '_REQUEST', 'string', 'joined');
+$sort_order = get_query_var('order', '_REQUEST', 'string');
+$sort_order = ($sort_order == 'DESC') ? $sort_order : 'ASC';
+
 $page_title = $lang['Memberlist'];
-include_once("includes/page_header.php");
+include(NUKE_INCLUDE_DIR.'page_header.php');
 
-$template->set_filenames(array(
-	'body' => 'memberlist_body.tpl')
-);
-if (is_active("Forums")) {
-    make_jumpbox('viewforum.'.$phpEx);
-}
-
-$template->assign_vars(array(
-	'L_SELECT_SORT_METHOD' => $lang['Select_sort_method'],
-	'L_EMAIL' => $lang['Email'],
-	'L_WEBSITE' => $lang['Website'],
-	'L_FROM' => $lang['Location'],
-	'L_FLAG' => $lang['Country'],
-	'L_ORDER' => $lang['Order'],
-	'L_PRIVATE_MESSAGE' => $lang['Private_Message'],
-/*****************************************************/
-/* Mod - Members List Find User v.1.0          START */
-/*****************************************************/
-        'L_LOOK_UP' => $lang['Look_up_User'],
-        'L_FIND_USERNAME' => $lang['Find_username'],
-        'U_SEARCH_USER' => "modules.php?name=Forums&file=search&mode=searchuser&popup=1", 
-/*****************************************************/
-/* Mod - Members List Find User v.1.0            END */
-/*****************************************************/
-	'L_SORT' => $lang['Sort'],
-	'L_SUBMIT' => $lang['Sort'],
-	'L_AIM' => $lang['AIM'],
-	'L_YIM' => $lang['YIM'],
-	'L_MSNM' => $lang['MSNM'],
-	'L_ICQ' => $lang['ICQ'],
-// Start add - Rank in member list MOD
-'L_USER_RANK' => $lang['Poster_rank'],
-// End add - Rank in member list MOD
-	'L_JOINED' => $lang['Joined'], 
-	'L_POSTS' => $lang['Posts'],
-/*****************************************************/
-/* Forum - User Online Status v.1.0.5          START */
-/*****************************************************/
-        'L_ONLINE_STATUS' => $lang['Online_status'],
-/*****************************************************/
-/* Forum - User Online Status v.1.0.5            END */
-/*****************************************************/
-	'L_PM' => $lang['Private_Message'],
-        'L_THEME' => $lang['Theme'],
-	'S_MODE_SELECT' => $select_sort_mode,
-	'S_ORDER_SELECT' => $select_sort_order,
-	'S_MODE_ACTION' => append_sid("memberlist.$phpEx"))
+$template->set_filenames(['body' => 'memberlist_body.tpl']
 );
 
-switch( $mode )
-{
-	case 'joined':
-                $order_by = "user_id $sort_order LIMIT $start, " . $board_config['topics_per_page'];
-		break;
-	case 'username':
-		$order_by = "username $sort_order LIMIT $start, " . $board_config['topics_per_page'];
-		break;
-	case 'location':
-		$order_by = "user_from $sort_order LIMIT $start, " . $board_config['topics_per_page'];
-		break;
-	case 'posts':
-		$order_by = "user_posts $sort_order LIMIT $start, " . $board_config['topics_per_page'];
-		break;
-	case 'email':
-		$order_by = "user_email $sort_order LIMIT $start, " . $board_config['topics_per_page'];
-		break;
-	case 'website':
-		$order_by = "user_website $sort_order LIMIT $start, " . $board_config['topics_per_page'];
-		break;
-	case 'topten':
-		$order_by = "user_posts $sort_order LIMIT 10";
-		break;
-	case 'theme':
-                $order_by = "theme $sort_order LIMIT $start, " . $board_config['topics_per_page'];
-                break;
-	case $cm_memberlist->modecheck($mode):
-		$order_by = $cm_memberlist->getfield($mode) . " $sort_order LIMIT $start, " . $board_config['topics_per_page'];
-		break;
-	default:
-                $order_by = "user_id $sort_order LIMIT $start, " . $board_config['topics_per_page'];
-		break;
-}
+if(!isset($lang['Sort_Go']))
+$lang['Sort_Go'] = 'Sort';
 
-/*****************************************************/
-/* Mod - Members List Find User v.1.0          START */
-/* Forum - Advanced Username Color v.1.0.1     START */
-/* Forum - User Online Status v.1.0.5          START */
-/*****************************************************/
-$username = ( !empty($_POST['username']) ) ? $_POST['username'] : '';
+$template->assign_vars([
+    'L_PAGE_TITLE' => $lang['Memberlist'],
+    'L_SELECT_SORT_METHOD' => $lang['Select_sort_method'],
+    'L_EMAIL' => $lang['Email'],
+    'L_WEBSITE' => $lang['Website'],
+    'L_FROM' => $lang['Location'],
+    'L_ORDER' => $lang['Order'],
+    'L_LOOK_UP' => $lang['Look_up_User'],
+    'L_FIND_USERNAME' => $lang['Find_username'],
+    'U_SEARCH_USER' => "modules.php?name=Forums&amp;file=search&amp;mode=searchuser&amp;popup=1",
+    'U_SEARCH_EXPLAIN' => $lang['Search_author_explain'],
+    'L_GO' => $lang['Sort_Go'],
+    'L_JOINED' => $lang['Joined'],
+    'L_AGE' => $lang['Sort_Age'],
+    'L_POSTS' => $lang['Posts'],
+    'L_ONLINE_STATUS' => $lang['Online_status'],
+    'L_LAST_VISIT' => $lang['User_last_visit'],
+    # Mod: Selection Order v1.0.0 START
+    # Mod: Birthdays v3.0.0 START
+    'S_MODE_SELECT' => select_box('mode',$mode,['joined' => 
+   	                          $lang['Sort_Joined'], 'username' => 
+						   $lang['Sort_Username'], 'location' => 
+						      $lang['Sort_Location'], 'posts' => 
+							       $lang['Sort_Posts'], 'age' => 
+								   $lang['Sort_Age'], 'email' => 
+							   $lang['Sort_Email'], 'website' => 
+							  $lang['Sort_Website'], 'topten' => 
+							  $lang['Sort_Top_Ten'], 'online' => 
+							           $lang['Current_status']]),
+    # Mod: Selection Order v1.0.0 END
+    # Mod: Birthdays v3.0.0 END
+    'S_ORDER_SELECT' 		=> select_box('order',$sort_order,['ASC' => $lang['Sort_Ascending'], 'DESC' => $lang['Sort_Descending']]),
+    'S_MODE_ACTION' 		=> append_sid("memberlist.$phpEx"),
+]
+);
 
-if ( $username && isset($_POST['submituser']) )
-{
-// Start add - Rank in member list MOD
-$sql = "SELECT *
-	FROM " . RANKS_TABLE . "
-	ORDER BY rank_special, rank_min";
-if ( !($result = $db->sql_query($sql)) )
-{
-	message_die(GENERAL_ERROR, "Could not obtain ranks information.", '', __LINE__, __FILE__, $sql);
-}
-$ranksrow = array();
-while ( $row = $db->sql_fetchrow($result) )
-{
-	$ranksrow[] = $row;
-}
-$db->sql_freeresult($result);
-// End add - Rank in member list MOD
-	$sql = "SELECT username, user_color_gc, user_id, user_viewemail, user_posts, user_regdate, user_from, user_from_flag, user_website, user_email, user_icq, user_aim, user_yim, user_msnm, theme, user_avatar, user_avatar_type, user_allowavatar, user_rank, user_allow_viewonline, user_session_time
-		FROM " . USERS_TABLE . "
-		WHERE username = '$username' AND user_id <> " . ANONYMOUS . " LIMIT 1";
-}
-else
-{
-	$sql = "SELECT username, user_color_gc, user_id, user_viewemail, user_posts, user_regdate, user_from, user_from_flag, user_website, user_email, user_icq, user_aim, user_yim, user_msnm, theme, user_avatar, user_avatar_type, user_allowavatar, user_allow_viewonline, user_session_time
-		FROM " . USERS_TABLE . "
-		WHERE user_id <> " . ANONYMOUS . "
-		ORDER BY $order_by";
-//		$cm_memberlist->generate_columns($template,$sql,8);
-}
-/*****************************************************/
-/* Forum - User Online Status v.1.0.5            END */
-/* Forum - Advanced Username Color v.1.0.1       END */
-/* Mod - Members List Find User v.1.0            END */
-/*****************************************************/
+# SEARCH FOR USERS VIA THE ALPHABET LISTING - START
+$alpha_range = [];
+$alpha_letters = [];
+$alpha_letters = range('A','Z');
+$alpha_start = ['All', '#'];
+$alpha_range = array_merge($alpha_start, $alpha_letters);
+$i = 0;
+while($i < count($alpha_range)):
+	if ($alpha_range[$i] != 'All'): 
+		$temp = ($alpha_range[$i] != '#') ? strtolower($alpha_range[$i]) : 'num';
+		$alphanum_search_url = 'modules.php?name='.basename(__DIR__).'&amp;mode=letter&amp;alphanum='.strtoupper($temp);
+	else: 
+		$alphanum_search_url = 'modules.php?name='.basename(__DIR__);
+	endif;
+	$template->assign_block_vars('alphanumsearch', ['SEARCH_SIZE' 	=> floor(100/count($alpha_range)) . '%', 'SEARCH_TERM' 	=> $alpha_range[$i], 'SEARCH_LINK' 	=> $alphanum_search_url]
+	);
+	$i++;
+endwhile;
+# SEARCH FOR USERS VIA THE ALPHABET LISTING - END
 
-if( !($result = $db->sql_query($sql)) )
-{
-	message_die(GENERAL_ERROR, 'Could not query users', '', __LINE__, __FILE__, $sql);
-}
+# search switch START
+switch($mode):
+	case 'letter':
+	$alphanum = (isset($_POST['alphanum'])) ? htmlspecialchars((string) $_POST['alphanum']) : htmlspecialchars((string) $_GET['alphanum']);
+	$alphanum = str_replace("\'", "''",$alphanum);
+	$where = ($alphanum == 'num') ? " AND `username` NOT RLIKE '^[A-Z]' " : " AND `username` LIKE '".$alphanum."%' ";
+	$order_by = 'user_id '.$sort_order.' LIMIT '.$start.', '.$board_config['topics_per_page']; break;
+	break;
+	case 'age':
+	$age_order = $sort_order == 'ASC' ? 'DESC' : 'ASC';
+	$order_by = 'coalesce(user_birthday2,';
+	$order_by.= ($age_order == 'ASC') ? '99999999' : '0';
+	$order_by.= ") $age_order LIMIT $start, ".$board_config['topics_per_page'];
+	break;
+	case 'joined': 		
+	$order_by = 'user_id '.$sort_order.' LIMIT '.$start.', '.$board_config['topics_per_page']; 
+	break;
+	case 'username': 	
+	$order_by = 'username '.$sort_order.' LIMIT '.$start.', '.$board_config['topics_per_page']; 
+	break;
+	case 'location': 	
+	$order_by = 'user_from '.$sort_order.' LIMIT '.$start.', '.$board_config['topics_per_page']; 
+	break;
+	case 'posts': 		
+	$order_by = 'user_posts '.$sort_order.' LIMIT '.$start.', '.$board_config['topics_per_page']; 
+	break;
+	case 'email': 		
+	$order_by = 'user_email '.$sort_order.' LIMIT '.$start.', '.$board_config['topics_per_page']; 
+	break;
+	case 'website': 	
+	$order_by = 'user_website '.$sort_order.' LIMIT '.$start.', '.$board_config['topics_per_page']; 
+	break;
+	case 'topten': 		
+	$order_by = 'user_posts '.$sort_order.' LIMIT 10'; 
+	break;
+	case 'online': 		
+	$order_by = 'user_session_time '.$sort_order.' LIMIT '.$start.', '.$board_config['topics_per_page']; 
+	break;
+	default: 			
+	$order_by = 'user_id '.$sort_order.' LIMIT '.$start.', '.$board_config['topics_per_page']; break;
+endswitch;
+# search switch END
 
-if ( $row = $db->sql_fetchrow($result) )
-{
+$username = (!empty($_POST['username'])) ? $_POST['username'] : '';
+
+if ($username && isset($_POST['submituser'])):
+    # search for users with a wildcard
+	$search_author = str_replace('*', '%', trim($username));
+	if((str_contains($search_author, '%')) && (strlen(str_replace('%', '',$search_author)) < $board_config['search_min_chars']))
+	$search_author = '';
+
+	$sql = "SELECT username,
+	                   name, 
+	  	        user_avatar, 
+	       user_avatar_type, 
+	       user_allowavatar, 
+	                user_id, 
+				 user_posts, 
+				user_gender, 
+			  user_facebook, 
+			  user_birthday, 
+		   birthday_display, 
+		       user_regdate, 
+			      user_from, 
+			 user_from_flag, 
+			   user_website, 
+	  user_allow_viewonline, 
+	      user_session_time, 
+		     user_lastvisit 
+
+	FROM ".USERS_TABLE." 
+	WHERE username LIKE '".str_replace("\'", "''",$search_author)."' 
+	AND user_id <> ".ANONYMOUS." LIMIT 1";
+
+	# this is the original SQL queery START
+	$deprecated_sql = "SELECT username, 
+	        		              name, 
+						   user_avatar, 
+	                  user_avatar_type, 
+	                  user_allowavatar, 
+	                           user_id, 
+							user_posts, 
+						   user_gender, 
+						 user_facebook, 
+						 user_birthday, 
+					  birthday_display, 
+					      user_regdate, 
+						     user_from, 
+					    user_from_flag, 
+						  user_website, 
+				 user_allow_viewonline, 
+				     user_session_time, 
+					    user_lastvisit 
+
+	FROM ".USERS_TABLE." 
+	WHERE username = '$username' 
+	AND user_id <> ".ANONYMOUS." LIMIT 1";
+	# this is the original SQL queery END
+
+
+else:
+
+    if(!isset($where)):
+	
+	if(!isset($_POST['alphanum']))
+	$_POST['alphanum'] = '';
+	
+	$alphanum = (isset($_POST['alphanum'])) ? htmlspecialchars((string) $_POST['alphanum']) : htmlspecialchars((string) $_GET['alphanum']);
+	$alphanum = str_replace("\'", "''",$alphanum);
+	$where = ($alphanum == 'num') ? " AND `username` NOT RLIKE '^[A-Z]' " : " AND `username` LIKE '".$alphanum."%' ";
+	$order_by = 'user_id '.$sort_order.' LIMIT '.$start.', '.$board_config['topics_per_page']; 
+	endif;
+	
+	
+	$sql = "SELECT username,
+	                   name, 
+                user_avatar, 
+	       user_avatar_type, 
+	       user_allowavatar, 
+	                user_id, 
+				 user_posts, 
+				user_gender, 
+			  user_facebook, 
+			  user_birthday, 
+		   birthday_display, 
+		       user_regdate, 
+			      user_from, 
+			 user_from_flag, 
+			   user_website, 
+	  user_allow_viewonline, 
+	      user_session_time, 
+		     user_lastvisit 
+			 
+    FROM ".USERS_TABLE." WHERE user_id <> ".ANONYMOUS."".$where." ORDER BY $order_by";
+endif;
+
+if(!($result = $db->sql_query($sql)))
+message_die(GENERAL_ERROR, 'Could not query users', '', __LINE__, __FILE__, $sql);
+
+global $textcolor1;
+$theme_name = get_theme();
+
+if($row = $db->sql_fetchrow($result)):
+
 	$i = 0;
 	do
 	{
+		$realname = $row['name'];
 		$username = $row['username'];
-		$user_id = $row['user_id'];
-                if (( $row['user_website'] == "http:///") || ( $row['user_website'] == "http://")){
-                    $row['user_website'] =  "";
-                }
-                if (($row['user_website'] != "" ) && (substr($row['user_website'],0, 7) != "http://")) {
-                    $row['user_website'] = "http://".$row['user_website'];
-                }
-                $row['user_from'] = str_replace(".gif", "", $row['user_from']);
-/****************************************/
-/* Flag Mod                      START  */
-/****************************************/
-		$from = ( !empty($row['user_from']) ) ? $row['user_from'] : '&nbsp;';
-	
-		$flag = ( !empty($row['user_from_flag']) ) ? '&nbsp;<img src="images/flags/' . $row['user_from_flag'] . '" alt="' . $row['user_from_flag'] . '" border="1" />' : '&nbsp;';
-/****************************************/
-/* Flag Mod                        END  */
-/****************************************/
-                $joined = $row['user_regdate'];
-		$posts = ( $row['user_posts'] ) ? $row['user_posts'] : 0;
-// Start add - Rank in member list MOD
-//
-// Generate ranks, set them to empty string initially
-//
-$user_rank = '';
-$rank_image = '';
-if ( $row['user_rank'] )
-{
-	for($j = 0; $j < count($ranksrow); $j++)
-	{
-		if ( $row['user_rank'] == $ranksrow[$j]['rank_id'] && $ranksrow[$j]['rank_special'] )
-		{
-			$user_rank = $ranksrow[$j]['rank_title'];
-			$rank_image = ( $ranksrow[$j]['rank_image'] ) ? '<img src="' . $ranksrow[$j]['rank_image'] . '" alt="' . $poster_rank . '" title="' . $poster_rank . '" border="0" /><br />' : '';
-		}
-	}
-}
-else
-{
-	for($j = 0; $j < count($ranksrow); $j++)
-	{
-		if ( $row['user_posts'] >= $ranksrow[$j]['rank_min'] && !$ranksrow[$j]['rank_special'] )
-		{
-			$user_rank = $ranksrow[$j]['rank_title'];
-			$rank_image = ( $ranksrow[$j]['rank_image'] ) ? '<img src="' . $ranksrow[$j]['rank_image'] . '" alt="' . $poster_rank . '" title="' . $poster_rank . '" border="0" /><br />' : '';
-		}
-	}
-}
-// End add - Rank in member list MOD
-                if ($row['theme'] == "") {
-			$row['theme'] = "Default";
-			}
-                $themelist = $row['theme'];
-		$poster_avatar = '';
-		if ( $row['user_avatar_type'] && $user_id != ANONYMOUS && $row['user_allowavatar'] )
-		{
-			switch( $row['user_avatar_type'] )
-			{
-				case USER_AVATAR_UPLOAD:
-					$poster_avatar = ( $board_config['allow_avatar_upload'] ) ? '<img src="' . $board_config['avatar_path'] . '/' . $row['user_avatar'] . '" alt="" border="0" />' : '';
-					break;
-				case USER_AVATAR_REMOTE:
-					$poster_avatar = ( $board_config['allow_avatar_remote'] ) ? '<img src="' . $row['user_avatar'] . '" alt="" border="0" />' : '';
-					break;
-				case USER_AVATAR_GALLERY:
-					$poster_avatar = ( $board_config['allow_avatar_local'] ) ? '<img src="' . $board_config['avatar_gallery_path'] . '/' . $row['user_avatar'] . '" alt="" border="0" />' : '';
-					break;
-			}
-		}
+		$user_id = intval($row['user_id']);
+		
+		# Get the users location and flag
+		$user_from = (!empty($row['user_from'])) ? $row['user_from'] : '&nbsp;';
 
-		if ( !empty($row['user_viewemail']) || $userdata['user_level'] == ADMIN )
-		{
-			$email_uri = ( $board_config['board_email_form'] ) ? append_sid("profile.$phpEx?mode=email&amp;" . POST_USERS_URL .'=' . $user_id) : 'mailto:' . $row['user_email'];
-
-			$email_img = '<a href="' . $email_uri . '"><img src="' . $images['icon_email'] . '" alt="' . $lang['Send_email'] . '" title="' . $lang['Send_email'] . '" border="0" /></a>';
-			$email = '<a href="' . $email_uri . '">' . $lang['Send_email'] . '</a>';
-		}
+		$user_flag = (!empty($row['user_from_flag'])) ? 
+		'&nbsp;'.get_evo_icon('countries '.str_replace('.png','',(string) $row['user_from_flag'])).'&nbsp;' : '&nbsp;'.get_evo_icon('countries unknown').'&nbsp;';
+		 
+		# Calculate the users age.
+		$bday_month_day = floor($row['user_birthday'] / 10000);
+		$bday_year_age = ($row['birthday_display'] != BIRTHDAY_NONE && $row['birthday_display'] != BIRTHDAY_DATE) ? $row['user_birthday'] - 10000*$bday_month_day : 0;
+		$fudge = (gmdate('md') < $bday_month_day) ? 1 : 0;
+		$age = ($bday_year_age) ? gmdate('Y')-$bday_year_age-$fudge : false;
+		
+		if(empty($age))
+		$age = 'Hidden';
 		else
-		{
-			$email_img = '&nbsp;';
-			$email = '&nbsp;';
-		}
-
-		$temp_url = append_sid("profile.$phpEx?mode=viewprofile&amp;" . POST_USERS_URL . "=$user_id");
-		$profile_img = '<a href="' . $temp_url . '"><img src="' . $images['icon_profile'] . '" alt="' . $lang['Read_profile'] . '" title="' . $lang['Read_profile'] . '" border="0" /></a>';
-		$profile = '<a href="' . $temp_url . '">' . $lang['Read_profile'] . '</a>';
-
-		$temp_url = append_sid("privmsg.$phpEx?mode=post&amp;" . POST_USERS_URL . "=$user_id");
-                if (is_active("Private_Messages"))
-                {
-		$pm_img = '<a href="' . $temp_url . '"><img src="' . $images['icon_pm'] . '" alt="' . $lang['Send_private_message'] . '" title="' . $lang['Send_private_message'] . '" border="0" /></a>';
-		$pm = '<a href="' . $temp_url . '">' . $lang['Send_private_message'] . '</a>';
-                }
-
-		$www_img = ( $row['user_website'] ) ? '<a href="' . $row['user_website'] . '" target="_userwww"><img src="' . $images['icon_www'] . '" alt="' . $lang['Visit_website'] . '" title="' . $lang['Visit_website'] . '" border="0" /></a>' : '';
-		$www = ( $row['user_website'] ) ? '<a href="' . $row['user_website'] . '" target="_userwww">' . $lang['Visit_website'] . '</a>' : '';
-
-		if ( !empty($row['user_icq']) )
-		{
-			$icq_status_img = '<a href="http://wwp.icq.com/' . $row['user_icq'] . '#pager"><img src="http://web.icq.com/whitepages/online?icq=' . $row['user_icq'] . '&img=5" width="18" height="18" border="0" /></a>';
-			$icq_img = '<a href="http://wwp.icq.com/scripts/search.dll?to=' . $row['user_icq'] . '"><img src="' . $images['icon_icq'] . '" alt="' . $lang['ICQ'] . '" title="' . $lang['ICQ'] . '" border="0" /></a>';
-			$icq =  '<a href="http://wwp.icq.com/scripts/search.dll?to=' . $row['user_icq'] . '">' . $lang['ICQ'] . '</a>';
-		}
+		$age .= ' yrs';
+		
+		# Website URL
+		if(!empty($row['user_website']))
+		$www = '<a href="'.$row['user_website'].'" target="_blank"><img class="tooltip-html copyright" 
+		alt="Male" title="Visit '.$username.'\'s Web Portal" width="30"alt="online" src="themes/'.$theme_name.'/forums/images/status/icons8-website-512.png" /></a>';
 		else
-		{
-			$icq_status_img = '';
-			$icq_img = '';
-			$icq = '';
+		$www = '';
+		
+		# Date Joined
+		$joined = $row['user_regdate'];
+		
+        /*****[BEGIN]******************************************
+        [ Mod:    Forum Index Avatar Mod                 v1.0]
+        ******************************************************/
+        switch($row['user_avatar_type'])
+        {
+           case USER_AVATAR_UPLOAD:
+           $current_avatar = $board_config['avatar_path'] . '/' . $row['user_avatar'];
+           break;
+           case USER_AVATAR_REMOTE:
+           $current_avatar = resize_avatar($row['user_avatar']);
+           break;
+           case USER_AVATAR_GALLERY:
+           $current_avatar = $board_config['avatar_gallery_path'] . '/' . (($row['user_avatar'] 
+			== 'blank.png' || $row['user_avatar'] == 'gallery/blank.png') ? 'blank.png' : $row['user_avatar']);
+           break;
 		}
-
-		$aim_img = ( $row['user_aim'] ) ? '<a href="aim:goim?screenname=' . $row['user_aim'] . '&amp;message=Hello+Are+you+there?"><img src="' . $images['icon_aim'] . '" alt="' . $lang['AIM'] . '" title="' . $lang['AIM'] . '" border="0" /></a>' : '';
-		$aim = ( $row['user_aim'] ) ? '<a href="aim:goim?screenname=' . $row['user_aim'] . '&amp;message=Hello+Are+you+there?">' . $lang['AIM'] . '</a>' : '';
-
-		$temp_url = append_sid("profile.$phpEx?mode=viewprofile&amp;" . POST_USERS_URL . "=$user_id");
-		$msn_img = ( $row['user_msnm'] ) ? '<a href="' . $temp_url . '"><img src="' . $images['icon_msnm'] . '" alt="' . $lang['MSNM'] . '" title="' . $lang['MSNM'] . '" border="0" /></a>' : '';
-		$msn = ( $row['user_msnm'] ) ? '<a href="' . $temp_url . '">' . $lang['MSNM'] . '</a>' : '';
-
-		$yim_img = ( $row['user_yim'] ) ? '<a href="http://edit.yahoo.com/config/send_webmesg?.target=' . $row['user_yim'] . '&amp;.src=pg"><img src="' . $images['icon_yim'] . '" alt="' . $lang['YIM'] . '" title="' . $lang['YIM'] . '" border="0" /></a>' : '';
-		$yim = ( $row['user_yim'] ) ? '<a href="http://edit.yahoo.com/config/send_webmesg?.target=' . $row['user_yim'] . '&amp;.src=pg">' . $lang['YIM'] . '</a>' : '';
-
-		$temp_url = append_sid("search.$phpEx?search_author=" . urlencode($username) . "&amp;showresults=posts");
-		$search_img = '<a href="' . $temp_url . '"><img src="' . $images['icon_search'] . '" alt="' . sprintf($lang['Search_user_posts'], $username) . '" title="' . sprintf($lang['Search_user_posts'], $username) . '" border="0" /></a>';
-		$search = '<a href="' . $temp_url . '">' . sprintf($lang['Search_user_posts'], $username) . '</a>';
-
-/*****************************************************/
-/* Forum - User Online Status v.1.0.5          START */
-/*****************************************************/
-		if ( $row['user_session_time'] >= (time()-60) )
-		{
-			if ( $row['user_allow_viewonline'] )
-			{
-				$online_status = '<strong><a href="' . append_sid("viewonline.$phpEx") . '" title="' . sprintf($lang['is_online'], $username) . '"' . $online_color . '>' . $lang['Online'] . '</a></strong>';
-			}
-			else if ( ( $userdata['user_level'] == ADMIN ) || ( $userdata['user_id'] == $user_id ) )
-			{
-				$online_status = '<strong><i><a href="' . append_sid("viewonline.$phpEx") . '" title="' . sprintf($lang['is_hidden'], $username) . '"' . $hidden_color . '>' . $lang['Hidden'] . '</a></i></strong>';
-			}
-			else
-			{
-				$online_status = '<strong><span title="' . sprintf($lang['is_offline'], $username) . '"' . $offline_color . '>' . $lang['Offline'] . '</span></strong>';
-			}
-		}
+        /*****[END]********************************************
+        [ Mod:    Forum Index Avatar Mod                 v1.0]
+         ******************************************************/
+		
+		# Number of Posts
+		$posts = ($row['user_posts']) ? '<a href="modules.php?name=Forums&file=search&search_author='.$username.'">'.$row['user_posts'].'</a>' : 0;
+		
+		# Private message link
+		$pm = '<a href="'.append_sid("privmsg.$phpEx?mode=post&amp;".POST_USERS_URL."=$user_id").'"><img class="tooltip-html copyright" alt="Male" 
+		title="Send A Private Message To '.$username.'" width="30"alt="online" src="themes/'.$theme_name.'/forums/images/status/icons8-send-80.png" /></a>';
+		
+		# does the person have a dick START
+		if($row['user_gender'] ==1)
+		$gender = '<img class="tooltip-html copyright" alt="Male" title="Male" width="30"alt="online" src="themes/'.$theme_name.'/forums/images/status/icons8-person-male-skin-type-5-80.png" />';
+		elseif($row['user_gender'] == 2)
+		$gender = '<img class="tooltip-html copyright" alt="Female" title="Female" width="30"alt="online" src="themes/'.$theme_name.'/forums/images/status/icons8-person-female-80.png" />';
+		else // show an invisble picel when the person does not specify sex
+		$gender = '<img class="tooltip-html copyright" alt="Undecided" title="Undecided" width="1" src="themes/'.$theme_name.'/images/invisible_pixel.gif" />';
+		
+		# does the person have a dick END
+		
+		# facebook mod v1.0 START
+		if(!empty($row['user_facebook']))
+		$facebook = '<a href="https://www.facebook.com/'.$row['user_facebook'].'" target="_blank"><img class="tooltip-html copyright" alt="Male" title="View '.$username.'\'s Facebook Page" 
+		width="30"alt="online" src="themes/'.$theme_name.'/forums/images/status/icons8-facebook-80.png" /></a>';
 		else
-		{
-			$online_status = '<strong><span title="' . sprintf($lang['is_offline'], $username) . '"' . $offline_color . '>' . $lang['Offline'] . '</span></strong>';
-		}
-/*****************************************************/
-/* Forum - User Online Status v.1.0.5            END */
-/*****************************************************/
+		$facebook = '';
+		# facebook mod v1.0 END
+		
+		# USers last visit
+		$last_visit = ($row['user_lastvisit'] == 0) ? '' : formatTimestamp($row['user_lastvisit'],'M d, Y');
 
-		$row_color = ( !($i % 2) ) ? $theme['td_color1'] : $theme['td_color2'];
-		$row_class = ( !($i % 2) ) ? $theme['td_class1'] : $theme['td_class2'];
+       # This is broken in UK version
+	   # Mod: Online/Offline/Hidden v2.2.7 START
+	   if(!$row['user_allow_viewonline']):
+	   $online_status = '<img class="tooltip-html copyright" alt="Hidden" title="Hidden" alt="Hidden" width="30" height="30" 
+	   src="themes/'.$theme_name.'/forums/images/status/icons8-invisible-512.png" />';
+   
+	   elseif($row['user_session_time'] >= (time()-$board_config['online_time'])):
+	   $theme_name = get_theme();
+	   $online_status = '<a class="tooltip-html copyright" href="'.append_sid("viewonline.$phpEx").'" title="'.sprintf($lang['is_online'],$row['username']).'"'.$online_color.'><img 
+	   alt="online" src="themes/'.$theme_name.'/forums/images/status/online_bgcolor_one.gif" /></a>';
+	   else:
+       $online_status = '<span class="tooltip-html copyright" title="'.sprintf($lang['is_offline'],$row['username']).'"'.$offline_color.'><img 
+	   alt="online" src="themes/'.$theme_name.'/forums/images/status/offline_bgcolor_one.gif" /></span>';
+       endif;
+       # Mod: Online/Offline/Hidden v2.2.7 END
+        
+		if(strlen((string) $user_from) == 6)
+		$user_from = 'The InterWebs';
 
-		$template->assign_block_vars('memberrow', array(
-			'ROW_NUMBER' => $i + ( $start + 1 ),
-			'ROW_COLOR' => '#' . $row_color,
-			'ROW_CLASS' => $row_class,
-/*****************************************************/
-/* Forum - Advanced Username Color v.1.0.1     START */
-/*****************************************************/
-                        'USERNAME' => CheckUsernameColor($row['user_color_gc'], $row['username']),
-/*****************************************************/
-/* Forum - Advanced Username Color v.1.0.1       END */
-/*****************************************************/
-			'FROM' => $from,
-			'FLAG' => $flag,
-			'JOINED' => $joined,
-/******************************************/
-/* Birthdays Mod  v.3.0.0          START  */
-/******************************************/
-			'AGE' => $age,
-/******************************************/
-/* Birthdays Mod  v.3.0.0            END  */
-/******************************************/
-			'POSTS' => $posts,
-			'AVATAR_IMG' => $poster_avatar,
-			'PROFILE_IMG' => $profile_img,
-			'PROFILE' => $profile,
-			'SEARCH_IMG' => $search_img,
-			'SEARCH' => $search,
-			'PM_IMG' => $pm_img,
-			'PM' => $pm,
-			'EMAIL_IMG' => $email_img,
-			'EMAIL' => $email,
-			'WWW_IMG' => $www_img,
-			'WWW' => $www,
-			'ICQ_STATUS_IMG' => $icq_status_img,
-			'ICQ_IMG' => $icq_img,
-			'ICQ' => $icq,
-			'AIM_IMG' => $aim_img,
-			'AIM' => $aim,
-			'MSN_IMG' => $msn_img,
-			'MSN' => $msn,
-			'YIM_IMG' => $yim_img,
-			'YIM' => $yim,
-/************************************************/
-/* Online/Offline/Hidden  v.2.2.7        START  */
-/************************************************/
-			'ONLINE_STATUS_IMG' => $online_status_img,
-			'ONLINE_STATUS' => $online_status,
-/************************************************/
-/* Online/Offline/Hidden  v.2.2.7          END  */
-/************************************************/
-			'U_VIEWPROFILE' => append_sid("profile.$phpEx?mode=viewprofile&amp;" . POST_USERS_URL . "=$user_id"))
+        if (!is_admin())
+        if(!$row['user_allow_viewonline'])
+		continue;
+		
+        # Alternate the row class
+        $row_class = ( !($i % 2) ) ? 'row2' : 'row3';
+		$template->assign_block_vars('memberrow', ['ROW_NUMBER' => $i + ( $start + 1 ), 
+		                                           'ROW_CLASS' => $row_class, 
+												   'USERNAME' => UsernameColor($row['username']), 
+												   'FROM' => $user_from, 
+												   'FLAG' => $user_flag, 
+												   'JOINED' => $joined, 
+												   'AGE' => $age, 
+												   'POSTS' => $posts, 
+												   'PM' => $pm, 
+												   'WWW' => $www, 
+												   'GENDER' => $pm.' '.$www.' '.$facebook.' '.$gender, 
+												   'LAST_ACTIVE' => $last_visit, 
+												   'FACEBOOK' => $facebook, 
+												   'STATUS' => $online_status, 
+												   'CURRENT_AVATAR' => '<img class="rounded-corners-header" height="auto" width="30" src="'.$current_avatar.'">&nbsp;', 
+												   'U_VIEWPROFILE' => "modules.php?name=Profile&mode=viewprofile&amp;" . POST_USERS_URL . "=$user_id"]
 		);
-
 		$i++;
-	}
+	} 
 	while ( $row = $db->sql_fetchrow($result) );
 	$db->sql_freeresult($result);
-}
 
-if ( $mode != 'topten' || $board_config['topics_per_page'] < 10 )
-{
-	$sql = "SELECT count(*) AS total
-		FROM " . USERS_TABLE . "
-		WHERE user_id <> " . ANONYMOUS;
+else:
+	$template->assign_block_vars('no_username', ['NO_USER_ID_SPECIFIED' => $lang['No_user_id_members_list_specified']]
+	);
+endif;
 
-	if ( !($result = $db->sql_query($sql)) )
-	{
-		message_die(GENERAL_ERROR, 'Error getting total users', '', __LINE__, __FILE__, $sql);
-	}
+$total_found = $db->sql_unumrows($sql);
 
-	if ( $total = $db->sql_fetchrow($result) )
-	{
-		$total_members = $total['total'];
+# Generate the page numbers
+$alphanum 	= ( isset($_POST['alphanum']) ) ? htmlspecialchars((string) isset($_POST['alphanum'])) : htmlspecialchars((string) isset($_GET['alphanum']));
+$where 		= ( $alphanum == 'num' ) ? " AND `username` NOT RLIKE '^[A-Z]' " : " AND `username` LIKE '".$alphanum."%' ";
+$sql1 		= "SELECT count(*) AS total FROM " . USERS_TABLE . " WHERE user_id <> " . ANONYMOUS.$where;
+$result1 	= $db->sql_query($sql1);
+$total 		= $db->sql_fetchrow($result1);
 
-		$pagination = generate_pagination("memberlist.$phpEx?mode=$mode&amp;order=$sort_order", $total_members, $board_config['topics_per_page'], $start). '&nbsp;';
-	}
-	$db->sql_freeresult($result);
-}
-else
-{
-	$pagination = '&nbsp;';
-	$total_members = 10;
-}
-
-$template->assign_vars(array(
-	'PAGINATION' => $pagination,
-	'PAGE_NUMBER' => sprintf($lang['Page_of'], ( floor( $start / $board_config['topics_per_page'] ) + 1 ), ceil( $total_members / $board_config['topics_per_page'] )),
-
-	'L_GOTO_PAGE' => $lang['Goto_page'])
-);
-
+if($total['total'] > $board_config['topics_per_page'] && $mode != 'topten' || $board_config['topics_per_page'] < 10):
+	if(isset($pageroot))
+	$page = intval($pageroot);
+	else
+	$page = 1;
+	$pagination = '';
+	$redirect = 'modules.php?name=Members_List'.(($_GET['mode']) ? '&mode=letter&alphanum='.$_GET['alphanum'] : '');
+	if(isset($page)):
+		$totalPages = ceil($total['total'] / $board_config['topics_per_page']);
+		if($totalPages == 1)
+		return '';
+		$on_page = floor($start / $board_config['topics_per_page']) + 1;
+		if($totalPages > 10):
+			$init_page_max = ( $totalPages > 3 ) ? 3 : $totalPages;
+			for($i = 1; $i < $init_page_max + 1; $i++):
+				$pagination .= ( $i == $on_page ) ? '<span style="font-weight:bold; font-size:13px;">'.$i.'</span>' : '<a href="'.$redirect.'&amp;page='.$i.'"><span>'.$i.'</span></a>';
+				if ( $i <  $init_page_max )
+				$pagination .= "&nbsp;";
+			endfor;
+			 if($totalPages > 3):
+				if($on_page > 1 && $on_page < $totalPages):
+					$pagination .= ( $on_page > 5 ) ? ' ... ' : '&nbsp;';
+					$init_page_min = ( $on_page > 4 ) ? $on_page : 5;
+					$init_page_max = ( $on_page < $totalPages - 4 ) ? $on_page : $totalPages - 4;
+					for($i = $init_page_min - 1; $i < $init_page_max + 2; $i++):
+						$pagination .= ($i == $on_page) ? '<span style="font-weight:bold; font-size:13px;">'.$i.'</span>' : '<a href="'.$redirect.'&amp;page='.$i.'"><span>'.$i.'</span></a>';
+						if ( $i <  $init_page_max + 1 )
+							$pagination .= '&nbsp;';
+					endfor;
+					$pagination .= ( $on_page < $totalPages - 4 ) ? ' ... ' : '&nbsp;';
+				else:
+					$pagination .= ' ... ';
+				endif;
+				for($i = $totalPages - 2; $i < $totalPages + 1; $i++):
+					$pagination .= ( $i == $on_page ) ? '<span style="font-weight:bold; font-size:13px;">'.$i.'</span>'  : '<a href="'.$redirect.'&amp;page='.$i.'"><span>'.$i.'</span></a>';
+					if( $i <  $totalPages )
+						$pagination .= "&nbsp;";
+				endfor;		
+			endif;
+		else:
+			for($i = 1; $i < $totalPages + 1; $i++):
+				$pagination .= ( $i == $on_page ) ? '<span style="font-weight:bold; font-size:13px;">'.$i.'</span>' : '<a href="'.$redirect.'&amp;page='.$i.'"><span>'.$i.'</span></a>';
+				if ( $i <  $totalPages )
+			    $pagination .= '&nbsp;';
+			endfor;
+		endif;
+		if($page <= 1):
+			$pagination = '<span>'.$lang['Goto_page_prev'].'</span>&nbsp;'.$pagination.'&nbsp';
+		else:
+			$j = $page - 1;
+			$pagination = '<span><a href="'.$redirect.'&amp;page='.$j.'">'.$lang['Goto_page_prev'].'</a></span>&nbsp;'.$pagination.'&nbsp;';
+		endif;
+		if($page == $totalPages):
+			$pagination .= '<span>'.$lang['Goto_page_next'].'</span>';
+		else:
+			$j = $page + 1;
+			$pagination .= '<a href="'.$redirect.'&amp;page='.$j.'">'.$lang['Goto_page_next'].'</a>';
+		endif;
+	endif;
+	$template->assign_block_vars('pagination', ['PAGINATION'	=> $pagination, 
+	                                            'TOTAL' 		=> $total_found, 
+												'PERPAGE'		=> $board_config['topics_per_page']]
+	);
+endif;
 $template->pparse('body');
+include(NUKE_INCLUDE_DIR.'page_tail.php');
 
-include_once("includes/page_tail.php");
-
-?>

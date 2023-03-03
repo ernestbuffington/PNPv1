@@ -1,33 +1,38 @@
 <?php
-/**************************************************************************/
-/* RN Your Account: Advanced User Management for RavenNuke
-/* =======================================================================*/
-/*
-/* Copyright (c) 2008, RavenPHPScripts.com	http://www.ravenphpscripts.com
-/*
-/* This program is free software. You can redistribute it and/or modify it
-/* under the terms of the GNU General Public License as published by the
-/* Free Software Foundation, version 2 of the license.
-/*
-/**************************************************************************/
-/* RN Your Account is the based on:
-/*  CNB Your Account http://www.phpnuke.org.br
-/*  NSN Your Account by Bob Marion, http://www.nukescripts.net
-/**************************************************************************/
-if ( !defined('ADMIN_FILE') )
-{
-	die ('Access Denied');
-}
-$module_name = 'Your_Account'; 
-get_lang($module_name); 
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
 
-// menelaos: dynamically insert the version number in the admin config panel image Copyright (c) 2004 :-)
-include_once('modules/'.$module_name.'/includes/functions.php');
-if (!isset($ya_config)) $ya_config = ya_get_configs();
-$yaversion = $ya_config['version'];
-if (extension_loaded("gd")) 
-adminmenu($admin_file.'.php?op=yaAdmin', _EDITUSERS, 'users.png', '../../modules.php?name=Your_Account&amp;op=gfxadminimage&amp;yaversion='.$yaversion); 
-else 
-adminmenu($admin_file.'.php?op=yaAdmin', _EDITUSERS, 'users.png'); 
+
+/*********************************************************************************/
+/* CNB Your Account: An Advanced User Management System for phpnuke             */
+/* ============================================                                 */
+/*                                                                              */
+/* Copyright (c) 2004 by Comunidade PHP Nuke Brasil                             */
+/* http://dev.phpnuke.org.br & http://www.phpnuke.org.br                        */
+/*                                                                              */
+/* Contact author: escudero@phpnuke.org.br                                      */
+/* International Support Forum: http://ravenphpscripts.com/forum76.html         */
+/*                                                                              */
+/* This program is free software. You can redistribute it and/or modify         */
+/* it under the terms of the GNU General Public License as published by         */
+/* the Free Software Foundation; either version 2 of the License.               */
+/*                                                                              */
+/*********************************************************************************/
+/* CNB Your Account it the official successor of NSN Your Account by Bob Marion    */
+/*********************************************************************************/
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Nuke Patched                             v3.1.0       06/26/2005
+ ************************************************************************/
+
+if (!defined('ADMIN_FILE')) {
+   die('Access Denied');
+}
+
+$module_name = basename(dirname(dirname(__FILE__)));
+get_lang($module_name);
+adminmenu("modules.php?name=$module_name&amp;file=admin", _EDITUSERS, "users.png");
 
 ?>

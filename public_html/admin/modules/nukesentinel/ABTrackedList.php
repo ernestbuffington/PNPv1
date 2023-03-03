@@ -1,44 +1,21 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 
 /********************************************************/
 /* NukeSentinel(tm)                                     */
-/* By: NukeScripts(tm) (http://www.nukescripts.net)     */
-/* Copyright © 2000-2008 by NukeScripts(tm)             */
+/* By: NukeScripts(tm) (http://nukescripts.86it.us)     */
+/* Copyright (c) 2000-2008 by NukeScripts(tm)           */
 /* See CREDITS.txt for ALL contributors                 */
 /********************************************************/
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
 
-if(!defined('NUKESENTINEL_ADMIN')) { header("Location: ../../../".$admin_file.".php"); }
-$pagetitle = _AB_NUKESENTINEL.": "._AB_TRACKEDIPS;
-include_once("header.php");
+if (!defined('NUKESENTINEL_ADMIN')) {
+   die ('You can\'t access this file directly...');
+}
+
+include_once(NUKE_BASE_DIR.'header.php');
 OpenTable();
 OpenMenu(_AB_TRACKEDIPS);
 mastermenu();
@@ -46,7 +23,7 @@ CarryMenu();
 trackedmenu();
 CloseMenu();
 CloseTable();
-echo '<br />'."\n";
+
 OpenTable();
 $tbcol = 6;
 $perpage = $ab_config['track_perpage'];
@@ -56,13 +33,13 @@ if(!isset($min)) $min=0;
 if(!isset($max)) $max=$min+$perpage;
 if(!isset($column) or !$column or $column=="") $column = $ab_config['track_sort_column'];
 if(!isset($direction) or !$direction or $direction=="") $direction = $ab_config['track_sort_direction'];
-if(preg_match("/All.*Modules/", $showmodule) || !$showmodule ) {
+if(preg_match("#All(.*)Modules#", $showmodule) || !$showmodule ) {
   $modfilter="";
-} elseif(preg_match("/Admin/", $showmodule)) {
+} elseif(preg_match("#Admin#", $showmodule)) {
   $modfilter="WHERE page LIKE '%".$admin_file.".php%'";
-} elseif(preg_match("/Index/", $showmodule)) {
+} elseif(preg_match("#Index#", $showmodule)) {
   $modfilter="WHERE page LIKE '%index.php%'";
-} elseif(preg_match("/Backend/", $showmodule)) {
+} elseif(preg_match("#Backend#", $showmodule)) {
   $modfilter="WHERE page LIKE '%backend.php%'";
 } else {
   $modfilter="WHERE page LIKE '%name=$showmodule%'";
@@ -76,7 +53,7 @@ if($totalselected > 0) {
   $handle=opendir('modules');
   $moduleslist = '';
   while($file = readdir($handle)) {
-    if( (!preg_match("/^[.]/",$file)) && !preg_match("/html$/", $file) ) { $moduleslist .= "$file "; }
+    if( (!preg_match("/^[\.]/",$file)) && !preg_match("/(html)$/", $file) ) { $moduleslist .= "$file "; }
   }
   closedir($handle);
   $moduleslist .= "All_Modules &nbsp;Index &nbsp;Admin &nbsp;Backend";
@@ -138,19 +115,20 @@ if($totalselected > 0) {
     echo '<tr onmouseover="this.style.backgroundColor=\''.$bgcolor2.'\'" onmouseout="this.style.backgroundColor=\''.$bgcolor1.'\'" bgcolor="'.$bgcolor1.'">'."\n";
     echo '<td>';
     if($userid != 1) {
-      echo '<a href="modules.php?name=Your_Account&amp;op=userinfo&amp;username='.$username.'" target="_blank"><img src="images/nukesentinel/usericon.png" height="16" width="16" alt="'.$username.'" title="'.$username.'" border="0" /></a>';
+      echo '<a href="modules.php?name=Your_Account&amp;op=userinfo&amp;username='.$username.'" target="_blank"><img src="modules/NukeSentinel/images/usericon.png" height="16" width="16" alt="'.$username.'" title="'.$username.'" border="0" /></a>';
     } else {
-      echo '<img src="images/nukesentinel/anonicon.png" height="16" width="16" alt="'.$anonymous.'" title="'.$anonymous.'" border="0" />';
+      echo '<img src="modules/NukeSentinel/images/anonicon.png" height="16" width="16" alt="'.$anonymous.'" title="'.$anonymous.'" border="0" />';
     }
     echo ' <a href="'.$ab_config['lookup_link'].$ipaddr.'" target="_blank">'.$ipaddr.'</a></td>'."\n";
-    $getIPs['flag_img'] = flag_img($c2c);
-    echo '<td width="2%">'.$getIPs['flag_img'].'</td>'."\n";
+    $getIPs['flag_img'] = strtolower($c2c);
+    # <span class="countries af"></span>
+    echo '<td width="2%"><span class="countries '.$getIPs['flag_img'].'"></span></td>'."\n";
     echo '<td align="center">'.date("Y-m-d \@ H:i:s",$lastview).'</td>'."\n";
     echo '<td align="center">'.$hits.'</td>'."\n";
-    echo '<td align="center" nowrap="nowrap"><a href="'.$admin_file.'.php?op=ABTrackedPagesPrint&amp;user_id='.$userid.'&amp;ip_addr='.$ipaddr.'" target="_blank"><img src="images/nukesentinel/print.png" height="16" width="16" alt="'._AB_PRINT.'" title="'._AB_PRINT.'" border="0" /></a>'."\n";
-    echo '<a href="'.$admin_file.'.php?op=ABTrackedPages&amp;user_id='.$userid.'&amp;ip_addr='.$ipaddr.'" target="_blank"><img src="images/nukesentinel/view.png" height="16" width="16" alt="'._AB_VIEW.'" title="'._AB_VIEW.'" border="0" /></a>'."\n";
-    echo '<a href="'.$admin_file.'.php?op=ABTrackedAdd&amp;tid='.$tid.'&amp;min='.$min.'&amp;column='.$column.'&amp;direction='.$direction.'&amp;showmodule='.$showmodule.'" target="_blank"><img src="images/nukesentinel/block.png" height="16" width="16" alt="'._AB_BLOCK.'" title="'._AB_BLOCK.'" border="0" /></a>'."\n";
-    echo '<a href="'.$admin_file.'.php?op=ABTrackedDelete&amp;tid='.$tid.'&amp;min='.$min.'&amp;column='.$column.'&amp;direction='.$direction.'&amp;showmodule='.$showmodule.'&amp;xop='.$op.'"><img src="images/nukesentinel/delete.png" height="16" width="16" alt="'._AB_DELETE.'" title="'._AB_DELETE.'" border="0" /></a></td>'."\n";
+    echo '<td align="center" nowrap="nowrap"><a href="'.$admin_file.'.php?op=ABTrackedPagesPrint&amp;user_id='.$userid.'&amp;ip_addr='.$ipaddr.'" target="_blank"><img src="images/print.png" height="16" width="16" alt="'._AB_PRINT.'" title="'._AB_PRINT.'" border="0" /></a>'."\n";
+    echo '<a href="'.$admin_file.'.php?op=ABTrackedPages&amp;user_id='.$userid.'&amp;ip_addr='.$ipaddr.'" target="_blank"><img src="images/magnify.png" height="16" width="16" alt="'._AB_VIEW.'" title="'._AB_VIEW.'" border="0" /></a>'."\n";
+    echo '<a href="'.$admin_file.'.php?op=ABTrackedAdd&amp;tid='.$tid.'&amp;min='.$min.'&amp;column='.$column.'&amp;direction='.$direction.'&amp;showmodule='.$showmodule.'" target="_blank"><img src="images/shield_red.png" height="16" width="16" alt="'._AB_BLOCK.'" title="'._AB_BLOCK.'" border="0" /></a>'."\n";
+    echo '<a href="'.$admin_file.'.php?op=ABTrackedDelete&amp;tid='.$tid.'&amp;min='.$min.'&amp;column='.$column.'&amp;direction='.$direction.'&amp;showmodule='.$showmodule.'&amp;xop='.$op.'"><img src="images/delete.png" height="16" width="16" alt="'._AB_DELETE.'" title="'._AB_DELETE.'" border="0" /></a></td>'."\n";
     echo '</tr>'."\n";
   }
   echo '</table>'."\n";
@@ -159,6 +137,6 @@ if($totalselected > 0) {
   echo '<center><strong>'._AB_NOIPS.'</strong></center>'."\n";
 }
 CloseTable();
-include_once("footer.php");
+include_once(NUKE_BASE_DIR.'footer.php');
 
 ?>

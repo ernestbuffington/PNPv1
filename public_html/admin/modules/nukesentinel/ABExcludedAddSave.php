@@ -1,80 +1,58 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 
 /********************************************************/
 /* NukeSentinel(tm)                                     */
-/* By: NukeScripts(tm) (http://www.nukescripts.net)     */
-/* Copyright © 2000-2008 by NukeScripts(tm)             */
+/* By: NukeScripts(tm) (http://nukescripts.86it.us)     */
+/* Copyright (c) 2000-2008 by NukeScripts(tm)           */
 /* See CREDITS.txt for ALL contributors                 */
 /********************************************************/
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
 
-if(!defined('NUKESENTINEL_ADMIN')) { header("Location: ../../../".$admin_file.".php"); }
+if (!defined('NUKESENTINEL_ADMIN')) {
+   die ('You can\'t access this file directly...');
+}
+
 if(($xip_lo[0] < 0 OR $xip_lo[0] > 255 OR !is_numeric($xip_lo[0])) OR ($xip_lo[1] < 0 OR $xip_lo[1] > 255 OR !is_numeric($xip_lo[1])) OR ($xip_lo[2] < 0 OR $xip_lo[2] > 255 OR !is_numeric($xip_lo[2])) OR ($xip_lo[3] < 0 OR $xip_lo[3] > 255 OR !is_numeric($xip_lo[3]))) {
   $pagetitle = _AB_NUKESENTINEL.": "._AB_ADDRANGEERROR;
-  include_once("header.php");
+  include_once(NUKE_BASE_DIR.'header.php');
   title($pagetitle);
   OpenTable();
   echo '<br />'."\n";
   echo '<center><strong>'._AB_LOERROR.' </strong></center><br />'."\n";
   echo '<center><strong>'._GOBACK.'</strong></center><br />'."\n";
   CloseTable();
-  include_once("footer.php");
+  include_once(NUKE_BASE_DIR.'footer.php');
   die();
 }
 $xip_lo = implode(".", $xip_lo);
 $longip_lo = sprintf("%u", ip2long($xip_lo));
 if(($xip_hi[0] < 0 OR $xip_hi[0] > 255 OR !is_numeric($xip_hi[0])) OR ($xip_hi[1] < 0 OR $xip_hi[1] > 255 OR !is_numeric($xip_hi[1])) OR ($xip_hi[2] < 0 OR $xip_hi[2] > 255 OR !is_numeric($xip_hi[2])) OR ($xip_hi[3] < 0 OR $xip_hi[3] > 255 OR !is_numeric($xip_hi[3]))) {
   $pagetitle = _AB_NUKESENTINEL.": "._AB_ADDRANGEERROR;
-  include_once("header.php");
+  include_once(NUKE_BASE_DIR.'header.php');
   title($pagetitle);
   OpenTable();
   echo '<br />'."\n";
   echo '<center><strong>'._AB_HIERROR.' </strong></center><br />'."\n";
   echo '<center><strong>'._GOBACK.'</strong></center><br />'."\n";
   CloseTable();
-  include_once("footer.php");
+  include_once(NUKE_BASE_DIR.'footer.php');
   die();
 }
 $xip_hi = implode(".", $xip_hi);
 $longip_hi = sprintf("%u", ip2long($xip_hi));
 if($longip_hi < $longip_lo) {
   $pagetitle = _AB_NUKESENTINEL.": "._AB_ADDRANGEERROR;
-  include_once("header.php");
+  include_once(NUKE_BASE_DIR.'header.php');
   title($pagetitle);
   OpenTable();
   echo '<br />'."\n";
   echo '<center><strong>'._AB_HILOERROR.' </strong></center><br />'."\n";
   echo '<center><strong>'._GOBACK.'</strong></center><br />'."\n";
   CloseTable();
-  include_once("footer.php");
+  include_once(NUKE_BASE_DIR.'footer.php');
   die();
 }
 $test1 = $db->sql_query("SELECT * FROM `".$prefix."_nsnst_excluded_ranges` WHERE `ip_lo`<='$longip_lo' AND `ip_hi`>='$longip_lo'");
@@ -86,8 +64,7 @@ $testnum2 = $db->sql_numrows($test2);
 $testnum3 = $db->sql_numrows($test3);
 $testnum4 = $db->sql_numrows($test4);
 if($testnum1 > 0 OR $testnum2 >0 OR $testnum3 >0 OR $testnum4 >0) {
-  $pagetitle = _AB_NUKESENTINEL.": "._AB_ADDEXCLUDEDERROR;
-  include_once("header.php");
+  include_once(NUKE_BASE_DIR.'header.php');
   OpenTable();
   OpenMenu(_AB_ADDEXCLUDEDERROR);
   mastermenu();
@@ -95,7 +72,7 @@ if($testnum1 > 0 OR $testnum2 >0 OR $testnum3 >0 OR $testnum4 >0) {
   excludedmenu();
   CloseMenu();
   CloseTable();
-  echo '<br />'."\n";
+
   OpenTable();
   if($testnum1 > 0) {
     $testmessage .= '<table summary="" align="center" border="0" cellpadding="2" cellspacing="2" bgcolor="'.$bgcolor2.'" width="100%">'."\n";
@@ -208,14 +185,12 @@ if($testnum1 > 0 OR $testnum2 >0 OR $testnum3 >0 OR $testnum4 >0) {
   echo $testmessage;
   echo '<center><strong>'._GOBACK.'</strong></center><br />'."\n";
   CloseTable();
-  include_once("footer.php");
+  include_once(NUKE_BASE_DIR.'footer.php');
 } else {
   $xnotes = str_replace("<br>", "\r\n", $xnotes);
   $xnotes = str_replace("<br />", "\r\n", $xnotes);
   $xnotes = htmlentities($xnotes, ENT_QUOTES);
-  if(!get_magic_quotes_runtime()) {
-    $xnotes = addslashes($xnotes);
-  }
+  $xnotes = addslashes($xnotes);
   $xtime = time();
   $db->sql_query("INSERT INTO `".$prefix."_nsnst_excluded_ranges` VALUES ('$longip_lo', '$longip_hi', '$xtime', '$xnotes', '$xc2c')");
   if($another == 1) {

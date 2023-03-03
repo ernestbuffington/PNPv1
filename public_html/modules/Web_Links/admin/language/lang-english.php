@@ -1,4 +1,8 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 
 /**************************************************************************/
 /* PHP-NUKE: Advanced Content Management System                           */
@@ -12,97 +16,101 @@
 /*                                                                        */
 /* You need to change the second quoted phrase, not the capital one!      */
 /*                                                                        */
-/* If you need to use double quotes (') remember to add a backslash (\),  */
-/* so your entry will look like: This is \'double quoted\' text.          */
+/* If you need to use double quotes (") remember to add a backslash (\),  */
+/* so your entry will look like: This is \"double quoted\" text.          */
 /* And, if you use HTML code, please double check it.                     */
 /**************************************************************************/
-if (!defined('_ADDNEWLINK')) { define('_ADDNEWLINK','Add a New Link'); }
-if (!defined('_ADDURL')) { define('_ADDURL','Add this URL');}
-define('_BROKENLINKSREP','Broken Links Reports');
-define('_CHECKALLLINKS','Check ALL Links');
-define('_CLEANLINKSDB','Clean Links Votes');
-define('_DELETEINFO','Delete (Deletes <strong><i>broken link</i></strong> and <strong><i>requests</i></strong> for a given link)');
-define('_DELEZLINKCATWARNING','WARNING : Are you sure you want to delete this category ? You will delete all sub-categories and attached links as well !');
-if (!defined('_DESCRIPTION255')) {define('_DESCRIPTION255','Description: (255 characters max)');}
-if (!defined('_EDITORIALTEXT')) { define('_EDITORIALTEXT','Editorial Text');}
-if (!defined('_EDITORIALTITLE')) { define('_EDITORIALTITLE','Editorial Title');}
-define('_EZBROKENLINKS','Broken Links');
-if (!defined('_EZTRANSFERLINKS')) { define('_EZTRANSFERLINKS','Transfer all links from category');}
-define('_IGNOREINFO','Ignore (Deletes all <strong><i>requests</i></strong> for a given link)');
-if (!defined('_IN')) { define('_IN','in');}
-define('_LINK','Link');
-define('_LINKAPPROVEDMSG', 'Congratulations! The web link you submitted to our links database has been approved right now.');
-define('_LINKID','Link ID');
-define('_LINKMODREQUEST','Link Modification Requests');
-define('_LINKOWNER','Link Owner');
-define('_LINKSINDB','Links in our Database');
-define('_LINKSWAITINGVAL','Links Waiting for Validation');
-define('_LINKVALIDATION','Link Validation');
-define('_MODLINK','Modify a Link');
-define('_NEWLINKADDED','New Link added to the Database');
-define('_NOREPORTEDBROKEN','No reported broken links.');
-if (!defined('_PAGETITLE')) { define('_PAGETITLE','Page Title');}
-if (!defined('_PAGEURL')) { define('_PAGEURL','Page URL');}
-define('_TEAM','Team.');
-define('_THANKS4YOURSUBMISSION','Thanks for your submission!');
-define('_USERMODREQUEST','User Link Modification Requests');
-define('_USERREPBROKEN','User Reported Broken Links');
-define('_VALIDATELINKS','Validate Links');
-define('_WEBLINKSADMIN','Web Links Administration');
-define('_YOUCANBROWSEUS','You can browse or search our web links at:');
-define('_YOURLINKAT','Your Link at');
-//define('_ACCEPT','Accept');
-//define('_ADD','Add');
-//define('_ADDEDITORIAL','Add Editorial');
-//define('_ADDMAINCATEGORY','Add a MAIN Category');
-//define('_ADDSUBCATEGORY','Add a SUB-Category');
-//define('_ALREADYEXIST','already exist!');
-//define('_AUTHOR','Author');
-//define('_BEPATIENT','(please be patient)');
-//define('_CATEGORY','Category');
-//define('_CHECKCATEGORIES','Check Categories');
-//define('_DATEWRITTEN','Date Written');
-//define('_DESCRIPTION','Description');
-//define('_EDITORIALADDED','Editorial added to the Database');
-//define('_EDITORIALMODIFIED','Editorial Modified');
-//define('_EDITORIALREMOVED','Editorial removed from the Database');
-//define('_EMAIL','Email');
-//define('_ERRORNODESCRIPTION','ERROR: You need to type a DESCRIPTION for your URL!');
-//define('_ERRORNOTITLE','ERROR: You need to type a TITLE for your URL!');
-//define('_ERRORNOURL','ERROR: You need to type a URL for your URL!');
-//define('_ERRORTHECATEGORY','ERROR: The Category');
-//define('_ERRORTHESUBCATEGORY','ERROR: The Sub-Category');
-//define('_ERRORURLEXIST','ERROR: This URL is already listed in the Database!');
-//define('_EZATTACHEDTOCAT','under this category');
-//define('_EZSUBCAT','sub-categories');
-//define('_EZTHEREIS','There is');
-//define('_EZTRANSFER','Transfer');
-//define('_FAILED','Failed!');
-//define('_FUNCTIONS','Functions');
-//define('_HELLO','Hello');
-//define('_HITS','Hits');
-//define('_IGNORE','Ignore');
-//define('_INCLUDESUBCATEGORIES','(include Sub-Categories)');
-//define('_LINKTITLE','Link Title');
-//define('_MODCATEGORY','Modify a Category');
-//define('_MODIFY','Modify');
-//define('_NAME','Name');
-//define('_NO','No');
-//define('_NOMODREQUESTS','There are not any modification requests right now');
-//define('_OK','Ok!');
-//define('_ORIGINAL','Original');
-//define('_OWNER','Owner');
-//define('_PROPOSED','Proposed');
-//define('_SAVECHANGES','Save Changes');
-//define('_STATUS','Status');
-//define('_SUBCATEGORY','Sub-Category');
-//define('_SUBMITTER','Submitter');
-//define('_THEREARE','There are');
-//define('_TITLE','Title');
-//define('_URL','URL');
-//define('_VALIDATINGCAT','Validating Category (and all subcategories)');
-//define('_VALIDATINGSUBCAT','Validating Sub-Category');
-//define('_VISIT','Visit');
-//define('_WEBLINKS','Web Links');
-//define('_YES','Yes');
+
+define_once("_URL","URL");
+define_once("_EMAIL","Email");
+define_once("_FUNCTIONS","Functions");
+define_once("_YES","Yes");
+define_once("_NO","No");
+define_once("_CATEGORY","Category");
+define_once("_SAVECHANGES","Save Changes");
+define_once("_OK","Ok!");
+define_once("_HELLO","Hello");
+define_once("_LINKTITLE","Link Title");
+define_once("_HITS","Hits");
+define_once("_THEREARE","There are");
+define_once("_DESCRIPTION","Description");
+define_once("_AUTHOR","Author");
+define_once("_NAME","Name");
+define_once("_PAGETITLE","Page Title");
+define_once("_PAGEURL","Page URL");
+define_once("_ADDURL","Add this URL");
+define_once("_LINKID","Link ID");
+define_once("_WEBLINKS","Web Links");
+define_once("_TITLE","Title");
+define_once("_STATUS","Status");
+define_once("_ADD","Add");
+define_once("_MODIFY","Modify");
+define_once("_LINKSINDB","Links in our Database");
+define_once("_LINKSWAITINGVAL","Links Waiting for Validation");
+define_once("_SUBMITTER","Submitter");
+define_once("_VISIT","Visit");
+define_once("_CLEANLINKSDB","Clean Links Votes");
+define_once("_BROKENLINKSREP","Broken Links Reports");
+define_once("_LINKMODREQUEST","Link Modification Requests");
+define_once("_ADDMAINCATEGORY","Add a MAIN Category");
+define_once("_ADDSUBCATEGORY","Add a SUB-Category");
+define_once("_IN","in");
+define_once("_ADDNEWLINK","Add a New Link");
+define_once("_DESCRIPTION255","Description: (255 characters max)");
+define_once("_MODCATEGORY","Modify a Category");
+define_once("_MODLINK","Modify a Link");
+define_once("_WEBLINKS_ADMIN_HEADER", "Web Links :: Modules Admin Panel");
+define_once("_WEBLINKS_RETURNMAIN", "Return to Main Administration");
+define_once("_WEBLINKSADMIN","Web Links Administration");
+define_once("_ADDEDITORIAL","Add Editorial");
+define_once("_EDITORIALTITLE","Editorial Title");
+define_once("_EDITORIALTEXT","Editorial Text");
+define_once("_DATEWRITTEN","Date Written");
+define_once("_NOREPORTEDBROKEN","No reported broken links.");
+define_once("_USERREPBROKEN","User Reported Broken Links");
+define_once("_IGNOREINFO","Ignore (Deletes all <strong><i>requests</i></strong> for a given link)");
+define_once("_DELETEINFO","Delete (Deletes <strong><i>broken link</i></strong> and <strong><i>requests</i></strong> for a given link)");
+define_once("_LINK","Link");
+define_once("_LINKOWNER","Link Owner");
+define_once("_IGNORE","Ignore");
+define_once("_USERMODREQUEST","User Link Modification Requests");
+define_once("_ORIGINAL","Original");
+define_once("_PROPOSED","Proposed");
+define_once("_NOMODREQUESTS","There are not any modification requests right now");
+define_once("_SUBCATEGORY","Sub-Category");
+define_once("_OWNER","Owner");
+define_once("_ACCEPT","Accept");
+define_once("_ERRORTHECATEGORY","ERROR: The Category");
+define_once("_ALREADYEXIST","already exist!");
+define_once("_ERRORTHESUBCATEGORY","ERROR: The Sub-Category");
+define_once("_EDITORIALADDED","Editorial added to the Database");
+define_once("_EDITORIALMODIFIED","Editorial Modified");
+define_once("_EDITORIALREMOVED","Editorial removed from the Database");
+define_once("_LINKVALIDATION","Link Validation");
+define_once("_CHECKALLLINKS","Check ALL Links");
+define_once("_CHECKCATEGORIES","Check Categories");
+define_once("_INCLUDESUBCATEGORIES","(include Sub-Categories)");
+define_once("_VALIDATELINKS","Validate Links");
+define_once("_FAILED","Failed!");
+define_once("_BEPATIENT","(please be patient)");
+define_once("_VALIDATINGCAT","Validating Category (and all subcategories)");
+define_once("_VALIDATINGSUBCAT","Validating Sub-Category");
+define_once("_ERRORURLEXIST","ERROR: This URL is already listed in the Database!");
+define_once("_ERRORNOTITLE","ERROR: You need to type a TITLE for your URL!");
+define_once("_ERRORNOURL","ERROR: You need to type a URL for your URL!");
+define_once("_ERRORNODESCRIPTION","ERROR: You need to type a DESCRIPTION for your URL!");
+define_once("_NEWLINKADDED","New Link added to the Database");
+define_once("_YOURLINKAT","Your Link at");
+define_once("_YOUCANBROWSEUS2","You can browse our search engine at:");
+define_once("_THANKS4YOURSUBMISSION","Thanks for your submission!");
+define_once("_TEAM","Team.");
+define_once("_EZTRANSFERLINKS","Transfer all links from category");
+define_once("_EZTRANSFER","Transfer");
+define_once("_DELEZLINKCATWARNING","WARNING : Are you sure you want to delete this category ? You will delete all sub-categories and attached links as well !");
+define_once("_EZTHEREIS","There is");
+define_once("_EZSUBCAT","sub-categories");
+define_once("_EZATTACHEDTOCAT","under this category");
+define_once("_EZBROKENLINKS","Broken Links");
+define_once("_LINKAPPROVEDMSG", "Congratulations! The web link you submitted to our links database has been approved right now.");
+
 ?>

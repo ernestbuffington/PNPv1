@@ -1,33 +1,15 @@
 <?php
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
 /************************************************************************/
 /* HTML Newsletter 1.0 module for PHP-Nuke 6.5 - 7.6                    */
 /* By: NukeWorks (webmaster@nukeworks.biz)                              */
@@ -44,7 +26,7 @@
 ************************************************************************/
 /************************************************************************
 * Script:			HTML Newsletter module for PHP-Nuke 6.5 - 7.6
-* Version:		01.03.02
+* Version:		1.3.1
 * Author:			Rob Herder (aka: montego) of montegoscripts.com
 * Contact:		montego@montegoscripts.com
 * Copyright:	Copyright © 2006 by Montego Scripts
@@ -72,7 +54,7 @@ global $db, $prefix;
 @require_once( "./modules/$msnl_sModuleNm/functions.php" );
 @require_once( "./modules/$msnl_sModuleNm/config.php" );
 @require_once( "./modules/$msnl_sModuleNm/admin/functions.php" );
-@include_once( "./modules/$msnl_sModuleNm/style.php" );
+@include( "./modules/$msnl_sModuleNm/style.php" );
 
 /************************************************************************
 * Determine if the user is logged in as an admin / author.
@@ -137,7 +119,7 @@ if ( $msnl_iAuthUser == 1 ) {
 * Main "switch" code to control what the module is to do
 ************************************************************************/
 
-@include_once( "header.php" );
+@include( "header.php" );
 
 $msnl_asHTML				= msnl_fGetHTML(); //Get OpenTable and CloseTable HTML
 
@@ -147,7 +129,7 @@ $msnl_giHeadersSent	= 1;
 			
 if ( !defined( 'MSNL_ADMIN' ) ) { //User is not an author/admin, so kick them out of here
 
-	//GraphicAdmin();
+	GraphicAdmin();
 	
 	opentable();
 
@@ -165,61 +147,61 @@ if ( !defined( 'MSNL_ADMIN' ) ) { //User is not an author/admin, so kick them ou
 
 		case "msnl_admin":
 			if ( $_POST['msnl_action'] == _MSNL_COM_LAB_SEND ) {
-				@include_once( "modules/$msnl_sModuleNm/admin/admin_send_mail.php" );
+				@include( "modules/$msnl_sModuleNm/admin/admin_send_mail.php" );
 			} else {
-				@include_once( "modules/$msnl_sModuleNm/admin/admin.php" );
+				@include( "modules/$msnl_sModuleNm/admin/admin.php" );
 			}
 			break;
 		case "msnl_admin_preview":
-			@include_once( "modules/$msnl_sModuleNm/admin/admin_preview.php" );
+			@include( "modules/$msnl_sModuleNm/admin/admin_preview.php" );
 			break;
 		case "msnl_admin_send_mail": 
-			@include_once( "modules/$msnl_sModuleNm/admin/admin_send_mail.php" );
+			@include( "modules/$msnl_sModuleNm/admin/admin_send_mail.php" );
 			break;
 		case "msnl_admin_send_tested": 
-			@include_once( "modules/$msnl_sModuleNm/admin/admin_send_tested.php" );
+			@include( "modules/$msnl_sModuleNm/admin/admin_send_tested.php" );
 			break;
 		case "msnl_cfg":
-			@include_once( "modules/$msnl_sModuleNm/admin/cfg.php" );
+			@include( "modules/$msnl_sModuleNm/admin/cfg.php" );
 			break;
 		case "msnl_cfg_apply":
-			@include_once( "modules/$msnl_sModuleNm/admin/cfg_apply.php" );
+			@include( "modules/$msnl_sModuleNm/admin/cfg_apply.php" );
 			break;
 		case "msnl_cat":
-			@include_once( "modules/$msnl_sModuleNm/admin/cat.php" );
+			@include( "modules/$msnl_sModuleNm/admin/cat.php" );
 			break;
 		case "msnl_cat_add":
-			@include_once( "modules/$msnl_sModuleNm/admin/cat_add.php" );
+			@include( "modules/$msnl_sModuleNm/admin/cat_add.php" );
 			break;
 		case "msnl_cat_add_apply":
-			@include_once( "modules/$msnl_sModuleNm/admin/cat_add_apply.php" );
+			@include( "modules/$msnl_sModuleNm/admin/cat_add_apply.php" );
 			break;
 		case "msnl_cat_chg":
-			@include_once( "modules/$msnl_sModuleNm/admin/cat_chg.php" );
+			@include( "modules/$msnl_sModuleNm/admin/cat_chg.php" );
 			break;
 		case "msnl_cat_chg_apply":
-			@include_once( "modules/$msnl_sModuleNm/admin/cat_chg_apply.php" );
+			@include( "modules/$msnl_sModuleNm/admin/cat_chg_apply.php" );
 			break;
 		case "msnl_cat_del":
-			@include_once( "modules/$msnl_sModuleNm/admin/cat_del.php" );
+			@include( "modules/$msnl_sModuleNm/admin/cat_del.php" );
 			break;
 		case "msnl_cat_del_apply":
-			@include_once( "modules/$msnl_sModuleNm/admin/cat_del_apply.php" );
+			@include( "modules/$msnl_sModuleNm/admin/cat_del_apply.php" );
 			break;
 		case "msnl_nls":
-			@include_once( "modules/$msnl_sModuleNm/admin/nls.php" );
+			@include( "modules/$msnl_sModuleNm/admin/nls.php" );
 			break;
 		case "msnl_nls_chg":
-			@include_once( "modules/$msnl_sModuleNm/admin/nls_chg.php" );
+			@include( "modules/$msnl_sModuleNm/admin/nls_chg.php" );
 			break;
 		case "msnl_nls_chg_apply":
-			@include_once( "modules/$msnl_sModuleNm/admin/nls_chg_apply.php" );
+			@include( "modules/$msnl_sModuleNm/admin/nls_chg_apply.php" );
 			break;
 		case "msnl_nls_del":
-			@include_once( "modules/$msnl_sModuleNm/admin/nls_del.php" );
+			@include( "modules/$msnl_sModuleNm/admin/nls_del.php" );
 			break;
 		case "msnl_nls_del_apply":
-			@include_once( "modules/$msnl_sModuleNm/admin/nls_del_apply.php" );
+			@include( "modules/$msnl_sModuleNm/admin/nls_del_apply.php" );
 			break;
 
 	}
@@ -228,6 +210,6 @@ if ( !defined( 'MSNL_ADMIN' ) ) { //User is not an author/admin, so kick them ou
 
 msnl_fPrintHTML( "END" );	//Mark the end of the module HTML for W3C Compliance checking
 
-@include_once( "footer.php" );
+@include( "footer.php" );
 
 ?>

@@ -1,0 +1,8 @@
+Ok this might be a little confusing.  If you are converting a standard Nuke theme
+then you need to the conversion in sequence from the phpnuke-pl7.6.0 through PL76b2-76b3 folders.
+
+If you have a Platinum 7.6.0 converted theme then you will need to start at the PL 7.6.0-pl7.6.b.2 and complete through the PL76b2-
+76b3 folder.
+
+
+Loki

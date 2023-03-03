@@ -9,7 +9,9 @@ use PhpParser\Node\Stmt\Function_;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
+use Rector\Core\Php\PhpVersionProvider;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\TypeDeclaration\Guard\PhpDocNestedAnnotationGuard;
 use Rector\TypeDeclaration\Helper\PhpDocNullableTypeHelper;
 use Rector\VendorLocker\NodeVendorLocker\ClassMethodReturnTypeOverrideGuard;
@@ -40,12 +42,18 @@ final class ReturnAnnotationIncorrectNullableRector extends AbstractRector
      * @var \Rector\TypeDeclaration\Guard\PhpDocNestedAnnotationGuard
      */
     private $phpDocNestedAnnotationGuard;
-    public function __construct(PhpDocTypeChanger $phpDocTypeChanger, PhpDocNullableTypeHelper $phpDocNullableTypeHelper, ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard, PhpDocNestedAnnotationGuard $phpDocNestedAnnotationGuard)
+    /**
+     * @readonly
+     * @var \Rector\Core\Php\PhpVersionProvider
+     */
+    private $phpVersionProvider;
+    public function __construct(PhpDocTypeChanger $phpDocTypeChanger, PhpDocNullableTypeHelper $phpDocNullableTypeHelper, ClassMethodReturnTypeOverrideGuard $classMethodReturnTypeOverrideGuard, PhpDocNestedAnnotationGuard $phpDocNestedAnnotationGuard, PhpVersionProvider $phpVersionProvider)
     {
         $this->phpDocTypeChanger = $phpDocTypeChanger;
         $this->phpDocNullableTypeHelper = $phpDocNullableTypeHelper;
         $this->classMethodReturnTypeOverrideGuard = $classMethodReturnTypeOverrideGuard;
         $this->phpDocNestedAnnotationGuard = $phpDocNestedAnnotationGuard;
+        $this->phpVersionProvider = $phpVersionProvider;
     }
     public function getRuleDefinition() : RuleDefinition
     {
@@ -92,6 +100,9 @@ CODE_SAMPLE
             return null;
         }
         if ($returnType === null) {
+            return null;
+        }
+        if (!$this->phpVersionProvider->isAtLeastPhpVersion(PhpVersionFeature::TYPED_PROPERTIES)) {
             return null;
         }
         if (!$this->phpDocNestedAnnotationGuard->isPhpDocCommentCorrectlyParsed($node)) {

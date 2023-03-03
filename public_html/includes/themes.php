@@ -1,6 +1,6 @@
 <?php
-/*=======================================================================
- Nuke-Evolution Basic: Enhanced PHP-Nuke Web Portal System
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
  =======================================================================*/
 
 /************************************************************************
@@ -119,7 +119,8 @@ function ThemeIsActive($theme, $admin_file=false) {
     $result = $db->sql_query($sql);
     $row = $db->sql_fetchrow($result);
     $db->sql_freeresult($result);
-    return $activeT[$theme] = ((is_admin() && !$admin_file) ? 1 : $row['active']);
+    // return $activeT[$theme] = ((is_admin() && !$admin_file) ? 1 : $row['active']);
+    return $row['active'];
 }
 
 function ThemeGetGroups($groups) {
@@ -174,18 +175,21 @@ function ThemeMostPopular() {
     return $theme;
 }
 
-function get_themes($mode='user_themes') {
+function get_themes($mode='user_themes') 
+{
     //Returns all themes the user is allowed to use
     global $db, $prefix, $debugger;
 
-    switch($mode) {
+    switch($mode) 
+    {
         case 'user_themes':
             $sql = "SELECT * FROM " . $prefix . "_themes WHERE active='1' ORDER BY theme_name ASC";
             if (!$result = $db->sql_query($sql)) {
                 $debugger->handle_error(_THEMES_ERROR_MESSAGE, _THEMES_ERROR);
             }
             $themes = array();
-            while ($row=$db->sql_fetchrow($result)) {
+            while ($row=$db->sql_fetchrow($result)) 
+            {
                 $active = $row['active'];
                 $theme_name = $row['theme_name'];
                 $groups = $row['groups'];
@@ -207,6 +211,7 @@ function get_themes($mode='user_themes') {
             }
             $db->sql_freeresult($result);
         break;
+
         case 'all':
             $sql = "SELECT * FROM " . $prefix . "_themes ORDER BY theme_name ASC";
             if (!$result = $db->sql_query($sql)) {
@@ -223,6 +228,7 @@ function get_themes($mode='user_themes') {
             }
             $db->sql_freeresult($result);
         break;
+
         case 'active':
             $sql = "SELECT * FROM " . $prefix . "_themes WHERE active='1' ORDER BY theme_name ASC";
             if (!$result = $db->sql_query($sql)) {
@@ -241,6 +247,7 @@ function get_themes($mode='user_themes') {
             }
             $db->sql_freeresult($result);
         break;
+
         case 'uninstalled':
             $uninstalled_themes = array();
             $themes = opendir(NUKE_THEMES_DIR);
@@ -248,13 +255,25 @@ function get_themes($mode='user_themes') {
                 if(is_dir(NUKE_THEMES_DIR . $theme_name) && $theme_name != "." && $theme_name != ".." && $theme_name != ".svn") {
                     $sql = "SELECT theme_name FROM " . $prefix . "_themes WHERE theme_name = '$theme_name'";
                     $theme_installed = $db->sql_numrows($db->sql_query($sql));
-                    if ($theme_installed == 0) {
+                    
+					
+					
+					if ($theme_installed == 0) {
                         $uninstalled_themes[] = $theme_name;
                     }
                 }
             }
+			
+			# Someone did not think this through
+			# So I sorted the array before the return
+			#                                                 Ernest Allen Buffington 10/24/2022 7:16 pm    
+			# asort() - Maintains key association: yes.
+            # sort() - Maintains key association: no.
+			sort($uninstalled_themes);
+			
             return $uninstalled_themes;
         break;
+
         case 'dir':
           $sql = "SELECT * FROM " . $prefix . "_themes ORDER BY theme_name ASC";
             if (!$result = $db->sql_query($sql)) {
@@ -321,7 +340,7 @@ function ThemeBackup($theme) {
 
 function ThemeCount($theme) {
     global $db, $prefix, $user_prefix;
-    list($count) = $db->sql_fetchrow($db->sql_query("SELECT COUNT(*) AS count FROM " . $user_prefix . "_users WHERE theme='" . $theme . "' AND user_id <> '1'"));
+    list($count) = $db->sql_ufetchrow("SELECT COUNT(*) AS count FROM " . $user_prefix . "_users WHERE theme='" . $theme . "' AND user_id <> '1'");
     return $count;
 }
 
@@ -338,14 +357,19 @@ function ChangeTheme($theme, $who) {
 function AllowThemeChange() {
     global $db, $prefix;
     static $usrthemeselect;
-    list($usrthemeselect) = $db->sql_fetchrow($db->sql_query("SELECT config_value FROM " . $prefix . "_cnbya_config WHERE config_name = 'allowusertheme'"));
+    list($usrthemeselect) = $db->sql_ufetchrow("SELECT config_value FROM " . $prefix . "_cnbya_config WHERE config_name = 'allowusertheme'");
     return(($usrthemeselect == 0) ? 1 : 0);
 }
-function LoadThemeInfo($theme) {
+
+function LoadThemeInfo($theme) 
+{
     global $db, $prefix, $params, $default, $cache;
     static $theme_info;
-    if(isset($theme_info)) { return $theme_info; }
-    if(!$theme_info = $cache->load($theme, 'themes')) {
+    if(isset($theme_info)) 
+        return $theme_info; 
+
+    if(!$theme_info = $cache->load($theme, 'themes')) 
+    {
         $result = $db->sql_query("SELECT theme_info FROM " . $prefix . "_themes WHERE theme_name = '" . $theme . "'");
         $row = $db->sql_fetchrow($result);
         $db->sql_freeresult($result);
@@ -355,5 +379,4 @@ function LoadThemeInfo($theme) {
     }
     return $theme_info;
 }
-
 ?>

@@ -5,18 +5,15 @@ namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
-use PHPStan\PhpDocParser\Ast\Type\CallableTypeParameterNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
-use PHPStan\Reflection\ParameterReflection;
 use PHPStan\Type\ClosureType;
 use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareCallableTypeNode;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 use Rector\PHPStanStaticTypeMapper\Enum\TypeKind;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
-use RectorPrefix202302\Symfony\Contracts\Service\Attribute\Required;
-use RectorPrefix202302\Webmozart\Assert\Assert;
+use RectorPrefix202301\Symfony\Contracts\Service\Attribute\Required;
 /**
  * @implements TypeMapperInterface<ClosureType>
  */
@@ -40,10 +37,11 @@ final class ClosureTypeMapper implements TypeMapperInterface
     {
         $identifierTypeNode = new IdentifierTypeNode($type->getClassName());
         $returnDocTypeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($type->getReturnType(), $typeKind);
-        $callableTypeParameterNodes = $this->createCallableTypeParameterNodes($type, $typeKind);
-        // callable parameters must be of specific type
-        Assert::allIsInstanceOf($callableTypeParameterNodes, CallableTypeParameterNode::class);
-        return new SpacingAwareCallableTypeNode($identifierTypeNode, $callableTypeParameterNodes, $returnDocTypeNode);
+        $parameterDocTypeNodes = [];
+        foreach ($type->getParameters() as $parameterReflection) {
+            $parameterDocTypeNodes[] = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($parameterReflection->getType(), $typeKind);
+        }
+        return new SpacingAwareCallableTypeNode($identifierTypeNode, $parameterDocTypeNodes, $returnDocTypeNode);
     }
     /**
      * @param TypeKind::* $typeKind
@@ -62,19 +60,5 @@ final class ClosureTypeMapper implements TypeMapperInterface
     public function autowire(PHPStanStaticTypeMapper $phpStanStaticTypeMapper) : void
     {
         $this->phpStanStaticTypeMapper = $phpStanStaticTypeMapper;
-    }
-    /**
-     * @param TypeKind::* $typeKind
-     * @return CallableTypeParameterNode[]
-     */
-    private function createCallableTypeParameterNodes(ClosureType $closureType, string $typeKind) : array
-    {
-        $callableTypeParameterNodes = [];
-        foreach ($closureType->getParameters() as $parameterReflection) {
-            /** @var ParameterReflection $parameterReflection */
-            $typeNode = $this->phpStanStaticTypeMapper->mapToPHPStanPhpDocTypeNode($parameterReflection->getType(), $typeKind);
-            $callableTypeParameterNodes[] = new CallableTypeParameterNode($typeNode, $parameterReflection->passedByReference()->yes(), $parameterReflection->isVariadic(), $parameterReflection->getName() !== '' && $parameterReflection->getName() !== '0' ? '$' . $parameterReflection->getName() : '', $parameterReflection->isOptional());
-        }
-        return $callableTypeParameterNodes;
     }
 }

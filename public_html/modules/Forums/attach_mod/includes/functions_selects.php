@@ -1,289 +1,273 @@
 <?php
-/***************************************************************************
- *                            functions_selects.php
- *                            -------------------
- *   begin                : Saturday, Mar 30, 2002
- *   copyright            : (C) 2002 Meik Sievertsen
- *   email                : acyd.burn@gmx.de
- *
- *   $Id: functions_selects.php,v 1.11 2004/07/31 15:15:54 acydburn Exp $
- *
- *
- ***************************************************************************/
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
 
-/***************************************************************************
- *
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License, or
- *   (at your option) any later version.
- *
- *
- ***************************************************************************/
 
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/**
+*
+* @package attachment_mod
+* @version $Id: functions_selects.php,v 1.1 2005/11/05 18:42:50 acydburn Exp $
+* @copyright (c) 2002 Meik Sievertsen
+* @license http://opensource.org/licenses/gpl-license.php GNU Public License
+*
+*/
 
-//
-// Functions to build select boxes ;)
-//
+/**
+* Functions to build select boxes ;)
+*/
 
+/**
+* select group
+*/
 function group_select($select_name, $default_group = 0)
 {
-	global $db, $lang;
+    global $db, $lang;
 
-	$sql = 'SELECT group_id, group_name
-		FROM ' . EXTENSION_GROUPS_TABLE . '
-		ORDER BY group_name';
+    $sql = 'SELECT group_id, group_name
+        FROM ' . EXTENSION_GROUPS_TABLE . '
+        ORDER BY group_name';
 
-	if ( !($result = $db->sql_query($sql)) )
-	{
-		message_die(GENERAL_ERROR, "Couldn't query Extension Groups Table", "", __LINE__, __FILE__, $sql);
-	}
+    if (!($result = $db->sql_query($sql)))
+    {
+        message_die(GENERAL_ERROR, "Couldn't query Extension Groups Table", "", __LINE__, __FILE__, $sql);
+    }
 
-	$group_select = '<select name="' . $select_name . '">';
-	if (($db->sql_numrows($result)) > 0)
-	{
-		$group_name = $db->sql_fetchrowset($result);
-		$group_name[$db->sql_numrows($result)]['group_id'] = 0;
-		$group_name[$db->sql_numrows($result)]['group_name'] = $lang['Not_assigned'];
+    $group_select = '<select name="' . $select_name . '">';
 
-		for ($i = 0; $i < sizeof($group_name); $i++)
-		{
-			if (!$default_group)
-			{
-				$selected = ($i == 0) ? ' selected="selected"' : '';
-			}
-			else
-			{
-				$selected = ($group_name[$i]['group_id'] == $default_group) ? ' selected="selected"' : '';
-			}
+    $group_name = $db->sql_fetchrowset($result);
+    $num_rows = $db->sql_numrows($result);
+    $db->sql_freeresult($result);
 
-			$group_select .= '<option value="' . $group_name[$i]['group_id'] . '"' . $selected . '>' . $group_name[$i]['group_name'] . '</option>';
-		}
-	}
-	$db->sql_freeresult($result);
+    if ($num_rows > 0)
+    {
+        $group_name[$num_rows]['group_id'] = 0;
+        $group_name[$num_rows]['group_name'] = $lang['Not_assigned'];
 
-	$group_select .= '</select>';
+        for ($i = 0; $i < sizeof($group_name); $i++)
+        {
+            if (!$default_group)
+            {
+                $selected = ($i == 0) ? ' selected="selected"' : '';
+            }
+            else
+            {
+                $selected = ($group_name[$i]['group_id'] == $default_group) ? ' selected="selected"' : '';
+            }
 
-	return $group_select;
+            $group_select .= '<option value="' . $group_name[$i]['group_id'] . '"' . $selected . '>' . $group_name[$i]['group_name'] . '</option>';
+        }
+    }
+
+    $group_select .= '</select>';
+
+    return $group_select;
 }
 
+/**
+* select download mode
+*/
 function download_select($select_name, $group_id = 0)
 {
-	global $db, $types_download, $modes_download;
-		
-	if ($group_id)
-	{
-		$sql = 'SELECT download_mode
-			FROM ' . EXTENSION_GROUPS_TABLE . "
-			WHERE group_id = $group_id";
-		if ( !($result = $db->sql_query($sql)) )
-		{
-			message_die(GENERAL_ERROR, "Couldn't query Extension Groups Table", "", __LINE__, __FILE__, $sql);
-		}
-		$row = $db->sql_fetchrow($result);
-		$db->sql_freeresult($result);
-	
-		if (!isset($row['download_mode']))
-		{
-			return '';
-		}
-		
-		$download_mode = $row['download_mode'];
-	}
+    global $db, $types_download, $modes_download;
 
-	$group_select = '<select name="' . $select_name . '">';
+    if ($group_id)
+    {
+        $sql = 'SELECT download_mode
+            FROM ' . EXTENSION_GROUPS_TABLE . '
+            WHERE group_id = ' . (int) $group_id;
 
-	for ($i = 0; $i < sizeof($types_download); $i++)
-	{
-		if (!$group_id)
-		{
-			$selected = ($types_download[$i] == INLINE_LINK) ? ' selected="selected"' : '';
-		}
-		else
-		{
-			$selected = ($row['download_mode'] == $types_download[$i]) ? ' selected="selected"' : '';
-		}
+        if (!($result = $db->sql_query($sql)))
+        {
+            message_die(GENERAL_ERROR, "Couldn't query Extension Groups Table", "", __LINE__, __FILE__, $sql);
+        }
+        $row = $db->sql_fetchrow($result);
+        $db->sql_freeresult($result);
 
-		$group_select .= '<option value="' . $types_download[$i] . '"' . $selected . '>' . $modes_download[$i] . '</option>';
-	}
+        if (!isset($row['download_mode']))
+        {
+            return '';
+        }
 
-	$group_select .= '</select>';
+        $download_mode = $row['download_mode'];
+    }
 
-	return $group_select;
+    $group_select = '<select name="' . $select_name . '">';
+
+    for ($i = 0; $i < sizeof($types_download); $i++)
+    {
+        if (!$group_id)
+        {
+            $selected = ($types_download[$i] == INLINE_LINK) ? ' selected="selected"' : '';
+        }
+        else
+        {
+            $selected = ($row['download_mode'] == $types_download[$i]) ? ' selected="selected"' : '';
+        }
+
+        $group_select .= '<option value="' . $types_download[$i] . '"' . $selected . '>' . $modes_download[$i] . '</option>';
+    }
+
+    $group_select .= '</select>';
+
+    return $group_select;
 }
 
+/**
+* select category types
+*/
 function category_select($select_name, $group_id = 0)
 {
-	global $db, $types_category, $modes_category;
-		
-	$sql = 'SELECT group_id, cat_id
-		FROM ' . EXTENSION_GROUPS_TABLE;
+    global $db, $types_category, $modes_category;
 
-	if ( !($result = $db->sql_query($sql)) )
-	{
-		message_die(GENERAL_ERROR, "Couldn't select Category", "", __LINE__, __FILE__, $sql);
-	}
-	
-	$rows = $db->sql_fetchrowset($result);
-	$num_rows = $db->sql_numrows($result);
-	$db->sql_freeresult($result);
+    $sql = 'SELECT group_id, cat_id
+        FROM ' . EXTENSION_GROUPS_TABLE;
 
-	$type_category = 0;
+    if (!($result = $db->sql_query($sql)))
+    {
+        message_die(GENERAL_ERROR, "Couldn't select Category", "", __LINE__, __FILE__, $sql);
+    }
 
-	if ($num_rows > 0)
-	{
-		for ($i = 0; $i < $num_rows; $i++)
-		{
-			if ($group_id == $rows[$i]['group_id'])
-			{
-				$category_type = $rows[$i]['cat_id'];
-			}
-		}
-	}
+    $rows = $db->sql_fetchrowset($result);
+    $num_rows = $db->sql_numrows($result);
+    $db->sql_freeresult($result);
 
-	$types = array(NONE_CAT);
-	$modes = array('none');
+    $type_category = 0;
 
-	for ($i = 0; $i < sizeof($types_category); $i++)
-	{
-		$types[] = $types_category[$i];
-		$modes[] = $modes_category[$i];
-	}
+    if ($num_rows > 0)
+    {
+        for ($i = 0; $i < $num_rows; $i++)
+        {
+            if ($group_id == $rows[$i]['group_id'])
+            {
+                $category_type = $rows[$i]['cat_id'];
+            }
+        }
+    }
 
-	$group_select = '<select name="' . $select_name . '" style="width:100px">';
+    $types = array(NONE_CAT);
+    $modes = array('none');
 
-	for ($i = 0; $i < sizeof($types); $i++)
-	{
-		if (!$group_id)
-		{
-			$selected = ($types[$i] == NONE_CAT) ? ' selected="selected"' : '';
-		}
-		else
-		{
-			$selected = ($types[$i] == $category_type) ? ' selected="selected"' : '';
-		}
+    for ($i = 0; $i < sizeof($types_category); $i++)
+    {
+        $types[] = $types_category[$i];
+        $modes[] = $modes_category[$i];
+    }
 
-		$group_select .= '<option value="' . $types[$i] . '"' . $selected . '>' . $modes[$i] . '</option>';
-	}
+    $group_select = '<select name="' . $select_name . '" style="width:100px">';
 
-	$group_select .= '</select>';
+    for ($i = 0; $i < sizeof($types); $i++)
+    {
+        if (!$group_id)
+        {
+            $selected = ($types[$i] == NONE_CAT) ? ' selected="selected"' : '';
+        }
+        else
+        {
+            $selected = ($types[$i] == $category_type) ? ' selected="selected"' : '';
+        }
 
-	return $group_select;
+        $group_select .= '<option value="' . $types[$i] . '"' . $selected . '>' . $modes[$i] . '</option>';
+    }
+
+    $group_select .= '</select>';
+
+    return $group_select;
 }
 
+/**
+* Select size mode
+*/
 function size_select($select_name, $size_compare)
 {
-	global $lang;
+    global $lang;
 
-	$size_types_text = array($lang['Bytes'], $lang['KB'], $lang['MB']);
-	$size_types = array('b', 'kb', 'mb');
+    $size_types_text = array($lang['Bytes'], $lang['KB'], $lang['MB']);
+    $size_types = array('b', 'kb', 'mb');
 
-	$select_field = '<select name="' . $select_name . '">';
+    $select_field = '<select name="' . $select_name . '">';
 
-	for ($i = 0; $i < sizeof($size_types_text); $i++)
-	{
-		$selected = ($size_compare == $size_types[$i]) ? ' selected="selected"' : '';
-		$select_field .= '<option value="' . $size_types[$i] . '"' . $selected . '>' . $size_types_text[$i] . '</option>';
-	}
-	
-	$select_field .= '</select>';
+    for ($i = 0; $i < sizeof($size_types_text); $i++)
+    {
+        $selected = ($size_compare == $size_types[$i]) ? ' selected="selected"' : '';
+        $select_field .= '<option value="' . $size_types[$i] . '"' . $selected . '>' . $size_types_text[$i] . '</option>';
+    }
 
-	return $select_field;
+    $select_field .= '</select>';
+
+    return $select_field;
 }
 
+/**
+* select quota limit
+*/
 function quota_limit_select($select_name, $default_quota = 0)
 {
-	global $db, $lang;
-		
-	$sql = 'SELECT quota_limit_id, quota_desc
-		FROM ' . QUOTA_LIMITS_TABLE . '
-		ORDER BY quota_limit ASC';
+    global $db, $lang;
 
-	if ( !($result = $db->sql_query($sql)) )
-	{
-		message_die(GENERAL_ERROR, "Couldn't query Quota Limits Table", "", __LINE__, __FILE__, $sql);
-	}
+    $sql = 'SELECT quota_limit_id, quota_desc
+        FROM ' . QUOTA_LIMITS_TABLE . '
+        ORDER BY quota_limit ASC';
 
-	$quota_select = '<select name="' . $select_name . '">';
-	$quota_name[0]['quota_limit_id'] = 0;
-	$quota_name[0]['quota_desc'] = $lang['Not_assigned'];
+    if ( !($result = $db->sql_query($sql)) )
+    {
+        message_die(GENERAL_ERROR, "Couldn't query Quota Limits Table", "", __LINE__, __FILE__, $sql);
+    }
 
-	while ($row = $db->sql_fetchrow($result))
-	{
-		$quota_name[] = $row;
-	}
-	$db->sql_freeresult($result);
+    $quota_select = '<select name="' . $select_name . '">';
+    $quota_name[0]['quota_limit_id'] = 0;
+    $quota_name[0]['quota_desc'] = $lang['Not_assigned'];
 
-	for ($i = 0; $i < sizeof($quota_name); $i++)
-	{
-		$selected = ($quota_name[$i]['quota_limit_id'] == $default_quota) ? ' selected="selected"' : '';
-		$quota_select .= '<option value="' . $quota_name[$i]['quota_limit_id'] . '"' . $selected . '>' . $quota_name[$i]['quota_desc'] . '</option>';
-	}
-	$quota_select .= '</select>';
+    while ($row = $db->sql_fetchrow($result))
+    {
+        $quota_name[] = $row;
+    }
+    $db->sql_freeresult($result);
 
-	return $quota_select;
+    for ($i = 0; $i < sizeof($quota_name); $i++)
+    {
+        $selected = ($quota_name[$i]['quota_limit_id'] == $default_quota) ? ' selected="selected"' : '';
+        $quota_select .= '<option value="' . $quota_name[$i]['quota_limit_id'] . '"' . $selected . '>' . $quota_name[$i]['quota_desc'] . '</option>';
+    }
+    $quota_select .= '</select>';
+
+    return $quota_select;
 }
 
+/**
+* select default quota limit
+*/
 function default_quota_limit_select($select_name, $default_quota = 0)
 {
-	global $db, $lang;
-		
-	$sql = 'SELECT quota_limit_id, quota_desc
-		FROM ' . QUOTA_LIMITS_TABLE . '
-		ORDER BY quota_limit ASC';
+    global $db, $lang;
 
-	if ( !($result = $db->sql_query($sql)) )
-	{
-		message_die(GENERAL_ERROR, "Couldn't query Quota Limits Table", "", __LINE__, __FILE__, $sql);
-	}
+    $sql = 'SELECT quota_limit_id, quota_desc
+        FROM ' . QUOTA_LIMITS_TABLE . '
+        ORDER BY quota_limit ASC';
 
-	$quota_select = '<select name="' . $select_name . '">';
-	$quota_name[0]['quota_limit_id'] = 0;
-	$quota_name[0]['quota_desc'] = $lang['No_quota_limit'];
+    if ( !($result = $db->sql_query($sql)) )
+    {
+        message_die(GENERAL_ERROR, "Couldn't query Quota Limits Table", "", __LINE__, __FILE__, $sql);
+    }
 
-	while ($row = $db->sql_fetchrow($result))
-	{
-		$quota_name[] = $row;
-	}
-	$db->sql_freeresult($result);
+    $quota_select = '<select name="' . $select_name . '">';
+    $quota_name[0]['quota_limit_id'] = 0;
+    $quota_name[0]['quota_desc'] = $lang['No_quota_limit'];
 
-	for ($i = 0; $i < sizeof($quota_name); $i++)
-	{
-		$selected = ( $quota_name[$i]['quota_limit_id'] == $default_quota ) ? ' selected="selected"' : '';
-		$quota_select .= '<option value="' . $quota_name[$i]['quota_limit_id'] . '"' . $selected . '>' . $quota_name[$i]['quota_desc'] . '</option>';
-	}
-	$quota_select .= '</select>';
+    while ($row = $db->sql_fetchrow($result))
+    {
+        $quota_name[] = $row;
+    }
+    $db->sql_freeresult($result);
 
-	return $quota_select;
+    for ($i = 0; $i < sizeof($quota_name); $i++)
+    {
+        $selected = ( $quota_name[$i]['quota_limit_id'] == $default_quota ) ? ' selected="selected"' : '';
+        $quota_select .= '<option value="' . $quota_name[$i]['quota_limit_id'] . '"' . $selected . '>' . $quota_name[$i]['quota_desc'] . '</option>';
+    }
+    $quota_select .= '</select>';
+
+    return $quota_select;
 }
 
 ?>

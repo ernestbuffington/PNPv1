@@ -1,4 +1,3 @@
-
 <h1>{L_EDIT_GAME}</h1>
 <p><span class="gensmall">{L_EDIT_GAME_EXPLAIN}</span></p>
 

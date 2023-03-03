@@ -89,7 +89,7 @@ CODE_SAMPLE
             if ($this->shouldSkipProperty($property, $node)) {
                 continue;
             }
-            $getterReturnType = $this->getterTypeDeclarationPropertyTypeInferer->inferProperty($property, $node);
+            $getterReturnType = $this->getterTypeDeclarationPropertyTypeInferer->inferProperty($property);
             if (!$getterReturnType instanceof Type) {
                 continue;
             }

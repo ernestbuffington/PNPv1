@@ -1,0 +1,198 @@
+/************************************************************************/
+
+/* PHP-NUKE: Advanced Content Management System                         */
+
+/* ============================================                         */
+
+/*                                                                      */
+
+/* Copyright (c) 2002 by Francisco Burzi                                */
+
+/* http://phpnuke.org                                                   */
+
+/*                                                                      */
+
+/* This program is free software. You can redistribute it and/or modify */
+
+/* it under the terms of the GNU General Public License as published by */
+
+/* the Free Software Foundation; either version 2 of the License.       */
+
+/************************************************************************/
+
+/* PHP-Nuke Platinum: Expect to be impressed                  COPYRIGHT */ 
+
+/*                                                                      */ 
+
+/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */ 
+
+/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */ 
+
+/*                                                                      */ 
+
+/* Copyright (c) 2004 - 2006 by http://www.conrads-berlin.de            */ 
+
+/*     MrFluffy - Axel Conrads                 (axel@conrads-berlin.de) */ 
+
+/*                                                                      */
+
+/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
+
+/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
+
+/*                                                                      */
+
+/* Refer to Nukeplanet.com for detailed information on PHP-Nuke Platinum*/
+
+/*                                                                      */
+
+/* TechGFX: Your dreams, our imagination                                */ 
+
+/************************************************************************/
+
+/*      NukeAmazon was ported to Platinum 7.6.b.3 by Loki               */
+
+/*      For support for this version go to http://www.nukeplanet.com    */
+
+
+
+New Installation
+
+1. Copy all files in the html directory into your Nuke root.
+
+2. upload the amazon.sql file into your database through phpmyadmin.
+
+3. Log-on to your Nuke site and point your browser to the NukeAmazon module in
+
+http://www.php-nuke-site.com/modules.php?name=Amazon to test if
+
+the module is working.
+
+4. You can add items as you browse the shop or in the admin section.
+
+5. Create and test the blocks: Amazon, Amazon2, Amazon3, AmazonCenter, in the
+
+admin section.
+
+6. Go to the admin panel and activate the Amazon module and blocks. All
+
+Amazon blocks in this package will point to the module to show detailed product
+
+information. If you don’t activate the Amazon Module your site visitors will be
+
+greeted with a “Sorry, this Module isn't active!” message.
+
+
+
+_______________________________________________________________________________________
+
+Block Information:
+
+What the Block files do?
+
+
+
+Included in this release are three (3) block files: block-Amazon.php, block-Amazon2.php
+
+and block-Amazon3.php.
+
+
+
+· block-Amazon.php:
+
+This block presents a featured product at random.
+
+
+
+· block-Amazon2.php and block-Amazon3.php
+
+This blocks present an Amazon.com browsenode at random. They do the same
+
+except that Amazon2 scrolls and Amazon3 doesn’t scroll.
+
+
+
+· block-AmazonCenter.php and block-AmazonCenter14.php
+
+This blocks will present a number of featured products at random. The number
+
+of products will be determined by the $TCol and $TRow variables in the code.
+
+TCol is the Number of Items per Row and TRow is the Number of Rows.
+
+_______________________________________________________________________________________
+
+
+
+Description
+
+NukeAmazon is a complete software package for Amazon Affiliate members. The
+
+software allows members to advertise products sold by Amazon in their PHP-Nuke
+
+(http://phpnuke.org/) powered Web sites. This package uses the Amazon Web Services
+
+version 3.0 via XML-based protocols to integrate Amazon.com features and content into
+
+PHP-Nuke site. Included in this package are blocks and administration / configuration
+
+files that allows the Web site Administrator to manage very easily the selected Amazon
+
+products. NukeAmazon is simple to install and manage. You enter Amazon product
+
+numbers (ASIN) in the admin page and the script does the rest. It has a hits and click
+
+counter so you know which featured and not featured items are more popular and have
+
+been sent to Amazon for purchase. It gets the product's information available from
+
+Amazon’s servers and displays it in your web site. Every time the page is refreshed a
+
+new item is shown on the Amazon block. When the site visitor clicks on the item, the
+
+server loads a page with detailed information of the item. Related items and a search
+
+form are shown so that your visitor sees more products that are available for purchase so
+
+you can earn more commissions. You can add product reviews and link to them into the
+
+NukeAmazon store. NukeAmazon has been tested to work with PHP-Nuke 6.9 - 7.4.
+
+How NukeAmazon works?
+
+Your site visitors are presented featured items via a side block (block-Amazon.php).
+
+Featured items are products that are stored in the Nuke database by the site
+
+administrator. When the visitor clicks on the product link, it is directed to a product
+
+details page. This details page will show all available details for the product and also will
+
+present product reviews, related products, and suggested products. On the products
+
+http://preciogasolina.com NukeAmazon 2.7 Page 3
+
+NukeAmazon is distributed AS IS, without any warranty nor technical support according to the GPL license.
+
+details page your visitor will click on the product link will be directed to the Amazon.com
+
+site to purchase it.
+
+If your visitor clicks on the direct NukeAmazon store link the complete catalog with
+
+Amazon browsenodes will be presented along with some of the featured items to tease
+
+your visitor. A catalog browse bar is presented on every page so that your site visitor
+
+can select in what catalog to search products.
+
+A shopping cart has been developed that will allow your site visitor to put all the items
+
+he/she wishes to purchase and at the end will go to Amazon to finalize the purchase.
+
+
+
+
+
+
+

@@ -1,11 +1,16 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
+
 /***************************************************************************
+*                      $RCSfile: admin_topic_shadow.php,v $
 *                            -------------------
-*   begin                : Tue January 20 2002
 *   copyright            : (C) 2002-2003 Nivisec.com
 *   email                : support@nivisec.com
 *
-*   $Id: admin_topic_shadow.php,v 1.1 2003/05/18 21:16:28 nivisec Exp $
+*   $Id: admin_topic_shadow.php,v 1.6 2003/06/30 16:34:28 nivisec Exp $
 *
 ***************************************************************************/
 
@@ -18,51 +23,64 @@
 *
 ***************************************************************************/
 
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+if (!defined('IN_PHPBB')) define('IN_PHPBB', true);
+/* If for some reason preference cookie saving needs to be disabled, you
+can do so by setting this to true */
 
-define('IN_PHPBB', TRUE);
+define('DISABLE_PREFERENCE_SAVING', false);
+/* If for some reason you need to disable the version check in THIS HACK ONLY,
+change the blow to TRUE instead of FALSE.  No other hacks will be affected
+by this change.
+*/
 
+$phpbb_root_path = "./../";
 if( !empty($setmodules) )
 {
-	$filename = basename(__FILE__);
-	$module['Forums']['Topic_Shadow'] = $filename;
-	
-	return;
+    include_once($phpbb_root_path . 'language/lang_' . $board_config['default_lang'] . '/lang_admin_topic_shadow.' . $phpEx);
+    $filename = basename(__FILE__);
+    $module['Forums']['Topic_Shadow'] = $filename;
+    
+    return;
 }
 
-$phpbb_root_path = '../';
-require_once($phpbb_root_path . 'extension.inc');
-(file_exists('pagestart.' . $phpEx)) ? require_once('pagestart.' . $phpEx) : require_once('pagestart.inc');
+define('MOD_VERSION', '2.13');
+define('MOD_CODE', 2);
+define('MOD_COOKIE_PREF_NAME', 'nivisec_phpbb2_mod_preferences');
 
-require_once($phpbb_root_path . 'language/lang_' . $board_config['default_lang'] . '/lang_admin_topic_shadow.' . $phpEx);
+/*******************************************************************************************
+/** Get parameters.  'var_name' => 'default_value'
+/** Also get any saved cookie preferences.
+/******************************************************************************************/
+$preference_cookie = (isset($HTTP_COOKIE_VARS[MOD_COOKIE_PREF_NAME])) ? unserialize(stripslashes($HTTP_COOKIE_VARS[MOD_COOKIE_PREF_NAME])) : array();
+$preference_cookie['test'] = true;
+$params = array('start' => 0, 'order' => 'DESC', 'mode' => 'topic_time', 'delete_all_before_date' => 0,
+'del_month' => 1, 'del_day' => 1, 'del_year' => 1970);
+$params_ignore = array('delete_all_before_date');
+
+foreach($params as $var => $default)
+{
+    $$var = (isset($preference_cookie[MOD_CODE."_$var"]) && !in_array($var, $params_ignore)) ? $preference_cookie[MOD_CODE."_$var"] : $default;
+    if(isset($HTTP_POST_VARS[$var]) || isset($HTTP_GET_VARS[$var]))
+    {
+        $preference_cookie[MOD_CODE."_$var"] = (isset($HTTP_POST_VARS[$var])) ? $HTTP_POST_VARS[$var] : $HTTP_GET_VARS[$var];
+        $$var = $preference_cookie[MOD_CODE."_$var"];
+    }
+}
+/****************************************************************************
+/** Includes and cookie settings (with output buffering)
+/***************************************************************************/
+/* Make a new output buffer for this page in order to not screw up cookie
+setting.  If this is disabled, settings will NEVER be saved */
+global $board_config;
+$board_config['gzip_compress'] = $board_config['gzip_compress'] ?? '';
+if(!DISABLE_PREFERENCE_SAVING && !$board_config['gzip_compress']) 
+ob_start();
+
+require($phpbb_root_path . 'extension.inc');
+(file_exists('pagestart.' . $phpEx)) ? require('pagestart.' . $phpEx) : require('pagestart.inc');
+require("../../../includes/functions_admin.php");
+include_once($phpbb_root_path . 'language/lang_' . $board_config['default_lang'] . '/lang_admin_topic_shadow.' . $phpEx);
+@setcookie(MOD_COOKIE_PREF_NAME, serialize($preference_cookie), time() + 31536000, $board_config['cookie_path'], $board_config['cookie_domain'], $board_config['cookie_secure']);
 
 /****************************************************************************
 /** Constants and Main Vars.
@@ -75,92 +93,87 @@ $status_message = '';
 /****************************************************************************
 /** Functions
 /***************************************************************************/
-function ts_make_mode_drop_box()
+function topic_shadow_make_drop_box($prefix = 'mode')
 {
-	global $mode_types, $lang, $mode;
-	
-	$rval = '<select name="mode">';
-	foreach($mode_types as $val)
-	{
-		$selected = ($mode == $val) ? 'selected="selected"' : '';
-		$rval .= "<option value=\"$val\" $selected>" . $lang[$val] . '</option>';
-	}
-	$rval .= '</select>';
-	
-	return $rval;
+    global $mode_types, $lang, $mode, $order_types, $order;
+    
+    $rval = '<select name="'.$prefix.'">';
+    
+    switch($prefix)
+    {
+        case 'mode':
+        {
+            foreach($mode_types as $val)
+            {
+                $selected = ($mode == $val) ? 'selected="selected"' : '';
+                $rval .= "<option value=\"$val\" $selected>" . $lang[$val] . '</option>';
+            }
+            break;
+        }
+        case 'order':
+        {
+            foreach($order_types as $val)
+            {
+                $selected = ($order == $val) ? 'selected="selected"' : '';
+                $rval .= "<option value=\"$val\" $selected>" . $lang[$val] . '</option>';
+            }
+            break;
+        }
+    }
+    $rval .= '</select>';
+    
+    return $rval;
 }
-
-function ts_make_order_drop_box()
-{
-	global $order_types, $lang, $order;
-	
-	$rval = '<select name="order">';
-	foreach($order_types as $val)
-	{
-		$selected = ($order == $val) ? 'selected="selected"' : '';
-		$rval .= "<option value=\"$val\" $selected>" . $lang[$val] . '</option>';
-	}
-	$rval .= '</select>';
-	
-	return $rval;
-}
-
 function ts_id_2_name($id, $mode = 'user')
 {
-	global $db;
-	
-	if ($id == '')
-	{
-		return '?';
-	}
-	
-	switch($mode)
-	{
-		case 'user':
-		{
-			$sql = 'SELECT username FROM ' . USERS_TABLE . "
-	   			WHERE user_id = $id";
-			
-			if(!$result = $db->sql_query($sql))
-			{
-				message_die(GENERAL_ERROR, 'Err', '', __LINE__, __FILE__, $sql);
-			}
-			$row = $db->sql_fetchrow($result);
-			return $row['username'];
-			break;
-		}
-		case 'forum':
-		{
-			$sql = 'SELECT f.forum_name FROM ' . FORUMS_TABLE . ' f, ' . TOPICS_TABLE . " t
-	   		   WHERE t.topic_id = $id
-			   AND t.forum_id = f.forum_id";
-			
-			if(!$result = $db->sql_query($sql))
-			{
-				message_die(GENERAL_ERROR, 'Err', '', __LINE__, __FILE__, $sql);
-			}
-			$row = $db->sql_fetchrow($result);
-			return $row['forum_name'];
-			break;
-		}
-		default:
-		break;
-	}
+    global $db;
+    
+    if ($id == '')
+    {
+        return '?';
+    }
+    
+    switch($mode)
+    {
+        case 'user':
+        {
+            $sql = 'SELECT username FROM ' . USERS_TABLE . "
+                   WHERE user_id = $id";
+            
+            if(!$result = $db->sql_query($sql))
+            {
+                message_die(GENERAL_ERROR, 'Err', '', __LINE__, __FILE__, $sql);
+            }
+            $row = $db->sql_fetchrow($result);
+            return $row['username'];
+            break;
+        }
+        case 'forum':
+        {
+            $sql = 'SELECT f.forum_name FROM ' . FORUMS_TABLE . ' f, ' . TOPICS_TABLE . " t
+                  WHERE t.topic_id = $id
+               AND t.forum_id = f.forum_id";
+            
+            if(!$result = $db->sql_query($sql))
+            {
+                message_die(GENERAL_ERROR, 'Err', '', __LINE__, __FILE__, $sql);
+            }
+            $row = $db->sql_fetchrow($result);
+            return $row['forum_name'];
+            break;
+        }
+    }
 }
-
-/*******************************************************************************************
-/** Get parameters.  'var_name' => 'default_value'
-/******************************************************************************************/
-$params = array('start' => 0, 'order' => 'DESC', 'mode' => 'topic_time', 'delete_all_before_date' => 0,
-'del_month' => 1, 'del_day' => 1, 'del_year' => 1970);
-
-foreach($params as $var => $default)
+if (!function_exists('copyright_nivisec'))
 {
-	$$var = $default;
-	if( isset($_POST[$var]) || isset($_GET[$var]) )
-	{
-		$$var = ( isset($_POST[$var]) ) ? $_POST[$var] : $_GET[$var];
-	}
+    /**
+    * @return void
+    * @desc Prints a sytlized line of copyright for module
+    */
+    function copyright_nivisec($name, $year)
+    {
+        print '<br /><span class="copyright"><center>'.$name.' '.MOD_VERSION.' &copy; '.$year.' <a href="http://www.nivisec.com" class="copyright">Nivisec.com</a>.</center></span>';
+    }
 }
 
 /*******************************************************************************************
@@ -168,61 +181,80 @@ foreach($params as $var => $default)
 /******************************************************************************************/
 if ($delete_all_before_date)
 {
-	/* Error Checking */
-	$error_message = '';
-	if ($del_month < 1 || $del_month > 12)
-	{
-		$error_message .= $lang['Error_Month'];
-	}
-	if ($del_day < 1 || $del_day > 31)
-	{
-		$error_message .= $lang['Error_Day'];
-	}
-	if ($del_year < 1970 || $del_year > 2038)
-	{
-		$error_message .= $lang['Error_Year'];
-	}
-	if ($error_message != '')
-	{
-		message_die(GENERAL_ERROR, $error_message, '', __LINE__, __FILE__);
-	}
-	/* END Error Checking */
-	
-	$set_time = mktime(0, 0, 0, $del_month, $del_day, $del_year);
-	$sql = 'DELETE FROM ' . TOPICS_TABLE . '
-	   WHERE topic_status = ' . TOPIC_MOVED . "
-	   AND topic_time < $set_time";
-	
-	if(!$db->sql_query($sql))
-	{
-		message_die(GENERAL_ERROR, $lang['Error_Topics_Table'], '', __LINE__, __FILE__, $sql);
-	}
-	else
-	{
-		$status_message .= sprintf($lang['Del_Before_Date'], date("M-d-Y", $set_time));
-		$status_message .= (SQL_LAYER == 'db2' || SQL_LAYER == 'mysql' || SQL_LAYER == 'mysql4') ? sprintf($lang['Affected_Rows'], $db->sql_affectedrows()) : '';
-	}
+    /* Error Checking */
+    $error_message = '';
+    if ($del_month < 1 || $del_month > 12)
+    {
+        $error_message .= $lang['Error_Month'];
+    }
+    if ($del_day < 1 || $del_day > 31)
+    {
+        $error_message .= $lang['Error_Day'];
+    }
+    if ($del_year < 1970 || $del_year > 2038)
+    {
+        $error_message .= $lang['Error_Year'];
+    }
+    if ($error_message != '')
+    {
+        message_die(GENERAL_ERROR, $error_message, '', __LINE__, __FILE__);
+    }
+    /* END Error Checking */
+    
+    $set_time = mktime(0, 0, 0, $del_month, $del_day, $del_year);
+    $sql = 'DELETE FROM ' . TOPICS_TABLE . '
+       WHERE topic_status = ' . TOPIC_MOVED . "
+       AND topic_time < $set_time";
+    
+    if(!$db->sql_query($sql))
+    {
+        message_die(GENERAL_ERROR, $lang['Error_Topics_Table'], '', __LINE__, __FILE__, $sql);
+    }
+    else
+    {
+        $status_message .= sprintf($lang['Del_Before_Date'], date("M-d-Y", $set_time));
+        $status_message .= (SQL_LAYER == 'db2' || SQL_LAYER == 'mysql' || SQL_LAYER == 'mysqli' || SQL_LAYER == 'mysql4') ? sprintf($lang['Affected_Rows'], $db->sql_affectedrows()) : '';
+        sync('all_forums');
+        $status_message .= sprintf($lang['Resync_Ran_On'], $lang['All_Forums']);
+    }
 }
-
-foreach($_POST as $key => $val)
+else
 {
-	if (substr_count($key, 'delete_id_'))
-	{
-		$topic_id = substr($key, 10);
-		$sql = 'DELETE FROM ' . TOPICS_TABLE . '
-		   WHERE topic_status = ' . TOPIC_MOVED . "
-		   AND topic_id = $topic_id";
-		if(!$db->sql_query($sql))
-		{
-			message_die(GENERAL_ERROR, $lang['Error_Topics_Table'], '', __LINE__, __FILE__, $sql);
-		}
-		else
-		{
-			$status_message .= sprintf($lang['Deleted_Topic'], $topic_id);
-		}
-	}
+    if (count($HTTP_POST_VARS))
+    {
+        foreach($HTTP_POST_VARS as $key => $val)
+        {
+            if (substr_count($key, 'delete_id_'))
+            {
+                $topic_id = substr($key, 10);
+                
+                /* Get forum info to Resync it */
+                $sql = 'SELECT f.forum_id, f.forum_name, t.topic_title FROM ' . TOPICS_TABLE . ' t, ' . FORUMS_TABLE . " f
+                          WHERE t.topic_id = $topic_id
+                          AND t.forum_id = f.forum_id";
+                if (!$result = $db->sql_query($sql))
+                {
+                    message_die(GENERAL_ERROR, $lang['Error_Topics_Table'], '', __LINE__, __FILE__, $sql);
+                }
+                $forum_data_row = $db->sql_fetchrow($result);
+                
+                $sql = 'DELETE FROM ' . TOPICS_TABLE . '
+                          WHERE topic_status = ' . TOPIC_MOVED . "
+                       AND topic_id = $topic_id";
+                if(!$db->sql_query($sql))
+                {
+                    message_die(GENERAL_ERROR, $lang['Error_Topics_Table'], '', __LINE__, __FILE__, $sql);
+                }
+                else
+                {
+                    $status_message .= sprintf($lang['Deleted_Topic'], $forum_data_row['topic_title']);
+                    sync('forum', $forum_data_row['forum_id']);
+                    $status_message .= sprintf($lang['Resync_Ran_On'], $forum_data_row['forum_name']);
+                }
+            }
+        }
+    }
 }
-
 /*******************************************************************************************
 /** Main Page
 /******************************************************************************************/
@@ -233,7 +265,7 @@ $template->set_filenames(array(
 
 if ($status_message != '')
 {
-	$template->assign_block_vars('statusrow', array());
+    $template->assign_block_vars('statusrow', array());
 }
 
 $template->assign_vars(array(
@@ -256,6 +288,8 @@ $template->assign_vars(array(
 'L_PAGE_DESC' => $lang['TS_Desc'],
 'L_CLEAR' => $lang['Clear'],
 'L_MOVED_FROM' => $lang['Moved_From'],
+'L_VERSION' => $lang['Version'],
+'VERSION' => MOD_VERSION,
 
 'I_STATUS_MESSAGE' => $status_message,
 
@@ -264,9 +298,9 @@ $template->assign_vars(array(
 'S_YEAR' => date("Y"),
 'S_MODE' => $mode,
 'S_ORDER' => $order,
-'S_MODE_SELECT' => ts_make_mode_drop_box(),
-'S_ORDER_SELECT' => ts_make_order_drop_box(),
-'S_MODE_ACTION' => append_sid($_SERVER['PHP_SELF']))
+'S_MODE_SELECT' => topic_shadow_make_drop_box('mode'),
+'S_ORDER_SELECT' => topic_shadow_make_drop_box('order'),
+'S_MODE_ACTION' => append_sid($HTTP_SERVER_VARS['PHP_SELF']))
 );
 
 /* See if we actually have any shadow topics */
@@ -275,41 +309,43 @@ $sql = 'SELECT COUNT(topic_status) as count FROM ' . TOPICS_TABLE . '
 
 if(!$result = $db->sql_query($sql))
 {
-	message_die(GENERAL_ERROR, $lang['Error_Topics_Table'], '', __LINE__, __FILE__, $sql);
+    message_die(GENERAL_ERROR, $lang['Error_Topics_Table'], '', __LINE__, __FILE__, $sql);
 }
 $row = $db->sql_fetchrow($result);
 if ($row['count'] <= 0)
 {
-	$template->assign_block_vars('emptyrow', array());
+    $template->assign_block_vars('emptyrow', array());
 }
 else
 {
-	
-	$sql = 'SELECT * FROM ' . TOPICS_TABLE . '
+    
+    $sql = 'SELECT * FROM ' . TOPICS_TABLE . '
    WHERE topic_status = ' . TOPIC_MOVED . "
    ORDER BY $mode $order";
-	
-	if(!$result = $db->sql_query($sql))
-	{
-		message_die(GENERAL_ERROR, $lang['Error_Topics_Table'], '', __LINE__, __FILE__, $sql);
-	}
-	
-	$i = 0;
-	while ($messages = $db->sql_fetchrow($result))
-	{
-		$template->assign_block_vars('topicrow', array(
-		'ROW_CLASS' => (!($i % 2)) ? $theme['td_class1'] : $theme['td_class2'],
-		'TITLE' => $messages['topic_title'],
-		'MOVED_TO' => ts_id_2_name($messages['topic_moved_id'], 'forum'),
-		'MOVED_FROM' => ts_id_2_name($messages['topic_id'], 'forum'),
-		'POSTER' => ts_id_2_name($messages['topic_poster']),
-		'TIME' => create_date($lang['DATE_FORMAT'], $messages['topic_time'], $board_config['board_timezone']),
-		'TOPIC_ID' => $messages['topic_id'])
-		);
-		$i++;
-	}
+    
+    if(!$result = $db->sql_query($sql))
+    {
+        message_die(GENERAL_ERROR, $lang['Error_Topics_Table'], '', __LINE__, __FILE__, $sql);
+    }
+    
+    $i = 0;
+    while ($messages = $db->sql_fetchrow($result))
+    {
+        $template->assign_block_vars('topicrow', array(
+        'ROW_CLASS' => (!($i % 2)) ? $theme['td_class1'] : $theme['td_class2'],
+        'TITLE' => $messages['topic_title'],
+        'MOVED_TO' => ts_id_2_name($messages['topic_moved_id'], 'forum'),
+        'MOVED_FROM' => ts_id_2_name($messages['topic_id'], 'forum'),
+        'POSTER' => ts_id_2_name($messages['topic_poster']),
+        'TIME' => create_date($lang['DATE_FORMAT'], $messages['topic_time'], $board_config['board_timezone']),
+        'TOPIC_ID' => $messages['topic_id'])
+        );
+        $i++;
+    }
 }
+
 $template->pparse('body');
-include_once('page_footer_admin.'.$phpEx);
+copyright_nivisec($page_title, '2001-2003');
+include('page_footer_admin.'.$phpEx);
 
 ?>

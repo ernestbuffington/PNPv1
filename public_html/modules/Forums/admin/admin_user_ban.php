@@ -1,4 +1,8 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 /***************************************************************************
  *                            admin_user_ban.php
  *                            -------------------
@@ -6,8 +10,7 @@
  *   copyright            : (C) 2001 The phpBB Group
  *   email                : support@phpbb.com
  *
- *   $Id: admin_user_ban.php,v 1.21.2.4 2003/03/31 06:56:30 acydburn Exp $
- *
+ *   Id: admin_user_ban.php,v 1.21.2.5 2004/03/25 15:57:20 acydburn Exp
  *
  ***************************************************************************/
 
@@ -20,37 +23,7 @@
  *
  ***************************************************************************/
 
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
-
-define('IN_PHPBB', 1);
+if (!defined('IN_PHPBB')) define('IN_PHPBB', true);
 
 if ( !empty($setmodules) )
 {
@@ -64,22 +37,22 @@ if ( !empty($setmodules) )
 // Load default header
 //
 $phpbb_root_path = './../';
-require_once($phpbb_root_path . 'extension.inc');
-require_once('./pagestart.' . $phpEx);
+require($phpbb_root_path . 'extension.inc');
+require('./pagestart.' . $phpEx);
 
 //
 // Start program
 //
-if ( isset($_POST['submit']) )
+if ( isset($HTTP_POST_VARS['submit']) )
 {
         $user_bansql = '';
         $email_bansql = '';
         $ip_bansql = '';
 
         $user_list = array();
-        if ( !empty($_POST['username']) )
+        if ( !empty($HTTP_POST_VARS['username']) )
         {
-                $this_userdata = get_userdata($_POST['username'], true);
+                $this_userdata = get_userdata($HTTP_POST_VARS['username'], true);
                 if( !$this_userdata )
                 {
                         message_die(GENERAL_MESSAGE, $lang['No_user_id_specified'] );
@@ -89,12 +62,13 @@ if ( isset($_POST['submit']) )
         }
 
         $ip_list = array();
-        if ( isset($_POST['ban_ip']) )
+        if ( isset($HTTP_POST_VARS['ban_ip']) )
         {
-                $ip_list_temp = explode(',', $_POST['ban_ip']);
-
-                for($i = 0; $i < count($ip_list_temp); $i++)
-                {
+                $ip_list_temp = explode(',', $HTTP_POST_VARS['ban_ip']);
+                
+				if (is_countable($ip_list_temp) && count($ip_list_temp) > 0) :
+                for($i = 0; $i < count($ip_list_temp); $i++):
+                
                         if ( preg_match('/^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})[ ]*\-[ ]*([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$/', trim($ip_list_temp[$i]), $ip_range_explode) )
                         {
                                 //
@@ -157,7 +131,8 @@ if ( isset($_POST['submit']) )
                         else if ( preg_match('/^([\w\-_]\.?){2,}$/is', trim($ip_list_temp[$i])) )
                         {
                                 $ip = gethostbynamel(trim($ip_list_temp[$i]));
-
+                                
+								if (is_countable($ip) && count($ip) > 0) : 
                                 for($j = 0; $j < count($ip); $j++)
                                 {
                                         if ( !empty($ip[$j]) )
@@ -165,24 +140,27 @@ if ( isset($_POST['submit']) )
                                                 $ip_list[] = encode_ip($ip[$j]);
                                         }
                                 }
+								endif;
                         }
                         else if ( preg_match('/^([0-9]{1,3})\.([0-9\*]{1,3})\.([0-9\*]{1,3})\.([0-9\*]{1,3})$/', trim($ip_list_temp[$i])) )
                         {
                                 $ip_list[] = encode_ip(str_replace('*', '255', trim($ip_list_temp[$i])));
                         }
-                }
-        }
+                endfor;
+			endif;
+        
+		}
 
         $email_list = array();
-        if ( isset($_POST['ban_email']) )
+        if ( isset($HTTP_POST_VARS['ban_email']) )
         {
-                $email_list_temp = explode(',', $_POST['ban_email']);
-
+                $email_list_temp = explode(',', $HTTP_POST_VARS['ban_email']);
+                if (is_countable($email_list_temp) && count($email_list_temp) > 0) : 
                 for($i = 0; $i < count($email_list_temp); $i++)
                 {
                         //
-                        // This preg match is based on one by php@unreelpro.com
-                        // contained in the annotated php manual at php.com (preg
+                        // This preg_match is based on one by php@unreelpro.com
+                        // contained in the annotated php manual at php.com (preg_match
                         // section)
                         //
                         if (preg_match('/^(([a-z0-9&\'\.\-_\+])|(\*))+@(([a-z0-9\-])|(\*))+\.([a-z0-9\-]+\.)*?[a-z]+$/is', trim($email_list_temp[$i])))
@@ -190,6 +168,7 @@ if ( isset($_POST['submit']) )
                                 $email_list[] = trim($email_list_temp[$i]);
                         }
                 }
+				endif;
         }
 
         $sql = "SELECT *
@@ -203,9 +182,11 @@ if ( isset($_POST['submit']) )
         $db->sql_freeresult($result);
 
         $kill_session_sql = '';
+		if (is_countable($user_list) && count($user_list) > 0) : 
         for($i = 0; $i < count($user_list); $i++)
         {
                 $in_banlist = false;
+				if (is_countable($current_banlist) && count($current_banlist) > 0) :
                 for($j = 0; $j < count($current_banlist); $j++)
                 {
                         if ( $user_list[$i] == $current_banlist[$j]['ban_userid'] )
@@ -213,7 +194,7 @@ if ( isset($_POST['submit']) )
                                 $in_banlist = true;
                         }
                 }
-
+                endif;
                 if ( !$in_banlist )
                 {
                         $kill_session_sql .= ( ( $kill_session_sql != '' ) ? ' OR ' : '' ) . "session_user_id = " . $user_list[$i];
@@ -226,10 +207,13 @@ if ( isset($_POST['submit']) )
                         }
                 }
         }
-
-        for($i = 0; $i < count($ip_list); $i++)
+        endif;
+        
+		if (is_countable($ip_list) && count($ip_list) > 0) : 
+		for($i = 0; $i < count($ip_list); $i++)
         {
                 $in_banlist = false;
+				if (is_countable($current_banlist) && count($current_banlist) > 0) :
                 for($j = 0; $j < count($current_banlist); $j++)
                 {
                         if ( $ip_list[$i] == $current_banlist[$j]['ban_ip'] )
@@ -237,7 +221,7 @@ if ( isset($_POST['submit']) )
                                 $in_banlist = true;
                         }
                 }
-
+                endif;
                 if ( !$in_banlist )
                 {
                         if ( preg_match('/(ff\.)|(\.ff)/is', chunk_split($ip_list[$i], 2, '.')) )
@@ -259,7 +243,7 @@ if ( isset($_POST['submit']) )
                         }
                 }
         }
-
+        endif;
         //
         // Now we'll delete all entries from the session table with any of the banned
         // user or IP info just entered into the ban table ... this will force a session
@@ -274,17 +258,21 @@ if ( isset($_POST['submit']) )
                         message_die(GENERAL_ERROR, "Couldn't delete banned sessions from database", "", __LINE__, __FILE__, $sql);
                 }
         }
-
+        
+		if (is_countable($email_list) && count($email_list) > 0) :
         for($i = 0; $i < count($email_list); $i++)
         {
                 $in_banlist = false;
-                for($j = 0; $j < count($current_banlist); $j++)
+                
+				if (is_countable($current_banlist) && count($current_banlist) > 0) :
+				for($j = 0; $j < count($current_banlist); $j++)
                 {
                         if ( $email_list[$i] == $current_banlist[$j]['ban_email'] )
                         {
                                 $in_banlist = true;
                         }
                 }
+				endif;
 
                 if ( !$in_banlist )
                 {
@@ -296,46 +284,50 @@ if ( isset($_POST['submit']) )
                         }
                 }
         }
-
+        endif;
+		
         $where_sql = '';
 
-        if ( isset($_POST['unban_user']) )
+        if ( isset($HTTP_POST_VARS['unban_user']) )
         {
-                $user_list = $_POST['unban_user'];
-
+                $user_list = $HTTP_POST_VARS['unban_user'];
+                if (is_countable($user_list) && count($user_list) > 0) :
                 for($i = 0; $i < count($user_list); $i++)
                 {
                         if ( $user_list[$i] != -1 )
                         {
-                                $where_sql .= ( ( $where_sql != '' ) ? ', ' : '' ) . $user_list[$i];
+                                $where_sql .= ( ( $where_sql != '' ) ? ', ' : '' ) . intval($user_list[$i]);
                         }
                 }
+				endif;
         }
 
-        if ( isset($_POST['unban_ip']) )
+        if ( isset($HTTP_POST_VARS['unban_ip']) )
         {
-                $ip_list = $_POST['unban_ip'];
-
+                $ip_list = $HTTP_POST_VARS['unban_ip'];
+                if (is_countable($ip_list) && count($ip_list) > 0) :
                 for($i = 0; $i < count($ip_list); $i++)
                 {
                         if ( $ip_list[$i] != -1 )
                         {
-                                $where_sql .= ( ( $where_sql != '' ) ? ', ' : '' ) . $ip_list[$i];
+                                $where_sql .= ( ( $where_sql != '' ) ? ', ' : '' ) . str_replace("\'", "''", $ip_list[$i]);
                         }
                 }
+				endif;
         }
 
-        if ( isset($_POST['unban_email']) )
+        if ( isset($HTTP_POST_VARS['unban_email']) )
         {
-                $email_list = $_POST['unban_email'];
-
+                $email_list = $HTTP_POST_VARS['unban_email'];
+                if (is_countable($email_list) && count($email_list) > 0) :
                 for($i = 0; $i < count($email_list); $i++)
                 {
                         if ( $email_list[$i] != -1 )
                         {
-                                $where_sql .= ( ( $where_sql != '' ) ? ', ' : '' ) . $email_list[$i];
+                                $where_sql .= ( ( $where_sql != '' ) ? ', ' : '' ) . str_replace("\'", "''", $email_list[$i]);
                         }
                 }
+				endif;
         }
 
         if ( $where_sql != '' )
@@ -399,11 +391,14 @@ else
         $db->sql_freeresult($result);
 
         $select_userlist = '';
+		
+		if (is_countable($user_list) && count($user_list) > 0) :
         for($i = 0; $i < count($user_list); $i++)
         {
                 $select_userlist .= '<option value="' . $user_list[$i]['ban_id'] . '">' . $user_list[$i]['username'] . '</option>';
                 $userban_count++;
         }
+		endif;
 
         if( $select_userlist == '' )
         {
@@ -424,7 +419,8 @@ else
 
         $select_iplist = '';
         $select_emaillist = '';
-
+        
+		if (is_countable($banlist) && count($banlist) > 0) :
         for($i = 0; $i < count($banlist); $i++)
         {
                 $ban_id = $banlist[$i]['ban_id'];
@@ -442,8 +438,9 @@ else
                         $emailban_count++;
                 }
         }
-
-        if ( $select_iplist == '' )
+        endif;
+        
+		if ( $select_iplist == '' )
         {
                 $select_iplist = '<option value="-1">' . $lang['No_banned_ip'] . '</option>';
         }
@@ -477,6 +474,6 @@ else
 
 $template->pparse('body');
 
-include_once('./page_footer_admin.'.$phpEx);
+include('./page_footer_admin.'.$phpEx);
 
 ?>

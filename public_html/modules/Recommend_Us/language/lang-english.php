@@ -1,4 +1,8 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 
 /**************************************************************************/
 /* PHP-NUKE: Advanced Content Management System                           */
@@ -16,33 +20,31 @@
 /* so your entry will look like: This is \"double quoted\" text.          */
 /* And, if you use HTML code, please double check it.                     */
 /**************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                    COPYRIGHT */
-/*                                                                        */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                    */
-/*     Techgfx - Graeme Allan                         (goose@techgfx.com) */
-/*                                                                        */
-/* Copyright (c) 2004 - 2006 by http://www.conrads-berlin.de              */
-/*     MrFluffy - Axel Conrads                   (axel@conrads-berlin.de) */
-/*                                                                        */
-/* Refer to TechGFX.com for detailed information on Platinum Nuke Pro     */
-/*                                                                        */
-/* Platinum Nuke Pro: Expect to be impressed                                  */
-/**************************************************************************/
 
-define("_SEND","Send");
-define("_FYOURNAME","Your Name:");
-define("_FYOUREMAIL","Your E-mail:");
-define("_FFRIENDNAME","Your Friend's Name:");
-define("_FFRIENDEMAIL","Your Friend's E-mail:");
-define("_HELLO","Hello");
-define("_YOURFRIEND","Your Friend");
-define("_RECOMMEND","Recommend this Site to a Friend");
-define("_INTSITE","Interesting Site:");
-define("_OURSITE","considered our site");
-define("_INTSENT","interesting and wanted to send it to you.");
-define("_FSITENAME","Site Name:");
-define("_FSITEURL","Site URL:");
-define("_FREFERENCE","The reference to our site has been sent to");
-define("_THANKSREC","Thanks for recommending us!");
+global $customlang, $module_name;
+
+$customlang[$module_name]['send'] = "Send";
+$customlang[$module_name]['your_name'] = "Your Name";
+$customlang[$module_name]['your_mail'] = "Your E-mail";
+$customlang[$module_name]['friend_name'] = "Your Friend's Name";
+$customlang[$module_name]['friend_mail'] = "Your Friend's E-mail";
+$customlang[$module_name]['hello'] = "Hello";
+$customlang[$module_name]['your_friend'] = "Your Friend";
+$customlang[$module_name]['recommend'] = "Recommend this Site to a Friend";
+$customlang[$module_name]['interesting'] = "Interesting Site";
+$customlang[$module_name]['our_site'] = "considered our site";
+$customlang[$module_name]['interest_sent'] = "interesting and wanted to send it to you.";
+$customlang[$module_name]['sitename'] = "Site Name";
+$customlang[$module_name]['siteurl'] = "Site URL";
+$customlang[$module_name]['reference'] = "The reference to our site has been sent to";
+$customlang[$module_name]['thank_you'] = "Thanks for recommending us!";
+$customlang[$module_name]['must_be_user'] = "You must be %slogged in%s to Recommend this site.";
+$customlang[$module_name]['recaptcha_error'] = "Error";
+$customlang[$module_name]['recaptcha_failed'] = "Failed the recaptcha, go back and try again.";
+$customlang[$module_name]['from'] = "from";
+$customlang[$module_name]['goback'] = "Go Back";
+$customlang[$module_name]['message'] = 'Short message to your friend why you recommend us';
+$customlang[$module_name]['optional'] = 'Optional Field';
+$customlang[$module_name]['why_i_recommend'] = 'Here is why i recommend this site';
 
 ?>

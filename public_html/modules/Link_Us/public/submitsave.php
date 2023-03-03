@@ -11,7 +11,7 @@
  Nuke-Evo Filename      :   #$#FILENAME
  Nuke-Evo Date          :   #$#DATE
 
- (c) 2007 - 2008 by DarkForgeGFX - http://www.darkforgegfx.com
+ (c) 2007 - 2018 by Lonestar Modules - https://lonestar-modules.com
  ========================================================================
 
  LICENSE INFORMATIONS COULD BE FOUND IN COPYRIGHTS.PHP WHICH MUST BE

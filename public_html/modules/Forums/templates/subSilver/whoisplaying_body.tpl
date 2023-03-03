@@ -6,11 +6,11 @@
 <!-- BEGIN whoisplaying_row -->
   <tr>
     <td class="{whoisplaying_row.CLASS}" valign="top">
-	<span class="gensmall">
-	{whoisplaying_row.GAME}&nbsp;:
-	{whoisplaying_row.PLAYER_LIST}
-	</span>
-	</td>
+    <span class="gensmall">
+    {whoisplaying_row.GAME}&nbsp;:
+    {whoisplaying_row.PLAYER_LIST}
+    </span>
+    </td>
   </tr>
 <!-- END whoisplaying_row -->
 </table>

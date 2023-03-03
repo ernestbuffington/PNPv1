@@ -1,87 +1,66 @@
 <?php
 
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
-/********************************************************************
+/*=======================================================================
+ Nuke-Evolution   :   Enhanced Web Portal System
+ ========================================================================
 
-                    DarkForgeGFX Link To Us
-				  
-	(c) 2007 - 2008 by DarkForgeGFX - http://www.darkforgegfx.com
-		
-********************************************************************/
+ Nuke-Evo Base          :   #$#BASE
+ Nuke-Evo Version       :   #$#VER
+ Nuke-Evo Build         :   #$#BUILD
+ Nuke-Evo Patch         :   #$#PATCH
+ Nuke-Evo Filename      :   #$#FILENAME
+ Nuke-Evo Date          :   #$#DATE
 
-function module_config(){
+ (c) 2007 - 2018 by Lonestar Modules - https://lonestar-modules.com
+ ========================================================================
 
-	global $prefix, $db, $admin_file, $op;
-	
-	$config = $db->sql_fetchrow($db->sql_query("SELECT * FROM ".$prefix."_link_us_config"));
-	
-	OpenTable();
-	
-	if ($config['button_standard'] == 1){$standard_y = "checked";}
-elseif ($config['button_standard'] == 0){$standard_n = "checked";}
+ LICENSE INFORMATIONS COULD BE FOUND IN COPYRIGHTS.PHP WHICH MUST BE
+ DISTRIBUTED WITHIN THIS MODULEPACKAGE OR WITHIN FILES WHICH ARE
+ USED FROM WITHIN THIS PACKAGE.
+ IT IS "NOT" ALLOWED TO DISTRIBUTE THIS MODULE WITHOUT THE ORIGINAL
+ COPYRIGHT-FILE.
+ ALL INFORMATIONS ABOVE THIS SECTION ARE "NOT" ALLOWED TO BE REMOVED.
+ THEY HAVE TO STAY AS THEY ARE.
+ IT IS ALLOWED AND SHOULD BE DONE TO ADD ADDITIONAL INFORMATIONS IN
+ THE SECTIONS BELOW IF YOU CHANGE OR MODIFY THIS FILE.
 
-	if ($config['button_banner'] == 1){$banner_y = "checked";}
-elseif ($config['button_banner'] == 0){$banner_n = "checked";}
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+-=[Mod]=-
+ ************************************************************************/
 
-	if ($config['button_resource'] == 1){$resource_y = "checked";}
-elseif ($config['button_resource'] == 0){$resource_n = "checked";}
-	
-echo "<table width='80%' border='1' align='center'><tr><th scope='col'>Module Configuration</th></tr></table>";
+LinkusAdminMain();
+
+$config = $db->sql_ufetchrow("SELECT * FROM ".$prefix."_link_us_config LIMIT 0,1");
+
+OpenTable();
+
+echo "<table width='80%' border='1' style='margin: auto;'><tr><th scope='col'>".$lang_new[$module_name]['MODULE_CONFIG']."</th></tr></table>";
 echo "<form action='".$admin_file.".php?op=update_module_settings' method='post'>";
-echo "<table width='80%' border='1' cellpadding='3' cellspacing='3' align='center'>";
+echo "<table width='80%' border='1' cellpadding='3' cellspacing='3' style='margin: auto;'>";
 echo "  <tr>";
-echo "    <td width='40%'><strong>Show Standard Buttons:</strong></td>";
-echo "    <td width='40%'>Yes:<input name='button_standard' type='radio' value='1' ".$standard_y.">&nbsp;No:<input name='button_standard' type='radio' value='0' ".$standard_n."></td>";
+echo "    <td width='40%'><strong>".$lang_new[$module_name]['SHOW_STANDARD'].":</strong></td>";
+echo "    <td width='40%'>";
+echo yesno_option('button_standard', $config['button_standard']);
+echo "    </td>";
 echo "  </tr>";
 echo "  <tr>";
-echo "    <td width='40%'><strong>Show Banner Buttons:</strong></td>";
-echo "    <td width='40%'>Yes:<input name='button_banner' type='radio' value='1' ".$banner_y.">&nbsp;No:<input name='button_banner' type='radio' value='0' ".$banner_n."></td>";
+echo "    <td width='40%'><strong>".$lang_new[$module_name]['SHOW_BANNER'].":</strong></td>";
+echo "    <td width='40%'>";
+echo yesno_option('button_banner', $config['button_banner']);
+echo "    </td>";
 echo "  </tr>";
 echo "  <tr>";
-echo "    <td width='40%'><strong>Show My Resource Buttons:</strong></td>";
-echo "    <td width='40%'>Yes:<input name='button_resource' type='radio' value='1' ".$resource_y.">&nbsp;No:<input name='button_resource' type='radio' value='0' ".$resource_n."></td>";
+echo "    <td width='40%'><strong>".$lang_new[$module_name]['SHOW_RESOURCES'].":</strong></td>";
+echo "    <td width='40%'>";
+echo yesno_option('button_resource', $config['button_resource']);
+echo "    </td>";
 echo "  </tr>";
 echo "</table>";
-echo "<input name='op' type='hidden' value='update_module_settings'>";
-echo "<br /><div align='center'><input name='submit' type='submit' value='Update Module Settings'></div>";
+echo "<input name='op' type='hidden' value='update_module_settings' />";
+echo "<br /><div align='center'><input name='submit' type='submit' value='".$lang_new[$module_name]['UPDATE_MODULE_CONFIG']."' /></div>";
 echo "</form>";
 
-
-	CloseTable();
-}
-
-switch($op){
-
-	case 'module_config': module_config(); break;
-	
-}
+CloseTable();
 
 ?>

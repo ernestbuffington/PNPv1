@@ -7,12 +7,10 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticPropertyFetch;
-use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\If_;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\Constant\ConstantBooleanType;
-use Rector\Core\NodeAnalyzer\ExprAnalyzer;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Reflection\ReflectionResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -27,15 +25,9 @@ final class RemoveAlwaysTrueIfConditionRector extends AbstractRector
      * @var \Rector\Core\Reflection\ReflectionResolver
      */
     private $reflectionResolver;
-    /**
-     * @readonly
-     * @var \Rector\Core\NodeAnalyzer\ExprAnalyzer
-     */
-    private $exprAnalyzer;
-    public function __construct(ReflectionResolver $reflectionResolver, ExprAnalyzer $exprAnalyzer)
+    public function __construct(ReflectionResolver $reflectionResolver)
     {
         $this->reflectionResolver = $reflectionResolver;
-        $this->exprAnalyzer = $exprAnalyzer;
     }
     public function getRuleDefinition() : RuleDefinition
     {
@@ -95,25 +87,11 @@ CODE_SAMPLE
         if ($this->shouldSkipPropertyFetch($node->cond)) {
             return null;
         }
-        if ($this->shouldSkipFromParam($node->cond)) {
-            return null;
-        }
         if ($node->stmts === []) {
             $this->removeNode($node);
             return null;
         }
         return $node->stmts;
-    }
-    private function shouldSkipFromParam(Expr $expr) : bool
-    {
-        /** @var Variable[] $variables */
-        $variables = $this->betterNodeFinder->findInstancesOf($expr, [Variable::class]);
-        foreach ($variables as $variable) {
-            if ($this->exprAnalyzer->isNonTypedFromParam($variable)) {
-                return \true;
-            }
-        }
-        return \false;
     }
     private function shouldSkipPropertyFetch(Expr $expr) : bool
     {

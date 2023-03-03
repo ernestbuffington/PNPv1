@@ -179,7 +179,7 @@ CODE_SAMPLE
         if (!$this->unionTypeAnalyzer->hasObjectWithoutClassTypeWithOnlyFullyQualifiedObjectType($unionType)) {
             return;
         }
-        $param->type = new Identifier('object');
+        $param->type = new Name('object');
         $this->hasChanged = \true;
     }
     /**

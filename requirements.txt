@@ -1,0 +1,33 @@
+/**********************************************************************/
+/* PHP-Nuke Platinum v.7.6.b.4                           REQUIREMENTS */
+/*                                                                    */
+/* - PHP [http://www.php.net]                                         */
+/*               Type: Necessary                                      */
+/*            Version: 4.3.x or above                                 */
+/*        Recommended: 4.3.10 - latest stable                         */
+/*                                                                    */
+/* - MySQL [http://www.mysql.com]                                     */
+/*               Type: Necessary                                      */
+/*            Version: 4.x.x or above                                 */
+/*        Recommended: 4.1.0.0 - latest stable                        */
+/*                                                                    */
+/* - Apache [http://www.apache.org]                                   */
+/*               Type: Necessary                                      */
+/*                                                                    */
+/* - Server / Host [http://www.viperwebhosting.net]                   */
+/*             System: Linux or Windows                               */
+/*                                                                    */
+/**********************************************************************/
+/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                */
+/*       Graeme Allan - Techgfx                   (goose@techgfx.com) */
+/*       Scott Partee - Loki                     (loki@nukeplanet.com)*/
+/**********************************************************************/
+/* All content and includes from this package is intellectual         */
+/* property of TechGFX.com unless stated otherwise. Replication of    */
+/* and copyrighted material is a civil and criminal act and           */
+/* violations may result in legal action.                             */
+/**********************************************************************/
+/* See nukeplanet.com for detailed information on the                 */
+/* this version of the Platinum Suite                                 */
+/* TechGFX: Your dreams, Our imagination                              */
+/**********************************************************************/

@@ -1,0 +1,49 @@
+/**********************************************************************/
+/* PHP-Nuke Platinum v.7.6.0                        UPGRADE-EXTRAINFO */
+/*                                                                    */
+/**********************************************************************/
+/*      [ UPGRADING IS RECOMMENDED FOR ADVANCED USERS ONLY ]          */
+/**********************************************************************/
+/*                                                                    */
+/* Before reading this file, be sure to read upgrading.txt.           */
+/*                                                                    */
+/* After you have ran the upgrade queries and you try to access your  */
+/* index.php, if you get the error "This file cannot be accessed      */
+/* directly..." or "Access Denied" this is because you have not       */
+/* correctly updated the module you use in home [through nuke_main    */
+/* table].                                                            */
+/*                                                                    */
+/**********************************************************************/
+/* To correct this issue, run the following query:                    */
+/**********************************************************************/
+
+UPDATE nuke_main SET main_module='News';
+
+/**********************************************************************/
+/* Additionally, if you find that the upgrade files return errors,    */
+/* such as 'Duplicate column exists' or similar, you will have to open*/
+/* the upgrade file you are trying to run, and run each query         */
+/* individually. This is not a bug, however it is cause if you have   */
+/* previously installed modifications on your PHP-Nuke site that are  */
+/* already included in PHP-Nuke Platinum, hence duplicate entries.    */
+/*                                                                    */
+/**********************************************************************/
+/*      [ UPGRADING IS RECOMMENDED FOR ADVANCED USERS ONLY ]          */
+/**********************************************************************/
+/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                */
+/*       Graeme Allan - Techgfx                   (goose@techgfx.com) */
+/**********************************************************************/
+/* All content and includes from this package is intellectual         */
+/* property of TechGFX.com unless stated otherwise. Replication of    */
+/* and copyrighted material is a civil and criminal act and           */
+/* voilations may result in legal action.                             */
+/**********************************************************************/
+/* See TechGFX.com for detailed information on the Platinum Suite     */
+/*                                                                    */
+/* TechGFX: Your dreams, Our imagination                              */
+/**********************************************************************/
+/* TechGFX: Corporate Alliance                                        */
+/*  - NukeMods.com                                                    */
+/*  - PortedMods.com                                                  */
+/*  - Protector.Warcenter.se                                          */
+/**********************************************************************/

@@ -41,7 +41,7 @@ final class ImageBinaryTest extends TestCase
         // ...
     }
 
-    public static function provideData(): array
+    public function provideData(): array
     {
         return [['content', 8], ['content123', 11]];
     }
@@ -60,7 +60,7 @@ final class ImageBinaryTest extends TestCase
         // ...
     }
 
-    public static function provideData(): array
+    public function provideData(): array
     {
         return [
             ['content', 8],

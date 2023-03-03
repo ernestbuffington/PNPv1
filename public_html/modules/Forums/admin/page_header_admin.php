@@ -1,4 +1,8 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 /***************************************************************************
  *                           page_header_admin.php
  *                            -------------------
@@ -6,8 +10,7 @@
  *   copyright            : (C) 2001 The phpBB Group
  *   email                : support@phpbb.com
  *
- *   $Id: page_header_admin.php,v 1.12.2.5 2003/06/10 20:48:18 acydburn Exp $
- *
+ *   Id: page_header_admin.php,v 1.12.2.6 2005/03/26 14:15:59 acydburn Exp
  *
  ***************************************************************************/
 
@@ -20,75 +23,22 @@
  *
  ***************************************************************************/
 
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/*****[CHANGES]**********************************************************
+-=[Mod]=-
+      Forum Admin Style Selection              v1.0.0       10/01/2005
+ ************************************************************************/
+if (!defined('IN_PHPBB')) die('Hacking attempt');
 
-if ( !defined('IN_PHPBB') )
-{
-        die("Hacking attempt");
-}
+define_once('HEADER_INC', true);
 
-define('HEADER_INC', true);
-
-//
-// gzip_compression
-//
-$do_gzip_compress = FALSE;
-if ( $board_config['gzip_compress'] )
-{
-        $phpver = phpversion();
-
-        $useragent = (isset($_SERVER['HTTP_USER_AGENT'])) ? $_SERVER['HTTP_USER_AGENT'] : getenv('HTTP_USER_AGENT');
-
-        if ( $phpver >= '4.0.4pl1' && ( strstr($useragent,'compatible') || strstr($useragent,'Gecko') ) )
-        {
-                if ( extension_loaded('zlib') )
-                {
-                        @ob_start('ob_gzhandler');
-                }
-        }
-        else if ( $phpver > '4.0' )
-        {
-                if ( strstr($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') )
-                {
-                        if ( extension_loaded('zlib') )
-                        {
-                                $do_gzip_compress = TRUE;
-                                ob_start();
-                                ob_implicit_flush(0);
-
-                                header('Content-Encoding: gzip');
-                        }
-                }
-        }
-}
+/*****[BEGIN]******************************************
+ [ Mod:     Forum Admin Style Selection        v1.0.0 ]
+ ******************************************************/
+$ThemeSel = get_theme();
+$style = ($board_config['use_theme_style']) ? "./../../../themes/$ThemeSel/style/admin.css" : "./../templates/subSilver/subSilver.css";
+/*****[END]********************************************
+ [ Mod:     Forum Admin Style Selection        v1.0.0 ]
+ ******************************************************/
 
 $template->set_filenames(array(
         'header' => 'admin/page_header.tpl')
@@ -97,12 +47,13 @@ $template->set_filenames(array(
 // Format Timezone. We are unable to use array_pop here, because of PHP3 compatibility
 $l_timezone = explode('.', $board_config['board_timezone']);
 $l_timezone = (count($l_timezone) > 1 && $l_timezone[count($l_timezone)-1] != 0) ? $lang[sprintf('%.1f', $board_config['board_timezone'])] : $lang[number_format($board_config['board_timezone'])];
-
 //
 // The following assigns all _common_ variables that may be used at any point
 // in a template. Note that all URL's should be wrapped in append_sid, as
 // should all S_x_ACTIONS for forms.
 //
+if(!isset($page_title))
+$page_title = 'phpBB Titanium Admin Area';
 $template->assign_vars(array(
         'SITENAME' => $board_config['sitename'],
         'PAGE_TITLE' => $page_title,
@@ -121,8 +72,13 @@ $template->assign_vars(array(
         'S_CONTENT_ENCODING' => $lang['ENCODING'],
         'S_CONTENT_DIR_LEFT' => $lang['LEFT'],
         'S_CONTENT_DIR_RIGHT' => $lang['RIGHT'],
-
-        'T_HEAD_STYLESHEET' => $theme['head_stylesheet'],
+/*****[BEGIN]******************************************
+ [ Mod:     Forum Admin Style Selection        v1.0.0 ]
+ ******************************************************/
+        'T_HEAD_STYLESHEET' => $style,
+/*****[END]********************************************
+ [ Mod:     Forum Admin Style Selection        v1.0.0 ]
+ ******************************************************/
         //'T_BODY_BACKGROUND' => $theme['body_background'],
         //'T_BODY_BGCOLOR' => '#'.$theme['body_bgcolor'],
         'T_BODY_BGCOLOR' => '#EEEEEE',
@@ -164,7 +120,7 @@ $template->assign_vars(array(
 );
 // Work around for "current" Apache 2 + PHP module which seems to not
 // cope with private cache control setting
-if (!empty($_SERVER['SERVER_SOFTWARE']) && strstr($_SERVER['SERVER_SOFTWARE'], 'Apache/2'))
+if (!empty($HTTP_SERVER_VARS['SERVER_SOFTWARE']) && strstr($HTTP_SERVER_VARS['SERVER_SOFTWARE'], 'Apache/2'))
 {
 	header ('Cache-Control: no-cache, pre-check=0, post-check=0');
 }
@@ -174,7 +130,5 @@ else
 }
 header ('Expires: 0');
 header ('Pragma: no-cache');
-
 $template->pparse('header');
-
 ?>

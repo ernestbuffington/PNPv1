@@ -1,7 +1,8 @@
 <?php
-/*=======================================================================
- Nuke-Evolution Basic: Enhanced PHP-Nuke Web Portal System
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
  =======================================================================*/
+
 
 /************************************************************************
    Nuke-Evolution: Spambot Killer
@@ -76,7 +77,8 @@ srand(microtime() * 1000000);
 //Functions
 function gensalt($length) {
     global $chars;
-    mt_srand(microtime() * 1000000);
+    //mt_srand(microtime() * 1000000);
+	mt_srand(0, MT_RAND_MT19937);
     $salt = "";
     for($j=0; $j<$length; $j++) {
         $salt .= $chars[mt_rand(0, count($chars) - 1)];
@@ -86,7 +88,7 @@ function gensalt($length) {
 
 OpenTable();
 
-echo $keywords ."<p><body bgcolor=".$bgcolor2."></p>"; //Fool targeted spambots!
+echo '<div style="height: 50em; overflow: auto;">'.$keywords ."<p><body></p>"; //Fool targeted spambots!
 
 $emailsserved = 0;
 for($i=0; $i<$numemails; $i++) {
@@ -153,6 +155,8 @@ for($i=0; $i<$limit; $i++) {
     if (mt_rand(1, 25) == 1) echo ">";
     if (mt_rand(1, 25) == 1) echo "</a>";
 }
+
+echo '</div>';
 
 CloseTable();
 

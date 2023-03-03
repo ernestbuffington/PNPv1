@@ -1,185 +1,122 @@
 <?php
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+/***************************************************************************
+ *                           usercp_viewprofile.php
+ *                            -------------------
+ *   begin                : Saturday, Feb 13, 2001
+ *   copyright            : (C) 2001 The phpBB Group
+ *   email                : support@phpbb.com
+ *
+ *   Id: usercp_viewprofile.php,v 1.5.2.5 2005/07/19 20:01:16 acydburn Exp
+ ***************************************************************************/
+/***************************************************************************
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ ***************************************************************************/
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Nuke Patched                             v3.0.0       06/07/2005
+-=[Mod]=-
+      Attachment Mod                           v2.4.1       07/20/2005
+      Advanced Username Color                  v1.0.5       06/11/2005
+      Default avatar                           v1.1.0       06/30/2005
+      User Administration Link on Profile      v1.0.0       07/29/2005
+      XData                                    v1.0.3       02/08/2007
+      YA Merge                                 v1.0.0       08/10/2005
+      View Sig                                 v1.0.0       08/11/2005
+      Show Groups                              v1.0.1       09/02/2005
+      Remote Avatar Resize                     v2.0.0       11/19/2005
+      Online/Offline/Hidden                    v2.2.7       01/24/2006
+      XData Date Conversion                    v0.1.1       05/04/2006
+	  Member Country Flags                     v2.0.7
+	  Multiple Ranks And Staff View            v2.0.3
+	  Gender                                   v1.2.6
+	  Birthdays                                v3.0.0
+	  MSN Profile Image                        v1.0.0
+	  Facebook Profile Image                   v1.0.0
+	  Admin User Notes                         v1.0.0       05/28/2009
+	  Arcade                                   v3.0.2       05/29/2009
+	  Admin delete users & posts               v1.0.5       05/29/2009
+ ************************************************************************/
+if (!defined('IN_PHPBB'))
+exit('Hacking attempt');
 
-if ( !defined('IN_PHPBB') )
-{
-        die("Hacking attempt");
-        exit;
-}
-
-if ( empty($_GET[POST_USERS_URL]) || $_GET[POST_USERS_URL] == ANONYMOUS )
-{
-        message_die(GENERAL_MESSAGE, $lang['No_user_id_specified']);
-}
+if(empty($_GET[POST_USERS_URL]) || $_GET[POST_USERS_URL] == ANONYMOUS)
+message_die(GENERAL_MESSAGE, $lang['No_user_id_specified']);
 
 $profiledata = get_userdata($_GET[POST_USERS_URL]);
-//////FIELDS MOD START//////////////
-require_once ("includes/profilefields.php");
-//////FIELDS MOD END//////////////
-/*****************************************************/
-/* Forum - Buddy List v.0.9.5                  START */
-/*****************************************************/
-$buddy_id = ( isset($_GET['b']) ) ? $_GET['b'] : 0;
-$buddy_action = ( isset($_GET['buddy_action']) ) ? ( ($_GET['buddy_action'] == 'add') ? 'add' : ( ($_GET['buddy_action'] == 'remove') ? 'remove' : '') ) : '';
 
-//
-// Add to/remove from buddylist
-//
-if ( $buddy_id )
-{
-	$redirect = POST_USERS_URL . '=' . $profiledata['user_id'];
-	$redirect .= '&mode=viewprofile';
+/*  
+ * Ghost Mode Mod v1.0
+ * @Author Ernest Allen Buffingon
+ */
+global $userinfo;
+if($profiledata["user_allow_viewonline"] == 0):
+if($userinfo['user_level'] != ADMIN && $userinfo['username'] != $profiledata['username'])
+$profiledata = get_userdata(1);
+endif;
 
-	if( !$userdata['session_logged_in'] )
-	{
-		$redirect .= ( isset($buddy_id) ) ? "&b=$buddy_id" : '';
-		$redirect .= ( isset($buddy_action) ) ? "&buddy_action=$buddy_action" : '';
-		$header_location = ( @preg_match("/Microsoft|WebSTAR|Xitami/", getenv("SERVER_SOFTWARE")) ) ? "Refresh: 0; URL=" : "Location: ";
-		header($header_location . append_sid("login.$phpEx?redirect=profile.$phpEx&$redirect", true));
-		exit;
-	}
 
-	//
-	// Do not perform actions with yourself now...
-	//
-	if ( $buddy_id == $userdata['user_id'] )
-	{
-		message_die(GENERAL_MESSAGE, 'You cannot add/remove yourself to/from your buddylist');
-	}
+/*****[BEGIN]******************************************
+ [ Mod:     Show Groups                        v1.0.1 ]
+ ******************************************************/
+if(isset($profiledata['user_id']) && !empty($profiledata['user_id'])): 
+    $sql = "SELECT group_name 
+	        FROM ".GROUPS_TABLE." 
+			LEFT JOIN ".USER_GROUP_TABLE." on ".USER_GROUP_TABLE.".group_id=".GROUPS_TABLE.".group_id 
+			WHERE ".USER_GROUP_TABLE.".user_id=".$profiledata['user_id'];
+			
+    if(!($result = $db->sql_query($sql))):
+    $groups = "SQL Failed to obtain last visit";
+    else: 
 
-	//
-	// Check if the user exists
-	//
-	$sql = "SELECT * FROM " . USERS_TABLE . " WHERE user_id = $buddy_id";
-	if( !($result = $db->sql_query($sql)) )
-	{
-		message_die(GENERAL_ERROR, 'Could not query user information', '', __LINE__, __FILE__, $sql);
-	}
-	if ( !$row = $db->sql_fetchrow($result) )
-	{
-		message_die(GENERAL_MESSAGE, 'User does not exist');
-	}
+       if($db->sql_numrows($result) == 0):
+        $groups = "None";
+         
+		else: 
+            while($row = $db->sql_fetchrow($result)):
 
-	//
-	// See if user is already/not in the buddylist already
-	//
-	$sql = "SELECT * FROM " . BUDDIES_TABLE . "
-			WHERE user_id = " . $userdata['user_id'] . "
-				AND buddy_id = $buddy_id";
-	if( !$result = $db->sql_query($sql) )
-	{
-		message_die(GENERAL_ERROR, 'Could not query buddylist information', '', __LINE__, __FILE__, $sql);
-	}
+            if(!isset($row['group_name']))
+            $row['group_name'] = '';
+            
+			$groups = $row['group_name'] . "<br />";
+            endwhile;
+        endif;
+        $db->sql_freeresult($result);
+    endif;
+endif;
+/*****[END]********************************************
+ [ Mod:     Show Groups                        v1.0.1 ]
+ ******************************************************/
 
-	if( ($buddy_action == 'add') && ($row = $db->sql_fetchrow($result)) )
-	{
-		message_die(GENERAL_MESSAGE, 'User is already in your buddylist');
-	}
-	else if( ($buddy_action == 'remove') && (!$row = $db->sql_fetchrow($result)) )
-	{
-		message_die(GENERAL_MESSAGE, 'User is not in your buddylist');
-	}
+if(!$profiledata)
+message_die(GENERAL_MESSAGE, $lang['Ghost_Mode_Specified']);
 
-	//
-	// Perform add & remove now
-	//
-	if ( $buddy_action == 'add' )
-	{
-		$sql = "INSERT INTO " . BUDDIES_TABLE . " (user_id, buddy_id)
-				VALUES (" . $userdata['user_id'] . ", $buddy_id)";
-		if( !$db->sql_query($sql) )
-		{
-			message_die(GENERAL_ERROR, 'Could not add the user to your buddylist', '', __LINE__, __FILE__, $sql);
-		}
-
-		$message = $lang['Buddy_added'] . '<br /><br />' . sprintf($lang['Click_return_profile'], '<a href="' . append_sid ("profile.$phpEx?$redirect") . '">', '</a>');
-	}
-
-	if ( $buddy_action == 'remove' )
-	{
-		$sql = "DELETE FROM " . BUDDIES_TABLE . "
-				WHERE user_id = " . $userdata['user_id'] . "
-					AND buddy_id = $buddy_id";
-		if ( !$db->sql_query($sql) )
-		{
-			message_die(GENERAL_ERROR, 'Could not remove the user from your buddylist', '', __LINE__, __FILE__, $sql);
-		}
-
-		$message = $lang['Buddy_removed'] . '<br /><br />' . sprintf($lang['Click_return_profile'], '<a href="' . append_sid("profile.$phpEx?$redirect") . '">', '</a>');
-	}
-
-	$template->assign_vars(array(
-		'META' => '<meta http-equiv="refresh" content="3;url=' . append_sid("profile.$phpEx?$redirect") . '">')
-		);
-
-	message_die(GENERAL_MESSAGE, $message);
-}
-/*****************************************************/
-/* Forum - Buddy List v.0.9.5                    END */
-/*****************************************************/
-// Mighty Gorgon - Multiple Ranks - BEGIN
-require_once('includes/functions_mg_ranks.'.$phpEx);
+/*****[BEGIN]******************************************
+ [ Mod:    Multiple Ranks And Staff View       v2.0.3 ]
+ ******************************************************/
+require_once(NUKE_INCLUDE_DIR.'functions_mg_ranks.'.$phpEx);
 $ranks_sql = query_ranks();
-// Mighty Gorgon - Multiple Ranks - END
-/*****************************************************/
-/* Forum - Buddy List v.0.9.5                  START */
-/*****************************************************/
-if ( $userdata['session_logged_in'] )
-{
-	$sql = "SELECT buddy_id FROM " . BUDDIES_TABLE . "
-			WHERE user_id = " . $userdata['user_id'] . "
-				AND buddy_id = " . $profiledata['user_id'];
-}
-if ( !$result = $db->sql_query($sql) )
-{
-	message_die(GENERAL_ERROR, 'Could not obtain buddies information', '', __LINE__, __FILE__, $sql);
-}
-
-if ( $row = $db->sql_fetchrow($result) )
-{
-	$buddy_id = $row['buddy_id'];
-}
-/*****************************************************/
-/* Forum - Buddy List v.0.9.5                    END */
-/*****************************************************/
+/*****[END]********************************************
+ [ Mod:    Multiple Ranks And Staff View       v2.0.3 ]
+ ******************************************************/
 
 //
 // Output page header and profile_view template
 //
 $template->set_filenames(array(
-        'body' => 'profile_view_body.tpl')
+    'body' => 'profile_view_body.tpl')
 );
-if (is_active("Forums")) {
+
+if(is_active("Forums")) 
+{
     make_jumpbox('viewforum.'.$phpEx);
 }
+
 //
 // Calculate the number of days this user has been a member ($memberdays)
 // Then calculate their posts per day
@@ -192,33 +129,45 @@ $posts_per_day = $profiledata['user_posts'] / $memberdays;
 // Get the users percentage of total posts
 if ( $profiledata['user_posts'] != 0  )
 {
-        $total_posts = get_db_stat('postcount');
-        $percentage = ( $total_posts ) ? min(100, ($profiledata['user_posts'] / $total_posts) * 100) : 0;
+    $total_posts = get_db_stat('postcount');
+    $percentage = ( $total_posts ) ? min(100, ($profiledata['user_posts'] / $total_posts) * 100) : 0;
 }
 else
 {
-        $percentage = 0;
+    $percentage = 0;
 }
 
+# avatar on users profile page START
 $avatar_img = '';
-if ( $profiledata['user_avatar_type'] && $profiledata['user_allowavatar'] )
-{
-        switch( $profiledata['user_avatar_type'] )
-        {
-                case USER_AVATAR_UPLOAD:
-                        $avatar_img = ( $board_config['allow_avatar_upload'] ) ? '<img src="' . $board_config['avatar_path'] . '/' . $profiledata['user_avatar'] . '" alt="" border="0" />' : '';
-                        break;
+if($profiledata['user_avatar_type'] && $profiledata['user_allowavatar']):
+    switch( $profiledata['user_avatar_type']):
+        case USER_AVATAR_UPLOAD:
+            $avatar_img = ($board_config['allow_avatar_upload']) ? '<img class="rounded-corners-profile" style="max-width: 200px;" 
+			src="'.$board_config['avatar_path']. '/'. $profiledata['user_avatar'] . '" alt="" border="0" />' : '';
+            break;
+        case USER_AVATAR_REMOTE:
+            $avatar_img = '<img class="rounded-corners-profile" style="max-width: 200px;" s
+			rc="' . resize_avatar($profiledata['user_avatar']) . '" alt="" border="0" />';
+            break;
+        case USER_AVATAR_GALLERY:
+            $avatar_img = ( $board_config['allow_avatar_local'] ) ? '<img class="rounded-corners-profile" style="max-width: 
+			200px;" src="' . $board_config['avatar_gallery_path'] . '/' 
+			. (($profiledata['user_avatar'] == 'blank.png' || $profiledata['user_avatar'] == 'gallery/blank.png') ? 'blank.png' : $profiledata['user_avatar']) 
+			. '" alt="" border="0" />' : '';
+            break;
+    endswitch;
+endif;
+# Mod: Default avatar v1.1.0 START
+if((!$avatar_img) && (($board_config['default_avatar_set'] == 1) 
+|| ($board_config['default_avatar_set'] == 2)) && ($board_config['default_avatar_users_url'])):
+  $avatar_img = '<img class="rounded-corners-profile" style="max-height: 200px; max-width: 200px;" src="'.$board_config['default_avatar_users_url'].'" alt="" border="0" />';
+endif;
+# Mod: Default avatar v1.1.0 END
+# avatar on users profile page END
 
-		case USER_AVATAR_REMOTE:
-			$avatar_img = resize_avatar($profiledata['user_avatar']);
-			break;
-
-                case USER_AVATAR_GALLERY:
-                        $avatar_img = ( $board_config['allow_avatar_local'] ) ? '<img src="' . $board_config['avatar_gallery_path'] . '/' . $profiledata['user_avatar'] . '" alt="" border="0" />' : '';
-                        break;
-        }
-}
-	// Mighty Gorgon - Multiple Ranks - BEGIN
+/*****[BEGIN]******************************************
+ [ Mod:    Multiple Ranks And Staff View       v2.0.3 ]
+ ******************************************************/
 	$user_ranks = generate_ranks($profiledata, $ranks_sql);
 
 	$user_rank_01 = ($user_ranks['rank_01'] == '') ? '' : ($user_ranks['rank_01'] . '<br />');
@@ -231,298 +180,314 @@ if ( $profiledata['user_avatar_type'] && $profiledata['user_allowavatar'] )
 	$user_rank_04_img = ($user_ranks['rank_04_img'] == '') ? '' : ($user_ranks['rank_04_img'] . '<br />');
 	$user_rank_05 = ($user_ranks['rank_05'] == '') ? '' : ($user_ranks['rank_05'] . '<br />');
 	$user_rank_05_img = ($user_ranks['rank_05_img'] == '') ? '' : ($user_ranks['rank_05_img'] . '<br />');
-	// Mighty Gorgon - Multiple Ranks - END
-/*****************************************************/
-/* Forum - Buddy List v.0.9.5                  START */
-/*****************************************************/
-$buddy_img = '';
-$buddy = '';
-
-if ( $userdata['session_logged_in'] && ( $userdata['user_id'] != $profiledata['user_id'] ) )
-{
-	$redirect = POST_USERS_URL . '=' . $profiledata['user_id'];
-	$redirect .= '&amp;mode=viewprofile';
-	$redirect .= '&amp;b=' . $profiledata['user_id'];
-	
-	if ( $buddy_id )
-	{
-		$redirect .= '&amp;buddy_action=remove';
-		$buddy_img = '<a href="' . append_sid("profile.$phpEx?$redirect") . '"><img src="' . $images['icon_buddy_remove'] . '" alt="' . $lang['Remove_buddy_list'] . '" border="0"></a>';
-		$buddy = '<a href="' . append_sid("profile.$phpEx?$redirect") . '">' . $lang['Remove_buddy_list'] . '</a>';
-	}
-	else
-	{
-		$redirect .= '&amp;buddy_action=add';
-		$buddy_img = '<a href="' . append_sid("profile.$phpEx?$redirect") . '"><img src="' . $images['icon_buddy'] . '" alt="' . $lang['Add_buddy_list'] . '" border="0"></a>';
-		$buddy = '<a href="' . append_sid("profile.$phpEx?$redirect") . '">' . $lang['Add_buddy_list'] . '</a>';
-	}
-}
-/*****************************************************/
-/* Forum - Buddy List v.0.9.5                    END */
-/*****************************************************/
+/*****[END]********************************************
+ [ Mod:    Multiple Ranks And Staff View       v2.0.3 ]
+ ******************************************************/
 
 $temp_url = append_sid("privmsg.$phpEx?mode=post&amp;" . POST_USERS_URL . "=" . $profiledata['user_id']);
-if (is_active("Private_Messages")) {
-    $pm_img = '<a href="' . $temp_url . '"><img src="' . $images['icon_pm'] . '" alt="' . $lang['Send_private_message'] . '" title="' . $lang['Send_private_message'] . '" border="0" /></a>';
-    $pm = '<a href="' . $temp_url . '">' . $lang['Send_private_message'] . '</a>';
-	// Country/Location Flags
-$location = ( $profiledata['user_from'] ) ? $profiledata['user_from'] : '&nbsp;';
-$flag = ( !empty($profiledata['user_from_flag']) ) ? '&nbsp;<img src="images/flags/' . $profiledata['user_from_flag'] . '" alt="' . $profiledata['user_from_flag'] . '" title="' . $profiledata['user_from_flag'] . '" border="1" />' : '';
-$location .= $flag;
+
+if(is_active("Private_Messages")) 
+{
+	$pm_img = '<a href="' . $temp_url . '"><img src="' . $images['icon_pm'] . '" alt="' . $lang['Send_private_message'] . '" title="' . $lang['Send_private_message'] . '" border="0" /></a>';
+	// $pm = '<a href="' . $temp_url . '">' . $lang['Send_private_message'] . '</a>';
+	$pm = '<a href="' . $temp_url . '">' . sprintf($lang['Send_private_message'], $profiledata['username']) . '</a>';
 }
 
-if ( !empty($profiledata['user_viewemail']) || $userdata['user_level'] == ADMIN )
-{
-        $email_uri = ( $board_config['board_email_form'] ) ? append_sid("profile.$phpEx?mode=email&amp;" . POST_USERS_URL .'=' . $profiledata['user_id']) : 'mailto:' . $profiledata['user_email'];
+/*****[BEGIN]******************************************
+ [ Mod:     Member Country Flags               v2.0.7 ]
+ ******************************************************/
+$location = (!empty($profiledata['user_from_flag']) ) ? '<span class="countries '.str_replace('.png','',$profiledata['user_from_flag']).'"></span>&nbsp;' : '&nbsp;';
+$location .= ($profiledata['user_from']) ? $profiledata['user_from'] : '';
+/*****[END]********************************************
+ [ Mod:     Member Country Flags               v2.0.7 ]
+ ******************************************************/
 
-        
-        $email_img = '<a href="' . $email_uri . '"><img src="' . $images['icon_email'] . '" alt="' . $lang['Send_email'] . '" title="' . $lang['Send_email'] . '" border="0" /></a>';
-        $email = '<a href="' . $email_uri . '">' . $lang['Send_email'] . '</a>';
+if (!empty($profiledata['user_viewemail']) || ($profiledata['username'] == $userdata['username']) || $userdata['user_level'] == ADMIN)
+{
+    $email_uri = ( $board_config['board_email_form'] ) ? append_sid("profile.$phpEx?mode=email&amp;".POST_USERS_URL
+	.'='.$profiledata['user_id']) : 'mailto:' .$profiledata['user_email'];
+    $email_img = '<a href="' . $email_uri . '"><img src="' . $images['icon_email'] . '" alt="' . $lang['Send_email'] . '" title="' . $lang['Send_email'] . '" border="0" /></a>';
+    $email = '<a href="' . $email_uri . '">' . sprintf($lang['Send_email'], $profiledata['username']) . '</a>';
 }
 else
 {
-        $email_img = '&nbsp;';
-        $email = '&nbsp;';
+    $email_img = '&nbsp;';
+    $email = '';
 }
-if (( $profiledata['user-website'] == "http:///") || ( $profiledata['user_website'] == "http://")){
-    $profiledata['user_website'] =  "";
-}
-if (($profiledata['user_website'] != "" ) && (substr($profiledata['user_website'],0, 7) != "http://")) {
-    $profiledata['user_website'] = "http://".$profiledata['user_website'];
+if(isset($profiledata['user-website'])) 
+{
+    if (( $profiledata['user-website'] == "http:///") || ( $profiledata['user_website'] == "http://"))
+	{
+        $profiledata['user_website'] =  "";
+    }
+    if (($profiledata['user_website'] != "" ) && (substr($profiledata['user_website'],0, 7) != "http://")) 
+	{
+        $profiledata['user_website'] = "http://".$profiledata['user_website'];
+    }
 }
 
 $www_img = ( $profiledata['user_website'] ) ? '<a href="' . $profiledata['user_website'] . '" target="_userwww"><img src="' . $images['icon_www'] . '" alt="' . $lang['Visit_website'] . '" title="' . $lang['Visit_website'] . '" border="0" /></a>' : '&nbsp;';
-$www = ( $profiledata['user_website'] ) ? '<a href="' . $profiledata['user_website'] . '" target="_userwww">' . $profiledata['user_website'] . '</a>' : '&nbsp;';
+$www = ( $profiledata['user_website'] ) ? '<a href="' . $profiledata['user_website'] . '" target="_userwww">' . $profiledata['user_website'] . '</a>' : '';
 
-if ( !empty($profiledata['user_icq']) )
+/*****[BEGIN]******************************************
+ [ Mod:    Birthdays                           v3.0.0 ]
+ ******************************************************/
+$birthday = '&nbsp;';
+//if ( !empty($profiledata['user_birthday']) && $profiledata['birthday_display'] != BIRTHDAY_AGE && $profiledata['birthday_display'] != BIRTHDAY_NONE )
+if ( !empty($profiledata['user_birthday']) && $profiledata['birthday_display'] <> 2 && $profiledata['birthday_display'] <> 3 ) // 
 {
-        $icq_status_img = '<a href="http://wwp.icq.com/' . $profiledata['user_icq'] . '#pager"><img src="http://web.icq.com/whitepages/online?icq=' . $profiledata['user_icq'] . '&img=5" width="18" height="18" border="0" /></a>';
-        $icq_img = '<a href="http://wwp.icq.com/scripts/search.dll?to=' . $profiledata['user_icq'] . '"><img src="' . $images['icon_icq'] . '" alt="' . $lang['ICQ'] . '" title="' . $lang['ICQ'] . '" border="0" /></a>';
-        $icq =  '<a href="http://wwp.icq.com/scripts/search.dll?to=' . $profiledata['user_icq'] . '">' . $lang['ICQ'] . '</a>';
+	preg_match('/(..)(..)(....)/', sprintf('%08d',$profiledata['user_birthday']), $bday_parts);
+	$bday_month = $bday_parts[1];
+	$bday_day = $bday_parts[2];
+	//$bday_year = ( $profiledata['birthday_display'] != BIRTHDAY_DATE ) ? $bday_parts[3] : 0;
+	$bday_year = ( $profiledata['birthday_display'] <> 1 ) ? $bday_parts[3] : 0;
+	$birthday_format = ($bday_year != 0) ? str_replace(array('y','Y'), array($bday_year % 100,$bday_year), $lang['DATE_FORMAT']) : preg_replace('#[^djFmMnYy]*[Yy]#','',$lang['DATE_FORMAT']);
+	$birthday = create_date($birthday_format, gmmktime(12,0,0,$bday_month,$bday_day,2000), 0);
 }
-else
+elseif( $profiledata['birthday_display'] == 2 )
 {
-        $icq_status_img = '&nbsp;';
-        $icq_img = '&nbsp;';
-        $icq = '&nbsp;';
+	$bday_month_day = floor($profiledata['user_birthday'] / 10000);
+	$bday_year_age = ( $profiledata['birthday_display'] != BIRTHDAY_NONE && $profiledata['birthday_display'] != BIRTHDAY_DATE ) ? $profiledata['user_birthday'] - 10000*$bday_month_day : 0;
+	$fudge = ( gmdate('md') < $bday_month_day ) ? 1 : 0;
+	$birthday = ( $bday_year_age ) ? gmdate('Y')-$bday_year_age-$fudge : false;
 }
+/*****[END]********************************************
+ [ Mod:    Birthdays                           v3.0.0 ]
+ ******************************************************/
 
-$aim_img = ( $profiledata['user_aim'] ) ? '<a href="aim:goim?screenname=' . $profiledata['user_aim'] . '&amp;message=Hello+Are+you+there?"><img src="' . $images['icon_aim'] . '" alt="' . $lang['AIM'] . '" title="' . $lang['AIM'] . '" border="0" /></a>' : '&nbsp;';
-$aim = ( $profiledata['user_aim'] ) ? '<a href="aim:goim?screenname=' . $profiledata['user_aim'] . '&amp;message=Hello+Are+you+there?">' . $lang['AIM'] . '</a>' : '&nbsp;';
-
-//====================================================================== |
-//==== Start Invision View Profile ===================================== |
-//==== v1.1.3 ========================================================== |
-//====
-$msn_img = ( $profiledata['user_msnm'] ) ? '<a href="http://members.msn.com/' . $profiledata['user_msnm'] . '" target="_blank"><img src="' . $images['icon_msnm'] . '" alt="' . $lang['MSNM'] . '" title="' . $lang['MSNM'] . '" border="0" /></a>' : ''; 
-$msn = ( $profiledata['user_msnm'] ) ? $profiledata['user_msnm'] : '&nbsp;';
-//====
-//==== Author: Disturbed One [http://anthonycoy.com] =================== |
-//==== End Invision View Profile ======================================= |
-//====================================================================== |
-$yim_img = ( $profiledata['user_yim'] ) ? '<a href="http://edit.yahoo.com/config/send_webmesg?.target=' . $profiledata['user_yim'] . '&amp;.src=pg"><img src="' . $images['icon_yim'] . '" alt="' . $lang['YIM'] . '" title="' . $lang['YIM'] . '" border="0" /></a>' : '';
-$yim = ( $profiledata['user_yim'] ) ? '<a href="http://edit.yahoo.com/config/send_webmesg?.target=' . $profiledata['user_yim'] . '&amp;.src=pg">' . $lang['YIM'] . '</a>' : '';
+$facebook_img = ( $profiledata['user_facebook'] ) ? '<a href="http://www.facebook.com/profile.php?id=' . $profiledata['user_facebook'] . '" target="_userwww"><img src="' . $images['icon_facebook'] . '" alt="' . $lang['Visit_facebook'] . '" title="' . $lang['Visit_facebook'] . '" border="0" /></a>' : '&nbsp;';
+$facebook = ( $profiledata['user_facebook'] ) ? '<a href="' . $temp_url . '" target="_userwww">' . $profiledata['user_facebook'] . '</a>' : '&nbsp;';
 
 $temp_url = append_sid("search.$phpEx?search_author=" . urlencode($profiledata['username']) . "&amp;showresults=posts");
 $search_img = '<a href="' . $temp_url . '"><img src="' . $images['icon_search'] . '" alt="' . sprintf($lang['Search_user_posts'], $profiledata['username']) . '" title="' . sprintf($lang['Search_user_posts'], $profiledata['username']) . '" border="0" /></a>';
-//====================================================================== |
-//==== Start Invision View Profile ===================================== |
-//==== v1.1.3 ========================================================== |
-//====
-$user_sig = '';
-if ( $profiledata['user_attachsig'] && $board_config['allow_sig'] )
-{
-	include_once('includes/bbcode.'.$phpEx);
-	$user_sig = $profiledata['user_sig'];
-	$user_sig_bbcode_uid = $profiledata['user_sig_bbcode_uid'];
-	if ( $user_sig != '' )
-	{
-		if ( !$board_config['allow_html'] && $profiledata['user_allowhtml'] )
-		{
-			$user_sig = preg_replace('#(<)([\/]?.*?)(>)#is', "&lt;\\2&gt;", $user_sig);
-		}
+$search = '<a href="' . $temp_url . '">' . sprintf($lang['Search_user_posts'], $profiledata['username']) . '</a>';
 
-		if ( $board_config['allow_bbcode'] && $user_sig_bbcode_uid != '' )
-		{
-			$user_sig = ( $board_config['allow_bbcode'] ) ? bbencode_second_pass($user_sig, $user_sig_bbcode_uid) : preg_replace('/\:[0-9a-z\:]+\]/si', ']', $user_sig);
-		}
-
-		$user_sig = make_clickable($user_sig);
-
-		if ( !$userdata['user_allowswearywords'] )
-		{
-			$orig_word = !empty($orig_word) ? $orig_word : array();
-			$replacement_word = !empty($replacement_word) ? $replacement_word : array();
-			obtain_word_list($orig_word, $replacement_word);
-			$user_sig = preg_replace($orig_word, $replacement_word, $user_sig);
-		}
-
-		if ( $profiledata['user_allowsmile'] )
-		{
-			$user_sig = smilies_pass($user_sig);
-		}
-
-		$user_sig = str_replace("\n", "\n<br />\n", $user_sig);
-	}
-
-	$template->assign_block_vars('switch_user_sig_block', array());
-}
-
-if ( $profiledata['user_id'] )
-{
-   $user_most_active = get_forum_most_active($profiledata['user_id']);
-   $user_most_active_forum_url = append_sid('viewforum.' . $phpEx . '?f=' . urlencode($user_most_active['forum_id']));
-   $user_most_active_forum_name = $user_most_active['forum_name'];
-   $user_most_active_posts = $user_most_active['posts'];
-}
-//====
-//==== Author: Disturbed One [http://anthonycoy.com] =================== |
-//==== End Invision View Profile ======================================= |
-//====================================================================== |
-// BEGIN Advanced_Report_Hack
-$s_report_user = '';
-if ($userdata['user_id'] != ANONYMOUS)
-{
-	$temp_url = append_sid($phpbb_root_path . 'report.php?mode=reportuser&amp;id=' . $profiledata['user_id']);
-	$s_report_user = '<a href="' . $temp_url . '" class="gen">' . $lang['Report_user'] . '</a>';
-}
-// END Advanced_Report_Hack
-if ($board_config['viewprofile'] == "images")
-{
-	$itempurge = str_replace("Þ", "", $profiledata['user_items']);
-	$itemarray = explode('ß',$itempurge);
-	$itemcount = count ($itemarray);
-	$user_items = "<br />";
-	for ($xe = 0;$xe < $itemcount;$xe++)
-	{
-		if ($itemarray[$xe] != NULL)
-		{
-			if (file_exists('modules/Forums/images/shop/images/'.$itemarray[$xe].'.jpg'))
-			{
-				$user_items .= ' <img src="modules/Forums/images/shop/images/'.$itemarray[$xe].'.jpg" title="'.$itemarray[$xe].'" alt="'.$itemaray[$xe].'">';
-			}
-			elseif (file_exists('modules/Forums/images/shop/images/'.$itemarray[$xe].'.gif'))
-			{
-				$user_items .= ' <img src="modules/Forums/images/shop/images/'.$itemarray[$xe].'.gif" title="'.$itemarray[$xe].'" alt="'.$itemaray[$xe].'">';
-			}
-		}
-	}
-	$usernameurl = '<a href="'.append_sid('shop.'.$phpEx.'?action=inventory&searchid='.$profiledata['user_id'], true).'" class="nav">Items</a>: ';
-}
-elseif ($board_config['viewprofile'] == "link")
-{
-	$usernameurl = '<a href="'.append_sid('shop.'.$phpEx.'?action=inventory&searchid='.$profiledata['user_id'], true).'" class="nav">Items</a>';
-}
-
-//start of effects store checks
-$shoparray = explode("ß", $board_config['specialshop']);
-$shoparraycount = count ($shoparray);
-$shopstatarray = array();
-for ($x = 0; $x < $shoparraycount; $x++)
-{
-	$temparray = explode("Þ", $shoparray[$x]);
-	$shopstatarray[] = $temparray[0];
-	$shopstatarray[] = $temparray[1];
-}
-//end of effects store checks
-
-$usereffects = explode("ß", $profiledata['user_effects']);
-$userprivs = explode("ß", $profiledata['user_privs']);
-$usercustitle = explode("ß", $profiledata['user_custitle']);
-$userbs = array();
-$usercount = count($userprivs);
-for ($x = 0; $x < $usercount; $x++) { $temppriv = explode("Þ", $userprivs[$x]); $userbs[] = $temppriv[0]; $userbs[] = $temppriv[1]; }
-$usercount = count($usereffects);
-for ($x = 0; $x < $usercount; $x++) { $temppriv = explode("Þ", $usereffects[$x]); $userbs[] = $temppriv[0]; $userbs[] = $temppriv[1]; }
-$usercount = count($usercustitle);
-for ($x = 0; $x < $usercount; $x++) { $temppriv = explode("Þ", $usercustitle[$x]); $userbs[] = $temppriv[0]; $userbs[] = $temppriv[1]; }
-
-if ( !empty($profiledata['user_gender']))
+/*****[BEGIN]******************************************
+ [ Mod:    Gender                              v1.2.6 ]
+ ******************************************************/
+if ( !empty($profiledata['user_gender'])) 
 { 
-           switch ($profiledata['user_gender']) 
-           { 
-                      case 1: $gender=$lang['Male'];break; 
-                      case 2: $gender=$lang['Female'];break; 
-                      default:$gender=$lang['No_gender_specify']; 
-           } 
+    switch ($profiledata['user_gender']) 
+    { 
+        case 1: $gender=$lang['Male'];break; 
+        case 2: $gender=$lang['Female'];break; 
+        default:$gender=$lang['No_gender_specify']; 
+    } 
 } else $gender=$lang['No_gender_specify'];
-// Start Age In Profile MOD
-$this_year = create_date('Y', time(), $board_config['board_timezone']);
-$this_date = create_date('md', time(), $board_config['board_timezone']);
-// End Age In Profile MOD
-// Start add - Birthday MOD
-if ($profiledata['user_birthday']!=999999)
-{
-	$user_birthday = realdate($lang['DATE_FORMAT'], $profiledata['user_birthday']);
-// Start Age In Profile MOD
-    $userbdate=realdate('md', $profiledata['user_birthday']);
-   	$userbirthdate = $this_year - realdate ('Y',$profiledata['user_birthday']);
-    if ($this_date < $userbdate) $userbirthdate--;
-	$userbirthdate = '&nbsp;(' . $userbirthdate . ' Years)';
-// End Age In Profile MOD
-} else
-{
-	$user_birthday = $lang['No_birthday_specify'];
-// Start Age In Profile MOD
-	$userbirthdate = '';
-// End Age In Profile MOD	
-}
-// End add - Birthday MOD
+/*****[END]********************************************
+ [ Mod:    Gender                              v1.2.6 ]
+ ******************************************************/
+
+/**
+ * Mod: Display the users last visit date and time.
+ * @since 2.0.9e
+ */
+if ($profiledata['user_lastvisit'] != 0)
+	$user_last_visit = date($board_config['default_dateformat'],$profiledata['user_lastvisit']);
+else
+	$user_last_visit = $lang['not_available'];
+
 //
 // Generate page
 //
+/*****[BEGIN]******************************************
+ [ Mod:    User Administration Link on Profile v1.0.0 ]
+ ******************************************************/
+if($userdata['user_level'] == ADMIN)
+{
+    $template->assign_vars(array(
+        "L_USER_ADMIN_FOR" => $lang['User_admin_for'],
+        "U_ADMIN_PROFILE" => append_sid("modules/Forums/admin/admin_users.$phpEx?mode=edit&amp;u=" . $profiledata['user_id']))
+    );
+    $template->assign_block_vars("switch_user_admin", array());
+}
+/*****[END]********************************************
+ [ Mod:    User Administration Link on Profile v1.0.0 ]
+ ******************************************************/
 $page_title = $lang['Viewing_profile'];
-include_once("includes/page_header.php");
-/*****************************************************/
-/* Forum - User Online Status v.1.0.5          START */
-/*****************************************************/
-if ( $profiledata['user_session_time'] >= (time()-60) )
-{
-	if ( $profiledata['user_allow_viewonline'] )
-	{
-		$online_status = '<strong><a href="' . append_sid("viewonline.$phpEx") . '" title="' . sprintf($lang['is_online'], $profiledata['username']) . '"' . $online_color . '>' . $lang['Online'] . '</a></strong>';
-	}
-	else if ( ( $userdata['user_level'] == ADMIN ) || ( $userdata['user_id'] == $profiledata['user_id'] ) )
-	{
-		$online_status = '<strong><i><a href="' . append_sid("viewonline.$phpEx") . '" title="' . sprintf($lang['is_hidden'], $profiledata['username']) . '"' . $hidden_color . '>' . $lang['Hidden'] . '</a></i></strong>';
-	}
-	else
-	{
-		$online_status = '<strong><span title="' . sprintf($lang['is_offline'], $profiledata['username']) . '"' . $offline_color . '>' . $lang['Offline'] . '</span></strong>';
-	}
-}
-else
-{
-	$online_status = '<strong><span title="' . sprintf($lang['is_offline'], $profiledata['username']) . '"' . $offline_color . '>' . $lang['Offline'] . '</span></strong>';
-}
-/*****************************************************/
-/* Forum - User Online Status v.1.0.5            END */
-/*****************************************************/
+include("includes/page_header.php");
+/*****[BEGIN]******************************************
+ [ Mod:    Online/Offline/Hidden               v2.2.7 ]
+ ******************************************************/
+if ($profiledata['user_session_time'] >= (time()-$board_config['online_time'])):
+
+    if ($profiledata['user_allow_viewonline']):
+        $online_status = '<a href="'.append_sid("viewonline.$phpEx").'" title="'.sprintf($lang['is_online'], $profiledata['username']).'"'.$online_color.'>'.$lang['Online'].'</a>';
+    
+	elseif ( $userdata['user_level'] == ADMIN || $userdata['user_id'] == $profiledata['user_id'] ):
+        $online_status = '<em><img style="padding-bottom: 3px;" src="images/ico/snapchat-002.ico" alt="Ghost Mode" data-alt-src="images/ico/snapchat-002.ico" 
+		width="16" height="19"> <a href="' . append_sid("viewonline.$phpEx") . '" title="' . sprintf($lang['is_hidden'], $profiledata['username']) . '"' . $hidden_color . '>' . $lang['GhostMode'] . '</a></em>';
+    
+	else:
+        $online_status = '<span title="' . sprintf($lang['is_offline'], $profiledata['username']) . '"' . $offline_color . '>' . $lang['Offline'] . '</span>';
+    endif;
+
+else:
+    $online_status = '<span title="' . sprintf($lang['is_offline'], $profiledata['username']) . '"' . $offline_color . '>' . $lang['Offline'] . '</span>';
+endif;
+/*****[END]********************************************
+ [ Mod:    Online/Offline/Hidden               v2.2.7 ]
+ ******************************************************/
+
+/*****[BEGIN]******************************************
+ [ Mod:    Attachment Mod                      v2.4.1 ]
+ ******************************************************/
 display_upload_attach_box_limits($profiledata['user_id']);
-$profiledata['user_from'] = str_replace(".gif", "", $profiledata['user_from']);
+/*****[END]********************************************
+ [ Mod:    Attachment Mod                      v2.4.1 ]
+ ******************************************************/
+if(isset($profiledata['user_from']))
+$profiledata['user_from'] = str_replace(".png", "", $profiledata['user_from']);
 
+/*****[BEGIN]******************************************
+ [ Base:    Nuke Patched                       v3.0.0 ]
+ ******************************************************/
 if (function_exists('get_html_translation_table'))
 {
    $u_search_author = urlencode(strtr($profiledata['username'], array_flip(get_html_translation_table(HTML_ENTITIES))));
 }
 else
 {
-   $u_search_author = urlencode(str_replace(array('&amp;', '&_#039;', '&quot;', '&lt;', '&gt;'), array('&', "'", '"', '<', '>'), $profiledata['username']));
+   $u_search_author = urlencode(str_replace(array('&', '&_#039;', '"', '<', '>'), array('&', "'", '"', '<', '>'), $profiledata['username']));
 }
+/*****[END]********************************************
+ [ Base:    Nuke Patched                       v3.0.0 ]
+ ******************************************************/
 
 if (function_exists('get_html_translation_table'))
 {
-   $u_search_author = urlencode(strtr($profiledata['username'], array_flip(get_html_translation_table(HTML_ENTITIES))));
+    $u_search_author = urlencode(strtr($profiledata['username'], array_flip(get_html_translation_table(HTML_ENTITIES))));
 }
 else
 {
-   $u_search_author = urlencode(str_replace(array('&amp;', '&#039;', '&quot;', '&lt;', '&gt;'), array('&', "'", '"', '<', '>'), $profiledata['username']));
+    $u_search_author = urlencode(str_replace(array('&amp;', '&#039;', '&quot;', '&lt;', '&gt;'), array('&', "'", '"', '<', '>'), $profiledata['username']));
 }
+/*****[BEGIN]******************************************
+ [ Mod:     Users Reputations Systems          v1.0.0 ]
+ ******************************************************/
+$reputation = '';
+
+if(!isset($lang['Zero_reputation']))
+$lang['Zero_reputation'] = '<img src="images/animated/poop.png" width="26" height="26">Useless Turd Status (No Reputation)';
+
+if ($rep_config['rep_disable'] == 0)
+{
+  if ($profiledata['user_reputation'] == 0)
+  {
+    $reputation = $lang['Zero_reputation'];
+  } else
+  {
+    if ($rep_config['graphic_version'] == 0)
+    {
+      // Text version
+      if ($profiledata['user_reputation'] > 0)
+      {
+        // $reputation .= "<strong><font color=\"green\">" . round($profiledata['user_reputation'],1) . "</font></strong>";
+        $reputation .= '<span style="color: green; font-weight: bold">'.round($profiledata['user_reputation'], 1).'</span>';
+      } else {
+        // $reputation .= "<strong><font color=\"red\">" . round($profiledata['user_reputation'],1) . "</font></strong>";
+        $reputation .= '<span style="color: red; font-weight: bold">'.round($profiledata['user_reputation'], 1).'</span>';
+      }
+    } else {
+      // Graphic version
+      get_reputation_medals($profiledata['user_reputation']);
+    }
+  }
+  $sql = "SELECT COUNT(user_id) AS count_reps
+      FROM " . REPUTATION_TABLE . " AS r
+      WHERE r.user_id = " . $profiledata['user_id'] . "
+      GROUP BY user_id";
+  if ( !($result = $db->sql_query($sql)) )
+  {
+    message_die(GENERAL_ERROR, "Could not obtain reputation stats for this user", '', __LINE__, __FILE__, $sql);
+  }
+  $row_rep = $db->sql_fetchrow($result);
+  if ($row_rep)
+  {
+    $reputation .= " <br />(<a href=\""  . append_sid("reputation.$phpEx?a=stats&amp;" . POST_USERS_URL . "=" . $profiledata['user_id']) . "\" target=\"_blank\" onClick=\"popupWin = window.open(this.href, '" . $lang['Reputation'] . "', 'location,width=700,height=400,top=0,scrollbars=yes'); popupWin.focus(); return false;\">" . $lang['Votes'] . "</a>: " . $row_rep['count_reps'] . ")";
+  }
+}
+/*****[END]********************************************
+ [ Mod:     Users Reputations System           v1.0.0 ]
+ ******************************************************/
+ 
+/*****[BEGIN]******************************************
+ [ Mod:    View Sig                            v1.0.0 ]
+ ******************************************************/
+$user_sig = '';
+if(!empty($profiledata['user_sig'])) {
+    include_once('includes/bbcode.'.$phpEx);
+    include_once('includes/functions_post.'.$phpEx);
+
+    $html_on    = ( $profiledata['user_allowhtml'] && $board_config['allow_html'] ) ? 1 : 0 ;
+    $bbcode_on  = ( $profiledata['user_allowbbcode'] && $board_config['allow_bbcode']  ) ? 1 : 0 ;
+    $smilies_on = ( $profiledata['user_allowsmile'] && $board_config['allow_smilies']  ) ? 1 : 0 ;
+
+    $signature_bbcode_uid = $profiledata['user_sig_bbcode_uid'];
+    $signature = ( $signature_bbcode_uid != '' ) ? preg_replace("/:(([a-z0-9]+:)?)$signature_bbcode_uid\]/si", ']', $profiledata['user_sig']) : $profiledata['user_sig'];
+    $bbcode_uid = $profiledata['user_sig_bbcode_uid'];
+    $user_sig = prepare_message($profiledata['user_sig'], $html_on, $bbcode_on, $smilies_on, $bbcode_uid);
+
+    if( $user_sig != '' )
+    {
+
+        if ( $bbcode_on  == 1 ) { $user_sig = bbencode_second_pass($user_sig, $bbcode_uid); }
+        if ( $bbcode_on  == 1 ) { $user_sig = bbencode_first_pass($user_sig, $bbcode_uid); }
+        if ( $bbcode_on  == 1 ) { $user_sig = make_clickable($user_sig); }
+        if ( $smilies_on == 1 ) { $user_sig = smilies_pass($user_sig); }
+
+        $template->assign_block_vars('user_sig', array());
+
+        $user_sig = nl2br($user_sig);
+        $user_sig = html_entity_decode($user_sig);
+    }
+    else
+    {
+        $user_sig = '';
+    }
+}
+/*****[END]********************************************
+ [ Mod:    View Sig                            v1.0.0 ]
+ ******************************************************/
+/*****[BEGIN]******************************************
+ [ Mod:    YA Merge                            v1.0.0 ]
+ ******************************************************/
+if($profiledata['bio']) {
+    $template->assign_block_vars('user_extra', array());
+}
+/*****[END]********************************************
+ [ Mod:    YA Merge                            v1.0.0 ]
+ ******************************************************/
+
+if(!isset($lang['Groups']))
+$lang['Groups'] = '';
+
+if(!isset($online_status_img))
+$online_status_img = '';
+
+if(!isset($online_status))
+$online_status = '';
+
 
 $template->assign_vars(array(
-        'USERNAME' => CheckUsernameColor($profiledata['user_color_gc'], $profiledata['username']),
-        'JOINED' => $profiledata['user_regdate'],
-// Mighty Gorgon - Multiple Ranks - BEGIN
+/*****[BEGIN]******************************************
+ [ Mod:    Advanced Username Color             v1.0.5 ]
+ ******************************************************/
+    'USERNAME' => UsernameColor($profiledata['username']),
+/*****[END]********************************************
+ [ Mod:    Advanced Username Color             v1.0.5 ]
+ ******************************************************/
+    'JOINED' => $profiledata['user_regdate'],
+/*****[BEGIN]******************************************
+ [ Mod:    Show Groups                         v1.0.1 ]
+ ******************************************************/
+    'GROUPS' => $groups,
+/*****[END]********************************************
+ [ Mod:    Show Groups                         v1.0.1 ]
+ ******************************************************/
+/*****[BEGIN]******************************************
+ [ Mod:    Multiple Ranks And Staff View       v2.0.3 ]
+ ******************************************************/
 	'USER_RANK_01' => $user_rank_01,
 	'USER_RANK_01_IMG' => $user_rank_01_img,
 	'USER_RANK_02' => $user_rank_02,
@@ -533,221 +498,336 @@ $template->assign_vars(array(
 	'USER_RANK_04_IMG' => $user_rank_04_img,
 	'USER_RANK_05' => $user_rank_05,
 	'USER_RANK_05_IMG' => $user_rank_05_img,
-// Mighty Gorgon - Multiple Ranks - END		
-	'INVENTORYLINK' => $usernameurl,
-	'INVENTORYPICS' => $user_items,
-        'POSTS_PER_DAY' => $posts_per_day,
-        'POSTS' => $profiledata['user_posts'],
-        'PERCENTAGE' => $percentage . '%',
-        'POST_DAY_STATS' => sprintf($lang['User_post_day_stats'], $posts_per_day),
-        'POST_PERCENT_STATS' => sprintf($lang['User_post_pct_stats'], $percentage),
-//====================================================================== |
-//==== Start Invision View Profile ===================================== |
-//==== v1.1.3 ========================================================== |
-	'INVISION_AVATAR_IMG' => $avatar_img,
-	'INVISION_MOST_ACTIVE_FORUM_URL' => $user_most_active_forum_url,
-	'INVISION_MOST_ACTIVE_FORUM_NAME' => $user_most_active_forum_name,
-	'INVISION_POST_DAY_STATS' => sprintf($lang['Invision_User_post_day_stats'], $posts_per_day), 
-	'INVISION_POST_PERCENT_STATS' => sprintf($lang['Invision_User_post_pct_stats'], $percentage),
-	'INVISION_USER_SIG' => $user_sig,
-//==== Author: Disturbed One [http://anthonycoy.com] =================== |
-//==== End Invision View Profile ======================================= |
-//====================================================================== |
-        'SEARCH_IMG' => $search_img,
-        'SEARCH' => $search,
-        'PM_IMG' => $pm_img,
-        'PM' => $pm,
-        'EMAIL_IMG' => $email_img,
-        'EMAIL' => $email,
-        'WWW_IMG' => $www_img,
-        'WWW' => $www,
-////////FIELDS MOD START////////
-        'CUSTOMFIELDS' => $customfields,
-///////FIELDS MOD END///////////
-/*****************************************************/
-/* Forum - Buddy List v.0.9.5                  START */
-/*****************************************************/
-        'BUDDY_IMG' => $buddy_img,
-        'BUDDY' => $buddy,
-/*****************************************************/
-/* Forum - Buddy List v.0.9.5                    END */
-/*****************************************************/
-        'ICQ_STATUS_IMG' => $icq_status_img,
-        'ICQ_IMG' => $icq_img,
-        'ICQ' => $icq,
-        'AIM_IMG' => $aim_img,
-        'AIM' => $aim,
-        'MSN_IMG' => $msn_img,
-        'MSN' => $msn,
-        'YIM_IMG' => $yim_img,
-        'YIM' => $yim,
+/*****[END]********************************************
+ [ Mod:    Multiple Ranks And Staff View       v2.0.3 ]
+ ******************************************************/
+    'POSTS_PER_DAY' => $posts_per_day,
+    'POSTS' => $profiledata['user_posts'],
+    'PERCENTAGE' => $percentage . '%',
+    'POST_DAY_STATS' => sprintf($lang['User_post_day_stats'], $posts_per_day),
+    'POST_PERCENT_STATS' => sprintf($lang['User_post_pct_stats'], $percentage),
+/*****[BEGIN]******************************************
+ [ Mod:     Users Reputations Systems          v1.0.0 ]
+ ******************************************************/
+    'REPUTATION' => $reputation,
+/*****[END]********************************************
+ [ Mod:     Users Reputations System           v1.0.0 ]
+ ******************************************************/
 
-        'LOCATION' => $location,	// Country/Location Flags
-        'OCCUPATION' => ( $profiledata['user_occ'] ) ? $profiledata['user_occ'] : '&nbsp;',
-        'INTERESTS' => ( $profiledata['user_interests'] ) ? $profiledata['user_interests'] : '&nbsp;',
-// Start add - Birthday MOD
-		'BIRTHDAY' => $user_birthday,
-// End add - Birthday MOD
-// Start Age In Profile MOD
-		'POSTER_AGE' => $userbirthdate,
-// End Age In Profile MOD
-        'GENDER' => $gender,
-        'AVATAR_IMG' => $avatar_img,
+ /*****[Begin]******************************************
+ [ Mod:     UPLOAD Switchbox Repair              v1.0.1 ]
+ *******************************************************/
+        // 'LCAP_IMG' => $images['voting_lcap'],
+        // 'MAINBAR_IMG' => $images['voting_graphic'][0],
+        // 'RCAP_IMG' => $images['voting_rcap'],
+ /*****[END]********************************************
+ [ Mod:     UPLOAD Switchbox Repair             v1.0.1 ]
+ *******************************************************/  
+    'SEARCH_IMG' => $search_img,
+    'SEARCH' => $search,
+    'PM_IMG' => $pm_img,
+    'PM' => $pm,
+    'EMAIL_IMG' => $email_img,
+    'EMAIL' => $email,
+    'WWW_IMG' => $www_img,
+    'WWW' => $www,
+	'FACEBOOK_IMG' => $facebook_img,
+	'FACEBOOK' => $facebook,
+/**
+ * Mod: Display the users last visit date and time.
+ * @since 2.0.9e
+ */
+	'USER_LAST_VISIT' => $user_last_visit,
+  'EDIT_THIS_USER' => sprintf($lang['Edit_Forum_User_ACP'],'<a href="'.append_sid("modules/Forums/admin/admin_users.$phpEx?mode=edit&amp;u=" . $profiledata['user_id']).'">','</a>'),
+  'BAN_THIS_USER_IP' => sprintf($lang['Ban_Forum_User_IP'],'<a href="'.$admin_file.'.php?op=ABBlockedIPAdd&amp;tip='.$profiledata['last_ip'].'">','</a>'),
+  'SUSPEND_THIS_USER' => sprintf($lang['Suspend_This_User'],'<a href="modules.php?name=Your_Account&amp;file=admin&amp;op=suspendUser&amp;chng_uid='.$profiledata['user_id'].'">','</a>'),
+  'DELETE_THIS_USER' => sprintf($lang['Delete_This_User'],'<a href="modules.php?name=Your_Account&amp;file=admin&amp;op=deleteUser&amp;chng_uid='.$profiledata['user_id'].'">','</a>'),
 
-        'L_VIEWING_PROFILE' => sprintf($lang['Viewing_user_profile'], CheckUsernameColor($profiledata['user_color_gc'], $profiledata['username'])),
-        'L_ABOUT_USER' => sprintf($lang['About_user'], $profiledata['username']),
-        'L_AVATAR' => $lang['Avatar'],
-        'L_POSTER_RANK' => $lang['Poster_rank'],
-        'L_JOINED' => $lang['Joined'],
-        'L_TOTAL_POSTS' => $lang['Total_posts'],
-        'L_SEARCH_USER_POSTS' => sprintf($lang['Search_user_posts'], $profiledata['username']),
-        'L_CONTACT' => $lang['Contact'],
-        'L_EMAIL_ADDRESS' => $lang['Email_address'],
-        'L_EMAIL' => $lang['Email'],
-        'L_PM' => $lang['Private_Message'],
-        'L_ICQ_NUMBER' => $lang['ICQ'],
-        'L_YAHOO' => $lang['YIM'],
-        'L_AIM' => $lang['AIM'],
-        'L_MESSENGER' => $lang['MSNM'],
-        'L_WEBSITE' => $lang['Website'],
-/*****************************************************/
-/* Forum - Buddy List v.0.9.5                  START */
-/*****************************************************/
-        'L_BUDDY' => $lang['Buddy'],
-/*****************************************************/
-/* Forum - Buddy List v.0.9.5                    END */
-/*****************************************************/
-        'L_LOCATION' => $lang['Location'],
-        'L_OCCUPATION' => $lang['Occupation'],
-        'L_INTERESTS' => $lang['Interests'],
-//====================================================================== |
-//==== Start Invision View Profile ===================================== |
-//==== v1.1.3 ========================================================== |
-//====
-	'L_INVISION_A_STATS' => $lang['Invision_Active_Stats'],
-	'L_INVISION_COMMUNICATE' => $lang['Invision_Communicate'],
-	'L_INVISION_INFO' => $lang['Invision_Info'],
-	'L_INVISION_MEMBER_TITLE' => $lang['Invision_Member_Title'],
-	'L_INVISION_MEMBER_GROUP' => $lang['Invision_Member_Group'],
-	'L_INVISION_MOST_ACTIVE' => $lang['Invision_Most_Active'],
-	'L_INVISION_MOST_ACTIVE_POSTS' => sprintf($lang['Invision_Most_Active_Posts'], $user_most_active_posts),
-	'L_INVISION_P_DETAILS' => $lang['Invision_Details'],
-	'L_INVISION_POSTS' => $lang['Invision_Total_Posts'],
-	'L_INVISION_PPD_STATS' => $lang['Invision_PPD_Stats'],
-	'L_INVISION_SIGNATURE' => $lang['Invision_Signature'],
-	'L_INVISION_WEBSITE' => $lang['Invision_Website'],
-	'L_INVISION_VIEWING_PROFILE' => sprintf($lang['Invision_View_Profile'], $profiledata['username']),
-//==== Author: Disturbed One [http://anthonycoy.com] =================== |
-//==== End Invision View Profile ======================================= |
-//====================================================================== |
-// Start add - Birthday MOD
+/*****[BEGIN]******************************************
+ [ Mod:    Birthdays                           v3.0.0 ]
+ ******************************************************/
+	'BIRTHDAY' => $birthday,
+/*****[END]********************************************
+ [ Mod:    Birthdays                           v3.0.0 ]
+ ******************************************************/
+/*****[BEGIN]******************************************
+ [ Mod:     Member Country Flags               v2.0.7 ]
+ ******************************************************/
+	'LOCATION' => $location,
+/*****[END]********************************************
+ [ Mod:     Member Country Flags               v2.0.7 ]
+ ******************************************************/
+    'OCCUPATION' => ( $profiledata['user_occ'] ) ? $profiledata['user_occ'] : '&nbsp;',
+    'INTERESTS' => ( $profiledata['user_interests'] ) ? $profiledata['user_interests'] : '&nbsp;',
+/*****[BEGIN]******************************************
+ [ Mod:    Gender                              v1.2.6 ]
+ ******************************************************/
+    'GENDER' => $gender,
+/*****[END]********************************************
+ [ Mod:    Gender                              v1.2.6 ]
+ ******************************************************/
+/*****[BEGIN]******************************************
+ [ Mod:    YA Merge                            v1.0.0 ]
+ ******************************************************/
+    'EXTRA_INFO' => ( $profiledata['bio'] ) ? nl2br($profiledata['bio']) : '',
+/*****[END]********************************************
+ [ Mod:    YA Merge                            v1.0.0 ]
+ ******************************************************/
+    'AVATAR_IMG' => $avatar_img,
+/*****[BEGIN]******************************************
+ [ Mod:    Admin User Notes                    v1.0.0 ]
+ ******************************************************/
+    'ADMIN_NOTES' => $profiledata['user_admin_notes'],
+    'L_ADMIN_NOTES' => $lang['Admin_notes'],
+/*****[END]********************************************
+ [ Mod:    Admin User Notes                    v1.0.0 ]
+ ******************************************************/	
+/*****[BEGIN]******************************************
+ [ Mod:    View Sig                            v1.0.0 ]
+ ******************************************************/
+    'USER_SIG' => $user_sig,
+    'L_SIG' => $lang['Signature'],
+/*****[END]********************************************
+ [ Mod:    View Sig                            v1.0.0 ]
+ ******************************************************/
+
+ 	'L_CONTACT_DETAILS' => sprintf($lang['User_contact_details'], $profiledata['username']),
+ 	'L_FORUM_INFO' => sprintf($lang['Forum_Info'], $profiledata['username']),
+ 	'L_ADDITIONAL_INFO' => sprintf($lang['Additional_info'], $profiledata['username']),
+ 	'L_USERS_SIGNATURE' => sprintf($lang['Users_signature'], $profiledata['username']),
+
+/*****[BEGIN]******************************************
+ [ Mod:    Advanced Username Color             v1.0.5 ]
+ ******************************************************/
+    'L_VIEWING_PROFILE' => sprintf($lang['Viewing_user_profile'], UsernameColor($profiledata['username'])),
+    'L_ABOUT_USER' => sprintf($lang['About_user'], UsernameColor($profiledata['username'])),
+/*****[END]********************************************
+ [ Mod:    Advanced Username Color             v1.0.5 ]
+ ******************************************************/
+    'L_AVATAR' => $lang['Avatar'],
+    'L_POSTER_RANK' => $lang['Poster_rank'],
+    'L_JOINED' => $lang['Joined'],
+/*****[BEGIN]******************************************
+ [ Mod:    Show Groups                         v1.0.1 ]
+ ******************************************************/
+    'L_GROUPS' => $lang['Groups'],
+/*****[END]********************************************
+ [ Mod:    Show Groups                         v1.0.1 ]
+ ******************************************************/
+    'L_TOTAL_POSTS' => $lang['Total_posts'],
+/*****[BEGIN]******************************************
+ [ Mod:    Advanced Username Color             v1.0.5 ]
+ ******************************************************/
+    'L_SEARCH_USER_POSTS' => sprintf($lang['Search_user_posts'], UsernameColor($profiledata['username'])),
+/*****[END]********************************************
+ [ Mod:    Advanced Username Color             v1.0.5 ]
+ ******************************************************/
+    'L_CONTACT' => $lang['Contact'],
+    'L_EMAIL_ADDRESS' => $lang['Email_address'],
+    'L_EMAIL' => $lang['Email'],
+    'L_PM' => $lang['Private_Message'],
+	'L_FACEBOOK_PROFILE' => $lang['FACEBOOK_PROFILE'],
+	'L_VISIT_FACEBOOK' => $lang['Visit_facebook'],
+
+/**
+ * Mod: Display the users last visit date and time.
+ * @since 2.0.9e
+ */
+	'L_USER_LAST_VISIT' => $lang['User_last_visit'],
+
+    'L_WEBSITE' => $lang['Website'],
+/*****[BEGIN]******************************************
+ [ Mod:    Birthdays                           v3.0.0 ]
+ ******************************************************/
 	'L_BIRTHDAY' => $lang['Birthday'],
-// End add - Birthday MOD
-        'L_GENDER' => $lang['Gender'],
-/*****************************************************/
-/* Forum - Arcade v.3.0.2                      START */
-/*****************************************************/
-        'L_ARCADE' => $lang['lib_arcade'],
-        'URL_STATS' => '<a class="genmed" href="' . append_sid("statarcade.$phpEx?uid=" . $profiledata['user_id'] ) . '">' . $lang['statuser'] . '</a> ',
-/*****************************************************/
-/* Forum - Arcade v.3.0.2                        END */
-/*****************************************************/
-/*****************************************************/
-/* Forum - User Online Status v.1.0.5          START */
-/*****************************************************/
-        'ONLINE_STATUS' => $online_status,
-        'L_ONLINE_STATUS' => $lang['Online_status'],
-/*****************************************************/
-/* Forum - User Online Status v.1.0.5            END */
-/*****************************************************/
+/*****[END]********************************************
+ [ Mod:    Birthdays                           v3.0.0 ]
+ ******************************************************/
+    'L_LOCATION' => $lang['Location'],
+    'L_OCCUPATION' => $lang['Occupation'],
+    'L_INTERESTS' => $lang['Interests'],
+/*****[BEGIN]******************************************
+ [ Mod:    Gender                              v1.2.6 ]
+ ******************************************************/
+    'L_GENDER' => $lang['Gender'], 
+/*****[END]********************************************
+ [ Mod:    Gender                              v1.2.6 ]
+ ******************************************************/
+/*****[BEGIN]******************************************
+ [ Mod:    YA Merge                            v1.0.0 ]
+ ******************************************************/
+    'L_EXTRA_INFO' => $lang['Extra_Info'],
+/*****[END]********************************************
+ [ Mod:    YA Merge                            v1.0.0 ]
+ ******************************************************/
 
-	'U_SEARCH_USER' => append_sid("search.$phpEx?search_author=" . $u_search_author),
-        'S_REPORT_USER' => $s_report_user,
-	'S_PROFILE_ACTION' => append_sid("profile.$phpEx"))
-);
-$cm_viewprofile->post_vars($template,$profiledata,$userdata);
-//====================================================================== |
-//==== Start Invision View Profile ===================================== |
-//==== v1.1.3 ========================================================== |
-//-- mod : groupes -----------------------------------------------------------------------------------
-$user_id = $userdata['user_id'];
-$view_user_id = $profiledata['user_id'];
-$groups = array();
-$sql = '
-	SELECT 
-		g.group_id, 
-		g.group_name, 
-		g.group_description, 
-		g.group_type 
-	FROM 
-		'.USER_GROUP_TABLE.' as l, 
-		'.GROUPS_TABLE.' as g 
-	WHERE 
-		l.user_pending = 0 AND 
-		g.group_single_user = 0 AND 
-		l.user_id ='. $view_user_id.' AND 
-		g.group_id = l.group_id 
-	ORDER BY 
-		g.group_name, 
-		g.group_id';
-if ( !($result = $db->sql_query($sql)) ) message_die(GENERAL_ERROR, 'Could not read groups', '', __LINE__, __FILE__, $sql);	
-while ($group = $db->sql_fetchrow($result)) $groups[] = $group;
+/*****[BEGIN]******************************************
+ [ Mod:     Arcade                             v3.0.2 ]
+ ******************************************************/
+    'L_ARCADE' => $lang['lib_arcade'],
+    'URL_STATS' => '<a href="' . append_sid("statarcade.$phpEx?uid=" . $profiledata['user_id'] ) . '">' . $lang['statuser'] . '</a>',
+/*****[END]********************************************
+ [ Mod:     Arcade                             v3.0.2 ]
+ ******************************************************/
 
-$template->assign_vars(array(
-	'L_USERGROUPS' => $lang['Usergroups'],
-	)
+/*****[BEGIN]******************************************
+ [ Mod:    Online/Offline/Hidden               v2.2.7 ]
+ ******************************************************/
+    'ONLINE_STATUS_IMG' => $online_status_img,
+    'ONLINE_STATUS' => $online_status,
+    'L_ONLINE_STATUS' => $lang['Online_status'],
+/*****[END]********************************************
+ [ Mod:    Online/Offline/Hidden               v2.2.7 ]
+ ******************************************************/
+
+    'U_SEARCH_USER' => append_sid("search.$phpEx?search_author=" . $u_search_author),
+
+    'S_PROFILE_ACTION' => append_sid("profile.$phpEx"))
 );
-if (count($groups) > 0)
-{  
-   $template->assign_block_vars('switch_groups_on', array());  
+
+/*****[BEGIN]******************************************
+ [ Mod:     XData                              v1.0.3 ]
+ ******************************************************/
+include_once('includes/bbcode.'.$phpEx);
+
+$xd_meta = get_xd_metadata();
+$xdata = get_user_xdata($_GET[POST_USERS_URL]);
+
+foreach ($xd_meta as $code_name => $info) {
+    $value = $xdata[$code_name] ?? null;
+    /*****[ANFANG]*****************************************
+     [ Mod:    XData Date Conversion               v0.1.1 ]
+     ******************************************************/
+    if ($info['field_type'] == 'date')
+  		{
+  				$value = create_date($userdata['user_dateformat'], $value, $userdata['user_timezone']);
+  		}
+    /*****[ENDE]*******************************************
+     [ Mod:    XData Date Conversion               v0.1.1 ]
+     ******************************************************/
+    if ( !$info['allow_html'] )
+    {
+        $value = preg_replace('#(<)([\/]?.*?)(>)#is', "&lt;\\2&gt;", (string) $value);
+    }
+    if ( $info['allow_bbcode'] && $profiledata['user_sig_bbcode_uid'] != '')
+    {
+        $value = bbencode_second_pass($value, $profiledata['xdata_bbcode']);
+    }
+    if ($info['allow_bbcode'])
+    {
+        $value = make_clickable($value);
+    }
+    if ( $info['allow_smilies'] )
+    {
+        $value = smilies_pass($value);
+    }
+    $value = str_replace("\n", "\n<br />\n", (string) $value);
+    if ( $info['display_viewprofile'] == XD_DISPLAY_NORMAL )
+    {
+        if ( isset($xdata[$code_name]) )
+        {
+            $template->assign_block_vars('xdata', ['NAME' => $info['field_name'], 'VALUE' => $value]
+            );
+        }
+    }
+    elseif ( $info['display_viewprofile'] == XD_DISPLAY_ROOT )
+    {
+        if ( isset($xdata[$code_name]) )
+        {
+            $template->assign_vars( [$code_name => $value] );
+            $template->assign_block_vars( "switch_$code_name", [] );
+        }
+        else
+        {
+            $template->assign_block_vars( "switch_no_$code_name", [] );
+        }
+    }
 }
+/*****[END]********************************************
+ [ Mod:     XData                              v1.0.3 ]
+ ******************************************************/
+
+/*****[BEGIN]******************************************
+ [ Mod:    YA Merge                            v1.0.0 ]
+ ******************************************************/
+// global $cookie;
+// $r_uid = intval($cookie[0]);
+// if($profiledata['user_id'] == $r_uid) {
+//     get_lang("Your_Account");
+//     define_once('CNBYA',true);
+//     include_once(NUKE_MODULES_DIR."Your_Account/navbar.php");
+//     nav(1);
+// }
+/*****[END]********************************************
+ [ Mod:    YA Merge                            v1.0.0 ]
+ ******************************************************/
+ 
+/*****[BEGIN]******************************************
+ [ Mod:    Admin User Notes                    v1.0.0 ]
+ ******************************************************/
+if ( $userdata['user_level'] == ADMIN )
 {
-	for ($i=0; $i < count($groups); $i++)
-	{
-		$is_ok = false;
-		//
-		// groupe invisible ?
-		if ( ($groups[$i]['group_type'] != GROUP_HIDDEN) || ($userdata['user_level'] == ADMIN) )
-		{
-			$is_ok=true;
-		}
-		else
-		{
-			$group_id = $groups[$i]['group_id'];
-			$sql = 'SELECT * FROM '.USER_GROUP_TABLE.' WHERE group_id='.$group_id.' AND user_id='.$user_id.' AND user_pending=0';
-			if ( !($result = $db->sql_query($sql)) ) message_die(GENERAL_ERROR, 'Couldn\'t obtain viewer group list', '', __LINE__, __FILE__, $sql);
-			$is_ok = ( $group = $db->sql_fetchrow($result) );
-		}  // end if ($view_list[$i]['group_type'] == GROUP_HIDDEN)
-		//
-		// groupe visible : afficher
-		if ($is_ok)
-		{
-			$u_group_name = append_sid("groupcp.php?g=".$groups[$i]['group_id']);
-			$l_group_name = $groups[$i]['group_name'];
-			$l_group_desc = $groups[$i]['group_description'];
-			$template->assign_block_vars('groups',array(
-				'U_GROUP_NAME' => $u_group_name,
-				'L_GROUP_NAME' => $l_group_name,
-				'L_GROUP_DESC' => $l_group_desc,
-				)
-			);
-		}  // end if ($is_ok)
-	}  // end for ($i=0; $i < count($groups); $i++)
-}  // end if (count($groups) > 0)
-//-- mod : groupes -----------------------------------------------------------------------------------
-//==== Author: Disturbed One [http://anthonycoy.com] =================== |
-//==== End Invision View Profile ======================================= |
-//====================================================================== |
-
-// START = Admin edit user profile link - sgtmudd
-	if  ( $userdata['user_level'] == ADMIN ) {
-$template->assign_vars(array( 
-	'EDIT_USER_PROFILE' => '<a target="_blank" href="' . append_sid("modules/Forums/admin/admin_users.php?mode=edit&u=" . $profiledata['user_id'] ) . '" rel="lyteframe" title="" rev="width: 990px; height: 600px; scrolling: yes;">' . $lang['Edit_user_Profile'] . '</a> '
-	));} else {}
-// END = Admin edit user profile link - sgtmudd
-
+  $template->assign_block_vars('switch_admin_notes', array());
+}
+/*****[END]********************************************
+ [ Mod:    Admin User Notes                    v1.0.0 ]
+ ******************************************************/
 $template->pparse('body');
 
-include_once("includes/page_tail.php");
+/*****[BEGIN]******************************************
+ [ Mod:    YA Merge                            v1.0.0 ]
+ ******************************************************/
+// global $admin;
+// if (is_admin()) 
+// {
+//     get_lang("Your_Account");
+
+//     echo "<center>";
+//     // if($profiledata['user_lastvisit'] != 0){
+//     //     echo "<center>"._LASTVISIT." <strong>".date($board_config['default_dateformat'],$profiledata['user_lastvisit'])."</strong><br />";
+//     // } else {
+//     //     echo "<center>"._LASTVISIT." <strong>"._LASTNA."</strong><br />";
+//     // }
+
+//     if ($profiledata['last_ip'] != 0) {
+//         echo "<center>"._LASTIP." <strong>".$profiledata['last_ip']."</strong><br /><br />";
+//         echo "[ <a href='".$admin_file.".php?op=ABBlockedIPAdd&amp;tip=".$profiledata['last_ip']."'>"._BANTHIS."</a> ]<br />";
+//     }
+//     echo "[ <a href=\"modules.php?name=Your_Account&amp;file=admin&amp;op=suspendUser&amp;chng_uid=".$profiledata['user_id']."\">"._SUSPENDUSER."</a> ] ";
+//     echo "[ <a href=\"modules.php?name=Your_Account&amp;file=admin&amp;op=deleteUser&amp;chng_uid=".$profiledata['user_id']."\">"._DELETEUSER."</a> ]<br />";
+//     echo "</center>";
+// }
+// global $currentlang;
+// if(!isset($currentlang)) { $currentlang = $nuke_config['language']; }
+// if (file_exists(NUKE_MODULES_DIR.'Your_Account/language/lang-'.$currentlang.'.php')) {
+//   @include_once(NUKE_MODULES_DIR.'Your_Account/language/lang-'.$currentlang.'.php');
+// } else {
+//   @include_once(NUKE_MODULES_DIR.'Your_Account/language/lang-english.php');
+// }
+// define_once('CNBYA',true);
+
+// $username = $profiledata['username'];
+// $usrinfo = $profiledata;
+// $incsdir = dir(NUKE_MODULES_DIR."Your_Account/includes");
+// $incslist = '';
+// while($func=$incsdir->read()) {
+//     if(substr($func, 0, 3) == "ui-") {
+//         $incslist .= "$func ";
+//     }
+// }
+// closedir($incsdir->handle);
+// $incslist = explode(" ", $incslist);
+// sort($incslist);
+// for ($i=0; $i < count($incslist); $i++) {
+//     if($incslist[$i]!="") {
+//         $counter = 0;
+//         include($incsdir->path."/$incslist[$i]");
+//     }
+// }
+/*****[END]********************************************
+ [ Mod:    YA Merge                            v1.0.0 ]
+ ******************************************************/
+
+include("includes/page_tail.php");
 
 ?>

@@ -9,16 +9,48 @@
 	<th colspan="2">{L_MOD_NAME}</th>
 </tr>
 <tr>
-	<td valign="top" class="row3">
-		<table cellpadding="10" cellspacing="1" border="0" class="bodyline">
-		<!-- BEGIN mod -->
+	<td valign="top" class="row3" width="250">
+		<!-- BEGIN menu -->
+		<table cellpadding="0" cellspacing="1" border="0" class="bodyline" width="100%">
 		<tr>
-			<td class="{mod.CLASS}" align="center" nowrap="nowrap"><a href="{mod.U_MOD}" class="gen">{mod.L_MOD}</a></td>
+			<td class="row3" align="center">
+				<!-- BEGIN title_open -->
+				<table cellspacing="0" cellpadding="2" border="0" width="100%">
+				<tr>
+					<td class="cat" align="center"><a href="{menu.U_MENU}" class="cattitle">{menu.L_MENU}</a></td>
+				</tr>
+				</table>
+				<!-- END title_open -->
+				<table cellpadding="10" cellspacing="1" border="0" class="bodyline" width="100%">
+				<!-- BEGIN title_close -->
+				<tr>
+					<td class="{menu.CLASS}" align="center"><a href="{menu.U_MENU}" class="gen">{menu.L_MENU}</a></td>
+				</tr>
+				<!-- END title_close -->
+				<!-- BEGIN mod -->
+				<tr>
+					<td class="{menu.mod.CLASS}" align="{menu.mod.ALIGN}" nowrap="nowrap" width="100%">
+						<a href="{menu.mod.U_MOD}" class="gen">{menu.mod.L_MOD}</a>
+						<!-- BEGIN sub -->
+						<hr />
+						<table cellpadding="2" cellspacing="1" border="0" align="left" width="100%">
+							<!-- BEGIN row -->
+							<tr>
+								<td align="left" class="{menu.mod.sub.row.CLASS}" nowrap="nowrap"><span class="genmed">&nbsp;&nbsp;&raquo;&nbsp;<a href="{menu.mod.sub.row.U_MOD}" class="genmed">{menu.mod.sub.row.L_MOD}</a>&nbsp;&nbsp;</span></td>
+							</tr>
+							<!-- END row -->
+						</table>
+						<!-- END sub -->
+					</td>
+				</tr>
+				<!-- END mod -->
+				</table>
+			</td>
 		</tr>
-		<!-- END mod -->
 		</table>
+		<!-- END menu -->
 	</td>
-	<td width="100%" valign="top" class="row3">
+	<td valign="top" class="row3">
 		<table cellpadding="5" cellspacing="1" border="0" width="100%" class="bodyline">
 		<!-- BEGIN field -->
 		<tr>

@@ -1,0 +1,61 @@
+/**********************************************************************/
+/* PHP-Nuke Platinum v.7.6.b.4                                   JAVA */
+/*                                                                    */
+/* If you attempt to add any java script [blocks, modules, addons etc]*/
+/* to your website and they fail to run, or appear in the incorrect   */
+/* position on your site - there is a fix.                            */
+/*                                                                    */
+/* If 2 or more java scripts use window.onload, one or more of these  */
+/* will not function correctly, or may appear in the incorrect        */
+/* position on your site.                                             */
+/*                                                                    */
+/* Note: Ignore this file if you are having no problems with java     */
+/*       script failures / incorrect positioning.                     */
+/**********************************************************************/
+/* Installation instructions:                                         */
+/* Steps to complete: 7                                               */
+/*                                                                    */
+/* 1. Open the file where the java failure is occuring [this will be  */
+/*    in one of the files you have recently added and noticed that the*/
+/*    java is not functioning correctly. [This is normally a block].  */
+/*                                                                    */
+/* 2. Search: window.onload=                                          */
+/*    You will find something like window.onload=TestExample          */
+/*                                                                    */
+/* 3. Replace window.onload=TestExample with:                         */
+/*    // window.onload=TestExample                                    */
+/*                                                                    */
+/*    For a better understanding of this, window.onload=TechGFX will  */
+/*    be commented out by placing 2 //'s infront of the code.         */
+/*                                                                    */
+/* 4. Open includes/shoutbox.js                                       */
+/*                                                                    */
+/* 5. Search: function allonloads() {                                 */
+/*                                                                    */
+/* 6. Add your events below the line in step 5. For example:          */
+/*                                                                    */
+/*    function allonloads() {                                         */
+/*    TestExample();                                                  */
+/*    TechGFX();                                                      */
+/*                                                                    */
+/*    Note: window.onload=TechGFX becomes TechGFX(); in this file.    */
+/*                                                                    */
+/* 7. Save, upload and overwrite shoutbox.js to /includes/            */
+/*                                                                    */
+/**********************************************************************/
+/*                              Original information [ourscripts.net] */
+/**********************************************************************/
+/* Original Platinum 7.6 package was created by                       */
+/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                */
+/*       Graeme Allan - Techgfx                   (goose@techgfx.com) */
+/**********************************************************************/
+/* All content and includes from this package is intellectual         */
+/* property of Techgfx unless stated otherwise. Replication of        */
+/* and copyrighted material is a civil and criminal act and           */
+/* voilations may result in legal action.                             */
+/**********************************************************************/
+/* See Nukeplanet.com for detailed information on Platinum 7.6.b.3    */
+/* Scott Partee - Loki   http://www.nukeplanet.com                    */
+/*                         (loki@nukeplanet.com                       */
+/* TechGFX: Your dreams, Our imagination                              */
+/**********************************************************************/

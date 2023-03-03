@@ -1,15 +1,19 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 
 /********************************************************/
 /* NukeSentinel(tm)                                     */
 /* By: NukeScripts Network (webmaster@nukescripts.net)  */
-/* http://www.nukescripts.net                           */
-/* Copyright © 2000-2007 by NukeScripts Network         */
+/* http://nukescripts.86it.us                           */
+/* Copyright (c) 2000-2008 by NukeScripts Network       */
 /* See CREDITS.txt for ALL contributors                 */
 /********************************************************/
 
 $pagetitle = _AB_NUKESENTINEL.": "._AB_TRACKEDIPS;
-include_once("header.php");
+include_once(NUKE_BASE_DIR.'header.php');
 OpenTable();
 OpenMenu(_AB_TRACKEDIPS);
 ipbanmenu();
@@ -22,18 +26,18 @@ OpenTable();
 $tbcol = 6;
 $perpage = $ab_config['track_perpage'];
 if($perpage == 0) { $perpage = 25; }
-if(!isset($showmodule)) $showmodule="All_Modules";
+if(!isset($showmodule)) $showmodule=" All Modules";
 if(!isset($min)) $min=0;
 if(!isset($max)) $max=$min+$perpage;
 if(!isset($column) or !$column or $column=="") $column = $ab_config['track_sort_column'];
 if(!isset($direction) or !$direction or $direction=="") $direction = $ab_config['track_sort_direction'];
-if(preg_match("/All.*Modules/", $showmodule) || !$showmodule ) {
+if(preg_match("#All(.*)Modules#", $showmodule) || !$showmodule ) {
   $modfilter="";
-} elseif(preg_match("/Admin/", $showmodule)) {
+} elseif(preg_match("#Admin#", $showmodule)) {
   $modfilter="WHERE page LIKE '%".$admin_file.".php%'";
-} elseif(preg_match("/Index/", $showmodule)) {
+} elseif(preg_match("#Index#", $showmodule)) {
   $modfilter="WHERE page LIKE '%index.php%'";
-} elseif(preg_match("/Backend/", $showmodule)) {
+} elseif(preg_match("#Backend#", $showmodule)) {
   $modfilter="WHERE page LIKE '%backend.php%'";
 } else {
   $modfilter="WHERE page LIKE '%name=$showmodule%'";
@@ -42,8 +46,8 @@ $totalselected = $db->sql_numrows($db->sql_query("SELECT `username`, `ip_addr`, 
 if($totalselected > 0) {
 	$selcolumn1=$selcolumn2=$selcolumn3=$selcolumn4=$selcolumn5=$selcolumn6='';
 	$seldirection1=$seldirection2='';
-  echo "<table width='100%' cellpadding='2' cellspacing='2' bgcolor='$bgcolor2' border='0'>\n";
-  echo "<tr><td colspan='$tbcol'><table width='100%' cellpadding='0' cellspacing='0' border='0'>\n";
+  echo "<table summary='' width='100%' cellpadding='2' cellspacing='2' bgcolor='$bgcolor2' border='0'>\n";
+  echo "<tr><td colspan='$tbcol'><table summary='' width='100%' cellpadding='0' cellspacing='0' border='0'>\n";
   echo "<tr>\n";
   // Page Sorting
   echo "<td align='left' bgcolor='$bgcolor2' width='40%'>";
@@ -51,21 +55,21 @@ if($totalselected > 0) {
   echo "<input type='hidden' name='min' value='$min' />\n";
   echo "<input type='hidden' name='showmodule' value='$showmodule' />\n";
   echo "<strong>"._AB_SORT.":</strong> <select name='column'>\n";
-  if($column == "ip_long") $selcolumn1 = "selected";
+  if($column == "ip_long") $selcolumn1 = "selected='selected'";
   echo "<option value='ip_long' $selcolumn1>"._AB_IPTRACKED."</option>\n";
-  if($column == "date") $selcolumn3 = "selected";
+  if($column == "date") $selcolumn3 = "selected='selected'";
   echo "<option value='date' $selcolumn3>"._AB_DATE."</option>\n";
-  if($column == "username") $selcolumn4 = "selected";
+  if($column == "username") $selcolumn4 = "selected='selected'";
   echo "<option value='username' $selcolumn4>"._AB_USERNAME."</option>\n";
-  if($column == 5) $selcolumn5 = "selected";
+  if($column == 5) $selcolumn5 = "selected='selected'";
   echo "<option value=5 $selcolumn5>"._AB_HITS."</option>\n";
-  if($column == "c2c") $selcolumn6 = "selected";
+  if($column == "c2c") $selcolumn6 = "selected='selected'";
   echo "<option value='c2c' $selcolumn6>"._AB_C2CODE."</option>\n";
   echo "</select> ";
   echo "<select name='direction'>\n";
-  if($direction == "asc") $seldirection1 = "selected";
+  if($direction == "asc") $seldirection1 = "selected='selected'";
   echo "<option value='asc' $seldirection1>"._AB_ASC."</option>\n";
-  if($direction == "desc") $seldirection2 = "selected";
+  if($direction == "desc") $seldirection2 = "selected='selected'";
   echo "<option value='desc' $seldirection2>"._AB_DESC."</option>\n";
   echo "</select> ";
   echo "<input type='submit' value='"._AB_SORT."' />\n";
@@ -75,7 +79,7 @@ if($totalselected > 0) {
   $handle=opendir('modules');
   $moduleslist = '';
   while($file = readdir($handle)) {
-    if( (!preg_match("/^[.]/",$file)) && !preg_match("/html$/", $file) ) {
+    if( (!preg_match("/^[\.]/",$file)) && !preg_match("/(html)$/", $file) ) {
       $moduleslist .= "$file ";
     }
   }
@@ -93,7 +97,7 @@ if($totalselected > 0) {
       $moduleslist[$i] = str_replace("&nbsp;", " ", $moduleslist[$i]);
       echo "<option value=\"$moduleslist[$i]\" ";
       if (!isset($showmodule)) $showmodule = '';
-      if($showmodule==$moduleslist[$i] OR ((!$showmodule OR $showmodule=="") AND $moduleslist[$i]==" All Modules")) { echo " selected"; }
+      if($showmodule==$moduleslist[$i] OR ((!$showmodule OR $showmodule=="") AND $moduleslist[$i]==" All Modules")) { echo " selected='selected'"; }
       echo ">".$moduleslist[$i]."</option>\n";
     }
   }
@@ -113,9 +117,9 @@ if($totalselected > 0) {
     echo "<tr onmouseover=\"this.style.backgroundColor='$bgcolor2'\" onmouseout=\"this.style.backgroundColor='$bgcolor1'\" bgcolor='$bgcolor1'>";
     echo "<td>";
     if($userid != 1) {
-      echo "<a href='modules.php?name=Your_Account&amp;op=userinfo&amp;username=$username' target='_blank'><img src='images/nukesentinel/usericon.png' height='12' width='12' alt='$username' title='$username' border='0' /></a>";
+      echo "<a href='modules.php?name=Your_Account&amp;op=userinfo&amp;username=$username' target='_blank'><img src='images/nukesentinel/usericon.png' height='16' width='16' alt='$username' title='$username' border='0' /></a>";
     } else {
-      echo "<img src='images/pix.gif' height='12' width='12' alt='' title='' border='0' />";
+      echo "<img src='images/nukesentinel/anonicon.png' height='16' width='16' alt='$anonymous' title='$anonymous' border='0' />";
     }
     echo " <a href='".$ab_config['lookup_link']."$ipaddr' target='_blank'>$ipaddr</a></td>";
     $getIPs['flag_img'] = flag_img($c2c);
@@ -142,7 +146,7 @@ if($totalselected > 0) {
     $counter = 1;
     $currentpage = ($max / $perpage);
     echo "<tr bgcolor='$bgcolor1'><td colspan='5'><img src='images/pix.gif' height='2' width='2' alt='' title='' /></td></tr>\n";
-    echo "<tr>\n<td colspan='5'>\n<table border='0' cellpadding='0' cellspacing='0' width='100%'>\n<tr>\n";
+    echo "<tr>\n<td colspan='5'>\n<table summary='' border='0' cellpadding='0' cellspacing='0' width='100%'>\n<tr>\n";
 
     echo "<td width='33%'>";
     echo "<form action='".$admin_file.".php?op=ABTracked' method='post'>\n";
@@ -168,7 +172,7 @@ if($totalselected > 0) {
       $cpage = $counter;
       $mintemp = ($perpage * $counter) - $perpage;
       if($counter == $currentpage) {
-        echo "<option selected>$counter</option>";
+        echo "<option selected='selected'>$counter</option>";
       } else {
         echo "<option value='$mintemp'>$counter</option>";
       }
@@ -199,6 +203,6 @@ if($totalselected > 0) {
   echo "<center><strong>"._AB_NOIPS."</strong></center>\n";
 }
 CloseTable();
-include_once("footer.php");
+include_once(NUKE_BASE_DIR.'footer.php');
 
 ?>

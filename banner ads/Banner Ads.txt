@@ -1,0 +1,59 @@
+/**********************************************************************/
+/* PHP-Nuke Platinum v.7.6.b.3                             BANNER ADS */
+/*                                                                    */
+/* If you wish to display banner ads on your PHP-Nuke Platinum website*/
+/* there are several modifications you must make. These modifications */
+/* are only required if you wish to place banners somewhere in your   */
+/* theme, i.e header, footer etc.                                     */
+/*                                                                    */
+/* If you wish to display banners in a block on your website, no      */
+/* modifications are needed, and you can disreguard this readme.      */
+/*                                                                    */
+/* Installation instructions:                                         */
+/*  Step 1. Follow the instructions below.                            */
+/*                                                                    */
+/**********************************************************************/
+
+/**********************************************************************/
+/*  Step 2.                                                BANNER ADS */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR-THEME/theme.php
+
+/*
+/******[ FIND ]********************************************************/
+/*
+    if ($banners == 1) {
+	@include_once("banners.php");
+    }
+
+/*
+/******[ REPLACE, WITH ]***********************************************/
+/* 
+    if ($banners == 1) {
+        @include_once("includes/babanners1.php");
+    }
+
+/*                                                                    */
+/***************[ SAVE/CLOSE/UPLOAD/REPLACE ALL FILES ]****************/
+/*                                                                    */
+/* Note: This all can be played around with. Instead of using         */
+/* babanners1.php, you may wish to use more than 1 include. There are */
+/* a  total of 4 banner includes you can use; babanners1.php,         */
+/* babanners2.php, babanners3.php and babanners4.php                  */
+/*                                                                    */
+/**********************************************************************/
+/* Original Platinum 7.6 package was created by                       */
+/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                */
+/*       Graeme Allan - Techgfx                   (goose@techgfx.com) */
+/**********************************************************************/
+/* All content and includes from this package is intellectual         */
+/* property of Techgfx unless stated otherwise. Replication of        */
+/* and copyrighted material is a civil and criminal act and           */
+/* voilations may result in legal action.                             */
+/**********************************************************************/
+/* See Nukeplanet.com for detailed information on Platinum 7.6.b.3    */
+/* Scott Partee - Loki   http://www.nukeplanet.com                    */
+/*                         (loki@nukeplanet.com                       */
+/* TechGFX: Your dreams, Our imagination                              */
+/**********************************************************************/

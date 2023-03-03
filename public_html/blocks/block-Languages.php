@@ -1,79 +1,81 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
+
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
-if ( !defined('BLOCK_FILE') ) {
-	Header('Location: ../index.php');
-	die();
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Nuke Patched                             v3.1.0       06/26/2005
+ ************************************************************************/
+
+if(!defined('NUKE_EVO')) exit;
+
+// useflags is set in configuration
+global $useflags, $currentlang, $admin_file, $multilingual;
+
+if (!$multilingual) {
+    return $content = '<br /><center>Multilingual is not enabled</center><br />';
 }
-global $useflags, $currentlang, $languageslist;
-if ($useflags == 1) {
-	$content = '<div align="center"><span class="content">'._SELECTGUILANG.'<br /><br />';
-	$langdir = dir('language');
-	while($func=$langdir->read()) {
-		if(substr($func, 0, 5) == 'lang-') {
-			$menulist .= $func.' ';
-		}
-	}
-	closedir($langdir->handle);
-	$menulist = explode(' ', $menulist);
-	sort($menulist);
-	for ($i=0; $i < sizeof($menulist); $i++) {
-		if(!empty($menulist[$i])) {
-			$tl = str_replace('lang-','',$menulist[$i]);
-			$tl = str_replace('.php','',$tl);
-			$altlang = ucfirst($tl);
-			$content .= '<a href="index.php?newlang='.$tl.'"><img src="images/language/flag-'.$tl.'.png" border="0" alt="'.$altlang.'" title="'.$altlang.'" hspace="3" vspace="3" /></a> ';
-		}
-	}
-	$content .= '</span></div>';
+
+$qs = defined('ADMIN_FILE') ? $admin_file.'.php?' : '&amp;';
+foreach($_GET as $var => $value) {
+    if ($var != 'newlang' && $var != 'name') {
+        $qs .= htmlspecialchars($var).'='.htmlspecialchars($value).'&amp;';
+    }
+}
+$qs .= 'newlang=';
+
+$langlist = lang_list();
+
+$menulist = '';
+$content = '<div align="center">'._SELECTGUILANG.'<br /><br />';
+if ($useflags) {
+    for ($i = 0, $maxi = count($langlist); $i < $maxi; $i++) {
+        if ($langlist[$i]!='') {
+            $imge = 'images/language/flag-'.$langlist[$i].'.png';
+            $altlang = ucwords($langlist[$i]);
+            if (defined('ADMIN_FILE')) {
+                $content .= '<a href="'.$qs.$langlist[$i].'">';
+            } elseif (!$name) {
+                $content .= '<a href="index.php?newlang='.$langlist[$i]."\">";
+            } else {
+                $content .= '<a href="modules.php?name='.$qs.$langlist[$i].'">';
+            }
+            $content .= (file_exists($imge)) ? "<img src=\"$imge\" align=\"middle\" border=\"0\" alt=\"$altlang\" title=\"$altlang\" hspace=\"3\" vspace=\"3\" />" : $altlang;
+            $content .= '</a> ';
+        }
+    }
 } else {
-	$content = '<div align="center"><span class="content">'._SELECTGUILANG.'<br /><br /></span>';
-	$content .= '<form onsubmit="this.submit.disabled=\'true\'" action="index.php" method="get">'
-		.'<select name="newlanguage" onchange="top.location.href=this.options[this.selectedIndex].value">';
-	$handle = opendir('language');
-	while ($file = readdir($handle)) {
-		if (preg_match('/^lang\-(.+)\.php/', $file, $matches)) {
-			$langFound = $matches[1];
-			$languageslist .= $langFound.' ';
-		}
-	}
-	closedir($handle);
-	$languageslist = explode(' ', $languageslist);
-	sort($languageslist);
-	for ($i=0; $i < sizeof($languageslist); $i++) {
-		if($languageslist[$i]!='') {
-			$content .= '<option value="index.php?newlang='.$languageslist[$i].'" ';
-			if($languageslist[$i]==$currentlang) $content .= ' selected="selected"';
-			$content .= '>'.ucfirst($languageslist[$i]).'</option>';
-		}
-	}
-	$content .= '</select></form></div>';
+    $content .= '<form action="" method="get">
+    <select name="newlanguage" onchange="top.location.href=this.options[this.selectedIndex].value">';
+    for ($i=0, $maxi=count($langlist); $i < $maxi; $i++) {
+        if ($langlist[$i]!='') {
+            if (defined('ADMIN_FILE')) {
+                $content .= '<option value="'.$qs.$langlist[$i].'"';
+            } elseif (!$name) {
+                $content .= '<option value="index.php?newlang='.$langlist[$i]."\"";
+            } else {
+                $content .= '<option value="modules.php?name='.$qs.$langlist[$i].'"';
+            }
+            if ($langlist[$i]==$currentlang) $content .= ' selected="selected"';
+            $content .= '>'.ucwords($langlist[$i])."</option>\n";
+        }
+    }
+    $content .= '</select></form>';
 }
+$content .= '</div>';
+
 ?>

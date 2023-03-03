@@ -1,0 +1,2 @@
+ALTER TABLE nuke_reviews ADD asin VARCHAR(10) DEFAULT NULL;
+ALTER TABLE nuke_reviews_add ADD asin VARCHAR(10) DEFAULT NULL;

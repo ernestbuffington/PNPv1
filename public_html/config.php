@@ -1,120 +1,181 @@
 <?php
 
+/*=======================================================================
+ PHP-Nuke Titanium : Enhanced and Advanced PHP-Nuke Web Portal System
+ =======================================================================*/
+
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Advanced Content Management System                         */
+/* ============================================                         */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*                                                                      */
-/* Platinum Nuke Pro: Expect to be Impressed!                           */
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
 
-if (stristr(htmlentities($_SERVER['PHP_SELF']), 'config.php')) {
-Header('Location: index.php');
-die();
+if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
+  exit('Access Denied');
 }
 
-/************************************************************************
-/ Database & System Config
-/
-/ $dbhost...........SQL Database Hostname
-/ $dbuname..........SQL Username
-/ $dbpass...........SQL Password
-/ $dbname...........SQL Database Name
-/ $prefix...........Your Database table's prefix
-/ $user_prefix......Your Users' Database table's prefix (To share it)
-/ $dbtype...........Your Database Server type. Supported servers are:
-/					MySQLi, mysql4, postgres, mssql, oracle, msaccess,
-/					db2 and mssql-odbc
-/					Be sure to write it exactly as above, case SeNsItIvE!
-/ $sitekey..........Security Key. CHANGE it to whatever you want, as long
-/					as you want. Just don't use quotes.
-/ $gfx_chk :........Set the graphic security code on every login screen,
-/					You need to have GD extension installed:
-/					0: No check
-/					1: Administrators login only
-/					2: Users login only
-/					3: New users registration only
-/					4: Both, users login and new users registration only
-/					5: Administrators and users login only
-/					6: Administrators and new users registration only
-/					7: Everywhere on all login options (Admins and Users)
-/					NOTE: If you aren't sure set this value to 0
-/ $subscription_url.If you manage subscriptions on your site, you
-/					must write here the url of the subscription
-/					information/renewal page. This will send by
-/					email if set.
-/ $admin_file.......Administration panel filename. "admin" by default for
-/					"admin.php". To improve security please rename the file
-/					"admin.php" and change the  value to the
-/					new filename (without the extension .php)
-/ $tipath...........Path to where the topic images are stored.
-/ $display_errors...Debug control to see PHP generated errors.
-/ 					false: Don't show errors
-/					true: See all errors ( No notices )
-/
-/************************************************************************/
-$dbhost = "localhost";
-$dbuname = "platinum_db";
-$dbpass = "";
-$dbname = "platinum_db";
-$prefix = "nuke";
-$user_prefix = "nuke";
-$dbtype = "MySQLi";
-$sitekey = ".hLh,FuLFN2ChC6dCg90OFVJV6FfKH9.SWf7KJOv";
-$gfx_chk = 0;
-$subscription_url = '';
+/*----[ Welcome! ] ---------------------------------------
+|                                                         |
+| Welcome to PHP-Nuke Titanium, an advanced content       |
+| management system based on PHP-Nuke                     |
+|                                                         |
+---------------------------------------------------------*/
+
+/*----[ $dbhost ] ----------------------------------------
+|                                                         |
+| Your database host, normally 'localhost'                |
+| Default: localhost                                      |
+|                                                         |
+---------------------------------------------------------*/
+$dbhost = 'localhost';
+
+/*----[ $dbname ] ----------------------------------------
+|                                                         |
+| The name of your database that holds your tables        |
+|                                                         |
+---------------------------------------------------------*/
+$dbname = '';
+
+/*----[ $dbuname ] ---------------------------------------
+|                                                         |
+| The username linked to your database, must have correct |
+| permissions                                             |
+|                                                         |
+---------------------------------------------------------*/
+$dbuname = '';
+
+/*----[ $dbpass ] ----------------------------------------
+|                                                         |
+| The password associated with your db usersname          |
+|                                                         |
+---------------------------------------------------------*/
+$dbpass = '';
+
+/*----[ $dbtype ] ----------------------------------------
+|                                                         |
+| The type of SQL server you prefer to use                |
+|                                                         |
+| Choose from the following (case-sensitive):             |
+|    - mysql (4.x or later)                               |
+|    - mysqli (PHP must be compiled with "System Mysql")  |
+|                                                         |
+| Default: mysqli                                         |
+|                                                         |
+---------------------------------------------------------*/
+$dbtype = 'mysqli';
+
+/*----[ $prefix ] ----------------------------------------
+|                                                         |
+| The prefix for your PHP-Nuke Titanium tables            |
+|                                                         |
+---------------------------------------------------------*/
+$prefix = 'nuke';
+
+/*----[ $user_prefix ] -----------------------------------
+|                                                         |
+| The prefix for your PHP-Nuke Titanium tables            |
+| Do not change this unless it is really needed           |
+|                                                         |
+---------------------------------------------------------*/
+$user_prefix = 'nuke';
+
+/*----[ $admin_file ] ------------------------------------
+|                                                         |
+| The filename of your Admin File                         |
+|                                                         |
+| If you change this to something other than it's default |
+| value, you must also rename the file called 'admin.php' |
+| to the new value you assigned to this variable          |
+|                                                         |
+| Default: admin.php                                      |
+|                                                         |
+---------------------------------------------------------*/
 $admin_file = 'admin';
-$tipath = "images/topics/";
-$display_errors = 1; //  1 = on / 0 = off
 
-/*********************************************************************/
-/* You finished configuring the Database. Now you can change all     */
-/* you want in the Administration Section.   To enter just launch    */
-/* your web browser pointing to http://yourdomain.com/admin.php      */
-/* (For example: platinumnukepro.com/admin.php                       */
-/*                                                                   */
-/* Remember to go to Settings section where you can configure your   */
-/* new site. In that menu you can change all you need to change.     */
-/*                                                                   */
-/* Thanks for choosing Platinum Nuke Pro: The Future of the Web      */
-/*********************************************************************/
-/*********************************************************************/
-/* Include the configuration options for Platinum Nuke Pro  START    */
-/*********************************************************************/
-// Specifically for Donations module IPN check
-if (!isset($ipnCheck)) { /* do not display the following */ 
+/*----[ $directory_mode ] ------------------------------------------
+|                                                                   |
+| permissions - by default, PNT will create new folders with the    |
+| permissions set with the following settings.  NOTE: do NOT use    |
+| quotes around this value or it will not work.                     |
+| Examples:                                                         |
+| Server API = Apache = 0777                                        |
+| Server API = CGI = 0755                                           |
+|                                                                   |
+-------------------------------------------------------------------*/
+$directory_mode = 0777;
 
-	if (defined('INCLUDE_PATH') && file_exists(INCLUDE_PATH . 'pnpconfig.php')) {
-		require_once INCLUDE_PATH . 'pnpconfig.php';
-	} else {
-		echo "<link rel='stylesheet' href='includes/infobar/infobar.css' type='text/css' />
-	";
-		echo '<<< ERROR
-			<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-		<head>
-			<title>Unable To Locate PNPro CONFIG file!</title>
-		</head>
-		<body>
-		<table align="center" class="submenu" width="95%" height="50%" border="0" cellspacing="0" cellpadding="10">
-			<tr><td>
-			<div align="center">ERROR with the configuration<br />Unable to locate the platinumnukepro configuration file - pnpconfig.php<br /></div>
-			<br /><br /><div>
-			It could be missing or not readable. Please verify that the file exists and is readable in the root folder.<br />
-			<br />
-			This may also be caused by a third party module/script which attempts to include config.php directly rather than including mainfile.php and letting it load config.php, or otherwise does not follow platinumnukepro standards on how the constant INCLUDE_PATH is defined (this is done in mainfile.php, and is dependent upon other constants).</div>
-			</td>
-			</tr></table>
-		</body>
-	</html>
-	ERROR';
-	}
-}
+/*----[ $file_mode ] -------------------------------------------------- 
+|                                                                      |
+| file permissions mode - by default, PNT will create all new files    |
+| with the permissions that are provided here.  NOTE: do NOT use any   |
+| quotes (single or double) around this value or it will not work.     |
+| Examples:                                                            |
+| Server API = Apache = 0666                                           |
+| Server API = CGI = 0644                                              |
+|                                                                      |
+----------------------------------------------------------------------*/
+$file_mode = 0666;
+
+/*----[ $debug ] -----------------------------------------
+|                                                         |
+| Debugging Status of your website                        |
+|                                                         |
+| If you want errors being shown, set this to true.       |
+| It will also display evo notices at the footer,         |
+| but that's visible for admins only.                     |
+| If you dont want any errors being shown,                |
+| set this to false.                                      |
+|                                                         |
+| Default: true                                           |
+|                                                         |
+---------------------------------------------------------*/
+$debug = true;
+
+/*----[ $use_cache ] -----=-------------------------------
+|                                                         |
+| Use caching of database fetched data                    |
+|                                                         |
+| You can choose between these options:                   |
+|   0: Cache Off                                          |
+|   1: File Cache                                         |
+|       - Faster load, more server usage                  |
+|         We recommend you use SQL cache if you have      |
+|         problems with the File Cache                    |
+|   2: SQL Cache                                          |
+|       - One more query per page, less server usage      |
+|                                                         |
+| Default: 1 (File Cache)                                 |
+|                                                         |
+---------------------------------------------------------*/
+$use_cache = 1;
+
+/*----[ $persistency ] -----------------------------------
+|                                                         |
+| Allow persistent database connections                   |
+| true = On                                               |
+| false = Off                                             |
+|                                                         |
+---------------------------------------------------------*/
+$persistency = false;
+
+/**********************************************************************/
+/*                                                                    */
+/* You have finished configuration of your site. Now you can change   */
+/* all you want in the Administration Section. To enter just launch   */
+/* your web browser pointing to http://yourdomain.com/admin.php       */
+/* (or whatever you have setup in $admin_file)                        */
+/*                                                                    */
+/* Remember to go to the Settings section where you can configure     */
+/* your new site.                                                     */
+/*                                                                    */
+/* Congratulations! Now you have the webs best portal installed!      */
+/* Thanks for choosing PHP-Nuke Titanium, we hope you enjoy using it! */
+/*                                                                    */
+/**********************************************************************/
 ?>

@@ -12,8 +12,8 @@ use PHPStan\PhpDocParser\Ast\Type\UnionTypeNode;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeWithClassName;
 use function array_key_exists;
-use function count;
 class MockObjectTypeNodeResolverExtension implements TypeNodeResolverExtension, TypeNodeResolverAwareExtension
 {
     /** @var TypeNodeResolver */
@@ -31,14 +31,13 @@ class MockObjectTypeNodeResolverExtension implements TypeNodeResolverExtension, 
         if (!$typeNode instanceof UnionTypeNode) {
             return null;
         }
-        static $mockClassNames = ['PHPUnit_Framework_MockObject_MockObject' => \true, 'RectorPrefix202302\\PHPUnit\\Framework\\MockObject\\MockObject' => \true, 'RectorPrefix202302\\PHPUnit\\Framework\\MockObject\\Stub' => \true];
+        static $mockClassNames = ['PHPUnit_Framework_MockObject_MockObject' => \true, 'RectorPrefix202301\\PHPUnit\\Framework\\MockObject\\MockObject' => \true, 'RectorPrefix202301\\PHPUnit\\Framework\\MockObject\\Stub' => \true];
         $types = $this->typeNodeResolver->resolveMultiple($typeNode->types, $nameScope);
         foreach ($types as $type) {
-            $classNames = $type->getObjectClassNames();
-            if (count($classNames) !== 1) {
+            if (!$type instanceof TypeWithClassName) {
                 continue;
             }
-            if (array_key_exists($classNames[0], $mockClassNames)) {
+            if (array_key_exists($type->getClassName(), $mockClassNames)) {
                 $resultType = TypeCombinator::intersect(...$types);
                 if ($resultType instanceof NeverType) {
                     continue;

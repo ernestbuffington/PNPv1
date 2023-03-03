@@ -1,0 +1,21 @@
+Also Chmod the following folders.
+
+1.All the folders in the modules\My_eGallery\gallery folder  to 777
+2.modules/My_eGallery/temp  to 777
+3.backup folder to 777
+4.backup/file folder to 777
+5.includes/smtp.php to 666
+
+Open includes/constants.php 
+
+FIND:
+
+define("CNBYA_DOMAINNAME", "");
+
+Change to 
+
+define("CNBYA_DOMAINNAME", "yoursite.com");   or if your site is in a subfolder
+
+define("CNBYA_DOMAINNAME", "yoursite.com/foldername");
+
+

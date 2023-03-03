@@ -1,50 +1,52 @@
 <?php
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
 
-if ( !defined('MODULE_FILE') )
-{
-   die("You can't access this file directly...");
+
+/***************************************************************************
+ *                                  faq.php
+ *                            -------------------
+ *   begin                : Sunday, Jul 8, 2001
+ *   copyright            : (C) 2001 The phpBB Group
+ *   email                : support@phpbb.com
+ *
+ *   Id: faq.php,v 1.14.2.2 2004/07/11 16:46:15 acydburn Exp
+ *
+ ***************************************************************************/
+
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ ***************************************************************************/
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Nuke Patched                             v3.1.0       06/26/2005
+-=[Mod]=-
+      Attachment Mod                           v2.4.1       07/20/2005
+      FAQ Admin Addon                          v1.0.0       07/08/2005
+ ************************************************************************/
+
+if (!defined('MODULE_FILE')) {
+   die ("You can't access this file directly...");
 }
 
 $module_name = basename(dirname(__FILE__));
-require_once("modules/".$module_name."/nukebb.php");
+require("modules/".$module_name."/nukebb.php");
 
 define('IN_PHPBB', true);
-include_once($phpbb_root_path . 'extension.inc');
-include_once($phpbb_root_path . 'common.'.$phpEx);
+include($phpbb_root_path . 'extension.inc');
+include($phpbb_root_path . 'common.'.$phpEx);
 
 //
 // Start session management
 //
-$userdata = session_pagestart($user_ip, PAGE_FAQ, $nukeuser);
+$userdata = session_pagestart($user_ip, PAGE_FAQ);
 init_userprefs($userdata);
 //
 // End session management
@@ -54,32 +56,49 @@ $faq = array();
 //
 // Load the appropriate faq file
 //
-if( isset($_GET['mode']) )
-{
-        switch( $_GET['mode'] )
+/*if( isset($HTTP_GET_VARS['mode']) )
+{*/
+$mode = request_var('mode', '');
+        switch(isset($HTTP_GET_VARS['mode']))
         {
                 case 'bbcode':
                         $lang_file = 'lang_bbcode';
                         $l_title = $lang['BBCode_guide'];
                         break;
+/*****[BEGIN]******************************************
+ [ Mod:    FAQ Admin Addon                     v1.0.0 ]
+ ******************************************************/
+                case 'faq_attach':
+                        $lang_file = 'lang_faq_attach';
+                        $l_title = $lang['BBCode_attach'];
+                        break;
                 case 'rules':
-                      $lang_file = 'lang_rules';
-                      $l_title = $lang['Rules'];
-                      break;
+                        $lang_file = 'lang_rules';
+                        $l_title = $lang['BBCode_rules'];
+                        break;
+/*****[END]********************************************
+ [ Mod:    FAQ Admin Addon                     v1.0.0 ]
+ ******************************************************/
                 default:
                         $lang_file = 'lang_faq';
                         $l_title = $lang['FAQ'];
                         break;
         }
-}
+/*}
 else
 {
         $lang_file = 'lang_faq';
         $l_title = $lang['FAQ'];
-}
-include_once($phpbb_root_path . 'language/lang_' . $board_config['default_lang'] . '/' . $lang_file . '.' . $phpEx);
+}*/
+include($phpbb_root_path . 'language/lang_' . $board_config['default_lang'] . '/' . $lang_file . '.' . $phpEx);
 
-attach_faq_include_once($lang_file);
+/*****[BEGIN]******************************************
+ [ Mod:    Attachment Mod                      v2.4.1 ]
+ ******************************************************/
+attach_faq_include($lang_file);
+/*****[END]********************************************
+ [ Mod:    Attachment Mod                      v2.4.1 ]
+ ******************************************************/
 
 //
 // Pull the array data from the lang pack
@@ -115,7 +134,7 @@ for($i = 0; $i < count($faq); $i++)
 // Lets build a page ...
 //
 $page_title = $l_title;
-include_once("includes/page_header.php");
+include("includes/page_header.php");
 
 $template->set_filenames(array(
         'body' => 'faq_body.tpl')
@@ -165,6 +184,6 @@ for($i = 0; $i < count($faq_block); $i++)
 
 $template->pparse('body');
 
-include_once("includes/page_tail.php");
+include("includes/page_tail.php");
 
 ?>

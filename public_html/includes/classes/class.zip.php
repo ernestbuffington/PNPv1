@@ -187,7 +187,7 @@
   //   Note that no real action is taken, if the archive does not exist it is not
   //   created. Use create() for that.
   // --------------------------------------------------------------------------------
-  function PclZip($p_zipname)
+  function __construct($p_zipname)
   {
 
     // ----- Tests the zlib
@@ -3362,6 +3362,18 @@
           }
       }
 
+      // ----- Look for extract by ereg rule
+      // ereg() is deprecated with PHP 5.3
+      /* 
+      else if (   (isset($p_options[PCLZIP_OPT_BY_EREG]))
+               && ($p_options[PCLZIP_OPT_BY_EREG] != "")) {
+
+          if (ereg($p_options[PCLZIP_OPT_BY_EREG], $v_header['stored_filename'])) {
+              $v_extract = true;
+          }
+      }
+      */
+
       // ----- Look for extract by preg rule
       else if (   (isset($p_options[PCLZIP_OPT_BY_PREG]))
                && ($p_options[PCLZIP_OPT_BY_PREG] != "")) {
@@ -4730,6 +4742,18 @@
               }
           }
       }
+
+      // ----- Look for extract by ereg rule
+      // ereg() is deprecated with PHP 5.3
+      /*
+      else if (   (isset($p_options[PCLZIP_OPT_BY_EREG]))
+               && ($p_options[PCLZIP_OPT_BY_EREG] != "")) {
+
+          if (ereg($p_options[PCLZIP_OPT_BY_EREG], $v_header_list[$v_nb_extracted]['stored_filename'])) {
+              $v_found = true;
+          }
+      }
+      */
 
       // ----- Look for extract by preg rule
       else if (   (isset($p_options[PCLZIP_OPT_BY_PREG]))

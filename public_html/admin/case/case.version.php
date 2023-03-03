@@ -1,42 +1,38 @@
 <?php
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
 
-if ( !defined('ADMIN_FILE') ) {
-	die("Illegal Admin File Access");
+
+/************************************************************************
+   Nuke-Evolution: Advanced Content Management System
+   ============================================
+   Copyright (c) 2005 by The Nuke-Evolution Team
+
+   Filename      : case.version.php
+   Author        : Technocrat (www.nuke-evolution.com)
+   Version       : 1.0.0
+   Date          : 06/16/2005 (dd-mm-yyyy)
+
+   Notes         : Verifies if latest Nuke-Evolution Basic Release is
+                   installed and a recent changelog.
+************************************************************************/
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Nuke Patched                             v3.1.0       06/26/2005
+-=[Mod]=-
+      Evolution Version Checker                v1.0.0       06/16/2005
+ ************************************************************************/
+
+if (!defined('ADMIN_FILE')) {
+    die ('Illegal File Access');
 }
 
 switch($op) {
 
     case "version":
-    include_once("admin/modules/version.php");
+        include(NUKE_ADMIN_MODULE_DIR.'version.php');
     break;
 
 }

@@ -1,33 +1,15 @@
 <?php
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
 /************************************************************************/
 /* HTML Newsletter 1.0 module for PHP-Nuke 6.5 - 7.6                    */
 /* By: NukeWorks (webmaster@nukeworks.biz)                              */
@@ -44,7 +26,7 @@
 ************************************************************************/
 /************************************************************************
 * Script:			HTML Newsletter module for PHP-Nuke 6.5 - 7.6
-* Version:		01.03.02
+* Version:		01.03.01
 * Author:			Rob Herder (aka: montego) of montegoscripts.com
 * Contact:		montego@montegoscripts.com
 * Copyright:	Copyright © 2006 by Montego Scripts
@@ -135,7 +117,7 @@ opentable();
 
 echo "<p><strong>"._MSNL_ADM_LAB_LETTER."</strong></p>\n";
 
-echo "<table ${msnl_asCSS['TABLE_adm']}>\n";
+echo "<table border=\"1\" width=\"100%\">\n";
 
 //Topic - Newsletter topic text
 
@@ -150,7 +132,7 @@ if ( isset( $_POST['msnl_topic'] ) ) {
 }
 
 echo "<tr ${msnl_asCSS['TR_top']}>"
-			."<td ${msnl_asCSS['TD_hdr_adm']}>"
+			."<td>"
 				.msnl_fShowHelp( _MSNL_ADM_HLP_TOPIC, _MSNL_ADM_LAB_TOPIC )
 				. _MSNL_ADM_LAB_TOPIC
 				.":&nbsp;"
@@ -173,7 +155,7 @@ if ( isset( $_POST['msnl_sender'] ) ) {
 }
 
 echo "<tr ${msnl_asCSS['TR_top']}>"
-			."<td ${msnl_asCSS['TD_hdr_adm']}>"
+			."<td>"
 				.msnl_fShowHelp( _MSNL_ADM_HLP_SENDER, _MSNL_ADM_LAB_SENDER )
 				. _MSNL_ADM_LAB_SENDER
 				.":&nbsp;"
@@ -186,7 +168,7 @@ echo "<tr ${msnl_asCSS['TR_top']}>"
 //Newsletter Category
 
 echo "<tr ${msnl_asCSS['TR_top']}>\n"
-			."<td ${msnl_asCSS['TD_hdr_adm']}>\n"
+			."<td>\n"
 				.msnl_fShowHelp( _MSNL_ADM_HLP_NLSCAT, _MSNL_ADM_LAB_NLSCAT )
 				._MSNL_ADM_LAB_NLSCAT.":&nbsp;"
 			."</td>\n"
@@ -200,29 +182,20 @@ echo "</td>\n"
 //Newsletter Body
 
 echo "<tr ${msnl_asCSS['TR_top']}>\n"
-			."<td ${msnl_asCSS['TD_hdr_adm']}>\n"
+			."<td>\n"
 				.msnl_fShowHelp( _MSNL_ADM_HLP_TEXTBODY, _MSNL_ADM_LAB_TEXTBODY )
 				._MSNL_ADM_LAB_TEXTBODY.":&nbsp;"
 			."</td>\n"
 			."<td>"._MSNL_ADM_LAB_HTMLOK."</td>\n"
 		."</tr>";
-			
-if ( isset( $advanced_editor ) && $advanced_editor == 1 && $msnl_gasModCfg['wysiwyg_on'] == 1 ) {
-
-	echo "</table>\n";
-
-	wysiwyg_textarea( "msnl_textbody", $_POST['msnl_textbody'], "PHPNukeAdmin", "100", $msnl_gasModCfg['wysiwyg_rows'] );
-	
-} else {
 
 	echo "<tr ${msnl_asCSS['TR_top']}>\n";
 	echo "<td colspan=\"2\">\n";
-	echo "<textarea name='msnl_textbody' cols='100' rows='".$msnl_gasModCfg['wysiwyg_rows']."'>";
-	echo stripslashes( $_POST['msnl_textbody'] )."</textarea>\n";
+	//echo "<textarea name='msnl_textbody' cols='100' rows='".$msnl_gasModCfg['wysiwyg_rows']."'>";
+	echo Make_TextArea('msnl_textbody', $_POST['msnl_textbody'], 'PHPNukeAdmin', '100%');
+	//echo stripslashes( $_POST['msnl_textbody'] )."</textarea>\n";
 	echo "</td>\n</tr>\n";
 	echo "</table>\n";
-	
-}
 
 //Close out this section
 
@@ -236,7 +209,7 @@ echo "</div>\n";
 
 echo "<div id='msnl_div_templates'>\n";
 
-echo "<br />";
+echo "<br>";
 opentable();
 
 echo "<p><strong>"._MSNL_ADM_LAB_TEMPLATES."</strong></p>\n";
@@ -261,7 +234,7 @@ if ( $_POST['msnl_template'] == "notemplate" || $_POST['msnl_template'] == "" ) 
 
 }
 
-echo ">&nbsp;No Template<br />\n";
+echo ">&nbsp;No Template<br>\n";
 
 //Write out list of template options based on the templates directory folder names
 
@@ -296,7 +269,7 @@ if ( @is_dir( $msnl_sTmpltDir ) ) { //First make sure the templates directory ex
 								."alt=\""._MSNL_ADM_LNK_SHOWTEMPLATE."\">"
 							."</a>\n";
 
-					echo "<br />\n";
+					echo "<br>\n";
 
 				}
 
@@ -326,7 +299,7 @@ echo "</div>\n";
 
 echo "<div id='msnl_div_includes'>\n";
 
-echo "<br />";
+echo "<br>";
 opentable();
 
 echo "<p><strong>"._MSNL_ADM_LAB_STATS."</strong></p>\n";
@@ -377,7 +350,7 @@ echo "</div>\n";
 
 echo "<div id='msnl_div_latest'>\n";
 
-echo "<br />";
+echo "<br>";
 opentable();
 
 echo "<p><strong>"._MSNL_ADM_LAB_INCLLATEST."</strong></p>\n";
@@ -495,7 +468,7 @@ echo "</div>\n";
 
 echo "<div id='msnl_div_sponsors'>\n";
 
-echo "<br />";
+echo "<br>";
 opentable();
 
 echo "<p><strong>"._MSNL_ADM_LAB_SPONSORS."</strong></p>\n";

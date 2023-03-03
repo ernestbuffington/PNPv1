@@ -1,0 +1,50 @@
+Web Services Licensing Agreement
+D. Storage and Obligation to Refresh 
+
+1) You may store Amazon Properties generally (other than pricing or availability information) for caching purposes for up to 24 hours, however, you may store the following Amazon Properties for caching purposes for up to 3 months: 
+
+URL 
+ASIN 
+ProductName 
+Catalog 
+Artists 
+Authors 
+MPN 
+Starring 
+ISBN 
+Directors 
+Manufacturer 
+Media 
+Distributor 
+Release Date 
+Publisher 
+NumMedia 
+UPC 
+ReadingLevel 
+TheatricalReleaseDate 
+Platforms 
+MpaaRating 
+EsrbRating 
+AgeGroup 
+Encoding
+Without limitation of Amazon's rights under Section D4 below, you specifically acknowledge and agree that at any time Amazon may direct you to delete any of the above Amazon Properties and you will promptly comply with any such direction;
+
+2) You must refresh and re-display any Amazon Properties (other than pricing or availability information) at least once every 24 hours or 3 months as applicable, by making a call to Amazon Web Services and refreshing your Application's contents immediately after the call; 
+
+3) If you display pricing or availability information on or within your Application, you must refresh the information by making a call to Amazon Web Services at least once per week and re-display the information and refresh your Application’s contents immediately after the call; 
+
+4) If you choose to make a call to Amazon Web Services less frequently than hourly, you must include a time/date stamp adjacent to the pricing or availability information. (If the pricing or availability information being displayed was requested on the current day, you may omit the date portion of the stamp.) Additionally, you must include the following disclaimer either adjacent to the pricing or availability information, or provide it via a hyperlink, popup box, scripted popup, or other similar method:
+
+Price is accurate as of the date/time indicated. Prices and product availability are subject to change. Any price displayed on the Amazon website at the time of purchase will govern the sale of this product.
+
+Examples of acceptable messaging include:
+
+Amazon.com Price: $32.77 (as of 01/07/2004 - Details)
+
+Amazon.com Price: $32.77 (as of 14:11 PST - More info)
+
+In the above examples, “Details” and “More info” would provide a method for the user to read the disclaimer.
+
+In addition, if you create a handheld or other mobile Application, instead of displaying the time/date stamp and disclaimer next to the pricing or availability information, you may show that information in a dialog box each time the Application is started. 
+
+5) You may not continue to use, and must immediately remove from your Application and any personal database or server (or any other repository in your possession or under your control), any Amazon Properties that return a null value when an Amazon Web Services call is made or that we notify you are no longer available for use; 

@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix202302\SebastianBergmann\Diff;
+namespace RectorPrefix202301\SebastianBergmann\Diff;
 
 use const PHP_INT_SIZE;
 use const PREG_SPLIT_DELIM_CAPTURE;
@@ -20,15 +20,20 @@ use function array_values;
 use function count;
 use function current;
 use function end;
+use function get_class;
+use function gettype;
+use function is_array;
+use function is_object;
 use function is_string;
 use function key;
 use function min;
 use function preg_split;
 use function prev;
 use function reset;
-use function str_ends_with;
+use function sprintf;
 use function substr;
-use RectorPrefix202302\SebastianBergmann\Diff\Output\DiffOutputBuilderInterface;
+use RectorPrefix202301\SebastianBergmann\Diff\Output\DiffOutputBuilderInterface;
+use RectorPrefix202301\SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 final class Differ
 {
     public const OLD = 0;
@@ -37,33 +42,66 @@ final class Differ
     public const DIFF_LINE_END_WARNING = 3;
     public const NO_LINE_END_EOF_WARNING = 4;
     /**
-     * @var \SebastianBergmann\Diff\Output\DiffOutputBuilderInterface
+     * @var DiffOutputBuilderInterface
      */
     private $outputBuilder;
-    public function __construct(DiffOutputBuilderInterface $outputBuilder)
+    /**
+     * @param DiffOutputBuilderInterface $outputBuilder
+     *
+     * @throws InvalidArgumentException
+     */
+    public function __construct($outputBuilder = null)
     {
-        $this->outputBuilder = $outputBuilder;
+        if ($outputBuilder instanceof DiffOutputBuilderInterface) {
+            $this->outputBuilder = $outputBuilder;
+        } elseif (null === $outputBuilder) {
+            $this->outputBuilder = new UnifiedDiffOutputBuilder();
+        } elseif (is_string($outputBuilder)) {
+            // PHPUnit 6.1.4, 6.2.0, 6.2.1, 6.2.2, and 6.2.3 support
+            // @see https://github.com/sebastianbergmann/phpunit/issues/2734#issuecomment-314514056
+            // @deprecated
+            $this->outputBuilder = new UnifiedDiffOutputBuilder($outputBuilder);
+        } else {
+            throw new InvalidArgumentException(sprintf('Expected builder to be an instance of DiffOutputBuilderInterface, <null> or a string, got %s.', is_object($outputBuilder) ? 'instance of "' . get_class($outputBuilder) . '"' : gettype($outputBuilder) . ' "' . $outputBuilder . '"'));
+        }
     }
     /**
-     * @param mixed[]|string $from
-     * @param mixed[]|string $to
+     * Returns the diff between two arrays or strings as string.
+     *
+     * @param array|string $from
+     * @param array|string $to
      */
     public function diff($from, $to, LongestCommonSubsequenceCalculator $lcs = null) : string
     {
-        $diff = $this->diffToArray($from, $to, $lcs);
+        $diff = $this->diffToArray($this->normalizeDiffInput($from), $this->normalizeDiffInput($to), $lcs);
         return $this->outputBuilder->getDiff($diff);
     }
     /**
-     * @param mixed[]|string $from
-     * @param mixed[]|string $to
+     * Returns the diff between two arrays or strings as array.
+     *
+     * Each array element contains two elements:
+     *   - [0] => mixed $token
+     *   - [1] => 2|1|0
+     *
+     * - 2: REMOVED: $token was removed from $from
+     * - 1: ADDED: $token was added to $from
+     * - 0: OLD: $token is not changed in $to
+     *
+     * @param array|string                       $from
+     * @param array|string                       $to
+     * @param LongestCommonSubsequenceCalculator $lcs
      */
     public function diffToArray($from, $to, LongestCommonSubsequenceCalculator $lcs = null) : array
     {
         if (is_string($from)) {
             $from = $this->splitStringByLines($from);
+        } elseif (!is_array($from)) {
+            throw new InvalidArgumentException('"from" must be an array or string.');
         }
         if (is_string($to)) {
             $to = $this->splitStringByLines($to);
+        } elseif (!is_array($to)) {
+            throw new InvalidArgumentException('"to" must be an array or string.');
         }
         [$from, $to, $start, $end] = self::getArrayDiffParted($from, $to);
         if ($lcs === null) {
@@ -101,6 +139,21 @@ final class Differ
         }
         return $diff;
     }
+    /**
+     * Casts variable to string if it is not a string or array.
+     *
+     * @return array|string
+     */
+    private function normalizeDiffInput($input)
+    {
+        if (!is_array($input) && !is_string($input)) {
+            return (string) $input;
+        }
+        return $input;
+    }
+    /**
+     * Checks if input is string, if so it will split it line-by-line.
+     */
     private function splitStringByLines(string $input) : array
     {
         return preg_split('/(.*\\R)/', $input, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
@@ -118,6 +171,8 @@ final class Differ
         return new TimeEfficientLongestCommonSubsequenceCalculator();
     }
     /**
+     * Calculates the estimated memory footprint for the DP-based method.
+     *
      * @return float|int
      */
     private function calculateEstimatedFootprint(array $from, array $to)
@@ -125,6 +180,9 @@ final class Differ
         $itemSize = PHP_INT_SIZE === 4 ? 76 : 144;
         return $itemSize * min(count($from), count($to)) ** 2;
     }
+    /**
+     * Returns true if line ends don't match in a diff.
+     */
     private function detectUnmatchedLineEndings(array $diff) : bool
     {
         $newLineBreaks = ['' => \true];
@@ -144,7 +202,7 @@ final class Differ
         if (['' => \true] === $newLineBreaks || ['' => \true] === $oldLineBreaks) {
             return \false;
         }
-        // two-way compare
+        // two way compare
         foreach ($newLineBreaks as $break => $set) {
             if (!isset($oldLineBreaks[$break])) {
                 return \true;
@@ -169,7 +227,7 @@ final class Differ
         if ("\n" !== $lc) {
             return '';
         }
-        if (\substr_compare($line, "\r\n", -\strlen("\r\n")) === 0) {
+        if ("\r\n" === substr($line, -2)) {
             return "\r\n";
         }
         return "\n";

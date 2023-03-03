@@ -1,66 +1,41 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 /***************************************************************************
  *                            admin_arcade_checking.php
  *                            -------------------------
  *
- *   PHPNuke Ported Arcade - http://arcade.portedmods.com
+ *   PHPNuke Ported Arcade - http://www.nukearcade.com
  *   Original Arcade Mod phpBB by giefca - http://www.gf-phpbb.com
  *
  *  Version 1.0  01 Dec 2004  by Rica
  * 
  ***************************************************************************/
 
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
-
-define('IN_PHPBB', 1);
+if (!defined('IN_PHPBB')) define('IN_PHPBB', true);
 
 if( !empty($setmodules) )
 {
-	$file = basename(__FILE__);
-	$module['Arcade_Admin']['Settings_check'] = "$file";
-	return;
+  $file = basename(__FILE__);
+  $module['Arcade_Admin']['Settings_check'] = $file;
+  return;
 }
 
 $root_path = "./../../../";
 $phpbb_root_path = "./../";
-require_once($phpbb_root_path . 'extension.inc');
-require_once('./pagestart.' . $phpEx);
 
+require($phpbb_root_path . 'extension.inc');
+require('./pagestart.' . $phpEx);
 
 $problemcount=0;
 $tableproblem=0;
 $fileuploadproblem=0;
+
 echo "<div><h1>Arcade Checking</h1>\n"
-	."<p>This function will search and check for frequent errors during Arcade Mod V3+ Installation.</p>"
-	."</div>";
+    ."<p>This function will search and check for frequent errors during Arcade Mod V3+ Installation.</p>"
+    ."</div>";
 echo "<table cellpadding=\"4\" align=\"center\" border=\"1\">";
 
 //
@@ -68,82 +43,82 @@ echo "<table cellpadding=\"4\" align=\"center\" border=\"1\">";
 //
 
 $filechecklist=array(
-				"arcade.php",
-				"blocks/block-Arcade.php",
-				"blocks/block-Arcade_Center.php",
-				"blocks/block-Random_Games.php",
-				"images/arcadelogo.gif",
-				"includes/functions_arcade.php",
-				"modules/Forums/arcade.php",
-				"modules/Forums/arcade_search.php",
-				"modules/Forums/comments.php",
-				"modules/Forums/comments_list.php",
-				"modules/Forums/comments_new.php",
-				"modules/Forums/commentspopup_new.php",
-				"modules/Forums/games.php",
-				"modules/Forums/gamespopup.php",
-				"modules/Forums/hall_of_fame.php",
-				"modules/Forums/headingarcade.php",
-				"modules/Forums/proarcade.php",
-				"modules/Forums/scoreboard.php",
-				"modules/Forums/statarcade.php",
-				"modules/Forums/toparcade.php",
-				"modules/Forums/whoisplaying.php",
-				"modules/Forums/admin/admin_arcade.php",
-				"modules/Forums/admin/admin_arcade_add.php",
-				"modules/Forums/admin/admin_arcade_auth.php",
-				"modules/Forums/admin/admin_arcade_comments.php",
-				"modules/Forums/admin/admin_arcade_games.php",
-				"modules/Forums/admin/arcade_elmt.php",
-				"modules/Forums/gf_funcs/gen_funcs.php",
-				"modules/Forums/games/pics/arcade.gif",
-				"modules/Forums/language/lang_english/lang_main_arcade.php",
-				"modules/Forums/language/lang_english/lang_admin_arcade.php",
-				"modules/Forums/templates/subSilver/admin/admin_arcade_comments_body.tpl",
-				"modules/Forums/templates/subSilver/admin/admin_edit_comments_body.tpl",
-				"modules/Forums/templates/subSilver/admin/admin_edit_games.tpl",
-				"modules/Forums/templates/subSilver/admin/arcade_add_body.tpl",
-				"modules/Forums/templates/subSilver/admin/arcade_cat_delete_body.tpl",
-				"modules/Forums/templates/subSilver/admin/arcade_cat_manage_body.tpl",
-				"modules/Forums/templates/subSilver/admin/arcade_catedit_body.tpl",
-				"modules/Forums/templates/subSilver/admin/arcade_config_body.tpl",
-				"modules/Forums/templates/subSilver/admin/arcade_manage_body.tpl",
-				"modules/Forums/templates/subSilver/admin/auth_arcade_body.tpl",
-				"modules/Forums/templates/subSilver/images/couronne.gif",
-				"modules/Forums/templates/subSilver/images/delfavs.gif",
-				"modules/Forums/templates/subSilver/images/favs.gif",
-				"modules/Forums/templates/subSilver/images/loupe.gif",
-				"modules/Forums/templates/subSilver/images/scoreboard.gif"
-						);
+                "arcade.php",
+                "blocks/block-Arcade.php",
+                "blocks/block-Titanium_Arcade_Center.php",
+                "images/arcade_mod/arcade_logo.png",
+                "includes/functions_arcade.php",
+                "modules/Forums/arcade.php",
+                "modules/Forums/arcade_search.php",
+                "modules/Forums/comments.php",
+                "modules/Forums/comments_list.php",
+                "modules/Forums/comments_new.php",
+                "modules/Forums/commentspopup_new.php",
+                "modules/Forums/games.php",
+                "modules/Forums/gamespopup.php",
+                "modules/Forums/hall_of_fame.php",
+                "modules/Forums/headingarcade.php",
+                "modules/Forums/proarcade.php",
+                "modules/Forums/scoreboard.php",
+                "modules/Forums/statarcade.php",
+                "modules/Forums/toparcade.php",
+                "modules/Forums/whoisplaying.php",
+                "modules/Forums/admin/admin_arcade.php",
+                "modules/Forums/admin/admin_arcade_add.php",
+                "modules/Forums/admin/admin_arcade_auth.php",
+                "modules/Forums/admin/admin_arcade_comments.php",
+                "modules/Forums/admin/admin_arcade_games.php",
+                "modules/Forums/admin/arcade_elmt.php",
+                "modules/Forums/gf_funcs/gen_funcs.php",
+                "modules/Forums/games/pics/arcade.gif",
+                "modules/Forums/language/lang_english/lang_main_arcade.php",
+                "modules/Forums/language/lang_english/lang_admin_arcade.php",
+                "modules/Forums/templates/subSilver/admin/admin_arcade_comments_body.tpl",
+                "modules/Forums/templates/subSilver/admin/admin_edit_comments_body.tpl",
+                "modules/Forums/templates/subSilver/admin/admin_edit_games.tpl",
+                "modules/Forums/templates/subSilver/admin/arcade_add_body.tpl",
+                "modules/Forums/templates/subSilver/admin/arcade_cat_delete_body.tpl",
+                "modules/Forums/templates/subSilver/admin/arcade_cat_manage_body.tpl",
+                "modules/Forums/templates/subSilver/admin/arcade_catedit_body.tpl",
+                "modules/Forums/templates/subSilver/admin/arcade_config_body.tpl",
+                "modules/Forums/templates/subSilver/admin/arcade_manage_body.tpl",
+                "modules/Forums/templates/subSilver/admin/auth_arcade_body.tpl",
+                "modules/Forums/templates/subSilver/images/couronne.gif",
+                "modules/Forums/templates/subSilver/images/delfavs.gif",
+                "modules/Forums/templates/subSilver/images/favs.gif",
+                "modules/Forums/templates/subSilver/images/loupe.gif",
+                "modules/Forums/templates/subSilver/images/scoreboard.gif"
+                        );
 
-echo "	<tr>\n"
-	."		<th colspan=2>Files Uploaded Checking</th>\n"
-	."	</tr>\n"
-	."	<tr>\n"
-	."		<td align=\"center\" width=\"150\"><strong>Filename</strong></td><td align=\"center\"><strong>Status</strong></th>\n"
-	."	</tr>\n";
+echo "    <tr>\n"
+    ."        <th colspan=2>Files Uploaded Checking</th>\n"
+    ."    </tr>\n"
+    ."    <tr>\n"
+    ."        <td align=\"center\" width=\"150\"><strong>Filename</strong></td><td align=\"center\"><strong>Status</strong></th>\n"
+    ."    </tr>\n";
 $filetotal=0;
-$fileok=0;	
+$fileok=0;    
 foreach($filechecklist as $filename){
-	$filetotal++;
-	if (file_exists($root_path.$filename)) {
+    $filetotal++;
+    if (file_exists($root_path.$filename)) {
 
-		$fileok++;
-	}else {
-		echo "<tr><td>ROOT/$filename</td>";
-		$problemcount++;
-		$fileuploadproblem++;
-		echo "<td align=\"center\"> &lt;)- FAILED - File doesn't exist -(&gt;";
-	}
-	echo "</tr>\n";
+        $fileok++;
+    }else {
+        echo "<tr><td>ROOT/$filename</td>";
+        $problemcount++;
+        $fileuploadproblem++;
+        echo "<td align=\"center\"> &lt;)- FAILED - File doesn't exist -(&gt;";
+    }
+    echo "</tr>\n";
 }
 echo "<tr><td colspan=2><strong>$fileok files found , $fileuploadproblem not found for a Total of $filetotal files checked</strong></td></tr>";
 echo "<tr><td align=\"center\" colspan=2><u>Files Uploaded Checking</u>: ".($fileuploadproblem==0?"OK":"<strong>Failed</strong>")."</td></tr>";
 echo "<tr><td colspan=2><em>Note: Templates of your THEME(s) have <strong>not</strong> been checked</td></tr>";
 
-//					 
+//                     
 // PHP-NUKE FILE'S EDIT CHECKING
 //
+
 echo "    <tr>\n"
     ."        <th colspan=2>PhpNuke File Edit's,  Basic Checking</th>\n"
     ."    </tr>\n"
@@ -175,25 +150,25 @@ echo "<tr><td align=\"center\" colspan=2><u>File Edit Checking</u>: ".($fileedit
 // DATABASE CHECKING
 //
 
-echo "	<tr>\n"
-	."		<th colspan=2>Database Checking</th>\n"
-	."	</tr>\n"
-	."	<tr>\n"
-	."		<td align=\"center\" width=\"150\"><strong>Tablename</strong></td><td align=\"center\"><strong>Status</strong></th>\n"
-	."	</tr>\n";
+echo "    <tr>\n"
+    ."        <th colspan=2>Database Checking</th>\n"
+    ."    </tr>\n"
+    ."    <tr>\n"
+    ."        <td align=\"center\" width=\"150\"><strong>Tablename</strong></td><td align=\"center\"><strong>Status</strong></th>\n"
+    ."    </tr>\n";
 $tablecheck=array(GAMES_TABLE,SCORES_TABLE,GAMEHASH_TABLE,ARCADE_CATEGORIES_TABLE,ARCADE_TABLE,AUTH_ARCADE_ACCESS_TABLE,COMMENTS_TABLE,ARCADE_FAV_TABLE);
 foreach($tablecheck as $tablename){
-	echo "<tr><td>$tablename</td>";
-	$SQL="SELECT COUNT(*) FROM $tablename";
-	$result=$db->sql_query($SQL);
-	if ($result) 
-	    echo "<td align=\"center\"> OK</td>";
-	else {
-		$problemcount++;
-		$tableproblem++;
-		echo "<td align=\"center\"> &lt;)- FAILED - Table doesn't exist -(&gt;";
-	}
-	echo "</tr>\n";
+    echo "<tr><td>$tablename</td>";
+    $SQL="SELECT COUNT(*) FROM $tablename";
+    $result=$db->sql_query($SQL);
+    if ($result) 
+        echo "<td align=\"center\"> OK</td>";
+    else {
+        $problemcount++;
+        $tableproblem++;
+        echo "<td align=\"center\"> &lt;)- FAILED - Table doesn't exist -(&gt;";
+    }
+    echo "</tr>\n";
 }
 echo "<tr><td align=\"center\" colspan=2><u>Database Checking</u>: ".($tableproblem==0?"OK":"<strong>Failed</strong>")."</td></tr>";
 
@@ -201,43 +176,43 @@ echo "<tr><td align=\"center\" colspan=2><u>Database Checking</u>: ".($tableprob
 // PHPBB PREFERENCE CHECKING
 //
 
-echo "	<tr>\n"
-	."		<th colspan=2>phpBB Preferences Checking</th>\n"
-	."	</tr>\n"
-	."	<tr>\n"
-	."		<td align=\"center\" width=\"150\"><strong>Name</strong></td><td align=\"center\"><strong>Status</strong></td>\n"
-	."	</tr>\n";
-echo "<tr><td>phpBB Pref - Script Path:<br>\"<strong>".$board_config['script_path']."</strong>\"</td>";
-echo "<td align=\"center\">".($board_config['script_path']=="/modules/Forums/"?" OK":"<strong>Potential problem</strong>:<br>\"/modules/Forums/\" expected")."</td></tr>";
+echo "    <tr>\n"
+    ."        <th colspan=2>phpBB Preferences Checking</th>\n"
+    ."    </tr>\n"
+    ."    <tr>\n"
+    ."        <td align=\"center\" width=\"150\"><strong>Name</strong></td><td align=\"center\"><strong>Status</strong></td>\n"
+    ."    </tr>\n";
+echo "<tr><td>phpBB Pref - Script Path:<br />\"<strong>".$board_config['script_path']."</strong>\"</td>";
+echo "<td align=\"center\">".($board_config['script_path']=="/modules/Forums/"?" OK":"<strong>Potential problem</strong>:<br />\"/modules/Forums/\" expected")."</td></tr>";
 
-echo "<tr><td>phpBB Pref - Server Name:<br>\"<strong>".$board_config['server_name']."</strong>\"</td>";
+echo "<tr><td>phpBB Pref - Server Name:<br />\"<strong>".$board_config['server_name']."</strong>\"</td>";
 
 //
 echo "<td align=\"center\">";
-if (preg_match("#http:\/\/#",$board_config['server_name'])) {
+if (preg_match("@http:\/\/@i",$board_config['server_name'])) {
     echo "<strong>*</strong>Server name should not contain \"http://\" prefix.";
 } else {
-	echo " OK";
+    echo " OK";
 }
 echo "</td>";
 
-echo "<tr><td>phpBB Pref - Cookie Domain:<br>\"<strong>".$board_config['cookie_domain']."</strong>\"</td>";
+echo "<tr><td>phpBB Pref - Cookie Domain:<br />\"<strong>".$board_config['cookie_domain']."</strong>\"</td>";
 echo "<td align=\"center\">".(($board_config['cookie_domain']=="" or $board_config['cookie_domain']==$board_config['server_name'])?" OK":"<strong>Failed</strong> Empty value or <strong>".$board_config['server_name']."</strong> expected.")."</td></tr>";
 if ($board_config['cookie_domain']=="" or $board_config['cookie_domain']==$board_config['server_name']) {
     
 }else {$problemcount++;}
 
-echo "<tr><td>phpBB Pref - Cookie Path:<br>\"<strong>".$board_config['cookie_path']."</strong>\"</td>";
+echo "<tr><td>phpBB Pref - Cookie Path:<br />\"<strong>".$board_config['cookie_path']."</strong>\"</td>";
 echo "<td align=\"center\">".($board_config['cookie_path']=="/" ?" OK":"<strong>Failed</strong> \"<strong>/</strong>\" expected.")."</td></tr>";
 if (!$board_config['cookie_path']=="/") {
-	$problemcount++;    
+    $problemcount++;    
 }
-echo "	<tr>\n"
-	."		<th colspan=2>Admin User ID Checking</th>\n"
-	."	</tr>\n"
-	."	<tr>\n"
-	."		<td align=\"center\" width=\"150\"><strong>Name</strong></td><td align=\"center\"><strong>Status</strong></td>\n"
-	."	</tr>\n";
+echo "    <tr>\n"
+    ."        <th colspan=2>Admin User ID Checking</th>\n"
+    ."    </tr>\n"
+    ."    <tr>\n"
+    ."        <td align=\"center\" width=\"150\"><strong>Name</strong></td><td align=\"center\"><strong>Status</strong></td>\n"
+    ."    </tr>\n";
 
 $sql = "SELECT user_level FROM " . USERS_TABLE . " WHERE user_id = 2";
 $row = $db->sql_fetchrow($db->sql_query($sql));
@@ -252,18 +227,18 @@ else
 echo "<tr><td>Admin User ID Check</td>";
 echo "<td align=\"center\">".($row['user_level']=="2" ?" OK":"<strong>Failed</strong> user_id (2) is not admin.")."</td></tr>";
 if (!$row['user_level']=="2") {
-	$problemcount++;
+    $problemcount++;
 }
 }
 
-echo "	<tr>\n"
-	."		<th colspan=2>Checking Results</th>\n"
-	."	</tr>\n"
-	."	<tr>\n"
-	."		<td colspan=2>".(($problemcount==0)?" Installation seems OK":"There is $problemcount potential errors in your installation")."</td>"
-	." </tr>";
+echo "    <tr>\n"
+    ."        <th colspan=2>Checking Results</th>\n"
+    ."    </tr>\n"
+    ."    <tr>\n"
+    ."        <td colspan=2>".(($problemcount==0)?" Installation seems OK":"There is $problemcount potential errors in your installation")."</td>"
+    ." </tr>";
 
 echo "</table>";
 
-include_once('./page_footer_admin.'.$phpEx);
+include('./page_footer_admin.'.$phpEx);
 ?>

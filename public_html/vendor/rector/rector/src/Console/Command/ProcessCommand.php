@@ -7,21 +7,21 @@ use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\ChangesReporting\Output\JsonOutputFormatter;
 use Rector\Core\Application\ApplicationFileProcessor;
 use Rector\Core\Autoloading\AdditionalAutoloader;
-use Rector\Core\Configuration\ConfigInitializer;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Console\ExitCode;
 use Rector\Core\Console\Output\OutputFormatterCollector;
 use Rector\Core\Contract\Console\OutputStyleInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\Core\Reporting\MissingRectorRulesReporter;
 use Rector\Core\StaticReflection\DynamicSourceLocatorDecorator;
 use Rector\Core\Util\MemoryLimiter;
 use Rector\Core\Validation\EmptyConfigurableRectorChecker;
 use Rector\Core\ValueObject\Configuration;
 use Rector\Core\ValueObject\ProcessResult;
 use Rector\Core\ValueObjectFactory\ProcessResultFactory;
-use RectorPrefix202302\Symfony\Component\Console\Application;
-use RectorPrefix202302\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix202302\Symfony\Component\Console\Output\OutputInterface;
+use RectorPrefix202301\Symfony\Component\Console\Application;
+use RectorPrefix202301\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix202301\Symfony\Component\Console\Output\OutputInterface;
 final class ProcessCommand extends \Rector\Core\Console\Command\AbstractProcessCommand
 {
     /**
@@ -36,9 +36,9 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractProcessC
     private $changedFilesDetector;
     /**
      * @readonly
-     * @var \Rector\Core\Configuration\ConfigInitializer
+     * @var \Rector\Core\Reporting\MissingRectorRulesReporter
      */
-    private $configInitializer;
+    private $missingRectorRulesReporter;
     /**
      * @readonly
      * @var \Rector\Core\Application\ApplicationFileProcessor
@@ -74,11 +74,11 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractProcessC
      * @var \Rector\Core\Util\MemoryLimiter
      */
     private $memoryLimiter;
-    public function __construct(AdditionalAutoloader $additionalAutoloader, ChangedFilesDetector $changedFilesDetector, ConfigInitializer $configInitializer, ApplicationFileProcessor $applicationFileProcessor, ProcessResultFactory $processResultFactory, DynamicSourceLocatorDecorator $dynamicSourceLocatorDecorator, EmptyConfigurableRectorChecker $emptyConfigurableRectorChecker, OutputFormatterCollector $outputFormatterCollector, OutputStyleInterface $rectorOutputStyle, MemoryLimiter $memoryLimiter)
+    public function __construct(AdditionalAutoloader $additionalAutoloader, ChangedFilesDetector $changedFilesDetector, MissingRectorRulesReporter $missingRectorRulesReporter, ApplicationFileProcessor $applicationFileProcessor, ProcessResultFactory $processResultFactory, DynamicSourceLocatorDecorator $dynamicSourceLocatorDecorator, EmptyConfigurableRectorChecker $emptyConfigurableRectorChecker, OutputFormatterCollector $outputFormatterCollector, OutputStyleInterface $rectorOutputStyle, MemoryLimiter $memoryLimiter)
     {
         $this->additionalAutoloader = $additionalAutoloader;
         $this->changedFilesDetector = $changedFilesDetector;
-        $this->configInitializer = $configInitializer;
+        $this->missingRectorRulesReporter = $missingRectorRulesReporter;
         $this->applicationFileProcessor = $applicationFileProcessor;
         $this->processResultFactory = $processResultFactory;
         $this->dynamicSourceLocatorDecorator = $dynamicSourceLocatorDecorator;
@@ -96,10 +96,9 @@ final class ProcessCommand extends \Rector\Core\Console\Command\AbstractProcessC
     }
     protected function execute(InputInterface $input, OutputInterface $output) : int
     {
-        // missing config? add it :)
-        if (!$this->configInitializer->areSomeRectorsLoaded()) {
-            $this->configInitializer->createConfig(\getcwd());
-            return self::SUCCESS;
+        $exitCode = $this->missingRectorRulesReporter->reportIfMissing();
+        if ($exitCode !== null) {
+            return $exitCode;
         }
         $configuration = $this->configurationFactory->createFromInput($input);
         $this->memoryLimiter->adjust($configuration);

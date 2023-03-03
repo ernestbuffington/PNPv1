@@ -1,32 +1,32 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
 
-######################################################################
-# PHP-Nuke Platinum: Expect to be impressed                  COPYRIGHT
-#
-# Copyright (c) 2004 - 2006 by http://www.techgfx.com
-# Techgfx - Graeme Allan                       (goose@techgfx.com)
-#
-# Copyright (c) 2004 - 2006 by http://www.conrads-berlin.de
-# MrFluffy - Axel Conrads                 (axel@conrads-berlin.de)
-#
-# Copyright (c) 2004 - 2006 by http://www.nukeplanet.com
-#  Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)
-#
-# Refer to Nukeplanet.com for detailed information on PHP-Nuke Platinum
-#
-# TechGFX: Your dreams, our imagination
-######################################################################
 
-if ( !defined('ADMIN_FILE') ) {
-	die("Illegal Admin File Access");
+/************************************************************************/
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
+/*                                                                      */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
+/*                                                                      */
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Nuke Patched                             v3.1.0       06/26/2005
+-=[Mod]=-
+      Extended Surveys Admin Interface           v1.0.0        08/24/3005
+ ************************************************************************/
+
+if (!defined('ADMIN_FILE')) {
+   die('Access Denied');
 }
 
-$platinum_loc = "../..";
-$platinum_mod = "Surveys";
-$platinum_url = "modules/$platinum_mod/images/admin";
-$platinum_img = "$platinum_loc/$platinum_url/surveys.gif";
-
 global $admin_file;
-adminmenu("".$admin_file.".php?op=create", ""._ADMPOLLS."", "$platinum_img");
-
+adminmenu($admin_file.'.php?op=Surveys', _SURVEYSADMIN, 'surveys.png')
 ?>

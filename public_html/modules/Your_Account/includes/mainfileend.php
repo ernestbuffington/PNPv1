@@ -1,92 +1,128 @@
 <?php
-/**************************************************************************/
-/* RN Your Account: Advanced User Management for RavenNuke
-/* =======================================================================*/
-/*
-/* Copyright (c) 2008, RavenPHPScripts.com	http://www.ravenphpscripts.com
-/*
-/* This program is free software. You can redistribute it and/or modify it
-/* under the terms of the GNU General Public License as published by the
-/* Free Software Foundation, version 2 of the license.
-/*
-/**************************************************************************/
-/* RN Your Account is the based on:
-/*  CNB Your Account http://www.phpnuke.org.br
-/*  NSN Your Account by Bob Marion, http://www.nukescripts.net
-/**************************************************************************/
-if (preg_match('/mainfileend.php/i', $_SERVER['SCRIPT_NAME'])) {
-	header('Location: ../../../index.php');
-	die();
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
+
+/*********************************************************************************/
+/* CNB Your Account: An Advanced User Management System for phpnuke             */
+/* ============================================                                 */
+/*                                                                              */
+/* Copyright (c) 2004 by Comunidade PHP Nuke Brasil                             */
+/* http://dev.phpnuke.org.br & http://www.phpnuke.org.br                        */
+/*                                                                              */
+/* Contact author: escudero@phpnuke.org.br                                      */
+/* International Support Forum: http://ravenphpscripts.com/forum76.html         */
+/*                                                                              */
+/* This program is free software. You can redistribute it and/or modify         */
+/* it under the terms of the GNU General Public License as published by         */
+/* the Free Software Foundation; either version 2 of the License.               */
+/*                                                                              */
+/*********************************************************************************/
+/* CNB Your Account it the official successor of NSN Your Account by Bob Marion    */
+/*********************************************************************************/
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Nuke Patched                             v3.1.0       06/26/2005
+      Caching System                           v1.0.0       10/31/2005
+ ************************************************************************/
+
+if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
+    exit('Access Denied');
 }
 
-if (isset($user)) {
-	$uinfo = getusrinfo($user);
-	$ulevel = $uinfo['user_level'];
-	$uactive = $uinfo['user_active'];
-	if (($ulevel < 1) OR ($uactive < 1)) {
-		unset($user);
-		unset($cookie);
-	}
+global $userinfo, $cookie, $cache;
+$uinfo = $userinfo;
+$ulevel = (isset($uinfo['user_level'])) ? $uinfo['user_level'] : 0;
+$uactive = (isset($uinfo['user_active'])) ? $uinfo['user_active'] : 0;
+if ( ($ulevel < 1) OR ($uactive < 1) ) {
+    unset($user);
+    unset($cookie);
 }
-if ((isset($_GET['name']) && $_GET['name'] == 'Forums') && (isset($_GET['file']) && $_GET['file'] == 'profile') && (isset($_GET['mode']) && $_GET['mode'] == 'register')) Header('Location: modules.php?name=Your_Account&op=new_user');
-if (isset($user) && is_user($user)) {
-	$lv = time();
-	$db->sql_query('UPDATE ' . $user_prefix . '_users SET lastsitevisit=\'' . $lv . '\' WHERE user_id=\'' . $uinfo['user_id'] . '\'');
-	list($sessiontime) = $db->sql_fetchrow($db->sql_query('SELECT time FROM ' . $prefix . '_session WHERE uname=\'' . $uinfo['username'] . '\''));
-	// modified by menelaos dot hetnet dot nl to reduce amount of sql-queries
-	$config = array();
-	$configresult = $db->sql_query('SELECT config_name, config_value FROM ' . $prefix . '_users_config');
-	while (list($config_name, $config_value) = $db->sql_fetchrow($configresult)) {
-		$config[$config_name] = $config_value;
-	}
-	$ya_config = $config;
-	require_once INCLUDE_PATH . 'modules/Your_Account/includes/constants.php';
-	$cookieinactivity = $ya_config['cookieinactivity'];
-	$cookiepath = $ya_config['cookiepath'];
-	// modified by menelaos dot hetnet dot nl to reduce amount of sql-queries
-	// If user hasn't accepted updated TOS, display it until it has been accepted
-	if ($ya_config['tos'] == 1 AND $op != 'tos' AND $op != 'logout' AND $ya_config['tosall'] == 1 AND $uinfo['agreedtos'] != 1) {
-		if (!isset($_POST['tos_yes']) or $_POST['tos_yes'] != 1) {
-			$break = explode('/', $_SERVER['SCRIPT_NAME']);
-			$qS = $_SERVER['QUERY_STRING'];
-			$redirect = $break[count($break) - 1];
-			if ($qS > '') $redirect = rawurlencode(htmlentities($redirect . '?' . $qS));
-			header('Location: modules.php?name=Your_Account&op=tos&redirect=' . $redirect);
-			die();
-		}
-	}
-	if (($cookieinactivity != '-') AND (($sessiontime + $cookieinactivity < $lv))) {
-		cookiedecode($user);
-		$r_uid = $uinfo['user_id'];
-		$r_username = $uinfo['username'];
-		setcookie('user');
-		if (trim($cookiepath) != '') setcookie('user', '', '', $ya_config['cookiepath']);
-		$db->sql_query('DELETE FROM ' . $prefix . '_session WHERE uname=\'' . $r_username . '\'');
-		$db->sql_query('OPTIMIZE TABLE ' . $prefix . '_session');
-		$db->sql_query('DELETE FROM ' . $prefix . '_bbsessions WHERE session_user_id=\'' . $r_uid . '\'');
-		$db->sql_query('OPTIMIZE TABLE ' . $prefix . '_bbsessions');
-		unset($user);
-		unset($cookie);
-		header('Location: modules.php?name=Your_Account');
-		die();
-	};
-	// WARNING THIS SECTION OF CODE CAN SLOW SITE LOAD TIME DOWN!!!!!!!!!!!!!
-	// IF YOU DO NOT WANT TO USE THIS CODE YOU DO NOT HAVE TO.
-	// THIS FUCTION IS IN USER ADMIN AND CAN BE TRIGGERED ONLY
-	// WHEN THE ADMIN WANTS IT RUN.
-	if (($ya_config['autosuspend'] > 0) AND ($ya_config['autosuspendmain'] == 1)) {
-		$st = time() - $ya_config['autosuspend'];
-		$susresult = $db->sql_query('SELECT user_id FROM ' . $user_prefix . '_users WHERE lastsitevisit <=' . $st . ' AND user_level > 0');
-		while (list($sus_uid) = $db->sql_fetchrow($susresult)) {
-			$db->sql_query('UPDATE ' . $user_prefix . '_users SET user_level=\'0\', user_active=\'0\' WHERE user_id=\'' . $sus_uid . '\'');
-		}
-	}
-} else {
-	$configresult = $db->sql_query('SELECT config_value FROM ' . $prefix . '_users_config WHERE config_name = \'cookiepath\'');
-	list($config_value) = $db->sql_fetchrow($configresult);
-	setcookie('RNYA_test1', 'value1');
-	setcookie('RNYA_test2', 'value2', time() + 3600);
-	setcookie('RNYA_test3', 'value3', time() + 3600, '/');
-	setcookie('RNYA_test4', 'value4', time() + 3600, $config_value);
+
+if(!isset($_GET['name']))
+$_GET['name'] = '';
+
+if(isset($_GET['name']) && isset($_GET['file']) || isset($_GET['mode'])) {
+    if ( ($_GET['name']=='Forums') && ($_GET['file']=='profile') && ($_GET['mode']=='register') ) redirect("modules.php?name=Your_Account&op=new_user");
 }
+// CNB Mod
+// WARNING THIS SECTION OF CODE PREVENTS NEW POSTS REGISTERING AS UNREAD
+
+if (is_user()) {
+    $lv = time();
+    //$db->sql_query("UPDATE ".$user_prefix."_users SET user_lastvisit='$lv' WHERE user_id='".$uinfo['user_id']."'");
+    $result = $db->sql_query("SELECT time FROM ".$prefix."_session WHERE uname='$uinfo[username]'");
+    list($sessiontime) = $db->sql_fetchrow($result);
+    $db->sql_freeresult($result);
+
+// modified by menelaos dot hetnet dot nl to reduce amount of sql-queries
+/*****[BEGIN]******************************************
+ [ Base:    Caching System                     v3.0.0 ]
+ ******************************************************/
+    if(!($ya_config = $cache->load('ya_config', 'config'))) {
+	$configresult = [];
+	$ya_config = [];	
+/*****[END]********************************************
+ [ Base:    Caching System                     v3.0.0 ]
+ ******************************************************/
+      $configresult = $db->sql_query("SELECT config_name, config_value FROM ".$prefix."_cnbya_config");
+      while (list($config_name, $config_value) = $db->sql_fetchrow($configresult)) {
+          $ya_config[$config_name] = $config_value;
+      }
+      $db->sql_freeresult($configresult);
+/*****[BEGIN]******************************************
+ [ Base:    Caching System                     v3.0.0 ]
+ ******************************************************/
+      $cache->save('ya_config', 'config', $ya_config);
+/*****[END]********************************************
+ [ Base:    Caching System                     v3.0.0 ]
+ ******************************************************/
+    }    
+	if(isset($config)) $config = $ya_config;
+    $cookieinactivity    = $ya_config['cookieinactivity'];
+    $cookiepath        = $ya_config['cookiepath'];
+    $autosuspend        = $ya_config['autosuspend'];
+    $autosuspendmain    = $ya_config['autosuspendmain'];
+// modified by menelaos dot hetnet dot nl to reduce amount of sql-queries
+
+    if (($cookieinactivity != '-') AND ( ($sessiontime + $cookieinactivity < $lv ) ) ) {
+        $r_uid = $uinfo['user_id'];
+        $r_username = $uinfo['username'];
+        @setcookie("user");
+        if (trim($cookiepath) != '') setcookie("user","","","$ya_config[cookiepath]");
+        $db->sql_query("DELETE FROM ".$prefix."_session WHERE uname='$r_username'");
+        $db->sql_query("OPTIMIZE TABLE ".$prefix."_session");
+        $db->sql_query("DELETE FROM ".$prefix."_bbsessions WHERE session_user_id='$r_uid'");
+        $db->sql_query("OPTIMIZE TABLE ".$prefix."_bbsessions");
+        unset($user);
+        unset($cookie);
+      redirect("modules.php?name=Your_Account");
+      exit;
+    };
+
+    // WARNING THIS SECTION OF CODE CAN SLOW SITE LOAD TIME DOWN!!!!!!!!!!!!!
+    // IF YOU DO NOT WANT TO USE THIS CODE YOU DO NOT HAVE TO.
+    // THIS FUNCTION IS IN USER ADMIN AND CAN BE TRIGGERED ONLY
+    // WHEN THE ADMIN WANTS IT RUN.
+    if (($autosuspend > 0) AND ($autosuspendmain==1)) {
+        $st = time() - $autosuspend;
+        $susresult = $db->sql_query("SELECT user_id FROM ".$user_prefix."_users WHERE user_lastvisit <= $st AND user_level > 0");
+            while(list($sus_uid) = $db->sql_fetchrow($susresult)) {
+            $db->sql_query("UPDATE ".$user_prefix."_users SET user_level='0', user_active='0' WHERE user_id='$sus_uid'");
+    }
+  }
+
+}
+
+else {
+    @setcookie("CNB_test1","value1");
+    @setcookie("CNB_test2","value2",time()+3600);
+    @setcookie("CNB_test3","value3",time()+3600,"/");
+    @setcookie("CNB_test4","value4",time()+3600,"$ya_config[cookiepath]");
+}
+
+// CNB Mod
+
 ?>

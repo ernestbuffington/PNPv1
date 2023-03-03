@@ -1,57 +1,89 @@
 <?php
-/*Modified by nukeSEO from http://nukeSEO.com, adapted from the MetaTag module by http://visayas.dk at 20-Jan-10 22:43:56*/
-
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
 
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
 
-if (stristr($_SERVER['SCRIPT_NAME'], "meta.php")) {
-    Header("Location: ../index.php");
-    die();
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Nuke Patched                             v3.1.0       06/26/2005
+      Caching System                           v1.0.0       11/19/2005
+	  PHP 8.1 Patched                          v4.0.3       12/15/2022
+-=[Last Updated]=-
+      12/15/2022 3:49 pm Ernest Allen Buffington	  
+ ************************************************************************/
+ 
+if (!defined('NUKE_EVO')): 
+  die("You can't access this file directly...");
+endif;
+
+global $db, $prefix, $cache;
+
+##################################################
+# Load dynamic meta tags from database           #
+##################################################
+
+  /*****[BEGIN]******************************************
+   [ Base:    Caching System                     v3.0.0 ]
+   ******************************************************/
+if(($metatags = $cache->load('metatags', 'config')) === false): 
+
+  /*****[END]********************************************
+   [ Base:    Caching System                     v3.0.0 ]
+   ******************************************************/
+  $metatags = [];
+  $sql = 'SELECT meta_name, meta_content FROM '.$prefix.'_meta';
+  $result = $db->sql_query($sql, true);
+  $i=0;
+
+  while([$meta_name, $meta_content] = $db->sql_fetchrow($result, SQL_NUM)): 
+  
+      $metatags[$i] = [];
+      $metatags[$i]['meta_name'] = $meta_name;
+      $metatags[$i]['meta_content'] = $meta_content;
+      $i++;
+	  
+  endwhile;
+  
+  unset($i);
+  
+  $db->sql_freeresult($result);
+/*****[BEGIN]******************************************
+ [ Base:    Caching System                     v3.0.0 ]
+ ******************************************************/
+  $cache->save('metatags', 'config', $metatags);
+  
+endif;
+/*****[END]********************************************
+ [ Base:    Caching System                     v3.0.0 ]
+ ******************************************************/
+$metastring = '';
+$metastring .= '<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">'."\n";
+
+/**
+ * Only add the meta tag below if the theme is bootstrap made.
+ */
+if(defined('BOOTSTRAP')):
+$metastring .= '<meta name="viewport" content="width=device-width, maximum-scale=1.0; user-scalable=no">'."\n";
+else:
+$metastring .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">'."\n";
+endif;
+
+foreach ($metatags as $i => $metatag) {
+    $metatag = $metatag;
+    $metastring .= '<meta name="'.$metatag['meta_name'].'" content="'.$metatag['meta_content'].'">'."\n";
 }
-
-##################################################
-# Include for Meta Tags generation               #
-##################################################
-
-echo "<META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html; charset="._CHARSET."\">\n";
-echo "<META HTTP-EQUIV=\"EXPIRES\" CONTENT=\"0\">\n";
-echo "<META NAME=\"RESOURCE-TYPE\" CONTENT=\"DOCUMENT\">\n";
-echo "<META NAME=\"DISTRIBUTION\" CONTENT=\"GLOBAL\">\n";
-echo "<META NAME=\"AUTHOR\" CONTENT=\"Platinum Nuke\">\n";
-echo "<META NAME=\"COPYRIGHT\" CONTENT=\"Copyright (c) by Platinum Nuke\">\n";
-echo "<META NAME=\"KEYWORDS\" CONTENT=\"Platinum Nuke,Web Site,Nuke,PHP-Nuke,phpnuke,Platinum Nuke Pro,PHPNuke Platinum,Platinum,nuke platinum,Platinum,Downloads,Forums, Web Links, PHP\">\n";
-echo "<META NAME=\"DESCRIPTION\" CONTENT=\"Expect to be impressed\">\n";
-echo "<META NAME=\"ROBOTS\" CONTENT=\"INDEX, FOLLOW\">\n";
-echo "<META NAME=\"REVISIT-AFTER\" CONTENT=\"1 DAYS\">\n";
-echo "<META NAME=\"RATING\" CONTENT=\"GENERAL\">\n";
 
 ###############################################
 # DO NOT REMOVE THE FOLLOWING COPYRIGHT LINE! #
@@ -60,7 +92,8 @@ echo "<META NAME=\"RATING\" CONTENT=\"GENERAL\">\n";
 
 // IF YOU REALLY NEED TO REMOVE IT AND HAVE MY WRITTEN AUTHORIZATION CHECK: http://phpnuke.org/modules.php?name=Commercial_License
 // PLAY FAIR AND SUPPORT THE DEVELOPMENT, PLEASE!
+$metastring .= '<meta name="generator" content="The US Version of PHP-Nuke Titanium Copyright (c) 2021 by Brandon Maintenance Management, LLC">'."\n";
 
-echo "<META NAME=\"GENERATOR\" CONTENT=\"PHP-Nuke Copyright (c) 2004 by Francisco Burzi. This is free software, and you may redistribute it under the GPL (http://phpnuke.org/files/gpl.txt). PHP-Nuke comes with absolutely no warranty, for details, see the license (http://phpnuke.org/files/gpl.txt). Powered by Platinum Nuke Pro(http://www.platinumnukepro.com)\">\n";
+echo $metastring;
 
 ?>

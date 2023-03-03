@@ -1,33 +1,15 @@
 <?php
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
 /************************************************************************/
 /* HTML Newsletter 1.0 module for PHP-Nuke 6.5 - 7.6                    */
 /* By: NukeWorks (webmaster@nukeworks.biz)                              */
@@ -44,7 +26,7 @@
 ************************************************************************/
 /************************************************************************
 * Script:			HTML Newsletter module for PHP-Nuke 6.5 - 7.6
-* Version:		01.03.02
+* Version:		01.03.01
 * Author:			Rob Herder (aka: montego) of montegoscripts.com
 * Contact:		montego@montegoscripts.com
 * Copyright:	Copyright © 2006 by Montego Scripts
@@ -74,14 +56,14 @@ $msnl_iCID				= intval( $_POST['msnl_cid'] );
 
 if ( $msnl_sTemplateNm != "notemplate" ) {
 
-	@include_once( "./modules/$msnl_sModuleNm/templates/".$msnl_sTemplateNm."/template.php" );
+	@include( "./modules/$msnl_sModuleNm/templates/".$msnl_sTemplateNm."/template.php" );
 
 	$msnl_sEmailText = $emailfile;
-
+	
 } else {
 
 	$msnl_sEmailText = "";
-
+	
 }
 
 /************************************************************************
@@ -93,44 +75,44 @@ if ( $_POST['msnl_stats'] == "yes" && $msnl_sTemplateNm != "notemplate" ) {
 
 	//Total Members
 
-	$sql									= "SELECT `user_id` FROM `".$user_prefix."_users` WHERE `username` <> 'Anonymous'";
+	$sql									= "SELECT `user_id` FROM `".$prefix."_users` WHERE `username` <> 'Anonymous'";
 	$result 							= msnl_fSQLCall( $sql );
 
 	if ( !$result ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSUSR );
+		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSUSR );	
 
 	} else { //Successful SQL call
 
 		$msnl_iStatsTotUsr		= intval( $db->sql_numrows( $result ) );
-
+	
 	}
 
 	//Total Hits
-
+	
 	$sql										= "SELECT `count` FROM `".$prefix."_counter` WHERE `type` = 'total' "
 													.	"AND `var` = 'hits' LIMIT 1";
 	$result1 								= msnl_fSQLCall( $sql );
 
 	if ( !$result1 ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSHITS );
+		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSHITS );	
 
 	} else { //Successful SQL call
 
 		$row										= $db->sql_fetchrow( $result1 );
 		$msnl_iStatsTotHits			= intval( $row['count'] );
-
+		
 	}
 
-	//Total News Stories
-
-	$sql										= "SELECT * FROM `".$prefix."_stories`";
+	//Total Blogs
+	
+	$sql										= "SELECT * FROM `".$prefix."_blogs`";
 	$result2 								= msnl_fSQLCall( $sql );
 
 	if ( !$result2 ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSNEWS );
+		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSNEWS );	
 
 	} else { //Successful SQL call
 
@@ -139,13 +121,13 @@ if ( $_POST['msnl_stats'] == "yes" && $msnl_sTemplateNm != "notemplate" ) {
 	}
 
 	//Total News categories
-
-	$sql										= "SELECT * FROM `".$prefix."_stories_cat`";
+	
+	$sql										= "SELECT * FROM `".$prefix."_blogs_cat`";
 	$result3 								= msnl_fSQLCall( $sql );
 
 	if ( !$result3 ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSNEWSCAT );
+		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSNEWSCAT );	
 
 	} else { //Successful SQL call
 
@@ -160,14 +142,14 @@ if ( $_POST['msnl_stats'] == "yes" && $msnl_sTemplateNm != "notemplate" ) {
 
 	if ( !$result4 ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSDLS );
+		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSDLS );	
 
 	} else { //Successful SQL call
 
 		$msnl_iStatsTotDls			= intval( $db->sql_numrows( $result4 ) );
 
 	}
-
+	
 	//Total Downloads Categories
 
 	$sql										= "SELECT * FROM `".$prefix."_".$msnl_gasModCfg['dl_module']."_categories`";
@@ -175,14 +157,14 @@ if ( $_POST['msnl_stats'] == "yes" && $msnl_sTemplateNm != "notemplate" ) {
 
 	if ( !$result5 ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSDLCAT );
+		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSDLCAT );	
 
 	} else { //Successful SQL call
 
 		$msnl_iStatsTotDlsCat		= intval( $db->sql_numrows( $result5 ) );
 
 	}
-
+	
 	//Total Web Links
 
 	$sql										= "SELECT * FROM `".$prefix."_links_links`";
@@ -190,14 +172,14 @@ if ( $_POST['msnl_stats'] == "yes" && $msnl_sTemplateNm != "notemplate" ) {
 
 	if ( !$result6 ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSLINKS );
+		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSLINKS );	
 
 	} else { //Successful SQL call
 
 		$msnl_iStatsTotLnks			= intval( $db->sql_numrows( $result6 ) );
-
+	
 	}
-
+	
 	//Total Web Links Categories
 
 	$sql										= "SELECT * FROM `".$prefix."_links_categories`";
@@ -205,14 +187,14 @@ if ( $_POST['msnl_stats'] == "yes" && $msnl_sTemplateNm != "notemplate" ) {
 
 	if ( !$result7 ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSLNKCAT );
+		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSLNKCAT );	
 
 	} else { //Successful SQL call
 
 		$msnl_iStatsTotLnksCat	= intval( $db->sql_numrows( $result7 ) );
 
 	}
-
+	
 	//Total Amount of Forum Topics
 
 	$sql										= "SELECT * FROM `".$prefix."_bbtopics`";
@@ -220,14 +202,14 @@ if ( $_POST['msnl_stats'] == "yes" && $msnl_sTemplateNm != "notemplate" ) {
 
 	if ( !$result8 ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSFORUMS );
+		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSFORUMS );	
 
 	} else { //Successful SQL call
 
 		$msnl_iStatsTotForums		= intval( $db->sql_numrows( $result8 ) );
-
+	
 	}
-
+	
 	//Total Amount of forum Posts
 
 	$sql										= "SELECT * FROM `".$prefix."_bbposts`";
@@ -235,14 +217,14 @@ if ( $_POST['msnl_stats'] == "yes" && $msnl_sTemplateNm != "notemplate" ) {
 
 	if ( !$result9 ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSPOSTS );
+		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSPOSTS );	
 
 	} else { //Successful SQL call
 
 		$msnl_iStatsTotPosts		= intval( $db->sql_numrows( $result9 ) );
-
+	
 	}
-
+	
 	//Total Amount of Reviews
 
 	$sql										= "SELECT * FROM `".$prefix."_reviews`";
@@ -250,18 +232,18 @@ if ( $_POST['msnl_stats'] == "yes" && $msnl_sTemplateNm != "notemplate" ) {
 
 	if ( !$result10 ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSREVIEWS );
+		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETSTATSREVIEWS );	
 
 	} else { //Successful SQL call
 
 		$msnl_iStatsTotReviews	= intval( $db->sql_numrows( $result10 ) );
 
 	}
-
+	
 	//Replace the stats rows in the template
 
 	$msnl_sTotStats = $statstable;
-
+	
 	$msnl_sTotStats = str_replace( "{PAGEHITS}",		$msnl_iStatsTotHits,		$msnl_sTotStats );
 	$msnl_sTotStats = str_replace( "{MEMBERS}",			$msnl_iStatsTotUsr,			$msnl_sTotStats );
 	$msnl_sTotStats = str_replace( "{NEWSITEMS}",		$msnl_iStatsTotNews,		$msnl_sTotStats );
@@ -290,8 +272,8 @@ if ( $_POST['msnl_news'] > 0 && $msnl_sTemplateNm != "notemplate" ) {
 	$msnl_sRows	= "";
 
 	$sql				= "SELECT `sid`, `informant`, `title`, `topic`, `topictext`, a.`counter` AS counter FROM `"
-							. $prefix."_stories` a, `"
-							. $prefix."_topics` b "
+							. $prefix."_blogs` a, `"
+							. $prefix."_blogs_topics` b "
 							. "WHERE a.`topic` = b.`topicid` "
 							. "ORDER BY `time` DESC LIMIT 0, ". $_POST['msnl_news'];
 
@@ -299,7 +281,7 @@ if ( $_POST['msnl_news'] > 0 && $msnl_sTemplateNm != "notemplate" ) {
 
 	if ( !$result11 ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_DBGETNEWS );
+		msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_DBGETNEWS );	
 
 	} else { //Successful SQL call
 
@@ -327,11 +309,11 @@ if ( $_POST['msnl_news'] > 0 && $msnl_sTemplateNm != "notemplate" ) {
 			$msnl_sRows .= $msnl_sRowTmp;
 
 		} //End while to build rows
-
+		
 		$msnl_sLatestNews = $latestnewstop . $msnl_sRows . $latestnewsend;
-
+		
 		$msnl_sLatestNews = str_replace( "{AMOUNT}",	$_POST['msnl_news'],	$msnl_sLatestNews );
-
+		
 	} //End IF successful DB Call
 
 } else { //Will not be including Latest News
@@ -359,7 +341,7 @@ if ( $_POST['msnl_downloads'] > 0 && $msnl_sTemplateNm != "notemplate" ) {
 
 	if ( !$result12 ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_DBGETDLS );
+		msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_DBGETDLS );	
 
 	} else { //Successful SQL call
 
@@ -385,11 +367,11 @@ if ( $_POST['msnl_downloads'] > 0 && $msnl_sTemplateNm != "notemplate" ) {
 			$msnl_sRows .= $msnl_sRowTmp;
 
 		} //End While
-
+		
 		$msnl_sLatestDownloads = $latestdownloadtop . $msnl_sRows . $latestdownloadend;
-
+		
 		$msnl_sLatestDownloads = str_replace( "{AMOUNT}", $_POST['msnl_downloads'], $msnl_sLatestDownloads );
-
+		
 	} //End IF DB call successful
 
 } else { //Will not be including Latest Downloads
@@ -417,7 +399,7 @@ if ( $_POST['msnl_weblinks'] > 0 && $msnl_sTemplateNm != "notemplate" ) {
 
 	if ( !$result13 ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETWLS );
+		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETWLS );	
 
 	} else { //Successful SQL call
 
@@ -443,9 +425,9 @@ if ( $_POST['msnl_weblinks'] > 0 && $msnl_sTemplateNm != "notemplate" ) {
 			$msnl_sRows .= $msnl_sRowTmp;
 
 		} //End While
-
+		
 		$msnl_sLatestLinks = $latestweblinktop . $msnl_sRows . $latestweblinkend;
-
+		
 		$msnl_sLatestLinks = str_replace( "{AMOUNT}", $_POST['msnl_weblinks'], $msnl_sLatestLinks );
 
 	}  //End IF DB call successful
@@ -464,7 +446,7 @@ if ($_POST['msnl_forums'] > 0 && $msnl_sTemplateNm != "notemplate") {
 
 	$i					= 0;
 	$msnl_sRows	= "";
-
+	
 	$msnl_iHideReadOnly = 1;	//Do not show read-only forums
 
 	$sql				= "SELECT "
@@ -483,8 +465,8 @@ if ($_POST['msnl_forums'] > 0 && $msnl_sTemplateNm != "notemplate") {
 								.$prefix."_bbtopics` t, `"
 								.$prefix."_bbforums` f, `"
 								.$prefix."_bbposts` p, `"
-								.$user_prefix."_users` ut, `"
-								.$user_prefix."_users` up "
+								.$prefix."_users` ut, `"
+								.$prefix."_users` up "
 							."WHERE "
 								."f.`forum_id` = t.`forum_id` "
 							."AND "
@@ -507,7 +489,7 @@ if ($_POST['msnl_forums'] > 0 && $msnl_sTemplateNm != "notemplate") {
 
 	if ( !$result14 ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETPOSTS );
+		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETPOSTS );	
 
 	} else { //Successful SQL call
 
@@ -519,7 +501,7 @@ if ($_POST['msnl_forums'] > 0 && $msnl_sTemplateNm != "notemplate") {
 			$msnl_sTopicTitle						= stripslashes( $row['topic_title'] );
 			$msnl_iTopicViews						= intval( $row['topic_views'] );
 			$msnl_iTopicReplies					= intval( $row['topic_replies'] );
-			$msnl_sPostTime							= msnl_fFormatDate( $msnl_asPHPBBCfg['default_dateformat'],
+			$msnl_sPostTime							= msnl_fFormatDate( $msnl_asPHPBBCfg['default_dateformat'], 
 																			$row['post_time'], $msnl_asPHPBBCfg['board_timezone'] );
 			$msnl_sTopicPosterNm				= stripslashes( $row['ut_username'] );
 			$msnl_sTopicPosterID				= intval( $row['ut_user_id'] );
@@ -545,9 +527,9 @@ if ($_POST['msnl_forums'] > 0 && $msnl_sTemplateNm != "notemplate") {
 			$msnl_sRows .= $msnl_sRowTmp;
 
 		} //End While
-
+		
 		$msnl_sLatestForums = $latestforumtop . $msnl_sRows . $latestforumend;
-
+		
 		$msnl_sLatestForums = str_replace( "{AMOUNT}", $_POST['msnl_forums'], $msnl_sLatestForums );
 
 	}  //End IF DB call successful
@@ -575,7 +557,7 @@ if ( $_POST['msnl_reviews'] > 0 && $msnl_sTemplateNm != "notemplate" ) {
 
 	if ( !$result15 ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETREVIEWS );
+		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETREVIEWS );	
 
 	} else { //Successful SQL call
 
@@ -587,9 +569,9 @@ if ( $_POST['msnl_reviews'] > 0 && $msnl_sTemplateNm != "notemplate" ) {
 			$msnl_iReviewHits			= intval( $row['hits'] );
 			$msnl_sReviewDt				= stripslashes( $row['date'] );
 
-			$msnl_sReviewDtFormat = trim( preg_replace( "/[g\:iabhsu]/", "", $msnl_asPHPBBCfg['default_dateformat'] ) );
+			$msnl_sReviewDtFormat = trim( eregi_replace( "[g\:iabhsu]", "", $msnl_asPHPBBCfg['default_dateformat'] ) );
 
-			$msnl_sReviewDt = msnl_fFormatDate( $msnl_sReviewDtFormat,
+			$msnl_sReviewDt = msnl_fFormatDate( $msnl_sReviewDtFormat, 
 												strtotime( $msnl_sReviewDt ), $msnl_asPHPBBCfg['board_timezone'] );
 
 			$i	= ++$i;
@@ -632,12 +614,12 @@ if ( $_POST['msnl_banner'] != "" && $msnl_sTemplateNm != "notemplate" ) {
 
 	if ( !$result16 ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETBANNER );
+		msnl_fRaiseAppError( _MSNL_ADM_MAKE_ERR_DBGETBANNER );	
 
 	} else { //Successful SQL call
-
+	
 		$row = $db->sql_fetchrow( $result16 );
-
+		
 		$msnl_sImageURL		= stripslashes( $row['imageurl'] );
 		$msnl_sClickURL		= stripslashes( $row['clickurl'] );
 		$msnl_sAltText		= stripslashes( $row['alttext'] );
@@ -645,7 +627,7 @@ if ( $_POST['msnl_banner'] != "" && $msnl_sTemplateNm != "notemplate" ) {
 		$msnl_sBanner = "<a href=\"$msnl_sClickURL\" title=\"\">"
 									. "<img src=\"$msnl_sImageURL\" alt=\"$msnl_sAltText\">"
 									. "</a>\n";
-
+						
 	} //End IF DB call successful
 
 } else {
@@ -676,7 +658,7 @@ if ( $_POST['msnl_toc'] != "" && $msnl_sTemplateNm != "notemplate" && isset( $ne
 			$msnl_sAnchorNm		= $msnl_sVal[1];
 
 			$msnl_sRowTmp			= str_replace( "{TOCLINK}", $msnl_sAnchorNm, $msnl_sRowTmp );
-			$msnl_sRowTmp     = str_replace( "{TOCLINKTEXT}", str_replace("_"," ",$msnl_sAnchorNm),
+			$msnl_sRowTmp     = str_replace( "{TOCLINKTEXT}", str_replace("_"," ",$msnl_sAnchorNm), 
 														$msnl_sRowTmp );
 
 			$msnl_sRows	.= $msnl_sRowTmp;
@@ -758,7 +740,7 @@ if ( $_POST['msnl_toc'] != "" && $msnl_sTemplateNm != "notemplate" && isset( $ne
 	}
 
 	// Finalize the TOC "block"
-
+	
 	$msnl_sNewsletterTOC = $newscontentstop . $msnl_sRows . $newscontentsend;
 
 } else { //TOC was not selected
@@ -790,7 +772,7 @@ if ( $msnl_sTemplateNm != "notemplate" ) { //Admin/author elected to use a newsl
 	$msnl_sEmailText = str_replace( "{SENDER}",				$msnl_sSender,						$msnl_sEmailText );
 	$msnl_sEmailText = str_replace( "{ADMINEMAIL}",		$adminmail,								$msnl_sEmailText );
 	$msnl_sEmailText = str_replace( "{TEMPLATENAME}",	$msnl_sTemplateNm,				$msnl_sEmailText );
-
+	
 } else { //Admin/author elected to NOT use a template
 
 	$msnl_sEmailText = $msnl_sTextbody;

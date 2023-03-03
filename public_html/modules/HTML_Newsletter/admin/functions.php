@@ -1,33 +1,15 @@
 <?php
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
 /************************************************************************/
 /* HTML Newsletter 1.0 module for PHP-Nuke 6.5 - 7.6                    */
 /* By: NukeWorks (webmaster@nukeworks.biz)                              */
@@ -44,7 +26,7 @@
 ************************************************************************/
 /************************************************************************
 * Script:			HTML Newsletter module for PHP-Nuke 6.5 - 7.6
-* Version:		01.03.02
+* Version:		01.03.01
 * Author:			Rob Herder (aka: montego) of montegoscripts.com
 * Contact:		montego@montegoscripts.com
 * Copyright:	Copyright © 2006 by Montego Scripts
@@ -93,7 +75,7 @@ $result		= msnl_fSQLCall( $sql );
 
 if ( !$result ) { //Bad SQL call
 
-	msnl_fRaiseAppError( _MSNL_COM_ERR_DBGETPHPBB );
+	msnl_fRaiseAppError( _MSNL_COM_ERR_DBGETPHPBB );	
 
 } else { //Successful SQL call
 
@@ -102,7 +84,7 @@ if ( !$result ) { //Bad SQL call
 		$msnl_asPHPBBCfg[ $row['config_name'] ] = $row['config_value'];
 
 	}
-
+	
 }
 
 /************************************************************************
@@ -160,19 +142,13 @@ function msnl_fMenuAdm() {
 					."<span class='title'>"
 						.ucwords(str_replace("_"," ", $msnl_sModuleNm)) ." " . _MSNL_LAB_ADMIN
 					."</span>\n"
-				."<br />"
+				."<br>"
 				."( "._MSNL_COM_LAB_VERSION." ${msnl_gasModCfg['version']} )"
-				."<br /><br />\n";
+				."<br><br>\n";
 
-	echo  "[ <a href=\"".$admin_file.".php?op=msnl_admin\" title=\""._MSNL_LNK_CREATENL."\">". _MSNL_LAB_CREATENL ."</a>\n";
-
-	if (@file_exists('modules/'.$msnl_sModuleNm.'/archive/testemail.php')) {
-		echo " | <a href=\"".$admin_file.".php?op=msnl_admin_send_tested\" title=\""._MSNL_LNK_SENDTESTED."\">". _MSNL_LAB_SENDTESTED ."</a>\n";
-	} else {
-		echo " | ". _MSNL_LAB_SENDTESTED ."\n";
-	}
-
-	echo " | <a href=\"".$admin_file.".php?op=msnl_cfg\" title=\""._MSNL_LNK_MAINCFG."\">". _MSNL_LAB_MAINCFG ."</a>\n"
+	echo  "[ <a href=\"".$admin_file.".php?op=msnl_admin\" title=\""._MSNL_LNK_CREATENL."\">". _MSNL_LAB_CREATENL ."</a>\n"
+			." | <a href=\"".$admin_file.".php?op=msnl_admin_send_tested\" title=\""._MSNL_LNK_SENDTESTED."\">". _MSNL_LAB_SENDTESTED ."</a>\n"
+			." | <a href=\"".$admin_file.".php?op=msnl_cfg\" title=\""._MSNL_LNK_MAINCFG."\">". _MSNL_LAB_MAINCFG ."</a>\n"
 			." | <a href=\"".$admin_file.".php?op=msnl_cat\" title=\""._MSNL_LNK_CATEGORYCFG."\">". _MSNL_LAB_CATEGORYCFG ."</a>\n"
 			." | <a href=\"".$admin_file.".php?op=msnl_nls&amp;cid=1\" title=\""._MSNL_LNK_MAINTAINNLS."\">". _MSNL_LAB_MAINTAINNLS ."</a>\n"
 			." | <a href=\"".$admin_file.".php\" title=\""._MSNL_LNK_SITEADMIN."\">". _MSNL_LAB_SITEADMIN ."</a>\n"
@@ -184,7 +160,7 @@ function msnl_fMenuAdm() {
 
 	closetable();
 
-	echo "<br /></div>\n";
+	echo "<br></div>\n";
 
 }  //End of function msnl_fMenuAdm()
 
@@ -199,18 +175,18 @@ function msnl_fMenuAdm() {
 
 function msnl_fGetNbrRecipients( $msnl_op, $gid ) {
 
-	global $prefix, $user_prefix, $db;
+	global $prefix, $db;
 
 	$gid = intval( $gid );
 
 	switch( $msnl_op ) {
 
 		case "newsletter": //Newsletter subscribers
-			$sql = "SELECT count(`newsletter`) AS r_cnt FROM `".$user_prefix."_users` WHERE `newsletter` = '1'";
+			$sql = "SELECT count(`newsletter`) AS r_cnt FROM `".$prefix."_users` WHERE `newsletter` = '1'";
 			break;
 
 		case "massmail":  //All registered users
-			$sql = "SELECT count(`user_email`) AS r_cnt FROM `".$user_prefix."_users` WHERE `user_email` > ''";
+			$sql = "SELECT count(`user_email`) AS r_cnt FROM `".$prefix."_users` WHERE `user_email` > ''";
 			break;
 
 		case "paidsubscribers":  //Only paid subscribers to the web site
@@ -231,7 +207,7 @@ function msnl_fGetNbrRecipients( $msnl_op, $gid ) {
 
 	if ( !$result ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_COM_ERR_DBGETRECIPIENTS."&nbsp;".$msnl_op );
+		msnl_fRaiseAppError( _MSNL_COM_ERR_DBGETRECIPIENTS."&nbsp;".$msnl_op );	
 
 	} else { //Successful SQL call
 
@@ -240,7 +216,7 @@ function msnl_fGetNbrRecipients( $msnl_op, $gid ) {
 		$nbrusers = intval( $row['r_cnt'] );
 
 		return $nbrusers;
-
+	
 	}
 
 } //End of function msnl_fGetNbrRecipients()
@@ -271,18 +247,18 @@ function msnl_fGetSendTo() {
 										."<td ${msnl_asCSS['TD_left_nw']} colspan=\"2\">\n";
 
 	//Current subscribers to the site Newsletter
-
+	
 	$sHTML	.=  msnl_fShowHelp( _MSNL_ADM_HLP_WHOSNDTONLSUBS, _MSNL_ADM_LAB_WHOSNDTONLSUBS )
 						."<input type=\"radio\" name=\"msnl_sendemail\" value=\"newsletter\"";
 
 	if ( $_POST['msnl_sendemail'] == "newsletter" ) { $sHTML .= " CHECKED"; }
-
+	
 	$sHTML	.= " />&nbsp;". _MSNL_ADM_LAB_WHOSNDTONLSUBS ." ( "
 						. msnl_fGetNbrRecipients( "newsletter", NULL ) ." "
 						. _MSNL_ADM_LAB_SUBSCRIBEDUSRS ." )<br />\n";
 
 	//All registered users
-
+	
 	$sHTML	.= msnl_fShowHelp( _MSNL_ADM_HLP_WHOSNDTOALLREG, _MSNL_ADM_LAB_WHOSNDTOALLREG )
 						."<input type=\"radio\" name=\"msnl_sendemail\" value=\"massmail\"";
 
@@ -292,18 +268,18 @@ function msnl_fGetSendTo() {
 						. msnl_fGetNbrRecipients( "massmail", NULL ) ." ". _MSNL_ADM_LAB_USERS ." )<br />\n";
 
 	//Users with paid subscriptions -- RLH: need to look into if date is a factor
-
+	
 	$sHTML	.= msnl_fShowHelp( _MSNL_ADM_HLP_WHOSNDTOPAID, _MSNL_ADM_LAB_WHOSNDTOPAID )
 						."<input type=\"radio\" name=\"msnl_sendemail\" value=\"paidsubscribers\"";
-
+	
 	if ( $_POST['msnl_sendemail'] == "paidsubscribers" ) { $sHTML .= " CHECKED"; }
-
+	
 	$sHTML	.= " />&nbsp;". _MSNL_ADM_LAB_WHOSNDTOPAID ." ( "
 						. msnl_fGetNbrRecipients( "paidsubscribers", NULL ) ." "
 						. _MSNL_ADM_LAB_PAIDUSRS ." )<br />\n";
 
 	//Users in a particular NSN Groups group
-
+	
 	if ( $msnl_gasModCfg['nsn_groups'] == 1 ) {
 
 		$sHTML	.= msnl_fShowHelp( _MSNL_ADM_HLP_NSNGRPUSRS, _MSNL_ADM_LAB_NSNGRPUSRS )
@@ -316,7 +292,7 @@ function msnl_fGetSendTo() {
 	}
 
 	//Post Anonymous Newsletter -- i.e., for ALL to see in the Archives
-
+	
 	$sHTML	.= msnl_fShowHelp( _MSNL_ADM_HLP_WHOSNDTOANONYV, _MSNL_ADM_LAB_WHOSNDTOANONYV )
 						."<input type=\"radio\" name=\"msnl_sendemail\" value=\"anonymous\"";
 
@@ -325,7 +301,7 @@ function msnl_fGetSendTo() {
 	$sHTML	.= " />&nbsp;". _MSNL_ADM_LAB_WHOSNDTOANONY ."<br />\n";
 
 	//Admin Test Email
-
+	
 	if (!defined('MSNL_SENDTESTED')) { //Do not show the Admin Only option if sending a tested NL
 
 		$sHTML	.= msnl_fShowHelp( _MSNL_ADM_HLP_WHOSNDTOADM, _MSNL_ADM_LAB_WHOSNDTOADM )
@@ -344,9 +320,9 @@ function msnl_fGetSendTo() {
 		$sHTML	.= " />&nbsp;". _MSNL_ADM_LAB_WHOSNDTOADM ."<br />\n";
 
 	}
-
+	
 	//Ad-Hoc Email Distribution List
-
+	
 	$sHTML	.= msnl_fShowHelp( _MSNL_ADM_HLP_WHOSNDTOADHOC, _MSNL_ADM_LAB_WHOSNDTOADHOC )
 						."<input type=\"radio\" name=\"msnl_sendemail\" value=\"adhoc\"";
 
@@ -363,7 +339,7 @@ function msnl_fGetSendTo() {
 	$sHTML	.=	$msnl_asHTML['CLOSE'];
 
 	$sHTML	.= "</div>\n";
-
+	
 	return $sHTML;
 
 }  //End of function msnl_fGetSendTo()
@@ -382,9 +358,9 @@ function msnl_fGetNSNGroups() {
 	$asNSNGroups	= array();
 
 	if ( isset( $_POST['msnl_nsngroups'] ) ) {
-
+		
 		$asNSNGroups = msnl_fGrpsExplode( $_POST['msnl_nsngroups'] );
-
+	
 	}
 
 	$sHTML	= "";
@@ -416,7 +392,7 @@ function msnl_fGetNSNGroups() {
 
 		if ( !$result ) { //Bad SQL call
 
-			msnl_fRaiseAppError( _MSNL_ADM_ERR_DBGETNSNGRPS );
+			msnl_fRaiseAppError( _MSNL_ADM_ERR_DBGETNSNGRPS );	
 
 		} else { //Successful SQL call
 
@@ -429,16 +405,16 @@ function msnl_fGetNSNGroups() {
 				$sHTML	.= "<input type=\"checkbox\" name=\"msnl_nsngroupid[]\" value=\"$gid\"";
 
 				if ( in_array( $gid, $asNSNGroups ) ) {
-
-					$sHTML	.= "CHECKED";
-
+						
+					$sHTML	.= "CHECKED"; 
+						
 				}
 
 				$sHTML	.= " />&nbsp;$gname ( ". msnl_fGetNbrRecipients( "nsngroups", $gid ) ." "
 									. _MSNL_ADM_LAB_NSNGRPUSRS ." )<br />\n";
 
 			} //End of while loop
-
+			
 		} //End IF for SQL call
 
 		//Close out this section
@@ -462,14 +438,12 @@ function msnl_fGetNSNGroups() {
 * Usage:			Adds the newsletter meta-data to the database.
 ************************************************************************/
 
-function msnl_fAddNls( $msnl_iCID, $msnl_sTopic, $msnl_sSender, $msnl_sFilename,
+function msnl_fAddNls( $msnl_iCID, $msnl_sTopic, $msnl_sSender, $msnl_sFilename, 
 											$msnl_sDatesent, $msnl_iView, $msnl_sGroups ) {
 
 	global $prefix, $db;
 
 	$nid = 0;
-	$msnl_sTopic = addslashes($msnl_sTopic);
-	$msnl_sSender = addslashes($msnl_sSender);
 
 	$sql = "INSERT INTO `". $prefix ."_hnl_newsletters` "
 				."VALUES ("
@@ -488,7 +462,7 @@ function msnl_fAddNls( $msnl_iCID, $msnl_sTopic, $msnl_sSender, $msnl_sFilename,
 
 	if ( !$result ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_DBNLSINSERT );
+		msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_DBNLSINSERT );	
 
 	} else { //Successful SQL call
 
@@ -500,14 +474,14 @@ function msnl_fAddNls( $msnl_iCID, $msnl_sTopic, $msnl_sSender, $msnl_sFilename,
 
 		if ( !$result1 ) { //Bad SQL call
 
-			msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_DBNLSMAXID );
+			msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_DBNLSMAXID );	
 
 		} else { //Successful SQL call
 
 			$row = $db->sql_fetchrow( $result1 );
 
 			$nid = intval( $row['nid'] );
-
+			
 		}
 
 	}
@@ -533,14 +507,14 @@ function msnl_fSendNls( $emailfile, $msnl_sSender, $sql, $msnl_sEmailaddresses )
 	//Define the email headers once since they are the same for each send option.
 
 	//MSNL_010301_03 - replaced original headers
-	$headers		= "MIME-Version: 1.0\n"
-								."Content-Type: text/html; charset=iso-8859-1\r\n"
-								."From: $msnl_sSender<$adminmail>\r\n"
-								."Return-Path: $adminmail\r\n"
-								."Reply-To: $adminmail\r\n"
-								."X-Mailer: MSHNL\r\n"
-								."X-Sender-IP: $REMOTE_ADDR\r\n"
-								."X-Priority: 3\r\n";
+	$headers		= "MIME-Version: 1.0\n" 
+								."Content-Type: text/html; charset=iso-8859-1\r\n" 
+								."From: $msnl_sSender<$adminmail>\r\n" 
+								."Return-Path: $adminmail\r\n" 
+								."Reply-To: $adminmail\r\n" 
+								."X-Mailer: MSHNL\r\n" 
+								."X-Sender-IP: $REMOTE_ADDR\r\n" 
+								."X-Priority: 6\r\n"; 
 
 	//Send newsletter depending on Send To option selected
 
@@ -563,11 +537,11 @@ function msnl_fSendNls( $emailfile, $msnl_sSender, $sql, $msnl_sEmailaddresses )
 	} elseif ( $sql == "adhoc" ) {  //Sending to an ad-hoc list of email addresses
 
 		$emailtitle		= _MSNL_ADM_SEND_LAB_NLFROM." ".$sitename;
-
+		
 		$msnl_sEmailaddresses		= str_replace( " ", "", $msnl_sEmailaddresses );
 
 		$msnl_asEmailaddresses	= explode( ",", $msnl_sEmailaddresses );
-
+		
 		foreach ( $msnl_asEmailaddresses as $user_email ) { //Cycle through each ad-hoc email address
 
 			msnl_fDebugMsg( $user_email );
@@ -581,7 +555,7 @@ function msnl_fSendNls( $emailfile, $msnl_sSender, $sql, $msnl_sEmailaddresses )
 				}
 
 			} //End IF check to see if in VERBOSE debug mode
-
+			
 		} //End foreach
 
 		return 1;
@@ -594,12 +568,12 @@ function msnl_fSendNls( $emailfile, $msnl_sSender, $sql, $msnl_sEmailaddresses )
 
 		if ( $numofusers > MSNL_MAX_BATCH_SIZE ) {
 
-			echo "<p><strong>"._MSNL_ADM_SEND_MSG_TOTALSENT ."</strong>: $numofusers</p>\n"
-					."<p><strong>". _MSNL_ADM_SEND_MSG_LOTSSENT ."</strong></p>\n";
+			echo "<p><b>"._MSNL_ADM_SEND_MSG_TOTALSENT ."</b>: $numofusers</p>\n"
+					."<p><b>". _MSNL_ADM_SEND_MSG_LOTSSENT ."</b></p>\n";
 
 		} else {
 
-			echo "<p><strong>"._MSNL_ADM_SEND_MSG_TOTALSENT ."</strong>: $numofusers</p>\n";
+			echo "<p><b>"._MSNL_ADM_SEND_MSG_TOTALSENT ."</b>: $numofusers</p>\n";
 
 		}
 
@@ -655,16 +629,16 @@ function msnl_fGetCategories( $iCatID=0, $iInclAll=MSNL_SHOW_ALL_OFF ) {
 
 	if ( !$result ) { //Bad SQL call
 
-		msnl_fRaiseAppError( _MSNL_COM_ERR_DBGETCATS );
+		msnl_fRaiseAppError( _MSNL_COM_ERR_DBGETCATS );	
 
 	} else { //Successful SQL call
 
 		//Setup the SELECT object
 
 		$sHTML	= "<select name=\"msnl_cid\">\n";
-
+		
 		if ( $iInclAll == MSNL_SHOW_ALL_ON ) { //Include the *Show ALL* option
-
+		
 			$sHTML	.= "<option value=\"0\"";
 
 			if ( $iCatID == 0 ) {
@@ -674,12 +648,12 @@ function msnl_fGetCategories( $iCatID=0, $iInclAll=MSNL_SHOW_ALL_OFF ) {
 			}
 
 			$sHTML	.= ">". _MSNL_COM_LAB_SHOW_ALL ."</option>\n";
-
+		
 		} //End IF to show ALL option or not.
 
 		//Now build the options
 
-		while (	$row = $db->sql_fetchrow( $result ) ) {
+		while (	$row = $db->sql_fetchrow( $result ) ) { 
 
 			$iLstCID		= intval( $row['cid'] );
 			$sLstTitle	= stripslashes( $row['ctitle'] );
@@ -701,7 +675,7 @@ function msnl_fGetCategories( $iCatID=0, $iInclAll=MSNL_SHOW_ALL_OFF ) {
 		$sHTML		.= "</select>\n";
 
 	} //End IF for bad SQL call check
-
+	
 	return $sHTML;
 
 } //End of Function msnl_fGetCategories()
@@ -748,9 +722,9 @@ function msnl_fShowBtnSave( $sOP ) {
 function msnl_fGrpsExplode( $sGroups ) {
 
 	$asNSNGroups	= array();
-
+	
 	$asNSNGroups	= explode( "-", $sGroups );
-
+	
 	return $asNSNGroups;
 
 } //End of function msnl_fGrpsExplode()
@@ -766,7 +740,7 @@ function msnl_fGrpsExplode( $sGroups ) {
 function msnl_fGrpsImplode( $asGroups ) {
 
 	$sGroups = "";
-
+	
 	sort( $asGroups );
 
 	$j = count( $asGroups );
@@ -782,7 +756,7 @@ function msnl_fGrpsImplode( $asGroups ) {
 		$sGroups .= $asGroups[$i];
 
 	}
-
+	
 	return $sGroups;
 
 } //End of function msnl_fGrpsImplode()

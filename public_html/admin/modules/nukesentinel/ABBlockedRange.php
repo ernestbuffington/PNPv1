@@ -1,15 +1,19 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 
 /********************************************************/
 /* NukeSentinel(tm)                                     */
 /* By: NukeScripts Network (webmaster@nukescripts.net)  */
-/* http://www.nukescripts.net                           */
-/* Copyright © 2000-2007 by NukeScripts Network         */
+/* http://nukescripts.86it.us                           */
+/* Copyright (c) 2000-2008 by NukeScripts Network       */
 /* See CREDITS.txt for ALL contributors                 */
 /********************************************************/
 
 $pagetitle = _AB_NUKESENTINEL.": "._AB_BLOCKEDRANGES;
-include_once("header.php");
+include_once(NUKE_BASE_DIR.'header.php');
 OpenTable();
 OpenMenu(_AB_BLOCKEDRANGES);
 ipbanmenu();
@@ -27,27 +31,27 @@ if(!isset($column) or !$column or $column=="") $column = "ip_lo";
 if(!isset($direction) or !$direction or $direction=="") $direction = "asc";
 $totalselected = $db->sql_numrows($db->sql_query("SELECT * FROM `".$prefix."_nsnst_blocked_ranges`"));
 if($totalselected > 0) {
-  echo "<table align='center' border='0' cellpadding='2' cellspacing='2' bgcolor='$bgcolor2' width='100%'>\n";
+  echo "<table summary='' align='center' border='0' cellpadding='2' cellspacing='2' bgcolor='$bgcolor2' width='100%'>\n";
   // Page Sorting
   echo "<tr>\n";
   echo "<td align='right' bgcolor='$bgcolor2' colspan='7'>\n";
   echo "<form method='post' action='".$admin_file.".php?op=ABBlockedRange'><strong>"._AB_SORT.":</strong> ";
   echo "<select name='column'>\n";
-  if($column == "ip_lo") $selcolumn1 = "selected";
+  if($column == "ip_lo") $selcolumn1 = "selected='selected'";
   echo "<option value='ip_lo' $selcolumn1>"._AB_IP2CRANGE."</option>\n";
-  if($column == "c2c") $selcolumn2 = "selected";
+  if($column == "c2c") $selcolumn2 = "selected='selected'";
   echo "<option value='c2c' $selcolumn2>"._AB_C2CODE."</option>\n";
-  if($column == "date") $selcolumn3 = "selected";
+  if($column == "date") $selcolumn3 = "selected='selected'";
   echo "<option value='date' $selcolumn3>"._AB_DATE."</option>\n";
-  if($column == "expires") $selcolumn4 = "selected";
+  if($column == "expires") $selcolumn4 = "selected='selected'";
   echo "<option value='expires' $selcolumn4>"._AB_EXPIRES."</option>\n";
-  if($column == "reason") $selcolumn5 = "selected";
+  if($column == "reason") $selcolumn5 = "selected='selected'";
   echo "<option value='reason' $selcolumn5>"._AB_REASON."</option>\n";
   echo "</select> ";
   echo "<select name='direction'>\n";
-  if($direction == "asc") $seldirection1 = "selected";
+  if($direction == "asc") $seldirection1 = "selected='selected'";
   echo "<option value='asc' $seldirection1>"._AB_ASC."</option>\n";
-  if($direction == "desc") $seldirection2 = "selected";
+  if($direction == "desc") $seldirection2 = "selected='selected'";
   echo "<option value='desc' $seldirection2>"._AB_DESC."</option>\n";
   echo "</select> ";
   echo "<input type='hidden' name='min' value='$min' /><input type='submit' value='"._AB_SORT."' />\n";
@@ -82,7 +86,7 @@ if($totalselected > 0) {
     echo "<td align='center'$valign>&nbsp;<a href='".$admin_file.".php?op=ABPrintBlockedRangeView&amp;ip_lo=".$getIPs['ip_lo']."&amp;ip_hi=".$getIPs['ip_hi']."' target='_blank'><img src='images/nukesentinel/print.png' border='0' alt='"._AB_PRINT."' title='"._AB_PRINT."' height='16' width='16' /></a>&nbsp;<a ";
     echo "href='".$admin_file.".php?op=ABBlockedRangeView&amp;ip_lo=".$getIPs['ip_lo']."&amp;ip_hi=".$getIPs['ip_hi']."' target='_blank'><img src='images/nukesentinel/view.png' border='0' alt='"._AB_VIEW."' title='"._AB_VIEW."' height='16' width='16' /></a>&nbsp;<a ";
     echo "href='".$admin_file.".php?op=ABBlockedRangeEdit&amp;ip_lo=".$getIPs['ip_lo']."&amp;ip_hi=".$getIPs['ip_hi']."&amp;min=$min&amp;column=$column&amp;direction=$direction&amp;xop=$op'><img src='images/nukesentinel/edit.png' border='0' alt='"._AB_EDIT."' title='"._AB_EDIT."' height='16' width='16' /></a>&nbsp;<a ";
-    echo "href='".$admin_file.".php?op=ABBlockedRangeDelete&amp;ip_lo=".$getIPs['ip_lo']."&amp;ip_hi=".$getIPs['ip_hi']."&amp;min=$min&amp;column=$column&amp;direction=$direction&amp;xop=$op'><img src='images/nukesentinel/delete.png' border='0' alt='"._AB_DELETE."' title='"._AB_DELETE."' height='16' width='16' /></a>&nbsp;</td>\n";
+    echo "href='".$admin_file.".php?op=ABBlockedRangeDelete&amp;ip_lo=".$getIPs['ip_lo']."&amp;ip_hi=".$getIPs['ip_hi']."&amp;min=$min&amp;column=$column&amp;direction=$direction&amp;xop=$op'><img src='images/nukesentinel/unblock.png' border='0' alt='"._AB_UNBLOCK."' title='"._AB_UNBLOCK."' height='16' width='16' /></a>&nbsp;</td>\n";
     echo "</tr>\n";
   }
   // Page Numbering
@@ -98,7 +102,7 @@ if($totalselected > 0) {
     $counter = 1;
     $currentpage = ($max / $perpage);
     echo "<tr bgcolor='$bgcolor1'><td colspan='7'><img src='images/pix.gif' height='2' width='2' alt='' title='' /></td></tr>\n";
-    echo "<tr>\n<td colspan='7'>\n<table border='0' cellpadding='0' cellspacing='0' width='100%'>\n<tr>\n";
+    echo "<tr>\n<td colspan='7'>\n<table summary='' border='0' cellpadding='0' cellspacing='0' width='100%'>\n<tr>\n";
 
 
     echo "<td width='33%'>";
@@ -124,7 +128,7 @@ if($totalselected > 0) {
       $cpage = $counter;
       $mintemp = ($perpage * $counter) - $perpage;
       if($counter == $currentpage) {
-        echo "<option selected>$counter</option>";
+        echo "<option selected='selected'>$counter</option>";
       } else {
         echo "<option value='$mintemp'>$counter</option>";
       }
@@ -154,6 +158,6 @@ if($totalselected > 0) {
   echo "<center><strong>"._AB_NORANGES."</strong></center>\n";
 }
 CloseTable();
-include_once("footer.php");
+include_once(NUKE_BASE_DIR.'footer.php');
 
 ?>

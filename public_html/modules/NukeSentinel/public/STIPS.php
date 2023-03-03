@@ -1,44 +1,21 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 
 /********************************************************/
 /* NukeSentinel(tm)                                     */
-/* By: NukeScripts(tm) (http://www.nukescripts.net)     */
-/* Copyright © 2000-2008 by NukeScripts(tm)             */
+/* By: NukeScripts(tm) (http://nukescripts.86it.us)     */
+/* Copyright (c) 2000-2008 by NukeScripts(tm)           */
 /* See CREDITS.txt for ALL contributors                 */
 /********************************************************/
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
 
-if(!defined("NUKESENTINEL_PUBLIC")) { header("Location: ../../../index.php"); }
-$pagetitle = _AB_NUKESENTINEL.": "._AB_BLOCKEDIPS;
-include_once("header.php");
+if (!defined('NUKESENTINEL_PUBLIC')) {
+   die ('You can\'t access this file directly...');
+}
+
+include_once(NUKE_BASE_DIR.'header.php');
 stmain_menu(_AB_BLOCKEDIPS);
 echo '<br />'."\n";
 OpenTable();
@@ -47,7 +24,7 @@ if (!isset($min)) { $min=0; } else { $min = intval($min); }
 if (!isset($max)) { $max = $min + $perpage; } else { $max = intval($max); }
 if ($column != "ip_long" and $column != "reason" and $column != "date") { $column = "ip_long"; }
 if ($direction != "asc" and $direction != "desc") { $direction = "asc"; }
-$totalselected = $db->sql_numrows($db->sql_query("SELECT * FROM `".$prefix."_nsnst_blocked_ips`"));
+$totalselected = $db->sql_numrows($db->sql_query("SELECT `reason` FROM `".$prefix."_nsnst_blocked_ips`"));
 if ($totalselected > 0) {
   // Page Sorting
   echo '<table summary="" align="center" border="0" cellpadding="2" cellspacing="2" width="100%">'."\n";
@@ -86,7 +63,7 @@ if ($totalselected > 0) {
     $bdate = date("Y-m-d @ H:i:s", $getIPs['date']);
     $lookupip = str_replace("*", "0", $getIPs['ip_addr']);
     echo '<tr onmouseover="this.style.backgroundColor=\''.$bgcolor2.'\'" onmouseout="this.style.backgroundColor=\''.$bgcolor1.'\'" bgcolor="'.$bgcolor1.'">'."\n";
-    if((is_admin($admin) AND $ab_config['display_link']==1) OR ((is_user($user) OR is_admin($admin)) AND $ab_config['display_link']==2) OR $ab_config['display_link']==3) {
+    if((is_admin() AND $ab_config['display_link']==1) OR ((is_user() OR is_admin()) AND $ab_config['display_link']==2) OR $ab_config['display_link']==3) {
       $lookupip = str_replace("*", "0", $getIPs['ip_addr']);
       $ipcontent = '<a href="'.$ab_config['lookup_link'].$lookupip.'" target="_blank">'.$getIPs['ip_addr'].'</a>';
     } else {
@@ -95,7 +72,7 @@ if ($totalselected > 0) {
     echo '<td align="center">'.$ipcontent.'</td>'."\n";
     echo '<td align="center">'.$bdate.'</td>'."\n";
     $reason = "----------";
-    if((is_admin($admin) AND $ab_config['display_reason']==1) OR ((is_user($user) OR is_admin($admin)) AND $ab_config['display_reason']==2) OR $ab_config['display_reason']==3) {
+    if((is_admin() AND $ab_config['display_reason']==1) OR ((is_user() OR is_admin()) AND $ab_config['display_reason']==2) OR $ab_config['display_reason']==3) {
       $result2 = $db->sql_query("SELECT `reason` FROM `".$prefix."_nsnst_blockers` WHERE `blocker`='".$getIPs['reason']."' LIMIT 0,1");
       list($reason) = $db->sql_fetchrow($result2);
       $reason = str_replace("Abuse-","",$reason);
@@ -109,6 +86,6 @@ if ($totalselected > 0) {
   echo '<center><strong>'._AB_NOIPS.'</strong></center>'."\n";
 }
 CloseTable();
-include_once("footer.php");
+include_once(NUKE_BASE_DIR.'footer.php');
 
 ?>

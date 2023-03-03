@@ -9,7 +9,7 @@ declare (strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace RectorPrefix202302\SebastianBergmann\Diff;
+namespace RectorPrefix202301\SebastianBergmann\Diff;
 
 final class Diff
 {
@@ -22,12 +22,11 @@ final class Diff
      */
     private $to;
     /**
-     * @psalm-var list<Chunk>
-     * @var mixed[]
+     * @var Chunk[]
      */
     private $chunks;
     /**
-     * @psalm-param list<Chunk> $chunks
+     * @param Chunk[] $chunks
      */
     public function __construct(string $from, string $to, array $chunks = [])
     {
@@ -44,14 +43,14 @@ final class Diff
         return $this->to;
     }
     /**
-     * @psalm-return list<Chunk>
+     * @return Chunk[]
      */
     public function getChunks() : array
     {
         return $this->chunks;
     }
     /**
-     * @psalm-param list<Chunk> $chunks
+     * @param Chunk[] $chunks
      */
     public function setChunks(array $chunks) : void
     {

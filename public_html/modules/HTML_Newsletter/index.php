@@ -1,33 +1,15 @@
 <?php
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
 /************************************************************************/
 /* HTML Newsletter 1.0 module for PHP-Nuke 6.5 - 7.6                    */
 /* By: NukeWorks (webmaster@nukeworks.biz)                              */
@@ -43,17 +25,12 @@
 * License: GNU/GPL
 ************************************************************************/
 /************************************************************************
-* Script:     HTML Newsletter module for PHP-Nuke 6.5 - 7.6
-* Version:    01.03.02
-* Author:     Rob Herder (aka: montego) of montegoscripts.com
-* Contact:    montego@montegoscripts.com
-* Copyright:  Copyright © 2006 by Montego Scripts
-* License:    GNU/GPL (see provided LICENSE.txt file)
-************************************************************************/
-/************************************************************************
-* Rev Date      Change ID       Description
-* -----------   --------------  -----------------------------------------
-* 18-MAY-2006   RN_0000185      Make XHTML 1.0 Compliant, plus better use of quotes
+* Script:			HTML Newsletter module for PHP-Nuke 6.5 - 7.6
+* Version:		01.03.01
+* Author:			Rob Herder (aka: montego) of montegoscripts.com
+* Contact:		montego@montegoscripts.com
+* Copyright:	Copyright © 2006 by Montego Scripts
+* License:		GNU/GPL (see provided LICENSE.txt file)
 ************************************************************************/
 
 /************************************************************************
@@ -67,7 +44,7 @@ if ( !defined('MODULE_FILE') ) { die("You can't access this file directly..."); 
 define('MSNL_LOADED', true);
 define('NW_HNL_LOADED', true);	//This is here for compatibility purposes with v1.2 newsletters
 
-$msnl_sModuleNm	= 'HTML_Newsletter';	//If you change the module directory, change every instance of this definition
+$msnl_sModuleNm	= "HTML_Newsletter";	//If you change the module directory, change every instance of this definition
 
 /************************************************************************
 * Initialize and assign key module variables.
@@ -75,39 +52,39 @@ $msnl_sModuleNm	= 'HTML_Newsletter';	//If you change the module directory, chang
 
 global $msnl_sModuleNm, $index, $msnl_gasModCfg;
 
-@require_once( 'modules/'.$msnl_sModuleNm.'/functions.php' );
-@require_once( 'modules/'.$msnl_sModuleNm.'/config.php' );
-@include_once( 'modules/'.$msnl_sModuleNm.'/style.php' );
+@require_once( "./modules/$msnl_sModuleNm/functions.php" );
+@require_once( "./modules/$msnl_sModuleNm/config.php" );
+@include( "./modules/$msnl_sModuleNm/style.php" );
 
 if ( $msnl_gasModCfg['show_blocks'] == 1 ) {
 
-	$index = 1; //Here for compatibility with patches below 3.1
-	define('INDEX_FILE', true); //Here for a nuke patched 3.1+
-
+	$index = 1;											//Here for compatibility with patches below 3.1
+	define('INDEX_FILE', true);			//Here for a nuke patched 3.1+
+	
 } else {
 
 	$index = 0;
-
+	
 }
 
-@require_once( 'mainfile.php' );
+@require_once( "mainfile.php" );
 
 /************************************************************************
 * Main "switch" code to control what the module is to do
 ************************************************************************/
-if (!isset($op)) $op = '';
-switch( $op ) {
 
-	case 'msnl_nls_view':
-		@include_once( 'modules/'.$msnl_sModuleNm.'/nls_view.php' );
+switch(isset($op)) {
+
+	case "msnl_nls_view":
+		@include( "modules/$msnl_sModuleNm/nls_view.php" );
 		break;
 
-	case 'msnl_copyright_credits':
-		@include_once( 'modules/'.$msnl_sModuleNm.'/copyright_credits.php' );
+	case "msnl_copyright_credits":
+		@include( "modules/$msnl_sModuleNm/copyright_credits.php" );
 		break;
 
 	default:
-		@include_once( 'modules/'.$msnl_sModuleNm.'/nls_list.php' );
+		@include( "modules/$msnl_sModuleNm/nls_list.php" );
 		break;
 
 }

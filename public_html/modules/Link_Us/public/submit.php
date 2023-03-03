@@ -11,7 +11,7 @@
  Nuke-Evo Filename      :   #$#FILENAME
  Nuke-Evo Date          :   #$#DATE
 
- (c) 2007 - 2008 by DarkForgeGFX - http://www.darkforgegfx.com
+ (c) 2007 - 2018 by Lonestar Modules - https://lonestar-modules.com
  ========================================================================
 
  LICENSE INFORMATIONS COULD BE FOUND IN COPYRIGHTS.PHP WHICH MUST BE
@@ -29,10 +29,10 @@
 -=[Mod]=-
  ************************************************************************/
 
-	global $userinfo;
+	global $userinfo, $identify;
 
 	list($uid, $name, $email) = $db->sql_fetchrow($db->sql_query("SELECT `user_id`, `username`, `user_email`, `user_website` FROM `".$prefix."_users` WHERE `username`='".$userinfo['username']."'"));
-	$ip = identify::get_ip();
+	$ip = $identify->get_ip();
 
 	OpenTable();
 	
@@ -60,7 +60,7 @@
 		echo Make_TextArea('site_description','','button_submit');
 		echo "</td></tr>\n";
 		echo " <tr>";
-		echo "     <td width='40%'><strong>".$lang_new[$module_name]['BUTTON_TYPE'].":</strong></td>";
+		echo "     <td width='40%'><b>".$lang_new[$module_name]['BUTTON_TYPE'].":</b></td>";
 		echo "     <td width='40%'>
 	<input name='button_type' type='radio' value='1' checked> ".$lang_new[$module_name]['STANDARD_BUTTONS']." ( ".$lang_new[$module_name]['WIDTH']." = " .$config['button_width'] ." x ".$lang_new[$module_name]['HEIGHT']." = ".$config['button_height']." )<br />
 	<input name='button_type' type='radio' value='2'> ".$lang_new[$module_name]['BANNER_BUTTONS']." ( ".$lang_new[$module_name]['WIDTH']." = " .$config['button_banner_width'] ." x ".$lang_new[$module_name]['HEIGHT']." = ".$config['button_banner_height']." )<br />

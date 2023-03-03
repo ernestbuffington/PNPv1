@@ -6,7 +6,6 @@ namespace Rector\PostRector\Rector;
 use PhpParser\Node;
 use Rector\Core\Configuration\RenamedClassesDataCollector;
 use Rector\Core\Contract\Rector\RectorInterface;
-use Rector\Core\NonPhpFile\Rector\RenameClassNonPhpRector;
 use Rector\PostRector\Contract\Rector\PostRectorDependencyInterface;
 use Rector\Renaming\NodeManipulator\ClassRenamer;
 use Rector\Renaming\Rector\Name\RenameClassRector;
@@ -39,7 +38,7 @@ final class ClassRenamingPostRector extends \Rector\PostRector\Rector\AbstractPo
      */
     public function getRectorDependencies() : array
     {
-        return [RenameClassRector::class, RenameClassNonPhpRector::class];
+        return [RenameClassRector::class];
     }
     public function enterNode(Node $node) : ?Node
     {

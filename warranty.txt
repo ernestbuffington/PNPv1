@@ -1,0 +1,45 @@
+/**********************************************************************/
+/* PHP-Nuke Platinum v.7.6.b.4                               WARRANTY */
+/*                                                                    */
+/* Because PHP-Nuke Platinum is licensed free of charge, there is no  */
+/* warranty for the package, to the extent permitted by applicable    */
+/* law. Except when otherwise stated in writing, TechGFX provides     */
+/* PHP-Nuke Platinum "as is" without warranty of any kind, either     */
+/* expressed or implied, including, but not limited to, the implied   */
+/* warranties of merchantability and fitness for a particular purpose.*/
+/* The entire risk as to the quality and performance of the package is*/
+/* with you. Should the package prove defective, you assume the cost  */
+/* of all necessary servicing, repair or correction.                  */
+/*                                                                    */
+/**********************************************************************/
+/*  Support Information                                               */
+/******[ PHP-NUKE PLATINUM ]*******************************************/
+/*                                                                    */
+/* Although PHP-Nuke Platinum with-holds no warranty for the package, */
+/* support is available from the official PHP-Nuke Platinum home,     */
+/* currently located at http://www.nukeplanet.com                     */
+/*                                                                    */
+/**********************************************************************/
+/*  Client Solutions                                                  */
+/******[ TECHGFX ]*****************************************************/
+/*                                                                    */
+/* Client solutions are available from the official PHP-Nuke Platinum */
+/* home, currently located at http://www.techgfx.com. Solutions can   */
+/* entitle installations, upgrades, securing, design and code.        */
+/* Additional client solution information can be obtained via         */
+/* contacting the CEO of PHP-Nuke Platinum / TechGFX.                 */
+/*                                                                    */
+/**********************************************************************/
+/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                */
+/*       Graeme Allan - Techgfx                   (goose@techgfx.com) */
+/*       Scott Partee - Loki                     (loki@nukeplanet.com)*/
+/**********************************************************************/
+/* All content and includes from this package is intellectual         */
+/* property of TechGFX.com unless stated otherwise. Replication of    */
+/* and copyrighted material is a civil and criminal act and           */
+/* violations may result in legal action.                             */
+/**********************************************************************/
+/* See nukeplanet.com for detailed information on the                 */
+/* this version of the Platinum Suite                                 */
+/* TechGFX: Your dreams, Our imagination                              */
+/**********************************************************************/

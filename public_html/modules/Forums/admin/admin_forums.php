@@ -1,217 +1,111 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
 
 /***************************************************************************
-
  *                             admin_forums.php
-
  *                            -------------------
-
  *   begin                : Thursday, Jul 12, 2001
-
  *   copyright            : (C) 2001 The phpBB Group
-
  *   email                : support@phpbb.com
-
  *
-
- *   $Id: admin_forums.php,v 1.40.2.10 2003/01/05 02:36:00 psotfx Exp $
-
+ *   Id: admin_forums.php,v 1.40.2.12 2005/05/06 22:58:19 acydburn Exp
  *
-
  ***************************************************************************/
 
-
-
 /***************************************************************************
-
  *
-
  *   This program is free software; you can redistribute it and/or modify
-
  *   it under the terms of the GNU General Public License as published by
-
  *   the Free Software Foundation; either version 2 of the License, or
-
  *   (at your option) any later version.
-
  *
-
  ***************************************************************************/
 
-
-
-/***************************************************************************
-
- * Platinum Nuke Pro: Expect to be impressed                      COPYRIGHT
-
- *
-
- * Copyright (c) 2004 - 2006 by http://www.techgfx.com
-
- *     Techgfx - Graeme Allan                       (goose@techgfx.com)
-
- *
-
- * Copyright (c) 2004 - 2006 by http://www.conrads-berlin.de
-
- *     MrFluffy - Axel Conrads                 (axel@conrads-berlin.de)
-
- *
-
- * Refer to TechGFX.com for detailed information on Platinum Nuke Pro
-
- *
-
- * TechGFX: Your dreams, our imagination
-
- ***************************************************************************/
-
-
-
-define('IN_PHPBB', 1);
-
-
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Caching System                           v1.0.0       12/20/2005
+-=[Mod]=-
+      Attachment Mod                           v2.4.1       07/20/2005
+      Topic display order                      v1.0.2       06/15/2005
+	  Simple Subforums                         v1.0.1
+	  Colorize Forumtitle                      v1.0.0
+	  Forumtitle as Weblink                    v1.2.2
+	  Forum Icons                              v1.0.4
+	  Thank You Mod                            v1.1.8
+ ************************************************************************/
+if (!defined('IN_PHPBB')) define('IN_PHPBB', true);
 
 if( !empty($setmodules) )
-
 {
-
         $file = basename(__FILE__);
 
         $module['Forums']['Manage'] = $file;
 
         return;
-
 }
 
-
-
 //
-
 // Load default header
-
 //
-
 $phpbb_root_path = "./../";
 
-require_once($phpbb_root_path . 'extension.inc');
+require($phpbb_root_path . 'extension.inc');
 
-require_once('./pagestart.' . $phpEx);
+require('./pagestart.' . $phpEx);
 
-include_once("../../../includes/functions_admin.php");
+include("../../../includes/functions_admin.php");
 
 
 
 $forum_auth_ary = array(
-
         "auth_view" => AUTH_ALL,
-
         "auth_read" => AUTH_ALL,
-
-	"auth_post" => AUTH_REG, 
-
-	"auth_reply" => AUTH_REG,
-
+        "auth_post" => AUTH_REG,
+        "auth_reply" => AUTH_REG,
         "auth_edit" => AUTH_REG,
-
         "auth_delete" => AUTH_REG,
-
         "auth_sticky" => AUTH_MOD,
-
         "auth_announce" => AUTH_MOD,
-
         "auth_vote" => AUTH_REG,
-
         "auth_pollcreate" => AUTH_REG
-
 );
 
-
+/*****[BEGIN]******************************************
+ [ Mod:    Attachment Mod                      v2.4.1 ]
+ ******************************************************/
 
 $forum_auth_ary['auth_attachments'] = AUTH_REG;
 
 $forum_auth_ary['auth_download'] = AUTH_REG;
 
-
-			$in_from = ($_POST['popup']) ? $_POST['popup'] : $_POST['popup'];
-			if ( ($in_from) && ($userdata['user_level'] != ADMIN) )
-				message_die(GENERAL_ERROR, '<a href="#" onclick="javascript:window.close();">'. $lang['close_popup'] .'</a>');
+/*****[END]********************************************
+ [ Mod:    Attachment Mod                      v2.4.1 ]
+ ******************************************************/
 
 //
-
 // Mode setting
-
 //
-
-if( isset($_POST['mode']) || isset($_GET['mode']) )
-
+if( isset($_POST['mode']) || isset($HTTP_GET_VARS['mode']) )
 {
+        $mode = ( isset($_POST['mode']) ) ? $_POST['mode'] : $HTTP_GET_VARS['mode'];
 
-        $mode = ( isset($_POST['mode']) ) ? $_POST['mode'] : $_GET['mode'];
-
+        $mode = htmlspecialchars($mode);
 }
-
 else
-
 {
-
         $mode = "";
-
 }
-
-$permissions_update_sql =
-"auth_view = '". intval((($_POST['auth_view']) ? $_POST['auth_view'] : $_POST['auth_view'])) ."',
- auth_read = '". intval((($_POST['auth_read']) ? $_POST['auth_read'] : $_POST['auth_read'])) ."',
- auth_post = '". intval((($_POST['auth_post']) ? $_POST['auth_post'] : $_POST['auth_post'])) ."',
- auth_reply = '". intval((($_POST['auth_reply']) ? $_POST['auth_reply'] : $_POST['auth_reply'])) ."',
- auth_edit = '". intval((($_POST['auth_edit']) ? $_POST['auth_edit'] : $_POST['auth_edit'])) ."',
- auth_delete = '". intval((($_POST['auth_delete']) ? $_POST['auth_delete'] : $_POST['auth_delete'])) ."',
- auth_sticky = '". intval((($_POST['auth_sticky']) ? $_POST['auth_sticky'] : $_POST['auth_sticky'])) ."',
- auth_announce = '". intval((($_POST['auth_announce']) ? $_POST['auth_announce'] : $_POST['auth_announce'])) ."',
- auth_vote = '". intval((($_POST['auth_vote']) ? $_POST['auth_vote'] : $_POST['auth_vote'])) ."',
- auth_pollcreate = '". intval((($_POST['auth_pollcreate']) ? $_POST['auth_pollcreate'] : $_POST['auth_pollcreate'])) ."'";
- 
-$permissions_insert_sql_one = 
-"auth_view, 
-auth_read, 
-auth_post, 
-auth_reply, 
-auth_edit, 
-auth_delete, 
-auth_sticky, 
-auth_announce, 
-auth_vote, 
-auth_pollcreate";
-
-$permissions_insert_sql_two = 
-"'". intval((($_POST['auth_view']) ? $_POST['auth_view'] : $_POST['auth_view'])) ."', 
-'". intval((($_POST['auth_read']) ? $_POST['auth_read'] : $_POST['auth_read'])) ."', 
-'". intval((($_POST['auth_post']) ? $_POST['auth_post'] : $_POST['auth_post'])) ."', 
-'". intval((($_POST['auth_reply']) ? $_POST['auth_reply'] : $_POST['auth_reply'])) ."', 
-'". intval((($_POST['auth_edit']) ? $_POST['auth_edit'] : $_POST['auth_edit'])) ."', 
-'". intval((($_POST['auth_delete']) ? $_POST['auth_delete'] : $_POST['auth_delete'])) ."', 
-'". intval((($_POST['auth_sticky']) ? $_POST['auth_sticky'] : $_POST['auth_sticky'])) ."',
-'". intval((($_POST['auth_announce']) ? $_POST['auth_announce'] : $_POST['auth_announce'])) ."',
-'". intval((($_POST['auth_vote']) ? $_POST['auth_vote'] : $_POST['auth_vote'])) ."',
-'". intval((($_POST['auth_pollcreate']) ? $_POST['auth_pollcreate'] : $_POST['auth_pollcreate'])) ."'";
-
 
 // ------------------
-
 // Begin function block
-
 //
-
 function get_info($mode, $id)
-
 {
-
         global $db;
 
-
-
         switch($mode)
-
         {
 
                 case 'category':
@@ -251,11 +145,8 @@ function get_info($mode, $id)
                 FROM $table";
 
         if( !$result = $db->sql_query($sql) )
-
         {
-
                 message_die(GENERAL_ERROR, "Couldn't get Forum/Category information", "", __LINE__, __FILE__, $sql);
-
         }
 
         $count = $db->sql_fetchrow($result);
@@ -273,24 +164,14 @@ function get_info($mode, $id)
 
 
         if( !$result = $db->sql_query($sql) )
-
         {
-
                 message_die(GENERAL_ERROR, "Couldn't get Forum/Category information", "", __LINE__, __FILE__, $sql);
-
         }
-
-
 
         if( $db->sql_numrows($result) != 1 )
-
         {
-
                 message_die(GENERAL_ERROR, "Forum/Category doesn't exist or multiple forums/categories with ID $id", "", __LINE__, __FILE__);
-
         }
-
-
 
         $return = $db->sql_fetchrow($result);
 
@@ -305,15 +186,10 @@ function get_info($mode, $id)
 function get_list($mode, $id, $select)
 
 {
-
         global $db;
 
-
-
         switch($mode)
-
         {
-
                 case 'category':
 
                         $table = CATEGORIES_TABLE;
@@ -323,7 +199,6 @@ function get_list($mode, $id, $select)
                         $namefield = 'cat_title';
 
                         break;
-
 
 
                 case 'forum':
@@ -337,15 +212,12 @@ function get_list($mode, $id, $select)
                         break;
 
 
-
                 default:
 
                         message_die(GENERAL_ERROR, "Wrong mode for generating select list", "", __LINE__, __FILE__);
 
                         break;
-
         }
-
 
 
         $sql = "SELECT *
@@ -353,67 +225,129 @@ function get_list($mode, $id, $select)
                 FROM $table";
 
         if( $select == 0 )
-
         {
-
                 $sql .= " WHERE $idfield <> $id";
-
         }
-
-
 
         if( !$result = $db->sql_query($sql) )
-
         {
-
                 message_die(GENERAL_ERROR, "Couldn't get list of Categories/Forums", "", __LINE__, __FILE__, $sql);
-
         }
-
-
 
         $cat_list = "";
 
-
-
         while( $row = $db->sql_fetchrow($result) )
-
         {
-
                 $s = "";
 
                 if ($row[$idfield] == $id)
-
                 {
-
                         $s = " selected=\"selected\"";
-
                 }
 
                 $catlist .= "<option value=\"$row[$idfield]\"$s>" . $row[$namefield] . "</option>\n";
 
         }
 
-
-
         return($catlist);
-
 }
 
+/*****[BEGIN]******************************************
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+ ******************************************************/
+function get_list_cat($id, $parent, $forum_id)
+{
 
+	global $db;
+
+	// Get categories
+
+	$sql = 'SELECT * FROM ' . CATEGORIES_TABLE . ' ORDER BY cat_order ASC';
+
+	if( !($result = $db->sql_query($sql)) )
+	{
+		message_die(GENERAL_ERROR, "Couldn't get list of categories", '', __LINE__, __FILE__, $sql);
+	}
+
+	$cat_list = array();
+
+	while( $row = $db->sql_fetchrow($result) )
+	{
+		$cat_list[] = $row;
+	}
+
+	$db->sql_freeresult($result);
+
+	// Get all forums and check if forum has subforums
+	$has_sub = false;
+
+	$sql = 'SELECT forum_id, cat_id, forum_name, forum_parent FROM ' . FORUMS_TABLE . ' ORDER BY forum_order ASC';
+
+	
+
+	if( !($result = $db->sql_query($sql)) )
+	{
+		message_die(GENERAL_ERROR, "Couldn't get list of forums", '', __LINE__, __FILE__, $sql);
+	}
+
+	$forums_list = array();
+
+	while( $row = $db->sql_fetchrow($result) )
+	{
+		if( $row['forum_parent'] > 0 && $row['forum_parent'] == $forum_id )
+		{
+			$has_sub = true;
+		}
+
+		if( !$row['forum_parent'] )
+		{
+			$forums_list[] = $row;
+		}
+	}
+
+	$db->sql_freeresult($result);
+
+	// Generate select
+	if(isset($cat_list)):
+	for( $i = 0; $i < count($cat_list); $i++ )
+	{
+		$cat_id = $cat_list[$i]['cat_id'];
+
+		$selected = ( $id == $cat_id && $parent == 0 ) ? ' selected="selected"' : '';
+        $str = $str ?? '';
+		$str .= '<option value="' . $cat_id . '"' . $selected . '>' . $cat_list[$i]['cat_title'] . '</option>';
+
+		if( !$has_sub )
+		{
+			for( $j = 0; $j < count($forums_list); $j++)
+			{
+
+				if( $forums_list[$j]['cat_id'] == $cat_id && $forums_list[$j]['forum_id'] != $forum_id )
+				{
+					$forum_id2 = $forums_list[$j]['forum_id'];
+
+					$selected = ( $id == $cat_id && $parent == $forum_id2 ) ? ' selected="selected"' : '';
+
+					$str .= '<option value="' . $cat_id . ',' . $forum_id2 . '"' . $selected . '>- ' . $forums_list[$j]['forum_name'] . '</option>';
+				}
+			}
+		}
+	}
+    endif;
+	return $str;
+
+}
+/*****[END]********************************************
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+ ******************************************************/
 
 function renumber_order($mode, $cat = 0)
-
 {
 
         global $db;
 
-
-
         switch($mode)
-
         {
-
                 case 'category':
 
                         $table = CATEGORIES_TABLE;
@@ -424,9 +358,16 @@ function renumber_order($mode, $cat = 0)
 
                         $cat = 0;
 
+/*****[BEGIN]******************************************
+ [ Base:    Caching System                     v3.0.0 ]
+ ******************************************************/
+                        global $cache;
+
+                        $cache->delete('category_rows', 'config');
+/*****[END]********************************************
+ [ Base:    Caching System                     v3.0.0 ]
+ ******************************************************/
                         break;
-
-
 
                 case 'forum':
 
@@ -440,52 +381,32 @@ function renumber_order($mode, $cat = 0)
 
                         break;
 
-
-
                 default:
 
                         message_die(GENERAL_ERROR, "Wrong mode for generating select list", "", __LINE__, __FILE__);
 
                         break;
-
         }
-
-
 
         $sql = "SELECT * FROM $table";
 
         if( $cat != 0)
-
         {
-
                 $sql .= " WHERE $catfield = $cat";
-
         }
 
         $sql .= " ORDER BY $orderfield ASC";
 
-
-
-
-
         if( !$result = $db->sql_query($sql) )
-
         {
-
                 message_die(GENERAL_ERROR, "Couldn't get list of Categories", "", __LINE__, __FILE__, $sql);
-
         }
-
-
 
         $i = 10;
 
         $inc = 10;
 
-
-
         while( $row = $db->sql_fetchrow($result) )
-
         {
 
                 $sql = "UPDATE $table
@@ -495,224 +416,144 @@ function renumber_order($mode, $cat = 0)
                         WHERE $idfield = " . $row[$idfield];
 
                 if( !$db->sql_query($sql) )
-
                 {
-
                         message_die(GENERAL_ERROR, "Couldn't update order fields", "", __LINE__, __FILE__, $sql);
-
                 }
 
                 $i += 10;
-
         }
 
-
-
 }
-
 //
-
 // End function block
-
 // ------------------
 
-
-
 //
-
 // Begin program proper
-
 //
-
 if( isset($_POST['addforum']) || isset($_POST['addcategory']) )
-
 {
-
         $mode = ( isset($_POST['addforum']) ) ? "addforum" : "addcat";
 
-
-
         if( $mode == "addforum" )
-
         {
-
-                list($cat_id) = each($_POST['addforum']);
+                //list($cat_id) = each($_POST['addforum']);
+				foreach (array_keys($_POST['addforum']) as $cat_id)
 
                 $cat_id = intval($cat_id);
 
                 //
-
                 // stripslashes needs to be run on this because slashes are added when the forum name is posted
-
                 //
 
                 $forumname = stripslashes($_POST['forumname'][$cat_id]);
-
         }
 
 }
 
-
+if( !empty($_POST['password']) )
+{
+	if( !preg_match("#^[A-Za-z0-9]{3,20}$#si", $_POST['password']) )
+	{
+		message_die(GENERAL_MESSAGE, $lang['Only_alpha_num_chars']);
+	}
+}
 
 if( !empty($mode) )
-
 {
-
-        switch($mode)
-
+       switch($mode)
         {
-
                 case 'addforum':
 
                 case 'editforum':
 
                         //
-
                         // Show form to create/modify a forum
-
                         //
-
                         if ($mode == 'editforum')
-
                         {
-
                                 // $newmode determines if we are going to INSERT or UPDATE after posting?
-
-
-
                                 $l_title = $lang['Edit_forum'];
 
                                 $newmode = 'modforum';
 
                                 $buttonvalue = $lang['Update'];
 
-
-
-                                $forum_id = intval($_GET[POST_FORUM_URL]);
-
-
+                                $forum_id = intval($HTTP_GET_VARS[POST_FORUM_URL]);
 
                                 $row = get_info('forum', $forum_id);
 
-
-
                                 $cat_id = $row['cat_id'];
 
+/*****[BEGIN]******************************************
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+ ******************************************************/
+								$parent_id = $row['forum_parent'];
+
+/*****[END]********************************************
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+ ******************************************************/
                                 $forumname = $row['forum_name'];
 
                                 $forumdesc = $row['forum_desc'];
 
                                 $forumstatus = $row['forum_status'];
+								$forum_password = $row['forum_password'];
 
-   // Added by Attached Forums MOD
+/*****[BEGIN]******************************************
+ [ Mod:    Thank You Mod                       v1.1.8 ]
+ ******************************************************/
+								$forumthank = $row['forum_thank'];
+/*****[END]********************************************
+ [ Mod:    Thank You Mod                       v1.1.8 ]
+ ******************************************************/
 
-   
+/*****[BEGIN]******************************************
+ [ Mod:     Forum Icons                        v1.0.4 ]
+ ******************************************************/
+								$forumicon = $row['forum_icon'];
+/*****[END]********************************************
+ [ Mod:     Forum Icons                        v1.0.4 ]
+ ******************************************************/
 
-			   $forum_attached_id = $row['attached_forum_id'];
+/*****[BEGIN]******************************************
+ [ Mod:    Forumtitle as Weblink               v1.2.2 ]
+ ******************************************************/ 
+								$forum_is_link = $row['title_is_link'];
 
-				$sql = "SELECT * from ". FORUMS_TABLE. " WHERE attached_forum_id = $forum_id";
+								$forum_weblink = $row['weblink'];
 
-				if( !$r = $db->sql_query($sql) )
+								$forum_link_icon = $row['forum_link_icon'];
 
-				{
+								$forum_link_target = $row['forum_link_target'];
+/*****[END]********************************************
+ [ Mod:    Forumtitle as Weblink               v1.2.2 ]
+ ******************************************************/ 
 
-					message_die(GENERAL_ERROR, "Couldn't get list of children Forums", "", __LINE__, __FILE__, $sql);
+/*****[BEGIN]******************************************
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
+ ******************************************************/
+                                $forum_color = $row['forum_color'];
+/*****[END]********************************************
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
+ ******************************************************/
 
-				}
+/*****[BEGIN]******************************************
+ [ Mod:    Topic display order                 v1.0.2 ]
+ ******************************************************/
+                                $forum_display_sort = $row['forum_display_sort'];
 
-
-
-				if( $db->sql_numrows($r) > 0 )
-
-				{
-
-
-
-					$not_attachable=1;
-
-					$has_subforums=1;
-
-					$template->assign_block_vars('switch_attached_no', array());
-
-					if (intval($_POST['detach_enabled'])) $detach_enabled = "checked=\"checked\"";
-
-
-
-				}
-
-				else
-
-				{
-
-
-
-					// this forum is not a parent of any other forum
-
-					$sql = "SELECT * FROM ". FORUMS_TABLE. " WHERE attached_forum_id=-1 and cat_id= $cat_id and forum_id<>$forum_id ORDER BY forum_order";
-
-
-
-					if( !$result1 = $db->sql_query($sql) )
-
-					{
-
-						message_die(GENERAL_ERROR, "Couldn't get list of attachable Forums", "", __LINE__, __FILE__, $sql);
-
-					}
-
-					if( $db->sql_numrows($result1) > 0 )
-
-					{
-
-						$attachable_forums = '<option value = "-1"'.($forum_attached_id==-1?' selected':'').'> NOT ATTACHED TO ANY FORUM </a>';
-
-						while( $row1 = $db->sql_fetchrow($result1) )
-
-						{
-
-							$s='';
-
-							if ($forum_attached_id == $row1['forum_id'])
-
-							{
-
-								$s = " selected=\"selected\"";
-
-							}
-
-							$attachable_forums .= '<option value="'.$row1[forum_id].$s.'">' . $row1[forum_name] . '</option>\n';
-
-						}
-
-					}
-
-					else
-
-					{
-
-						$no_attachable_forums=1;
-
-					}
-
-
-
-				}
-
-   // End Added by Attached Forums MOD
-
-                                $forum_notify = $row['forum_notify'];
-
+                                $forum_display_order = $row['forum_display_order'];
+/*****[END]********************************************
+ [ Mod:    Topic display order                 v1.0.2 ]
+ ******************************************************/
+                                /*--FNA #1--*/
                                 //
-
                                 // start forum prune stuff.
-
                                 //
-
                                 if( $row['prune_enable'] )
-
                                 {
-
-                                        $prune_enabled = "checked=\"checked\"";
+                                       $prune_enabled = "checked=\"checked\"";
 
                                         $sql = "SELECT *
 
@@ -721,333 +562,255 @@ if( !empty($mode) )
                                        WHERE forum_id = $forum_id";
 
                                         if(!$pr_result = $db->sql_query($sql))
-
-                                        {
-
+                                       {
                                                  message_die(GENERAL_ERROR, "Auto-Prune: Couldn't read auto_prune table.", __LINE__, __FILE__);
 
                                 }
-
-
-
-                                        $pr_row = $db->sql_fetchrow($pr_result);
+                                       $pr_row = $db->sql_fetchrow($pr_result);
 
                                 }
-
                                 else
-
                                 {
-
                                         $prune_enabled = '';
-
-                                }
-
+                               }
                         }
+                        else
+                        {
+                                $l_title = $lang['Create_forum'];
 
-else
+                                $newmode = 'createforum';
 
-{
+                                $buttonvalue = $lang['Create_forum'];
 
-	$l_title = $lang['Create_forum'];
+                                $forumdesc = '';
+/*****[BEGIN]******************************************
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
+ ******************************************************/
+                                $forum_color = '';
+/*****[END]********************************************
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
+ ******************************************************/
+                                $forumstatus = FORUM_UNLOCKED;
+								$forum_password = '';
+/*****[BEGIN]******************************************
+ [ Mod:    Thank You Mod                       v1.1.8 ]
+ ******************************************************/
+								$forumthank = FORUM_UNTHANKABLE;
+/*****[END]********************************************
+ [ Mod:    Thank You Mod                       v1.1.8 ]
+ ******************************************************/
 
-	$newmode = 'createforum';
+/*****[BEGIN]******************************************
+ [ Mod:     Forum Icons                        v1.0.4 ]
+ ******************************************************/
+								$forumicon = '';
+/*****[END]********************************************
+ [ Mod:     Forum Icons                        v1.0.4 ]
+ ******************************************************/
 
-	$buttonvalue = $lang['Create_forum'];
+/*****[BEGIN]******************************************
+ [ Mod:    Topic display order                 v1.0.2 ]
+ ******************************************************/
+                                $forum_display_sort = 0;
 
+                                $forum_display_order = 0;
+/*****[END]********************************************
+ [ Mod:    Topic display order                 v1.0.2 ]
+ ******************************************************/
+                                $forum_id = '';
 
-
-	$forumdesc = '';
-
-	$forumstatus = FORUM_UNLOCKED;
-
-	$forum_id = ''; 
-
-	$prune_enabled = '';
-
-   // Added by Attached Forums MOD
-
-
-
-					$sql = "SELECT * FROM ". FORUMS_TABLE. " WHERE attached_forum_id=-1 and cat_id= $cat_id ORDER BY forum_order";
-
-
-
-					if( !$result1 = $db->sql_query($sql) )
-
-					{
-
-						message_die(GENERAL_ERROR, "Couldn't get list of Categories/Forums", "", __LINE__, __FILE__, $sql);
-
-					}
-
-				if( $db->sql_numrows($result1) > 0 )
-
-				{
-
-					$attachable_forums = '<option value = "-1"'.(($forum_attached_id==-1 || !$forum_attached_id)?' selected':'').'> NOT ATTACHED TO ANY FORUM </a>';
-
-					while( $row1 = $db->sql_fetchrow($result1) )
-
-					{
-
-
-
-						if ($forum_attached_id == $row1['forum_id'])
-
-						{
-
-							$s = " selected=\"selected\"";
-
-						}
-
-						$attachable_forums .= '<option value="'.$row1[forum_id].$s.'">' . $row1[forum_name] . '</option>\n';
-
-					}
-
-
-
-
-
-				}
-
-				else
-
-				{
-
-					$no_attachable_forums=1;
-
-				}
-
-   // END Added by Attached Forums MOD
-
-	$forum_notify = '1';
-
-}
-
-
-
-( $forum_notify == '1' ) ? $notify_enabled = "selected=\"selected\"" : $notify_disabled = "selected=\"selected\"";
-
-$notifylist = "<option value=\"1\" $notify_enabled>" . $lang['Forum_notify_enabled'] . "</option>\n";
-
-$notifylist .= "<option value=\"0\" $notify_disabled>" . $lang['Forum_notify_disabled'] . "</option>\n";
-
-   // Added by Attached Forums MOD
-
-
-
-			$forum_attached_id = $attachable_forums;
-
-   // END Added by Attached Forums MOD
-
-                        $catlist = get_list('category', $cat_id, TRUE);
-
-
-
+                                $prune_enabled = '';
+/*****[BEGIN]******************************************
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+ ******************************************************/
+								$parent_id = 0;
+/*****[END]********************************************
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+ ******************************************************/
+                        }
+/*****[BEGIN]******************************************
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+ ******************************************************/
+						//$catlist = get_list('category', $cat_id, TRUE);
+						$catlist = get_list_cat($cat_id, $parent_id, $forum_id);
+/*****[END]********************************************
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+ ******************************************************/
                         $forumstatus == ( FORUM_LOCKED ) ? $forumlocked = "selected=\"selected\"" : $forumunlocked = "selected=\"selected\"";
-
-
-
+/*****[BEGIN]******************************************
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
+ ******************************************************/
+                        $forum_color = ( empty($forum_color) ) ? '' : $forum_color;
+/*****[END]********************************************
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
+ ******************************************************/
                         // These two options ($lang['Status_unlocked'] and $lang['Status_locked']) seem to be missing from
-
                         // the language files.
-
+						$forumunlocked = $forumunlocked ?? '';
+						$forumlocked = $forumlocked ?? '';
                         $lang['Status_unlocked'] = isset($lang['Status_unlocked']) ? $lang['Status_unlocked'] : 'Unlocked';
 
                         $lang['Status_locked'] = isset($lang['Status_locked']) ? $lang['Status_locked'] : 'Locked';
 
-
-
                         $statuslist = "<option value=\"" . FORUM_UNLOCKED . "\" $forumunlocked>" . $lang['Status_unlocked'] . "</option>\n";
 
                         $statuslist .= "<option value=\"" . FORUM_LOCKED . "\" $forumlocked>" . $lang['Status_locked'] . "</option>\n";
+/*****[BEGIN]******************************************
+ [ Mod:    Thank You Mod                       v1.1.8 ]
+ ******************************************************/
+						$thank_yes = ($forumthank) ? 'checked="checked"' : '';
 
-
-
+						$thank_no = (!$forumthank) ? 'checked="checked"' : '';
+/*****[END]********************************************
+ [ Mod:    Thank You Mod                       v1.1.8 ]
+ ******************************************************/
                         $template->set_filenames(array(
 
                                 "body" => "admin/forum_edit_body.tpl")
 
                         );
+/*****[BEGIN]******************************************
+ [ Mod:    Topic display order                 v1.0.2 ]
+ ******************************************************/
+                        $forum_display_sort_list = get_forum_display_sort_option($forum_display_sort, 'list', 'sort');
 
-
-
+                        $forum_display_order_list = get_forum_display_sort_option($forum_display_order, 'list', 'order');
+/*****[END]********************************************
+ [ Mod:    Topic display order                 v1.0.2 ]
+ ******************************************************/
                         $s_hidden_fields = '<input type="hidden" name="mode" value="' . $newmode .'" /><input type="hidden" name="' . POST_FORUM_URL . '" value="' . $forum_id . '" />';
-			$in_from = ($_GET['in_from']) ? $_GET['in_from'] : $_GET['in_from'];
-			if (isset($in_from))
-				$s_hidden_fields .= '<input type="hidden" name="popup" value="1">';
-
-   // Added by Attached Forums MOD
-
-
-
-			if ($not_attachable or $no_attachable_forums)
-
-			{
-
-				if ($has_subforums)
-
-				{
-
-					$lang['Attached_Description'] = $lang['Has_attachments'].'<br>'. $lang['Attached_Description'];
-
-					$s_hidden_fields .='<input type="hidden" name="has_subforums" value="1" />';
-
-				}
-
-				if ($no_attachable_forums) $lang['Attached_Description'] = $lang['No_attach_forums'].'<br>'. $lang['Attached_Description'];
-
-				$s_hidden_fields .='<input type="hidden" name="attached_forum_id" value="-1" />';
-
-			}
-
-			else
-
-			{
-
-				$template->assign_block_vars('switch_attached_yes', array());
-
-			}
-
-				$s_hidden_fields .='<input type="hidden" name="old_cat_id" value="'.$cat_id.'" />';
-
-   // END Added by Attached Forums MOD
-$field_names 		= array('auth_view', 'auth_read', 'auth_post', 'auth_reply', 'auth_edit', 'auth_delete', 'auth_sticky', 'auth_announce', 'auth_vote', 'auth_pollcreate');
-$field_values 		= array('auth_view' => $lang['View'],'auth_read' => $lang['Read'],'auth_post' => $lang['Post'],'auth_reply' => $lang['Reply'],'auth_edit' => $lang['Edit'],'auth_delete' => $lang['Delete'],'auth_sticky' => $lang['Sticky'],'auth_announce' => $lang['Announce'], 'auth_vote' => $lang['Vote'], 'auth_pollcreate' => $lang['Pollcreate']);
-$forum_levels 		= array('ALL', 'REG', 'PRIVATE', 'MOD', 'ADMIN');
-$forum_level_val 	= array(AUTH_ALL, AUTH_REG, AUTH_ACL, AUTH_MOD, AUTH_ADMIN);
-$rows				= 0;
-$allowed_rows		= 4;
-
-		for ($a = 0; $a < count($field_names); $a++)
-			{
-		unset($custom_auth, $seleted, $cell_title, $switch, $section);
-		$custom_auth[$a] = '&nbsp;<select name="'. $field_names[$a] .'">';
-
-			for ($b = 0; $b < count($forum_levels); $b++)
-				{
-			$selected = ( $row[$field_names[$a]] == $forum_level_val[$b] ) ? ' selected="selected"' : '';
-			$custom_auth[$a] .= '<option value="'. $forum_level_val[$b] .'"'. $selected .'>'. $lang['Forum_'. $forum_levels[$b]] .'</option>';
-				}
-			$custom_auth[$a] .= '</select>&nbsp;';
-
-		$cell_title = $field_values[$field_names[$a]];
-			
-		if ($rows <= $allowed_rows)
-			{
-		$section 	= '1_5';			
-		$switch 	= 'top.';
-		$template->assign_block_vars('top', array());
-			}
-		elseif ($rows > $allowed_rows)
-			{
-		$section 	= '5_10';			
-		$switch 	= 'bottom.';
-		$template->assign_block_vars('bottom', array());
-			}
-			
-		$template->assign_block_vars($switch . $section, array(
-			'TITLES' => $cell_title .'<br>'. $custom_auth[$a] .'&nbsp;&nbsp;')
-				);
-
-		$rows++;
-			}
+                        /*--FNA #2--*/
+						if(!isset($forum_is_link))
+						$forum_is_link = '';
+						if(!isset($forum_weblink))
+                        $forum_weblink = '';
+						if(!isset($forum_link_icon))
+                        $forum_link_icon = '';
+						
                         $template->assign_vars(array(
-
+/*****[BEGIN]******************************************
+ [ Mod:    Topic display order                 v1.0.2 ]
+ ******************************************************/
+                                'L_FORUM_DISPLAY_SORT'        => $lang['Sort_by'],
+                                'S_FORUM_DISPLAY_SORT_LIST'        => $forum_display_sort_list,
+                                'S_FORUM_DISPLAY_ORDER_LIST'    => $forum_display_order_list,
+/*****[END]********************************************
+ [ Mod:    Topic display order                 v1.0.2 ]
+ ******************************************************/
                                 'S_FORUM_ACTION' => append_sid("admin_forums.$phpEx"),
-
                                 'S_HIDDEN_FIELDS' => $s_hidden_fields,
-
                                 'S_SUBMIT_VALUE' => $buttonvalue,
-
                                 'S_CAT_LIST' => $catlist,
-
                                 'S_STATUS_LIST' => $statuslist,
-
+/*****[BEGIN]******************************************
+ [ Mod:    Thank You Mod                       v1.1.8 ]
+ ******************************************************/
+                                'THANK_ENABLE' => $thank_yes,
+                                'THANK_DISABLE' => $thank_no,
+/*****[END]********************************************
+ [ Mod:    Thank You Mod                       v1.1.8 ]
+ ******************************************************/
                                 'S_PRUNE_ENABLED' => $prune_enabled,
-
-   // Added by Attached Forums MOD
-
-   'S_ATTACHED_FORUM_ID' => $forum_attached_id,
-
-   'S_DETACH_ENABLED'=> $detach_enabled,
-
-   // End Added by Attached Forums MOD
-
-                                'S_NOTIFY_ENABLED' => $notifylist,
-
                                 'L_FORUM_TITLE' => $l_title,
+/*****[BEGIN]******************************************
+ [ Mod:    Forumtitle as Weblink               v1.2.2 ]
+ ******************************************************/ 
+								'L_FORUM_IS_LINK' => $lang['Forum_is_link'],
+								'L_FORUM_WEBLINK' => $lang['Forum_weblink'],
+								'L_FORUM_LINK_ICON' => $lang['Forum_link_icon'],
+/*****[END]********************************************
+ [ Mod:    Forumtitle as Weblink               v1.2.2 ]
+ ******************************************************/ 
 
+/*****[BEGIN]******************************************
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
+ ******************************************************/
+                                'L_FORUM_COLOR' => $lang['Forum_color'],
+                                'L_FORUM_COLOR_EXPLAIN' => $lang['Forum_color_explain'],
+/*****[END]********************************************
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
+ ******************************************************/
                                 'L_FORUM_EXPLAIN' => $lang['Forum_edit_delete_explain'],
-
                                 'L_FORUM_SETTINGS' => $lang['Forum_settings'],
-
                                 'L_FORUM_NAME' => $lang['Forum_name'],
-
-                                'L_CATEGORY' => $lang['Category'],
-
-   // Added by Attached Forums MOD
-
-   'L_ATTACHED_FORUM' => $lang['Attached_Field_Title'] ,
-
-   'L_ATTACHED_DESC' => $lang['Attached_Description'],
-
-   'L_DETACH_DESC'	=> $lang['Detach_Description'],
-
-   // End Added by Attached Forums MOD
-
+/*****[BEGIN]******************************************
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+ ******************************************************/
+								//'L_CATEGORY' => $lang['Category'],
+								'L_CATEGORY' => $lang['Category'] . ' / ' . $lang['Forum'],
+/*****[END]********************************************
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+ ******************************************************/
                                 'L_FORUM_DESCRIPTION' => $lang['Forum_desc'],
-
                                 'L_FORUM_STATUS' => $lang['Forum_status'],
+								'L_PASSWORD' => $lang['Forum_password'],
+/*****[BEGIN]******************************************
+ [ Mod:    Thank You Mod                       v1.1.8 ]
+ ******************************************************/
+								'L_FORUM_THANK' => $lang['use_thank'],
+								'L_YES' => $lang['Yes'],
+								'L_NO' => $lang['No'],
+/*****[END]********************************************
+ [ Mod:    Thank You Mod                       v1.1.8 ]
+ ******************************************************/
 
-                                'L_FORUM_NOTIFY' => $lang['Forum_notify'],
-
+/*****[BEGIN]******************************************
+ [ Mod:     Forum Icons                        v1.0.4 ]
+ ******************************************************/
+								'L_FORUM_ICON' => $lang['Forum_icon'],
+/*****[END]********************************************
+ [ Mod:     Forum Icons                        v1.0.4 ]
+ ******************************************************/
                                 'L_AUTO_PRUNE' => $lang['Forum_pruning'],
-
                                 'L_ENABLED' => $lang['Enabled'],
-
                                 'L_PRUNE_DAYS' => $lang['prune_days'],
-
                                 'L_PRUNE_FREQ' => $lang['prune_freq'],
-
                                 'L_DAYS' => $lang['Days'],
-
-
-
                                 'PRUNE_DAYS' => ( isset($pr_row['prune_days']) ) ? $pr_row['prune_days'] : 7,
-
                                 'PRUNE_FREQ' => ( isset($pr_row['prune_freq']) ) ? $pr_row['prune_freq'] : 1,
-
                                 'FORUM_NAME' => $forumname,
+								'FORUM_PASSWORD' => $forum_password,
+/*****[BEGIN]******************************************
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
+ ******************************************************/
+                                'FORUM_COLOR' => $forum_color,
+/*****[END]********************************************
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
+ ******************************************************/
 
-                                'DESCRIPTION' => $forumdesc)
+/*****[BEGIN]******************************************
+ [ Mod:    Forumtitle as Weblink               v1.2.2 ]
+ ******************************************************/ 
+								'DESCRIPTION' => $forumdesc,
+								'FORUM_IS_LINK' => ($forum_is_link) ? 'checked="checked"' : '',
+								'FORUM_WEBLINK' => ($forum_weblink) ? $forum_weblink : 'http://',
+								'FORUM_LINK_ICON' => $forum_link_icon,
+/*****[END]********************************************
+ [ Mod:    Forumtitle as Weblink               v1.2.2 ]
+ ******************************************************/
 
+/*****[BEGIN]******************************************
+ [ Mod:     Forum Icons                        v1.0.4 ]
+ ******************************************************/
+								'ICON' => ( $forumicon ) ? $forumicon : '', 
+								'ICON_DISPLAY' => ( $forumicon ) ? '<img src="' . $phpbb_root_path . $forumicon . '" />' : '')
+/*****[END]********************************************
+ [ Mod:     Forum Icons                        v1.0.4 ]
+ ******************************************************/
                         );
 
                         $template->pparse("body");
 
                         break;
 
-
-
                 case 'createforum':
-
                         //
-
                         // Create a forum in the DB
-
                         //
-
                         if( trim($_POST['forumname']) == "" )
-
                         {
-
                                 message_die(GENERAL_ERROR, "Can't create a forum without a name");
-
                         }
-
-
-
                         $sql = "SELECT MAX(forum_order) AS max_order
 
                                 FROM " . FORUMS_TABLE . "
@@ -1055,7 +818,6 @@ $allowed_rows		= 4;
                                 WHERE cat_id = " . intval($_POST[POST_CAT_URL]);
 
                         if( !$result = $db->sql_query($sql) )
-
                         {
 
                                 message_die(GENERAL_ERROR, "Couldn't get order number from forums table", "", __LINE__, __FILE__, $sql);
@@ -1077,11 +839,8 @@ $allowed_rows		= 4;
                                 FROM " . FORUMS_TABLE;
 
                         if( !$result = $db->sql_query($sql) )
-
                         {
-
                                 message_die(GENERAL_ERROR, "Couldn't get order number from forums table", "", __LINE__, __FILE__, $sql);
-
                         }
 
                         $row = $db->sql_fetchrow($result);
@@ -1091,214 +850,209 @@ $allowed_rows		= 4;
                         $max_id = $row['max_id'];
 
                         $next_id = $max_id + 1;
-
-
-
                         //
-
                         // Default permissions of public ::
-
                         //
-
                         $field_sql = "";
 
                         $value_sql = "";
 
-                        while( list($field, $value) = each($forum_auth_ary) )
-
+                        //while( list($field, $value) = each($forum_auth_ary) )
+						foreach ($forum_auth_ary as $field => $value)
                         {
-
                                 $field_sql .= ", $field";
 
                                 $value_sql .= ", $value";
-
-
-
                         }
+/*****[BEGIN]******************************************
+ [ Mod:    Topic display order                 v1.0.2 ]
+ ******************************************************/
+                        $field_sql .= ', forum_display_sort';
 
+                        $value_sql .= ', ' . intval($_POST['forum_display_sort']);
 
-         $field_sql = ''; 
-         $value_sql = '';
+                        $field_sql .= ', forum_display_order';
+
+                        $value_sql .= ', ' . intval($_POST['forum_display_order']);
+/*****[END]********************************************
+ [ Mod:    Topic display order                 v1.0.2 ]
+ ******************************************************/
+
+/*****[BEGIN]******************************************
+ [ Mod:    Forumtitle as Weblink               v1.2.2 ]
+ ******************************************************/ 
+						$forum_is_link = (empty($forum_is_link)) ? 0 : $forum_is_link;
+/*****[END]********************************************
+ [ Mod:    Forumtitle as Weblink               v1.2.2 ]
+ ******************************************************/ 
                         // There is no problem having duplicate forum names so we won't check for it.
+/*****[BEGIN]******************************************
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
+ [ Mod:    Forumtitle as Weblink               v1.2.2 ]
+ [ Mod:    Forum Icons                         v1.0.4 ]
+ [ Mod:    Thank You Mod                       v1.1.8 ]
+ ******************************************************/
+						$list = explode(',', $_POST[POST_CAT_URL]);
 
-   // Modified by Attached Forums MOD
+						$new_cat = ( count($list) ) ? intval($list[0]) : intval($_POST[POST_CAT_URL]);
 
+						$new_parent = ( isset($list[1]) ) ? intval($list[1]) : 0;
+                        
+						if(!isset($_POST['forum_is_link']))
+                        $_POST['forum_is_link'] = '';
+						
+						if(!isset($_POST['forum_link_target']))
+						$_POST['forum_link_target'] = '';
 
+						if(!isset($_POST['prune_enable']))
+						$_POST['prune_enable'] = '';
+						
+						$sql = "INSERT INTO " . FORUMS_TABLE . " (forum_id, 
+						                                        forum_name, 
+															 title_is_link, 
+															       weblink, 
+														   forum_link_icon, 
+														 forum_link_target, 
+														       forum_color, 
+															        cat_id, 
+															  forum_parent, 
+															    forum_desc, 
+															   forum_order, 
+															  forum_status, 
+															forum_password, 
+															    forum_icon, 
+															  prune_enable" . $field_sql . ", forum_thank)
 
-			if (intval($_POST['old_cat_id']) != intval($_POST[POST_CAT_URL]))
-
-			{
-
-   				$_POST['attached_forum_id']=-1;
-
-   			}
-
-
-
-		$sql = "INSERT INTO " . FORUMS_TABLE . " (forum_id, $permissions_insert_sql_one, forum_name, cat_id, attached_forum_id, forum_desc, forum_order, forum_status, prune_enable" . $field_sql . ")
-
-				VALUES ('" . $next_id . "', $permissions_insert_sql_two, '" . str_replace("\'", "''", $_POST['forumname']) . "', " . intval($_POST[POST_CAT_URL]) .  ", " . intval($_POST['attached_forum_id']) . ", '" . str_replace("\'", "''", $_POST['forumdesc']) . "', $next_order, " . intval($_POST['forumstatus']) . ", " . intval($_POST['prune_enable']) . $value_sql . ")";
-
-   // End Added by Attached Forums MOD
-
+                                    VALUES ('" . $next_id . "', 
+	    '" . str_replace("\'", "''", $_POST['forumname']) . "', 
+	                   " . intval($_POST['forum_is_link']) . ", 
+	'" . str_replace("\'", "''", $_POST['forum_weblink']) . "', 
+  '" . str_replace("\'", "''", $_POST['forum_link_icon']) . "', 
+                   " . intval($_POST['forum_link_target']) . ", 
+	  '" . str_replace("\'", "''", $_POST['forum_color']) . "', 
+	                                          " . $new_cat . ', 
+										   ' . $new_parent . ", 
+		'" . str_replace("\'", "''", $_POST['forumdesc']) . "', 
+		    $next_order, " . intval($_POST['forumstatus']) . ", 
+		 '" . str_replace("\'", "''", $_POST['password']) . "', 
+		'" . str_replace("\'", "''", $_POST['forumicon']) . "', 
+		   " . intval($_POST['prune_enable']) . $value_sql . ", 
+		                  " . intval($_POST['forumthank']) . ")";
+/*****[END]********************************************
+ [ Mod:    Thank You Mod                       v1.1.8 ]
+ [ Mod:    Forum Icons                         v1.0.4 ]
+ [ Mod:    Forumtitle as Weblink               v1.2.2 ]
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+ ******************************************************/
                         if( !$result = $db->sql_query($sql) )
-
                         {
-
                                 message_die(GENERAL_ERROR, "Couldn't insert row in forums table", "", __LINE__, __FILE__, $sql);
-
                         }
-
-
 
                         if( $_POST['prune_enable'] )
-
                         {
-
-
-
-                                if( $_POST['prune_days'] == "" || $_POST['prune_freq'] == "")
-
+                                if( empty($_POST['prune_days']) || empty($_POST['prune_freq']) )
                                 {
-
                                         message_die(GENERAL_MESSAGE, $lang['Set_prune_data']);
-
                                 }
-
-
 
                                 $sql = "INSERT INTO " . PRUNE_TABLE . " (forum_id, prune_days, prune_freq)
 
                                         VALUES('" . $next_id . "', " . intval($_POST['prune_days']) . ", " . intval($_POST['prune_freq']) . ")";
 
                                 if( !$result = $db->sql_query($sql) )
-
                                 {
-
                                         message_die(GENERAL_ERROR, "Couldn't insert row in prune table", "", __LINE__, __FILE__, $sql);
-
                                 }
-
                         }
-
-
 
                         $message = $lang['Forums_updated'] . "<br /><br />" . sprintf($lang['Click_return_forumadmin'], "<a href=\"" . append_sid("admin_forums.$phpEx") . "\">", "</a>") . "<br /><br />" . sprintf($lang['Click_return_admin_index'], "<a href=\"" . append_sid("index.$phpEx?pane=right") . "\">", "</a>");
 
-			$in_from = ($_POST['popup']) ? $_POST['popup'] : $_POST['popup'];
-			if ($in_from)
-				$message = $lang['successfull_popup'] .'<br><br><a href="#" onclick="javascript:window.close();">'. $lang['close_popup'] .'</a>';
-
-
                         message_die(GENERAL_MESSAGE, $message);
-
-
 
                         break;
 
-
-
                 case 'modforum':
 
+/*****[BEGIN]******************************************
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+ ******************************************************/
+						$forum_id = intval($_POST[POST_FORUM_URL]);
+
+						$row = get_info('forum', $forum_id);
+
+						$list = explode(',', $_POST[POST_CAT_URL]);
+
+						$new_cat = ( count($list) ) ? intval($list[0]) : intval($_POST[POST_CAT_URL]);
+
+						$new_parent = ( isset($list[1]) ) ? intval($list[1]) : 0;
+
+						if( !$row['forum_parent'] && $row['cat_id'] !== $new_cat )
+						{
+							// Move subforums to new category
+							$sql = "UPDATE " . FORUMS_TABLE . " SET cat_id='$new_cat' WHERE forum_parent='$forum_id'";
+
+							$db->sql_query($sql);
+						}
+/*****[END]********************************************
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+ ******************************************************/
+                        /*--FNA #3--*/
                         // Modify a forum in the DB
-
                         if( isset($_POST['prune_enable']))
-
                         {
-
                                 if( $_POST['prune_enable'] != 1 )
-
                                 {
-
                                         $_POST['prune_enable'] = 0;
-
                                 }
-
                         }
+/*****[BEGIN]******************************************
+ [ Mod:    Topic display order                 v1.0.2 ]
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
+ [ Mod:    Forumtitle as Weblink               v1.2.2 ]
+ [ Mod:    Forum Icons                         v1.0.4 ]
+ [ Mod:    Thank You Mod                       v1.1.8 ]
+ ******************************************************/
+                        $sql = "UPDATE " . FORUMS_TABLE . "
+
+                        SET forum_name = '" . str_replace("\'", "''", (string) $_POST['forumname']) . "', 
+						title_is_link = " . intval($_POST['forum_is_link'] = $_POST['forum_is_link'] ?? '') . ", 
+						weblink = '" . str_replace("\'", "''", (string) $_POST['forum_weblink']) . "', 
+						forum_link_icon = '" . str_replace("\'", "''", (string) $_POST['forum_link_icon']) . "', 
+						forum_link_target = " . intval($_POST['forum_link_target'] = $_POST['forum_link_target'] ?? '') . ", 
+						forum_color = '" . str_replace("\'", "''", (string) $_POST['forum_color']) . "', 
+						cat_id = $new_cat, forum_parent = $new_parent, 
+						forum_desc = '" . str_replace("\'", "''", (string) $_POST['forumdesc']) . "', 
+						forum_status = " . intval($_POST['forumstatus']) . ", 
+						forum_password = '" . str_replace("\'", "''", (string) $_POST['password']) . "', 
+						forum_icon = '" . str_replace("\'", "''", (string) $_POST['forumicon']) . "', 
+						forum_display_order = " . intval($_POST['forum_display_order']) . ", 
+						forum_display_sort = " . intval($_POST['forum_display_sort'] = $_POST['forum_display_sort'] ?? '') . ", 
+						prune_enable = " . intval($_POST['prune_enable'] = $_POST['prune_enable'] ?? '0') . ", 
+						forum_thank = " . intval($_POST['forumthank']) . "
 
 
-
-   // Modified by Attached Forums MOD
-
-			if (isset($_POST['detach_enabled']) && isset($_POST['has_subforums']))
-
-			{
-
-				$sql = "UPDATE ". FORUMS_TABLE. " SET attached_forum_id=-1 WHERE attached_forum_id=" . intval($_POST[POST_FORUM_URL]);
-
-				if( !$result = $db->sql_query($sql) )
-
-				{
-
-					message_die(GENERAL_ERROR, "Couldn't detach subforums", "", __LINE__, __FILE__, $sql);
-
-				}
-
-
-
-			}
-
-
-
- 			if (intval($_POST['old_cat_id']) != intval($_POST[POST_CAT_URL]))
-
-   			{
-
-				$_POST['attached_forum_id']=-1;
-
-				if (isset($_POST['has_subforums']) && !isset($_POST['detach_enabled']))
-
-				{
-
-					$sql = "UPDATE ". FORUMS_TABLE ." SET cat_id=". intval($_POST[POST_CAT_URL]) ." WHERE attached_forum_id=" . intval($_POST[POST_FORUM_URL]);
-
-					if( !$result = $db->sql_query($sql) )
-
-					{
-
-						message_die(GENERAL_ERROR, "Couldn't update subforums to new category", "", __LINE__, __FILE__, $sql);
-
-					}
-
-
-
-				}
-
-			}
-
-
-
-			$sql = "UPDATE " . FORUMS_TABLE . "
-
-				SET forum_name = '" . str_replace("\'", "''", $_POST['forumname']) . "', $permissions_update_sql, cat_id = " . intval($_POST[POST_CAT_URL]) .", attached_forum_id = " . intval($_POST['attached_forum_id']) . ", forum_desc = '" . str_replace("\'", "''", $_POST['forumdesc']) . "', forum_status = " . intval($_POST['forumstatus']) . ", prune_enable = " . intval($_POST['prune_enable']) . "
-
-				WHERE forum_id = " . intval($_POST[POST_FORUM_URL]);
-
-   // End Added by Attached Forums MOD
-
+                        WHERE forum_id = " . intval($_POST[POST_FORUM_URL]);
+/*****[END]********************************************
+ [ Mod:    Thank You Mod                       v1.1.8 ]
+ [ Mod:    Forum Icons                         v1.0.4 ]
+ [ Mod:    Forumtitle as Weblink               v1.2.2 ]
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
+ [ Mod:    Topic display order                 v1.0.2 ]
+ ******************************************************/
                         if( !$result = $db->sql_query($sql) )
-
                         {
-
                                 message_die(GENERAL_ERROR, "Couldn't update forum information", "", __LINE__, __FILE__, $sql);
-
                         }
-
-
 
                         if( $_POST['prune_enable'] == 1 )
-
                         {
-
-                                if( $_POST['prune_days'] == "" || $_POST['prune_freq'] == "" )
-
+                                if( empty($_POST['prune_days']) || empty($_POST['prune_freq']) )
                                 {
-
                                         message_die(GENERAL_MESSAGE, $lang['Set_prune_data']);
-
                                 }
-
-
 
                                 $sql = "SELECT *
 
@@ -1307,29 +1061,19 @@ $allowed_rows		= 4;
                                         WHERE forum_id = " . intval($_POST[POST_FORUM_URL]);
 
                                 if( !$result = $db->sql_query($sql) )
-
                                 {
-
                                         message_die(GENERAL_ERROR, "Couldn't get forum Prune Information","",__LINE__, __FILE__, $sql);
-
                                 }
 
-
-
                                 if( $db->sql_numrows($result) > 0 )
-
                                 {
-
                                         $sql = "UPDATE " . PRUNE_TABLE . "
 
                                                 SET        prune_days = " . intval($_POST['prune_days']) . ",        prune_freq = " . intval($_POST['prune_freq']) . "
 
                                                  WHERE forum_id = " . intval($_POST[POST_FORUM_URL]);
-
                                 }
-
                                 else
-
                                 {
 
                                         $sql = "INSERT INTO " . PRUNE_TABLE . " (forum_id, prune_days, prune_freq)
@@ -1340,108 +1084,60 @@ $allowed_rows		= 4;
 
 
 
-                                if( !$result = $db->sql_query($sql) )
-
+                               if( !$result = $db->sql_query($sql) )
                                 {
-
                                         message_die(GENERAL_ERROR, "Couldn't Update Forum Prune Information","",__LINE__, __FILE__, $sql);
-
                                 }
-
                         }
-
-if( $_POST['notify_enable'] != '1' )
-
-{
-
-	// delete all notifications for that forum
-
-	$sql = "DELETE 
-
-		FROM " . FORUMS_WATCH_TABLE . " 
-
-		WHERE forum_id = " . intval($_POST[POST_FORUM_URL]);
-
-		
-
-	if( !$result = $db->sql_query($sql) )
-
-	{
-
-		message_die(GENERAL_ERROR, "Couldn't Update Forum Notify Information","",__LINE__, __FILE__, $sql);
-
-	}
-
-}
 
                         $message = $lang['Forums_updated'] . "<br /><br />" . sprintf($lang['Click_return_forumadmin'], "<a href=\"" . append_sid("admin_forums.$phpEx") . "\">", "</a>") . "<br /><br />" . sprintf($lang['Click_return_admin_index'], "<a href=\"" . append_sid("index.$phpEx?pane=right") . "\">", "</a>");
 
-
-
                         message_die(GENERAL_MESSAGE, $message);
 
-
-
                         break;
-
-
 
                 case 'addcat':
 
                         // Create a category in the DB
-
                         if( trim($_POST['categoryname']) == '')
-
                         {
-
                                 message_die(GENERAL_ERROR, "Can't create a category without a name");
-
                         }
-
-
 
                         $sql = "SELECT MAX(cat_order) AS max_order
 
                                 FROM " . CATEGORIES_TABLE;
 
                         if( !$result = $db->sql_query($sql) )
-
                         {
-
                                 message_die(GENERAL_ERROR, "Couldn't get order number from categories table", "", __LINE__, __FILE__, $sql);
-
                         }
 
                         $row = $db->sql_fetchrow($result);
 
-
-
                         $max_order = $row['max_order'];
 
                         $next_order = $max_order + 10;
-
-
-
                         //
-
                         // There is no problem having duplicate forum names so we won't check for it.
-
                         //
-
                         $sql = "INSERT INTO " . CATEGORIES_TABLE . " (cat_title, cat_order)
 
                                 VALUES ('" . str_replace("\'", "''", $_POST['categoryname']) . "', $next_order)";
 
                         if( !$result = $db->sql_query($sql) )
-
                         {
-
                                 message_die(GENERAL_ERROR, "Couldn't insert row in categories table", "", __LINE__, __FILE__, $sql);
-
                         }
+/*****[BEGIN]******************************************
+ [ Base:    Caching System                     v3.0.0 ]
+ ******************************************************/
+                        global $cache;
 
-
-
+                        $cache->delete('category_rows', 'config');
+/*****[END]********************************************
+ [ Base:    Caching System                     v3.0.0 ]
+ ******************************************************/
                         $message = $lang['Forums_updated'] . "<br /><br />" . sprintf($lang['Click_return_forumadmin'], "<a href=\"" . append_sid("admin_forums.$phpEx") . "\">", "</a>") . "<br /><br />" . sprintf($lang['Click_return_admin_index'], "<a href=\"" . append_sid("index.$phpEx?pane=right") . "\">", "</a>");
 
 
@@ -1452,31 +1148,20 @@ if( $_POST['notify_enable'] != '1' )
 
                         break;
 
-
-
                 case 'editcat':
 
                         //
-
                         // Show form to edit a category
-
                         //
-
                         $newmode = 'modcat';
 
                         $buttonvalue = $lang['Update'];
 
-
-
-                        $cat_id = intval($_GET[POST_CAT_URL]);
-
-
+                        $cat_id = intval($HTTP_GET_VARS[POST_CAT_URL]);
 
                         $row = get_info('category', $cat_id);
 
                         $cat_title = $row['cat_title'];
-
-
 
                         $template->set_filenames(array(
 
@@ -1531,34 +1216,28 @@ if( $_POST['notify_enable'] != '1' )
                                 WHERE cat_id = " . intval($_POST[POST_CAT_URL]);
 
                         if( !$result = $db->sql_query($sql) )
-
                         {
-
                                 message_die(GENERAL_ERROR, "Couldn't update forum information", "", __LINE__, __FILE__, $sql);
-
                         }
+/*****[BEGIN]******************************************
+ [ Base:    Caching System                     v3.0.0 ]
+ ******************************************************/
+                        global $cache;
 
-
-
+                        $cache->delete('category_rows', 'config');
+/*****[END]********************************************
+ [ Base:    Caching System                     v3.0.0 ]
+ ******************************************************/
                         $message = $lang['Forums_updated'] . "<br /><br />" . sprintf($lang['Click_return_forumadmin'], "<a href=\"" . append_sid("admin_forums.$phpEx") . "\">", "</a>") . "<br /><br />" . sprintf($lang['Click_return_admin_index'], "<a href=\"" . append_sid("index.$phpEx?pane=right") . "\">", "</a>");
-
-
 
                         message_die(GENERAL_MESSAGE, $message);
 
-
-
                         break;
-
-
 
                 case 'deleteforum':
 
                         // Show form to delete a forum
-
-                        $forum_id = intval($_GET[POST_FORUM_URL]);
-
-
+                        $forum_id = intval($HTTP_GET_VARS[POST_FORUM_URL]);
 
                         $select_to = '<select name="to_id">';
 
@@ -1568,21 +1247,13 @@ if( $_POST['notify_enable'] != '1' )
 
                         $select_to .= '</select>';
 
-
-
                         $buttonvalue = $lang['Move_and_Delete'];
 
-
-
                         $newmode = 'movedelforum';
-
-
 
                         $foruminfo = get_info('forum', $forum_id);
 
                         $name = $foruminfo['forum_name'];
-
-
 
                         $template->set_filenames(array(
 
@@ -1590,17 +1261,11 @@ if( $_POST['notify_enable'] != '1' )
 
                         );
 
-
-
                         $s_hidden_fields = '<input type="hidden" name="mode" value="' . $newmode . '" /><input type="hidden" name="from_id" value="' . $forum_id . '" />';
-
-
 
                         $template->assign_vars(array(
 
                                 'NAME' => $name,
-
-
 
                                 'L_FORUM_DELETE' => $lang['Forum_delete'],
 
@@ -1609,8 +1274,6 @@ if( $_POST['notify_enable'] != '1' )
                                 'L_MOVE_CONTENTS' => $lang['Move_contents'],
 
                                 'L_FORUM_NAME' => $lang['Forum_name'],
-
-
 
                                 "S_HIDDEN_FIELDS" => $s_hidden_fields,
 
@@ -1622,38 +1285,26 @@ if( $_POST['notify_enable'] != '1' )
 
                         );
 
-
-
                         $template->pparse("body");
 
                         break;
 
-
-
                 case 'movedelforum':
 
                         //
-
                         // Move or delete a forum in the DB
-
                         //
-
                         $from_id = intval($_POST['from_id']);
 
                         $to_id = intval($_POST['to_id']);
 
                         $delete_old = intval($_POST['delete_old']);
 
-
-
                         // Either delete or move all posts in a forum
-
                         if($to_id == -1)
-
                         {
 
                                 // Delete polls in this forum
-
                                 $sql = "SELECT v.vote_id
 
                                         FROM " . VOTE_DESC_TABLE . " v, " . TOPICS_TABLE . " t
@@ -1663,32 +1314,21 @@ if( $_POST['notify_enable'] != '1' )
                                                 AND v.topic_id = t.topic_id";
 
                                 if (!($result = $db->sql_query($sql)))
-
                                 {
-
                                         message_die(GENERAL_ERROR, "Couldn't obtain list of vote ids", "", __LINE__, __FILE__, $sql);
-
                                 }
 
-
-
                                 if ($row = $db->sql_fetchrow($result))
-
                                 {
 
                                         $vote_ids = '';
 
                                         do
-
                                         {
-
                                                 $vote_ids .= (($vote_ids != '') ? ', ' : '') . $row['vote_id'];
-
                                         }
 
                                         while ($row = $db->sql_fetchrow($result));
-
-
 
                                         $sql = "DELETE FROM " . VOTE_DESC_TABLE . "
 
@@ -1718,7 +1358,7 @@ if( $_POST['notify_enable'] != '1' )
 
 
 
-                                include_once("../../../includes/prune.php");
+                                include("../../../includes/prune.php");
 
                                 prune($from_id, 0, true); // Delete everything from forum
 
@@ -1735,21 +1375,13 @@ if( $_POST['notify_enable'] != '1' )
                                         WHERE forum_id IN ($from_id, $to_id)";
 
                                 if( !$result = $db->sql_query($sql) )
-
                                 {
-
                                         message_die(GENERAL_ERROR, "Couldn't verify existence of forums", "", __LINE__, __FILE__, $sql);
-
                                 }
 
-
-
                                 if($db->sql_numrows($result) != 2)
-
                                 {
-
                                         message_die(GENERAL_ERROR, "Ambiguous forum ID's", "", __LINE__, __FILE__);
-
                                 }
 
                                 $sql = "UPDATE " . TOPICS_TABLE . "
@@ -1759,11 +1391,8 @@ if( $_POST['notify_enable'] != '1' )
                                         WHERE forum_id = $from_id";
 
                                 if( !$result = $db->sql_query($sql) )
-
                                 {
-
                                         message_die(GENERAL_ERROR, "Couldn't move topics to other forum", "", __LINE__, __FILE__, $sql);
-
                                 }
 
                                 $sql = "UPDATE " . POSTS_TABLE . "
@@ -1772,19 +1401,14 @@ if( $_POST['notify_enable'] != '1' )
 
                                         WHERE forum_id = $from_id";
 
-                                if( !$result = $db->sql_query($sql) )
-
+                               if( !$result = $db->sql_query($sql) )
                                 {
-
                                         message_die(GENERAL_ERROR, "Couldn't move posts to other forum", "", __LINE__, __FILE__, $sql);
-
                                 }
 
                                 sync('forum', $to_id);
 
                         }
-
-
 
                         // Alter Mod level if appropriate - 2.0.4
 
@@ -1902,6 +1526,26 @@ if( $_POST['notify_enable'] != '1' )
 
 
 
+/*****[BEGIN]******************************************
+
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+
+ ******************************************************/
+
+						// Move subforums to category
+
+						$sql = "UPDATE " . FORUMS_TABLE . " SET forum_parent = '0' WHERE forum_parent = '$from_id'";
+
+						$db->sql_query($sql);
+
+/*****[END]********************************************
+
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+
+ ******************************************************/
+
+
+
                         $sql = "DELETE FROM " . AUTH_ACCESS_TABLE . "
 
                                 WHERE forum_id = $from_id";
@@ -1928,19 +1572,7 @@ if( $_POST['notify_enable'] != '1' )
 
                         }
 
-// delete all notifications for that forum
 
-$sql = "DELETE FROM " . FORUMS_WATCH_TABLE . " 
-
-	WHERE forum_id = $from_id";
-
-if( !$result = $db->sql_query($sql) )
-
-{
-
-	message_die(GENERAL_ERROR, "Couldn't Delete Forum Notify Information","",__LINE__, __FILE__, $sql);
-
-}
 
                         $message = $lang['Forums_updated'] . "<br /><br />" . sprintf($lang['Click_return_forumadmin'], "<a href=\"" . append_sid("admin_forums.$phpEx") . "\">", "</a>") . "<br /><br />" . sprintf($lang['Click_return_admin_index'], "<a href=\"" . append_sid("index.$phpEx?pane=right") . "\">", "</a>");
 
@@ -1962,7 +1594,7 @@ if( !$result = $db->sql_query($sql) )
 
                         //
 
-                        $cat_id = intval($_GET[POST_CAT_URL]);
+                        $cat_id = intval($HTTP_GET_VARS[POST_CAT_URL]);
 
 
 
@@ -2150,7 +1782,21 @@ if( !$result = $db->sql_query($sql) )
 
                         }
 
+/*****[BEGIN]******************************************
 
+ [ Base:    Caching System                     v3.0.0 ]
+
+ ******************************************************/
+
+                        global $cache;
+
+                        $cache->delete('category_rows', 'config');
+
+/*****[END]********************************************
+
+ [ Base:    Caching System                     v3.0.0 ]
+
+ ******************************************************/
 
                         $message = $lang['Forums_updated'] . "<br /><br />" . sprintf($lang['Click_return_forumadmin'], "<a href=\"" . append_sid("admin_forums.$phpEx") . "\">", "</a>") . "<br /><br />" . sprintf($lang['Click_return_admin_index'], "<a href=\"" . append_sid("index.$phpEx?pane=right") . "\">", "</a>");
 
@@ -2172,9 +1818,9 @@ if( !$result = $db->sql_query($sql) )
 
                         //
 
-                        $move = intval($_GET['move']);
+                        $move = intval($HTTP_GET_VARS['move']);
 
-                        $forum_id = intval($_GET[POST_FORUM_URL]);
+                        $forum_id = intval($HTTP_GET_VARS[POST_FORUM_URL]);
 
 
 
@@ -2183,6 +1829,86 @@ if( !$result = $db->sql_query($sql) )
 
 
                         $cat_id = $forum_info['cat_id'];
+
+
+
+/*****[BEGIN]******************************************
+
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+
+ ******************************************************/
+
+						if( !$forum_info['forum_parent'] )
+
+						{
+
+							// Find previous/next forum
+
+							if( $move > 0 )
+
+							{
+
+								$sql = "SELECT forum_id, forum_order FROM " . FORUMS_TABLE . " WHERE cat_id = '$cat_id' AND forum_parent = '0' AND forum_order > '" . $forum_info['forum_order'] . "' ORDER BY forum_order ASC";
+
+							}
+
+							
+
+							else
+
+							{
+
+								$sql = "SELECT forum_id, forum_order FROM " . FORUMS_TABLE . " WHERE cat_id = '$cat_id' AND forum_parent = '0' AND forum_order < '" . $forum_info['forum_order'] . "' ORDER BY forum_order DESC";
+
+							}
+
+							
+
+							if( !($result = $db->sql_query($sql)) )
+
+							{
+
+								message_die(GENERAL_ERROR, "Couldn't change category order", '', __LINE__, __FILE__, $sql);
+
+							}
+
+							
+
+							$row = $db->sql_fetchrow($result);
+
+							$db->sql_freeresult($result);
+
+							if($row !== false)
+
+							{
+
+								// Swap forum orders
+
+								$sql = "UPDATE " . FORUMS_TABLE . " SET forum_order = '" . $row['forum_order'] . "' WHERE forum_id = '$forum_id'";
+
+								$db->sql_query($sql);
+
+								
+
+								$sql = "UPDATE " . FORUMS_TABLE . " SET forum_order = '" . $forum_info['forum_order'] . "' WHERE forum_id = '" . $row['forum_id'] . "'";
+
+								$db->sql_query($sql);
+
+							}
+
+						}
+
+						
+
+						else
+
+						{
+
+/*****[END]********************************************
+
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+
+ ******************************************************/
 
 
 
@@ -2204,6 +1930,20 @@ if( !$result = $db->sql_query($sql) )
 
                         renumber_order('forum', $forum_info['cat_id']);
 
+/*****[BEGIN]******************************************
+
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+
+ ******************************************************/
+
+			}
+
+/*****[END]********************************************
+
+ [ Mod:    Simple Subforums                    v1.0.1 ]
+
+ ******************************************************/
+
                         $show_index = TRUE;
 
 
@@ -2220,9 +1960,9 @@ if( !$result = $db->sql_query($sql) )
 
                         //
 
-                        $move = intval($_GET['move']);
+                        $move = intval($HTTP_GET_VARS['move']);
 
-                        $cat_id = intval($_GET[POST_CAT_URL]);
+                        $cat_id = intval($HTTP_GET_VARS[POST_CAT_URL]);
 
 
 
@@ -2240,7 +1980,21 @@ if( !$result = $db->sql_query($sql) )
 
                         }
 
+/*****[BEGIN]******************************************
 
+ [ Base:    Caching System                     v3.0.0 ]
+
+ ******************************************************/
+
+                        global $cache;
+
+                        $cache->delete('category_rows', 'config');
+
+/*****[END]********************************************
+
+ [ Base:    Caching System                     v3.0.0 ]
+
+ ******************************************************/
 
                         renumber_order('category');
 
@@ -2254,7 +2008,7 @@ if( !$result = $db->sql_query($sql) )
 
                 case 'forum_sync':
 
-                        sync('forum', intval($_GET[POST_FORUM_URL]));
+                        sync('forum', intval($HTTP_GET_VARS[POST_FORUM_URL]));
 
                         $show_index = TRUE;
 
@@ -2274,11 +2028,11 @@ if( !$result = $db->sql_query($sql) )
 
 
 
-        if ($show_index != TRUE)
+        if (isset($show_index) && $show_index != TRUE)
 
         {
 
-                include_once('./page_footer_admin.'.$phpEx);
+                include('./page_footer_admin.'.$phpEx);
 
                 exit;
 
@@ -2376,7 +2130,7 @@ if( $total_categories = $db->sql_numrows($q_categories) )
 
         }
 
-        $subforum_rows=$forum_rows;
+
 
         //
 
@@ -2432,155 +2186,153 @@ if( $total_categories = $db->sql_numrows($q_categories) )
 
 
 
-                        if ($forum_rows[$j]['cat_id'] == $cat_id)
+                        if ($forum_rows[$j]['cat_id'] == $cat_id && $forum_rows[$j]['forum_parent'] == 0)
 
                         {
 
 
 
-				$sub_error=false;
+                                $template->assign_block_vars("catrow.forumrow",        array(
 
-				$do_template=false;
+                                        'FORUM_NAME' => $forum_rows[$j]['forum_name'],
 
-				if ($forum_rows[$j]['attached_forum_id'] !=-1)
+/*****[BEGIN]******************************************
 
-				{
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
 
-				$ok='';
+ ******************************************************/
 
-					for($k = 0; $k < $total_forums; $k++)
+                                        'FORUM_COLOR' => ( $forum_rows[$j]['forum_color'] != '' ) ? 'style="font-weight:bold; color: #'.$forum_rows[$j]['forum_color'].'"' : '',
 
-					{
+/*****[END]********************************************
 
-						$subforum_id = $subforum_rows[$k]['forum_id'];
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
 
+ ******************************************************/
 
+                                        'FORUM_DESC' => $forum_rows[$j]['forum_desc'],
 
-						if ($subforum_id == $forum_rows[$j]['attached_forum_id'] && $forum_rows[$k]['attached_forum_id']==-1)
+/*****[BEGIN]******************************************
 
-						{
+ [ Mod:     Forum Icons                        v1.0.4 ]
 
-							$ok=TRUE;//normal parent found
+ ******************************************************/
 
-						}
+										'FORUM_ICON_IMG' => ( $forum_rows[$j]['forum_icon'] ) ? '<img src="' . $phpbb_root_path . $forum_rows[$j]['forum_icon'] . '" alt="'.$forum_data[$j]['forum_name'] = $forum_data[$j]['forum_name'] ?? ''.'" title="'.$forum_data[$j]['forum_name'] = $forum_data[$j]['forum_name'] ?? ''.'" />' : '',
 
-					}
+/*****[END]********************************************
 
-					if ($forum_rows[$j]['attached_forum_id']==$forum_id) $ok=FALSE; //attached to itself
+ [ Mod:     Forum Icons                        v1.0.4 ]
 
-					if ($forum_rows[$j]['attached_forum_id']==0) $ok=FALSE; //invalid parent
+ ******************************************************/
 
-					if (!$ok)
+                                        'ROW_COLOR' => $row_color = $row_color ?? '',
 
-					{
+/*****[BEGIN]******************************************
 
-						$do_template=TRUE;
+ [ Mod:    Forumtitle as Weblink               v1.2.2 ]
 
-						$sub_error=true;
+ ******************************************************/ 
 
-					}
+										'NUM_TOPICS' => ($forum_rows[$j]['forum_link_icon'] && $forum_rows[$j]['title_is_link']) ? ((substr($forum_rows[$j]['forum_link_icon'],0,4) == 'http' || substr($forum_rows[$j]['forum_link_icon'],0,4) == 'HTTP' ) ? '<img src="'.$forum_rows[$j]['forum_link_icon'].'" border="0">' : '<img src="./../' . $forum_rows[$j]['forum_link_icon'] . '" border="0">') : $forum_rows[$j]['forum_topics'],
 
-				}
+										'NUM_POSTS' => ($forum_rows[$j]['forum_link_icon'] && $forum_rows[$j]['title_is_link']) ? '' : $forum_rows[$j]['forum_posts'],
 
-				else
 
-				{
 
-					$do_template=true;
+										'U_VIEWFORUM' => ($forum_rows[$j]['title_is_link']) ? $forum_rows[$j]['weblink'] : ("../../../modules.php?name=Forums&file=viewforum&amp;" . POST_FORUM_URL . "=$forum_id"),
 
-				}//attached_forum_id'] ==-1
+/*****[END]********************************************
 
+ [ Mod:    Forumtitle as Weblink               v1.2.2 ]
 
+ ******************************************************/ 
 
+                                        'U_FORUM_EDIT' => append_sid("admin_forums.$phpEx?mode=editforum&amp;" . POST_FORUM_URL . "=$forum_id"),
 
+                                        'U_FORUM_DELETE' => append_sid("admin_forums.$phpEx?mode=deleteforum&amp;" . POST_FORUM_URL . "=$forum_id"),
 
-				if ($do_template)
+                                        'U_FORUM_MOVE_UP' => append_sid("admin_forums.$phpEx?mode=forum_order&amp;move=-15&amp;" . POST_FORUM_URL . "=$forum_id"),
 
-				{
+                                        'U_FORUM_MOVE_DOWN' => append_sid("admin_forums.$phpEx?mode=forum_order&amp;move=15&amp;" . POST_FORUM_URL . "=$forum_id"),
 
-					$template->assign_block_vars("catrow.forumrow",	array(
+                                        'U_FORUM_RESYNC' => append_sid("admin_forums.$phpEx?mode=forum_sync&amp;" . POST_FORUM_URL . "=$forum_id"))
 
-						'FORUM_NAME' => $forum_rows[$j]['forum_name'],
+                                );
 
-						'FORUM_DESC' => $forum_rows[$j]['forum_desc'],
+/*****[BEGIN]******************************************
 
-						'ROW_COLOR' => $row_color,
+ [ Mod:    Simple Subforums                    v1.0.1 ]
 
-						'NUM_TOPICS' => $forum_rows[$j]['forum_topics'],
+ ******************************************************/
 
-						'NUM_POSTS' => $forum_rows[$j]['forum_posts'],
+								for( $k = 0; $k < $total_forums; $k++ )
 
+								{
 
+									$forum_id2 = $forum_rows[$k]['forum_id'];
 
-						'U_VIEWFORUM' => ("../../../modules.php?name=Forums&file=viewforum&f=$forum_id"),
+									if ( $forum_rows[$k]['forum_parent'] == $forum_id )
 
-						'U_FORUM_EDIT' => append_sid("admin_forums.$phpEx?mode=editforum&amp;" . POST_FORUM_URL . "=$forum_id"),
+									{
 
-						'U_FORUM_DELETE' => append_sid("admin_forums.$phpEx?mode=deleteforum&amp;" . POST_FORUM_URL . "=$forum_id"),
+										$template->assign_block_vars("catrow.forumrow",	array(
 
-						'U_FORUM_MOVE_UP' => append_sid("admin_forums.$phpEx?mode=forum_order&amp;move=-15&amp;" . POST_FORUM_URL . "=$forum_id"),
+											'FORUM_NAME' => $forum_rows[$k]['forum_name'],
 
-						'U_FORUM_MOVE_DOWN' => append_sid("admin_forums.$phpEx?mode=forum_order&amp;move=15&amp;" . POST_FORUM_URL . "=$forum_id"),
+/*****[BEGIN]******************************************
 
-						'U_FORUM_RESYNC' => append_sid("admin_forums.$phpEx?mode=forum_sync&amp;" . POST_FORUM_URL . "=$forum_id"))
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
 
-					);
+ ******************************************************/
 
-					if ($sub_error)
+                                        	'FORUM_COLOR' => ( $forum_rows[$k]['forum_color'] != '' ) ? 'style="font-weight:bold; color: #'.$forum_rows[$k]['forum_color'].'"' : '',
 
-					{
+/*****[END]********************************************
 
-						$template->assign_block_vars ('catrow.forumrow.switch_error',array());
+ [ Mod:    Colorize Forumtitle                 v1.0.0 ]
 
-					}
+ ******************************************************/
 
+											'FORUM_DESC' => $forum_rows[$k]['forum_desc'],
 
+											'ROW_COLOR' => $row_color,
 
-					for($k = 0; $k < $total_forums; $k++)
+											'NUM_TOPICS' => $forum_rows[$k]['forum_topics'],
 
-					{
+											'NUM_POSTS' => $forum_rows[$k]['forum_posts'],
 
-						$subforum_id = $subforum_rows[$k]['forum_id'];
+											'STYLE' => ' style="padding-left: 20px;" ',
 
-						if ($subforum_rows[$k]['attached_forum_id'] == $forum_id)
 
-						{
 
-							$template->assign_block_vars("catrow.forumrow",	array(
+											'U_VIEWFORUM' => ("../../../modules.php?name=Forums&file=viewforum&amp;" . POST_FORUM_URL . "=$forum_id2"),
 
-								'FORUM_NAME' => $subforum_rows[$k]['forum_name'],
+											'U_FORUM_EDIT' => append_sid("admin_forums.$phpEx?mode=editforum&amp;" . POST_FORUM_URL . "=$forum_id2"),
 
-								'FORUM_DESC' => $subforum_rows[$k]['forum_desc'],
+											'U_FORUM_DELETE' => append_sid("admin_forums.$phpEx?mode=deleteforum&amp;" . POST_FORUM_URL . "=$forum_id2"),
 
-								'ROW_COLOR' => $row_color,
+											'U_FORUM_MOVE_UP' => append_sid("admin_forums.$phpEx?mode=forum_order&amp;move=-15&amp;" . POST_FORUM_URL . "=$forum_id2"),
 
-								'NUM_TOPICS' => $subforum_rows[$k]['forum_topics'],
+											'U_FORUM_MOVE_DOWN' => append_sid("admin_forums.$phpEx?mode=forum_order&amp;move=15&amp;" . POST_FORUM_URL . "=$forum_id2"),
 
-								'NUM_POSTS' => $subforum_rows[$k]['forum_posts'],
+											'U_FORUM_RESYNC' => append_sid("admin_forums.$phpEx?mode=forum_sync&amp;" . POST_FORUM_URL . "=$forum_id2"))
 
+										);
 
 
-								'U_VIEWFORUM' => append_sid($phpbb_root_path."viewforum.$phpEx?" . POST_FORUM_URL . "=$subforum_id"),
 
-								'U_FORUM_EDIT' => append_sid("admin_forums.$phpEx?mode=editforum&amp;" . POST_FORUM_URL . "=$subforum_id"),
+									}
 
-								'U_FORUM_DELETE' => append_sid("admin_forums.$phpEx?mode=deleteforum&amp;" . POST_FORUM_URL . "=$subforum_id"),
 
-								'U_FORUM_MOVE_UP' => append_sid("admin_forums.$phpEx?mode=forum_order&amp;move=-15&amp;" . POST_FORUM_URL . "=$subforum_id"),
 
-								'U_FORUM_MOVE_DOWN' => append_sid("admin_forums.$phpEx?mode=forum_order&amp;move=15&amp;" . POST_FORUM_URL . "=$subforum_id"),
+								} // for ... forums
 
-								'U_FORUM_RESYNC' => append_sid("admin_forums.$phpEx?mode=forum_sync&amp;" . POST_FORUM_URL . "=$subforum_id"))
+/*****[END]********************************************
 
-							);
+ [ Mod:    Simple Subforums                    v1.0.1 ]
 
-							$template->assign_block_vars ('catrow.forumrow.switch_attached_forum',array());
-
-						}
-
-					}
-
-				}
+ ******************************************************/
 
 
 
@@ -2604,9 +2356,8 @@ $template->pparse("body");
 
 
 
-include_once('./page_footer_admin.'.$phpEx);
+include('./page_footer_admin.'.$phpEx);
 
 
 
 ?>
-

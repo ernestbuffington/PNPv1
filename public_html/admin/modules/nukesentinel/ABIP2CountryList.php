@@ -1,44 +1,21 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 
 /********************************************************/
 /* NukeSentinel(tm)                                     */
-/* By: NukeScripts(tm) (http://www.nukescripts.net)     */
-/* Copyright © 2000-2008 by NukeScripts(tm)             */
+/* By: NukeScripts(tm) (http://nukescripts.86it.us)     */
+/* Copyright (c) 2000-2008 by NukeScripts(tm)           */
 /* See CREDITS.txt for ALL contributors                 */
 /********************************************************/
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
 
-if(!defined('NUKESENTINEL_ADMIN')) { header("Location: ../../../".$admin_file.".php"); }
-$pagetitle = _AB_NUKESENTINEL.": "._AB_IP2CLISTING;
-include_once("header.php");
+if (!defined('NUKESENTINEL_ADMIN')) {
+   die ('You can\'t access this file directly...');
+}
+
+include_once(NUKE_BASE_DIR.'header.php');
 OpenTable();
 OpenMenu(_AB_IP2CLISTING);
 mastermenu();
@@ -46,7 +23,7 @@ CarryMenu();
 ip2cmenu();
 CloseMenu();
 CloseTable();
-echo '<br />'."\n";
+
 OpenTable();
 $perpage = $ab_config['block_perpage'];
 if($perpage == 0) { $perpage = 25; }
@@ -55,10 +32,10 @@ if(!isset($min)) $min=0;
 if(!isset($max)) $max=$min+$perpage;
 if(!isset($column) or !$column or $column=="") $column = "ip_lo";
 if(!isset($direction) or !$direction or $direction=="") $direction = "asc";
-if(preg_match("/All.*Countries/", $showcountry) || !$showcountry) {
+if(preg_match("#All(.*)Countries#", $showcountry) || !$showcountry) {
   $modfilter="";
 } else {
-  $modfilter="WHERE c2c = '$showcountry'";
+  $modfilter="WHERE `c2c` = '$showcountry'";
 }
 $totalselected = $db->sql_numrows($db->sql_query("SELECT * FROM `".$prefix."_nsnst_ip2country` $modfilter"));
 if($totalselected > 0) {
@@ -139,6 +116,6 @@ if($totalselected > 0) {
   echo '<center><strong>'._AB_NOIPS.'</strong></center>'."\n";
 }
 CloseTable();
-include_once("footer.php");
+include_once(NUKE_BASE_DIR.'footer.php');
 
 ?>

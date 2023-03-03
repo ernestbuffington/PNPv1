@@ -1,0 +1,11 @@
+When reporting a bug, please provide as much information as possible. In particular, every bug report should contain the following information:
+
+- Descriptive title in subject
+- Detailed description of the issue
+- Exact URL that generated the problem
+- IP address, if known
+- NukeAmazon version
+- PHP-Nuke version
+- PHP version
+- Server platform
+- Any other specifics

@@ -1,14 +1,13 @@
 <?php
-
-if(defined('VISUAL_CAPTCHA')) return;
+if(defined('NUKE_EVO')) return;
 define('NO_DISABLE', true);
 
-define('ROOT', dirname(dirname(__FILE__)) . '/');
-define('INCLUDES', ROOT.'includes/');
-require_once(INCLUDES.'classes/class.php-captcha.php');
-define('FONTS', INCLUDES.'fonts/');
-// full path disclosure identified by waraxe
-$aFonts = array();
+define('ROOT', dirname(__FILE__, 2) . '/');
+require_once(ROOT.'mainfile.php');
+//error_reporting(0);
+require_once(NUKE_CLASSES_DIR.'class.php-captcha.php');
+define('FONTS', NUKE_INCLUDE_DIR.'fonts/');
+
 if ($handle = opendir(FONTS)) {
     while (FALSE !== ($file = readdir($handle))) {
         if ($file !== "." && $file != "..") {
@@ -17,11 +16,10 @@ if ($handle = opendir(FONTS)) {
     }
 }
 
-$size = (isset($_GET['size'])) ? $_GET['size'] : 'normal';
+$size = $_GET['size'] ?? 'normal';
 
 switch ($size) {
     case 'normal':
-    default:
         $width = 140;
         $height = 60;
         $length = 5;
@@ -38,23 +36,28 @@ switch ($size) {
     break;
 }
 
-//If there is a filename to use as a background
-$file = (isset($_GET['file'])) ? $_GET['file'] : '';
-
+$file = $_GET['file'] ?? '';
 //Look for invalid crap
-if (preg_match("/[^\w_\-]/i",$file)) {
+if (preg_match("/[^\w_\-]/i",(string) $file)) {
     die();
 }
 
 if (!is_array($aFonts)) {
     die('Fonts Not Found');
 }
-//See http://www.ejeliot.com/pages/2 for more information and settings
+global $nukeurl, $capfile;
 $oVisualCaptcha = new PhpCaptcha($aFonts, $width, $height);
 $oVisualCaptcha->SetNumChars($length);
+if ($size != 'small') {
+    $oVisualCaptcha->SetOwnerText(str_replace('http://', '', (string) $nukeurl));
+}
 if (!empty($file) && $file != 'default') {
-    if (file_exists(dirname(__FILE__).'/captcha/'.$file.'.jpg')) {
+    if (file_exists(__DIR__.'/captcha/'.$file.'.jpg')) {
         $oVisualCaptcha->SetBackgroundImages('captcha/'.$file.'.jpg');
+    }
+} else if (!empty($capfile) && $file != 'default') {
+    if (file_exists(__DIR__.'/captcha/'.$capfile.'.jpg')) {
+        $oVisualCaptcha->SetBackgroundImages('captcha/'.$capfile.'.jpg');
     }
 }
 

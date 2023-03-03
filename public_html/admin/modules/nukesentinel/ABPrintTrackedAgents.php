@@ -1,10 +1,14 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 
 /********************************************************/
 /* NukeSentinel(tm)                                     */
 /* By: NukeScripts Network (webmaster@nukescripts.net)  */
-/* http://www.nukescripts.net                           */
-/* Copyright © 2000-2007 by NukeScripts Network         */
+/* http://nukescripts.86it.us                           */
+/* Copyright (c) 2000-2008 by NukeScripts Network       */
 /* See CREDITS.txt for ALL contributors                 */
 /********************************************************/
 
@@ -17,9 +21,10 @@ include_once("themes/$theme_Sel/theme.php");
 echo "<LINK REL='StyleSheet' HREF='themes/$theme_Sel/style/style.css' TYPE='text/css' MEDIA='screen'>\n";
 echo "</head><body>\n";
 echo "<h1 align='center'>$pagetitle</h1>\n";
+if(!isset($modfilter)) $modfilter='';
 $totalselected = $db->sql_numrows($db->sql_query("SELECT DISTINCT(`user_agent`) FROM `".$prefix."_nsnst_tracked_ips` $modfilter GROUP BY 1"));
 if($totalselected > 0) {
-  echo "<table align='center' border='2' cellpadding='2' cellspacing='2'>\n";
+  echo "<table summary='' align='center' border='2' cellpadding='2' cellspacing='2'>\n";
   echo "<tr>\n";
   echo "<td><strong>"._AB_USERAGENT."</strong></td>\n";
   echo "<td align='center'><strong>"._AB_IPSTRACKED."</strong></td>\n";
@@ -35,6 +40,7 @@ if($totalselected > 0) {
     echo "<td align='center'>$hits</td>";
     echo "</tr>";
   }
+  $db->sql_freeresult($result);
   // End IP Stats
   echo "</table>";
 } else {

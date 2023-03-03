@@ -1,4 +1,9 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
+
 /***************************************************************************
  *                            admin_disallow.php
  *                            -------------------
@@ -6,8 +11,7 @@
  *   copyright            : (C) 2001 The phpBB Group
  *   email                : support@phpbb.com
  *
- *   $Id: admin_disallow.php,v 1.9.2.2 2002/11/26 11:42:11 psotfx Exp $
- *
+ *   Id: admin_disallow.php,v 1.9.2.2 2002/11/26 11:42:11 psotfx Exp
  *
  ***************************************************************************/
 
@@ -20,37 +24,7 @@
  *
  ***************************************************************************/
 
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
-
-define('IN_PHPBB', 1);
+if (!defined('IN_PHPBB')) define('IN_PHPBB', true);
 
 if( !empty($setmodules) )
 {
@@ -61,17 +35,17 @@ if( !empty($setmodules) )
 }
 
 //
-// Include require_onced files, get $phpEx and check permissions
+// Include required files, get $phpEx and check permissions
 //
 $phpbb_root_path = "./../";
-require_once($phpbb_root_path . 'extension.inc');
-require_once('./pagestart.' . $phpEx);
+require($phpbb_root_path . 'extension.inc');
+require('./pagestart.' . $phpEx);
 
-if( isset($_POST['add_name']) )
+if( isset($HTTP_POST_VARS['add_name']) )
 {
-        include_once("../../../includes/functions_validate.php");
+        include("../../../includes/functions_validate.php");
 
-        $disallowed_user = ( isset($_POST['disallowed_user']) ) ? trim($_POST['disallowed_user']) : trim($_GET['disallowed_user']);
+        $disallowed_user = ( isset($HTTP_POST_VARS['disallowed_user']) ) ? trim($HTTP_POST_VARS['disallowed_user']) : trim($HTTP_GET_VARS['disallowed_user']);
 
         if ($disallowed_user == '')
         {
@@ -97,9 +71,9 @@ if( isset($_POST['add_name']) )
 
         message_die(GENERAL_MESSAGE, $message);
 }
-else if( isset($_POST['delete_name']) )
+else if( isset($HTTP_POST_VARS['delete_name']) )
 {
-        $disallowed_id = ( isset($_POST['disallowed_id']) ) ? intval( $_POST['disallowed_id'] ) : intval( $_GET['disallowed_id'] );
+        $disallowed_id = ( isset($HTTP_POST_VARS['disallowed_id']) ) ? intval( $HTTP_POST_VARS['disallowed_id'] ) : intval( $HTTP_GET_VARS['disallowed_id'] );
 
         $sql = "DELETE FROM " . DISALLOW_TABLE . "
                 WHERE disallow_id = $disallowed_id";
@@ -109,7 +83,10 @@ else if( isset($_POST['delete_name']) )
                 message_die(GENERAL_ERROR, "Couldn't removed disallowed user.", "",__LINE__, __FILE__, $sql);
         }
 
-        $message .= $lang['Disallowed_deleted'] . "<br /><br />" . sprintf($lang['Click_return_disallowadmin'], "<a href=\"" . append_sid("admin_disallow.$phpEx") . "\">", "</a>") . "<br /><br />" . sprintf($lang['Click_return_admin_index'], "<a href=\"" . append_sid("index.$phpEx?pane=right") . "\">", "</a>");
+        if(!isset($message))
+		$message = '';
+		
+		$message .= $lang['Disallowed_deleted'] . "<br /><br />" . sprintf($lang['Click_return_disallowadmin'], "<a href=\"" . append_sid("admin_disallow.$phpEx") . "\">", "</a>") . "<br /><br />" . sprintf($lang['Click_return_admin_index'], "<a href=\"" . append_sid("index.$phpEx?pane=right") . "\">", "</a>");
 
         message_die(GENERAL_MESSAGE, $message);
 
@@ -134,9 +111,9 @@ $disallowed = $db->sql_fetchrowset($result);
 //
 $disallow_select = '<select name="disallowed_id">';
 
-if( trim($disallowed) == '' )
+if( empty($disallowed) )
 {
-        $disallow_select .= '<option value="">' . $lang['no_disallowed'] . '</option>';
+        $disallow_select .= '<option value="">' . $lang['no_disallowed'] = $lang['no_disallowed'] ?? '' . '</option>';
 }
 else
 {
@@ -157,7 +134,7 @@ $template->assign_vars(array(
         "S_DISALLOW_SELECT" => $disallow_select,
         "S_FORM_ACTION" => append_sid("admin_disallow.$phpEx"),
 
-        "L_INFO" => $output_info,
+        "L_INFO" => $output_info = $output_info ?? '',
         "L_DISALLOW_TITLE" => $lang['Disallow_control'],
         "L_DISALLOW_EXPLAIN" => $lang['Disallow_explain'],
         "L_DELETE" => $lang['Delete_disallow'],
@@ -171,6 +148,6 @@ $template->assign_vars(array(
 
 $template->pparse("body");
 
-include_once('./page_footer_admin.'.$phpEx);
+include('./page_footer_admin.'.$phpEx);
 
 ?>

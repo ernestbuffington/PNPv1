@@ -9,8 +9,8 @@ use Rector\Core\Configuration\ValueObjectInliner;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\ValueObject\PhpVersion;
-use RectorPrefix202302\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use RectorPrefix202302\Webmozart\Assert\Assert;
+use RectorPrefix202301\Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use RectorPrefix202301\Webmozart\Assert\Assert;
 /**
  * @api
  * Same as Symfony container configurator, with patched return type for "set()" method for easier DX.
@@ -58,11 +58,6 @@ final class RectorConfig extends ContainerConfigurator
     {
         $parameters = $this->parameters();
         $parameters->set(Option::SKIP, $criteria);
-    }
-    public function removeUnusedImports(bool $removeUnusedImports = \true) : void
-    {
-        $parameters = $this->parameters();
-        $parameters->set(Option::REMOVE_UNUSED_IMPORTS, $removeUnusedImports);
     }
     public function importNames(bool $importNames = \true, bool $importDocBlockNames = \true) : void
     {

@@ -1,49 +1,96 @@
 <?php
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
 
-if ( !defined('IN_PHPBB') )
+
+/***************************************************************************
+ *                             usercp_email.php
+ *                            -------------------
+ *   begin                : Saturday, Feb 13, 2001
+ *   copyright            : (C) 2001 The phpBB Group
+ *   email                : support@phpbb.com
+ *
+ *   Id: usercp_email.php,v 1.7.2.13 2003/06/06 18:02:15 acydburn Exp
+ *
+ ***************************************************************************/
+
+/***************************************************************************
+* phpbb2 forums port version 2.0.5 (c) 2003 - Nuke Cops (http://nukecops.com)
+*
+* Ported by Nuke Cops to phpbb2 standalone 2.0.5 Test
+* and debugging completed by the Elite Nukers and site members.
+*
+* You run this package at your sole risk. Nuke Cops and affiliates cannot
+* be held liable if anything goes wrong. You are advised to test this
+* package on a development system. Backup everything before implementing
+* in a production environment. If something goes wrong, you can always
+* backout and restore your backups.
+*
+* Installing and running this also means you agree to the terms of the AUP
+* found at Nuke Cops.
+*
+* This is version 2.0.5 of the phpbb2 forum port for PHP-Nuke. Work is based
+* on Tom Nitzschner's forum port version 2.0.6. Tom's 2.0.6 port was based
+* on the phpbb2 standalone version 2.0.3. Our version 2.0.5 from Nuke Cops is
+* now reflecting phpbb2 standalone 2.0.5 that fixes some bugs and the
+* invalid_session error message.
+***************************************************************************/
+
+/***************************************************************************
+ *   This file is part of the phpBB2 port to Nuke 6.0 (c) copyright 2002
+ *   by Tom Nitzschner (tom@toms-home.com)
+ *   http://bbtonuke.sourceforge.net (or http://www.toms-home.com)
+ *
+ *   As always, make a backup before messing with anything. All code
+ *   release by me is considered sample code only. It may be fully
+ *   functual, but you use it at your own risk, if you break it,
+ *   you get to fix it too. No waranty is given or implied.
+ *
+ *   Please post all questions/request about this port on http://bbtonuke.sourceforge.net first,
+ *   then on my site. All original header code and copyright messages will be maintained
+ *   to give credit where credit is due. If you modify this, the only requirement is
+ *   that you also maintain all original copyright messages. All my work is released
+ *   under the GNU GENERAL PUBLIC LICENSE. Please see the README for more information.
+ *
+ ***************************************************************************/
+
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ ***************************************************************************/
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Nuke Patched                             v3.1.0       06/26/2005
+ ************************************************************************/
+
+if (!defined('IN_PHPBB'))
 {
-        die("Hacking attempt");
-        exit;
+    die('Hacking attempt');
 }
 
 // Is send through board enabled? No, return to index
 if (!$board_config['board_email_form'])
 {
+/*****[BEGIN]******************************************
+ [ Base:    Nuke Patched                       v3.1.0 ]
+ ******************************************************/
+        $header_location = ( @preg_match("/Microsoft|WebSTAR|Xitami/", $_SERVER["SERVER_SOFTWARE"]) ) ? "Refresh: 0; URL=" : "Location: ";
         redirect(append_sid("index.$phpEx", true));
+        exit;
+/*****[END]********************************************
+ [ Base:    Nuke Patched                       v3.1.0 ]
+ ******************************************************/
 }
 
-if ( !empty($_GET[POST_USERS_URL]) || !empty($_POST[POST_USERS_URL]) )
+if ( !empty($HTTP_GET_VARS[POST_USERS_URL]) || !empty($HTTP_POST_VARS[POST_USERS_URL]) )
 {
-        $user_id = ( !empty($_GET[POST_USERS_URL]) ) ? intval($_GET[POST_USERS_URL]) : intval($_POST[POST_USERS_URL]);
+        $user_id = ( !empty($HTTP_GET_VARS[POST_USERS_URL]) ) ? intval($HTTP_GET_VARS[POST_USERS_URL]) : intval($HTTP_POST_VARS[POST_USERS_URL]);
 }
 else
 {
@@ -52,7 +99,7 @@ else
 
 if ( !$userdata['session_logged_in'] )
 {
-        header('Location: ' . append_sid("login.$phpEx?redirect=profile.$phpEx&mode=user_email&" . POST_USERS_URL . "=$user_id", true));
+        redirect( append_sid("login.$phpEx?redirect=profile.$phpEx&mode=email&" . POST_USERS_URL . "=$user_id", true));
         exit;
 }
 
@@ -61,8 +108,9 @@ $sql = "SELECT username, user_email, user_viewemail, user_lang
         WHERE user_id = '$user_id'";
 if ( $result = $db->sql_query($sql) )
 {
-	if ( $row = $db->sql_fetchrow($result) )
+        if ( $row = $db->sql_fetchrow($result) )
 	{
+        $db->sql_freeresult($result);
 
         $username = $row['username'];
         $user_email = $row['user_email'];
@@ -75,13 +123,13 @@ if ( $result = $db->sql_query($sql) )
                         message_die(GENERAL_MESSAGE, $lang['Flood_email_limit']);
                 }
 
-                if ( isset($_POST['submit']) )
+                if ( isset($HTTP_POST_VARS['submit']) )
                 {
                         $error = FALSE;
 
-                        if ( !empty($_POST['subject']) )
+                        if ( !empty($HTTP_POST_VARS['subject']) )
                         {
-                                $subject = trim(stripslashes($_POST['subject']));
+                                $subject = trim(stripslashes($HTTP_POST_VARS['subject']));
                         }
                         else
                         {
@@ -89,9 +137,9 @@ if ( $result = $db->sql_query($sql) )
                                 $error_msg = ( !empty($error_msg) ) ? $error_msg . '<br />' . $lang['Empty_subject_email'] : $lang['Empty_subject_email'];
                         }
 
-                        if ( !empty($_POST['message']) )
+                        if ( !empty($HTTP_POST_VARS['message']) )
                         {
-                                $message = trim(stripslashes($_POST['message']));
+                                $message = trim(stripslashes($HTTP_POST_VARS['message']));
                         }
                         else
                         {
@@ -106,7 +154,8 @@ if ( $result = $db->sql_query($sql) )
                                         WHERE user_id = " . $userdata['user_id'];
                                 if ( $result = $db->sql_query($sql) )
                                 {
-                                        include_once("includes/emailer.php");
+                                        $db->sql_freeresult($result);
+                                        include("includes/emailer.php");
                                         $emailer = new emailer($board_config['smtp_delivery']);
 
                                         $emailer->from($userdata['user_email']);
@@ -132,7 +181,7 @@ if ( $result = $db->sql_query($sql) )
                                         $emailer->send();
                                         $emailer->reset();
 
-                                        if ( !empty($_POST['cc_email']) )
+                                        if ( !empty($HTTP_POST_VARS['cc_email']) )
                                         {
                                                 $emailer->from($userdata['user_email']);
                                                 $emailer->replyto($userdata['user_email']);
@@ -155,7 +204,6 @@ if ( $result = $db->sql_query($sql) )
                                                 'META' => '<meta http-equiv="refresh" content="5;url=' . append_sid("index.$phpEx") . '">')
                                         );
 
-                                        
                                         $message = $lang['Email_sent'] . '<br /><br />' . sprintf($lang['Click_return_index'],  '<a href="' . append_sid("index.$phpEx") . '">', '</a>');
 
                                         message_die(GENERAL_MESSAGE, $message);
@@ -167,7 +215,7 @@ if ( $result = $db->sql_query($sql) )
                         }
                 }
 
-                include_once("includes/page_header.php");
+                include("includes/page_header.php");
 
                 $template->set_filenames(array(
                         'body' => 'profile_send_email.tpl')
@@ -206,7 +254,7 @@ if ( $result = $db->sql_query($sql) )
 
                 $template->pparse('body');
 
-                include_once("includes/page_tail.php");
+                include("includes/page_tail.php");
         }
         else
         {
@@ -222,6 +270,5 @@ else
 {
 	message_die(GENERAL_ERROR, 'Could not select user data', '', __LINE__, __FILE__, $sql);
 }
-
 
 ?>

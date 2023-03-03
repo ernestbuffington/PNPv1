@@ -1,44 +1,21 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 
 /********************************************************/
 /* NukeSentinel(tm)                                     */
-/* By: NukeScripts(tm) (http://www.nukescripts.net)     */
-/* Copyright © 2000-2008 by NukeScripts(tm)             */
+/* By: NukeScripts(tm) (http://nukescripts.86it.us)     */
+/* Copyright (c) 2000-2008 by NukeScripts(tm)           */
 /* See CREDITS.txt for ALL contributors                 */
 /********************************************************/
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
 
-if(!defined('NUKESENTINEL_ADMIN')) { header("Location: ../../../".$admin_file.".php"); }
-$pagetitle = _AB_NUKESENTINEL.": "._AB_CONFIGURATION.": "._AB_AUTHORBLOCKER;
-include_once("header.php");
+if (!defined('NUKESENTINEL_ADMIN')) {
+   die ('You can\'t access this file directly...');
+}
+
+include_once(NUKE_BASE_DIR.'header.php');
 OpenTable();
 OpenMenu(_AB_AUTHORBLOCKER);
 mastermenu();
@@ -46,7 +23,7 @@ CarryMenu();
 configmenu();
 CloseMenu();
 CloseTable();
-echo '<br />'."\n";
+
 OpenTable();
 echo '<form action="'.$admin_file.'.php" method="post">'."\n";
 echo '<input type="hidden" name="xblocker_row[block_name]" value="author" />'."\n";
@@ -104,7 +81,7 @@ echo '<option value="2"'.$sel3.'>'._AB_2OCTECT.'</option>'."\n";
 echo '<option value="3"'.$sel4.'>'._AB_3OCTECT.'</option>'."\n";
 echo '</select></td></tr>'."\n";
 echo '<tr><td bgcolor="'.$bgcolor2.'">'.help_img(_AB_HELP_015).' '._AB_TEMPLATE.':</td><td><select name="xblocker_row[template]">'."\n";
-$templatedir = dir('abuse');
+$templatedir = dir(NUKE_INCLUDE_DIR.'nukesentinel/abuse');
 $templatelist = '';
 while($func=$templatedir->read()) {
   if(substr($func, 0, 6) == 'abuse_') { $templatelist .= $func.' '; }
@@ -114,9 +91,9 @@ $templatelist = explode(" ", $templatelist);
 sort($templatelist);
 for($i=0; $i < sizeof($templatelist); $i++) {
   if($templatelist[$i]!="") {
-    $bl = preg_replace("/abuse_/", "", $templatelist[$i]);
-    $bl = preg_replace("/.tpl/", "", $bl);
-    $bl = preg_replace("/_/", " ", $bl);
+    $bl = str_replace("abuse_", "", $templatelist[$i]);
+    $bl = str_replace(".tpl", "", $bl);
+    $bl = str_replace("_", " ", $bl);
     echo '<option';
     if($templatelist[$i]==$blocker_row['template']) { echo ' selected="selected"'; }
     echo ' value="'.$templatelist[$i].'">'.ucfirst($bl).'</option>'."\n";
@@ -124,16 +101,25 @@ for($i=0; $i < sizeof($templatelist); $i++) {
 }
 echo '</select></td></tr>'."\n";
 echo '<tr><td bgcolor="'.$bgcolor2.'">'.help_img(_AB_HELP_016).' '._AB_EMAILLOOKUP.':</td>'."\n";
-if (defined('TNML_IS_ACTIVE')) { $mailtest = true; } else { $mailtest = @mail(); }
+
+$hostname = gethostbyaddr($_SERVER['SERVER_ADDR']);
+$hostname = exec('hostname');
+$targetEmail = 'ernest.buffington@gmail.com';
+$subject = 'This is a Test e-mail from AUTHOR Blocker Settings in PHP-Nuke Titanium v'.NUKE_TITANIUM.'!';
+$message = 'Sent From Server: '.$hostname.' This message was sent by NukeSentinel v2.6.0.9~!';
+$mailtest = mail($targetEmail, $subject, $message);
+
 if(!$mailtest AND !stristr($_SERVER['SERVER_SOFTWARE'], "PHP-CGI")) {
-  $sel0 = $sel1 = $sel2 = "";
+  $sel0 = $sel1 = $sel2 = $sel3 = "";
   if($blocker_row['email_lookup']==1) { $sel1 = ' selected="selected"'; }
   elseif($blocker_row['email_lookup']==2) { $sel2 = ' selected="selected"'; }
+  elseif($blocker_row['email_lookup']==3) { $sel3 = ' selected="selected"'; }
   else { $sel0 = ' selected="selected"'; }
   echo '<td><select name="xblocker_row[email_lookup]">'."\n";
   echo '<option value="0"'.$sel0.'>'._AB_OFF.'</option>'."\n";
-  echo '<option value="1"'.$sel1.'>Arin.net</option>'."\n";
-  echo '<option value="2"'.$sel2.'>DNSStuff.com</option>'."\n";
+  echo '<option value="1"'.$sel1.'>'._AB_SEL1.'</option>'."\n";
+  echo '<option value="1"'.$sel2.'>'._AB_SEL2.'</option>'."\n";
+  echo '<option value="1"'.$sel3.'>'._AB_SEL3.'</option>'."\n";
   echo '</select></td>'."\n";
 } else {
   echo '<td><strong>'._AB_NOTAVAILABLE.'</strong><input type="hidden" name="xblocker_row[email_lookup]" value="0" /><td>'."\n";
@@ -157,6 +143,6 @@ echo '<tr><td align="center" colspan="2"><input type="submit" value="'._AB_SAVEC
 echo '</table>'."\n";
 echo '</form>'."\n";
 CloseTable();
-include_once("footer.php");
+include_once(NUKE_BASE_DIR.'footer.php');
 
 ?>

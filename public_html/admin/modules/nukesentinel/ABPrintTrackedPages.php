@@ -1,10 +1,14 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 
 /********************************************************/
 /* NukeSentinel(tm)                                     */
 /* By: NukeScripts Network (webmaster@nukescripts.net)  */
-/* http://www.nukescripts.net                           */
-/* Copyright © 2000-2007 by NukeScripts Network         */
+/* http://nukescripts.86it.us                           */
+/* Copyright (c) 2000-2008 by NukeScripts Network       */
 /* See CREDITS.txt for ALL contributors                 */
 /********************************************************/
 
@@ -22,11 +26,11 @@ if(!$direction or $direction=="") $direction = "desc";
 $tid=intval($tid);
 $totalselected = $db->sql_numrows($db->sql_query("SELECT `tid`, `page`, `date` FROM `".$prefix."_nsnst_tracked_ips` WHERE `ip_addr`='$ip_addr' AND `user_id`='$user_id'"));
 if($totalselected > 0) {
-  $result = $db->sql_query("SELECT `ip_long` FROM `".$prefix."_nsnst_tracked_ips` WHERE `user_id`='$user_id' AND `ip_addr`='$ip_addr'");
+  $result = $db->sql_query("SELECT `ip_long` FROM `".$prefix."_nsnst_tracked_ips` WHERE `user_id`='$user_id' AND `ip_addr`='$ip_addr' LIMIT 0,1");
   list($ip_long) = $db->sql_fetchrow($result);
   # default values if none set
   echo "<center><strong>$ip_addr ($ip_long)</strong></center><br />";
-  echo "<table align='center' cellpadding='2' cellspacing='2' border='2'>\n";
+  echo "<table summary='' align='center' cellpadding='2' cellspacing='2' border='2'>\n";
   echo "<tr>";
   // Page Sorting
   echo "<form method='post' action='".$admin_file.".php?op=ABPrintTrackedPages'>\n";
@@ -34,15 +38,15 @@ if($totalselected > 0) {
   echo "<input type='hidden' name='ip_addr' value='$ip_addr' />\n";
   echo "<td align='left' colspan='3'><strong>"._AB_SORT.":</strong> ";
   echo "<select name='column'>\n";
-  if($column == "page") $selcolumn1 = "selected";
+  if($column == "page") $selcolumn1 = "selected='selected'";
   echo "<option value='page' $selcolumn1>"._AB_PAGEVIEWED."</option>\n";
-  if($column == "date") $selcolumn2 = "selected";
+  if($column == "date") $selcolumn2 = "selected='selected'";
   echo "<option value='date' $selcolumn2>"._AB_HITDATE."</option>\n";
   echo "</select> ";
   echo "<select name='direction'>\n";
-  if($direction == "asc") $seldirection1 = "selected";
+  if($direction == "asc") $seldirection1 = "selected='selected'";
   echo "<option value='asc' $seldirection1>"._AB_ASC."</option>\n";
-  if($direction == "desc") $seldirection2 = "selected";
+  if($direction == "desc") $seldirection2 = "selected='selected'";
   echo "<option value='desc' $seldirection2>"._AB_DESC."</option>\n";
   echo "</select> ";
   echo "<input type='submit' value='"._AB_SORT."' />\n";
@@ -59,6 +63,7 @@ if($totalselected > 0) {
     echo "<td>".date("Y-m-d \@ H:i:s",$date_time)."</td>\n";
     echo "</tr>\n";
   }
+  $db->sql_freeresult($result);
   echo "</table>";
   // End Page Stats
 } else {

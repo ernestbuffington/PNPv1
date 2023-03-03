@@ -1,34 +1,16 @@
 <?PHP
 
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
 
 /************************************************************************
 * HTML Newsletter 1.2 module for PHP-Nuke 7.5 - 7.6
@@ -265,7 +247,7 @@ $statstable = <<< EOD
                                                                         </td>
                                                                         <td align="right">
                                                                             <span class="boxcontent">
-                                                                            <strong>{PAGEHITS}</strong>
+                                                                            <b>{PAGEHITS}</b>
                                                                             </span>
                                                                         </td>
                                                                     </tr>
@@ -281,7 +263,7 @@ $statstable = <<< EOD
                                                                         </td>
                                                                         <td align="right">
                                                                             <span class="boxcontent">
-                                                                            <strong>{MEMBERS}</strong>
+                                                                            <b>{MEMBERS}</b>
                                                                             </span>
                                                                         </td>
                                                                     </tr>
@@ -297,7 +279,7 @@ $statstable = <<< EOD
                                                                         </td>
                                                                         <td align="right">
                                                                             <span class="boxcontent">
-                                                                            <strong>{NEWSITEMS} in {NEWSCAT} categories</strong>
+                                                                            <b>{NEWSITEMS} in {NEWSCAT} categories</b>
                                                                             </span>
                                                                         </td>
                                                                     </tr>
@@ -313,7 +295,7 @@ $statstable = <<< EOD
                                                                         </td>
                                                                         <td align="right">
                                                                             <span class="boxcontent">
-                                                                            <strong>{DOWNLOADS} in {DOWNLOADCAT} categories</strong>
+                                                                            <b>{DOWNLOADS} in {DOWNLOADCAT} categories</b>
                                                                             </span>
                                                                         </td>
                                                                     </tr>
@@ -329,7 +311,7 @@ $statstable = <<< EOD
                                                                         </td>
                                                                         <td align="right">
                                                                             <span class="boxcontent">
-                                                                            <strong>{WEBLINKS} in {WEBLINKCAT} categories</strong>
+                                                                            <b>{WEBLINKS} in {WEBLINKCAT} categories</b>
                                                                             </span>
                                                                         </td>
                                                                     </tr>
@@ -345,7 +327,7 @@ $statstable = <<< EOD
                                                                         </td>
                                                                         <td align="right">
                                                                             <span class="boxcontent">
-                                                                            <strong>{FORUMPOSTS} in {FORUMTOPICS} topics</strong>
+                                                                            <b>{FORUMPOSTS} in {FORUMTOPICS} topics</b>
                                                                             </span>
                                                                         </td>
                                                                     </tr>
@@ -361,7 +343,7 @@ $statstable = <<< EOD
                                                                         </td>
                                                                         <td align="right">
                                                                             <span class="boxcontent">
-                                                                            <strong>{REVIEWS}</strong>
+                                                                            <b>{REVIEWS}</b>
                                                                             </span>
                                                                         </td>
                                                                     </tr>
@@ -426,7 +408,7 @@ $latestnewstop = <<< EOD
                                                                 <div align="left">
                                                                     <span class=
                                                                     "storytitle">
-                                                                    <strong>Our {AMOUNT} Latest News Items</strong>
+                                                                    <b>Our {AMOUNT} Latest News Items</b>
                                                                     </span>
                                                                 </div>
                                                             </td>
@@ -531,7 +513,7 @@ $latestdownloadtop =  <<< EOD
                                                                 <div align="left">
                                                                     <span class=
                                                                     "storytitle">
-                                                                    <strong>Our {AMOUNT} Latest Downloads</strong>
+                                                                    <b>Our {AMOUNT} Latest Downloads</b>
                                                                     </span>
                                                                 </div>
                                                             </td>
@@ -628,7 +610,7 @@ $latestweblinktop = <<< EOD
                                                                 <div align="left">
                                                                     <span class=
                                                                     "storytitle">
-                                                                    <strong>Our {AMOUNT} Latest Web Links</strong>
+                                                                    <b>Our {AMOUNT} Latest Web Links</b>
                                                                     </span>
                                                                 </div>
                                                             </td>
@@ -728,7 +710,7 @@ $latestforumtop = <<< EOD
                                                                 <div align="left">
                                                                     <span class=
                                                                     "storytitle">
-                                                                    <strong>Our {AMOUNT} Latest Forum Posts</strong>
+                                                                    <b>Our {AMOUNT} Latest Forum Posts</b>
                                                                     </span>
                                                                 </div>
                                                             </td>
@@ -849,7 +831,7 @@ $latestreviewstop = <<< EOD
                                                                 <div align="left">
                                                                     <span class=
                                                                     "storytitle">
-                                                                    <strong>Our {AMOUNT} Latest Reviews</strong>
+                                                                    <b>Our {AMOUNT} Latest Reviews</b>
                                                                     </span>
                                                                 </div>
                                                             </td>
@@ -933,7 +915,7 @@ $emailfile = <<< EOD
 <html>
 <head>
   <title>{SITENAME} Email</title>
-  <style type="text/css">
+  <style>
         <!--
         body {font-family: Verdana,Helvetica; font-size: 10px}
         div {font-family: Verdana,Helvetica; font-size: 10px}

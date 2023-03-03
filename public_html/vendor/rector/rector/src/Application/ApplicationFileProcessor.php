@@ -18,11 +18,11 @@ use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\Core\ValueObjectFactory\Application\FileFactory;
 use Rector\Parallel\Application\ParallelFileProcessor;
 use Rector\Parallel\ValueObject\Bridge;
-use RectorPrefix202302\Symfony\Component\Console\Input\InputInterface;
-use RectorPrefix202302\Symfony\Component\Filesystem\Filesystem;
-use RectorPrefix202302\Symplify\EasyParallel\CpuCoreCountProvider;
-use RectorPrefix202302\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
-use RectorPrefix202302\Symplify\EasyParallel\ScheduleFactory;
+use RectorPrefix202301\Symfony\Component\Console\Input\InputInterface;
+use RectorPrefix202301\Symfony\Component\Filesystem\Filesystem;
+use RectorPrefix202301\Symplify\EasyParallel\CpuCoreCountProvider;
+use RectorPrefix202301\Symplify\EasyParallel\Exception\ParallelShouldNotHappenException;
+use RectorPrefix202301\Symplify\EasyParallel\ScheduleFactory;
 final class ApplicationFileProcessor
 {
     /**
@@ -116,19 +116,19 @@ final class ApplicationFileProcessor
      */
     public function run(Configuration $configuration, InputInterface $input) : array
     {
-        $filePaths = $this->fileFactory->findFilesInPaths($configuration->getPaths(), $configuration);
+        $fileInfos = $this->fileFactory->createFileInfosFromPaths($configuration->getPaths(), $configuration);
         // no files found
-        if ($filePaths === []) {
+        if ($fileInfos === []) {
             return [Bridge::SYSTEM_ERRORS => [], Bridge::FILE_DIFFS => []];
         }
         $this->configureCustomErrorHandler();
         if ($configuration->isParallel()) {
-            $systemErrorsAndFileDiffs = $this->runParallel($filePaths, $configuration, $input);
+            $systemErrorsAndFileDiffs = $this->runParallel($fileInfos, $configuration, $input);
         } else {
             // 1. collect all files from files+dirs provided paths
-            $files = $this->fileFactory->createFromPaths($filePaths);
+            $files = $this->fileFactory->createFromPaths($fileInfos);
             // 2. PHPStan has to know about all files too
-            $this->configurePHPStanNodeScopeResolver($filePaths);
+            $this->configurePHPStanNodeScopeResolver($fileInfos);
             $systemErrorsAndFileDiffs = $this->processFiles($files, $configuration);
             $this->fileDiffFileDecorator->decorate($files);
             $this->printFiles($files, $configuration);

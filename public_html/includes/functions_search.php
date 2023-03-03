@@ -1,38 +1,34 @@
 <?php
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
 
-if (!defined('IN_PHPBB')) {
-	die();
+
+/***************************************************************************
+*                              functions_search.php
+*                              -------------------
+*     begin                : Wed Sep 05 2001
+*     copyright            : (C) 2002 The phpBB Group
+*     email                : support@phpbb.com
+*
+*     Id: functions_search.php,v 1.8.2.19 2004/11/18 17:49:45 acydburn Exp
+*
+****************************************************************************/
+
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ ***************************************************************************/
+
+if (!defined('IN_PHPBB'))
+{
+    die('Hacking attempt');
 }
- 
+
 function clean_words($mode, &$entry, &$stopword_list, &$synonym_list)
 {
         static $drop_char_match =   array('^', '$', '&', '(', ')', '<', '>', '`', '\'', '"', '|', ',', '@', '_', '?', '%', '-', '~', '+', '.', '[', ']', '{', '}', ':', '\\', '/', '=', '#', '\'', ';', '!');
@@ -72,7 +68,7 @@ function clean_words($mode, &$entry, &$stopword_list, &$synonym_list)
                 $entry = str_replace('*', ' ', $entry);
 
                 // 'words' that consist of <3 or >20 characters are removed.
-		$entry = preg_replace('/[ ]([\S]{1,2}|[\S]{21,})[ ]/',' ', $entry);
+        $entry = preg_replace('/[ ]([\S]{1,2}|[\S]{21,})[ ]/',' ', $entry);
         }
 
         if ( !empty($stopword_list) )
@@ -92,7 +88,7 @@ function clean_words($mode, &$entry, &$stopword_list, &$synonym_list)
         {
                 for ($j = 0; $j < count($synonym_list); $j++)
                 {
-                        list($replace_synonym, $match_synonym) = split(' ', trim(strtolower($synonym_list[$j])));
+                        list($replace_synonym, $match_synonym) = preg_split('/ /', trim(strtolower($synonym_list[$j])));
                         if ( $mode == 'post' || ( $match_synonym != 'not' && $match_synonym != 'and' && $match_synonym != 'or' ) )
                         {
                                 $entry =  str_replace(' ' . trim($match_synonym) . ' ', ' ' . trim($replace_synonym) . ' ', $entry);
@@ -112,24 +108,24 @@ function split_words($entry, $mode = 'post')
 
         return $split_entries[1];
 */
-	// Trim 1+ spaces to one space and split this trimmed string into words.
-	return explode(' ', trim(preg_replace('#\s+#', ' ', $entry)));
+    // Trim 1+ spaces to one space and split this trimmed string into words.
+    return explode(' ', trim(preg_replace('#\s+#', ' ', $entry)));
 }
 
 function add_search_words($mode, $post_id, $post_text, $post_title = '')
 {
         global $db, $phpbb_root_path, $board_config, $lang;
 
-        $stopword_array = @file($phpbb_root_path . 'language/lang_' . $board_config['default_lang'] . "/search_stopwords.txt");
-        $synonym_array = @file($phpbb_root_path . 'language/lang_' . $board_config['default_lang'] . "/search_synonyms.txt");
+        $stopword_array = file($phpbb_root_path . 'language/lang_' . $board_config['default_lang'] . "/search_stopwords.txt");
+        $synonym_array = file($phpbb_root_path . 'language/lang_' . $board_config['default_lang'] . "/search_synonyms.txt");
 
         $search_raw_words = array();
         $search_raw_words['text'] = split_words(clean_words('post', $post_text, $stopword_array, $synonym_array));
         $search_raw_words['title'] = split_words(clean_words('post', $post_title, $stopword_array, $synonym_array));
-	@set_time_limit(0);
+        set_time_limit(0);
         $word = array();
         $word_insert_sql = array();
-        while ( list($word_in, $search_matches) = @each($search_raw_words) )
+		foreach ($search_raw_words as $word_in => $search_matches)
         {
                 $word_insert_sql[$word_in] = '';
                 if ( !empty($search_matches) )
@@ -206,8 +202,8 @@ function add_search_words($mode, $post_id, $post_text, $post_title = '')
                                 switch( SQL_LAYER )
                                 {
                                         case 'mysql':
-										case 'mysqli':
                                         case 'mysql4':
+                                        case 'mysqli':
                                                 $value_sql .= ( ( $value_sql != '' ) ? ', ' : '' ) . '(\'' . $word[$i] . '\', 0)';
                                                 break;
                                         case 'mssql':
@@ -216,7 +212,7 @@ function add_search_words($mode, $post_id, $post_text, $post_title = '')
                                                 break;
                                         default:
                                                 $sql = "INSERT INTO " . SEARCH_WORD_TABLE . " (word_text, word_common)
-                                                        VALUES ('" . $word[$i] . "', 0)";
+                                                        VALUES ('" . $word[$i] . "', '0')";
                                                 if( !$db->sql_query($sql) )
                                                 {
                                                         message_die(GENERAL_ERROR, 'Could not insert new word', '', __LINE__, __FILE__, $sql);
@@ -228,12 +224,11 @@ function add_search_words($mode, $post_id, $post_text, $post_title = '')
 
                 if ( $value_sql != '' )
                 {
-                        
                         switch ( SQL_LAYER )
                         {
                                 case 'mysql':
-								case 'mysqli':
                                 case 'mysql4':
+                                case 'mysqli':
                                         $sql = "INSERT IGNORE INTO " . SEARCH_WORD_TABLE . " (word_text, word_common)
                                                 VALUES $value_sql";
                                         break;
@@ -251,7 +246,7 @@ function add_search_words($mode, $post_id, $post_text, $post_title = '')
                 }
         }
 
-        while( list($word_in, $match_sql) = @each($word_insert_sql) )
+		foreach ($word_insert_sql as $word_in => $match_sql)
         {
                 $title_match = ( $word_in == 'title' ) ? 1 : 0;
 
@@ -260,7 +255,9 @@ function add_search_words($mode, $post_id, $post_text, $post_title = '')
                         $sql = "INSERT INTO " . SEARCH_MATCH_TABLE . " (post_id, word_id, title_match)
                                 SELECT $post_id, word_id, $title_match
                                         FROM " . SEARCH_WORD_TABLE . "
-                                        WHERE word_text IN ($match_sql)";
+                                        WHERE word_text IN ($match_sql)
+					                    AND word_common <> 1";
+
                         if ( !$db->sql_query($sql) )
                         {
                                 message_die(GENERAL_ERROR, 'Could not insert new word matches', '', __LINE__, __FILE__, $sql);
@@ -363,6 +360,7 @@ function remove_search_post($post_id_sql)
         {
                 case 'mysql':
                 case 'mysql4':
+                case 'mysqli':
                         $sql = "SELECT word_id
                                 FROM " . SEARCH_MATCH_TABLE . "
                                 WHERE post_id IN ($post_id_sql)
@@ -442,15 +440,14 @@ function remove_search_post($post_id_sql)
 //
 function username_search($search_match)
 {
-        global $db, $board_config, $template, $lang, $images, $theme, $phpEx, $phpbb_root_path;
-        global $starttime, $gen_simple_header;
+        global $db, $board_config, $template, $lang, $images, $theme, $phpEx, $phpbb_root_path, $starttime, $gen_simple_header;
 
         $gen_simple_header = TRUE;
 
         $username_list = '';
         if ( !empty($search_match) )
         {
-		$username_search = preg_replace('/\*/', '%', phpbb_clean_username($search_match));
+        $username_search = preg_replace('/\*/', '%', phpbb_clean_username($search_match));
 
                 $sql = "SELECT username
                         FROM " . USERS_TABLE . "
@@ -477,14 +474,14 @@ function username_search($search_match)
         }
 
         $page_title = $lang['Search'];
-        include_once("includes/page_header_review.php");
+        include("includes/page_header_review.php");
 
         $template->set_filenames(array(
                 'search_user_body' => 'search_username.tpl')
         );
 
         $template->assign_vars(array(
-		'USERNAME' => (!empty($search_match)) ? phpbb_clean_username($search_match) : '', 
+                'USERNAME' => (!empty($search_match)) ? phpbb_clean_username($search_match) : '',
 
                 'L_CLOSE_WINDOW' => $lang['Close_window'],
                 'L_SEARCH_USERNAME' => $lang['Find_username'],
@@ -505,7 +502,7 @@ function username_search($search_match)
 
         $template->pparse('search_user_body');
 
-        include_once("includes/page_tail_review.php");
+        include("includes/page_tail_review.php");
 
         return;
 }

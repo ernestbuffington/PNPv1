@@ -100,30 +100,23 @@ CODE_SAMPLE
         if ($this->nodeNameResolver->isName($node, MethodName::CONSTRUCT)) {
             return null;
         }
-        $parentClassMethodReturnType = $this->getReturnTypeRecursive($node);
-        if (!$parentClassMethodReturnType instanceof Type) {
+        $parentMethodReflection = $this->parentClassMethodTypeOverrideGuard->getParentClassMethod($node);
+        if (!$parentMethodReflection instanceof MethodReflection) {
             return null;
         }
-        return $this->processClassMethodReturnType($node, $parentClassMethodReturnType);
-    }
-    private function getReturnTypeRecursive(ClassMethod $classMethod) : ?Type
-    {
-        $returnType = $classMethod->getReturnType();
-        if ($returnType === null) {
-            $parentMethodReflection = $this->parentClassMethodTypeOverrideGuard->getParentClassMethod($classMethod);
-            if (!$parentMethodReflection instanceof MethodReflection) {
-                return null;
-            }
-            $parentClassMethod = $this->astResolver->resolveClassMethodFromMethodReflection($parentMethodReflection);
-            if (!$parentClassMethod instanceof ClassMethod) {
-                return null;
-            }
-            if ($parentClassMethod->isPrivate()) {
-                return null;
-            }
-            return $this->getReturnTypeRecursive($parentClassMethod);
+        $parentClassMethod = $this->astResolver->resolveClassMethodFromMethodReflection($parentMethodReflection);
+        if (!$parentClassMethod instanceof ClassMethod) {
+            return null;
         }
-        return $this->staticTypeMapper->mapPhpParserNodePHPStanType($returnType);
+        if ($parentClassMethod->isPrivate()) {
+            return null;
+        }
+        $parentClassMethodReturnType = $parentClassMethod->getReturnType();
+        if ($parentClassMethodReturnType === null) {
+            return null;
+        }
+        $parentClassMethodReturnType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($parentClassMethodReturnType);
+        return $this->processClassMethodReturnType($node, $parentClassMethodReturnType);
     }
     private function processClassMethodReturnType(ClassMethod $classMethod, Type $parentType) : ?ClassMethod
     {

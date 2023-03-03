@@ -1,0 +1,40 @@
+The google tap for the Amazon module:
+
+To Implement this you will need to change your  .htacess and header.php files
+
+0.   BACKUP UP:BACKUP UP:BACKUP UP:BACKUP UP:BACKUP UP:BACKUP UP:BACKUP UP:BACKUP UP:BACKUP UP:
+
+1.   In my .htaccess file I have this section for the amazon module:
+
+#NukeAmazon .htaccess
+RewriteRule ^amazon-buy-([A-Z0-9]*).html modules.php?name=Amazon&asin=$1
+RewriteRule ^amazon-to-(ShowCart|home).html modules.php?name=Amazon&op=$1
+RewriteRule ^amazon-search_(MarketPlaceSearch|BrowseNodeSearch|AuthorSearch|ArtistSearch|ActorSearch|DirectorSearch|ManufacturerSearch)_([[:punct:](){}a-zA-Z0-9]*)_([a-zA-Z0-9+-]*)_([0-9]*).html modules.php?name=Amazon&op=$1&keyword=$2&mode=$3&AMZpage=$4
+RewriteRule ^amazon-search_(MarketPlaceSearch|BrowseNodeSearch|AuthorSearch|ArtistSearch|ActorSearch|DirectorSearch|ManufacturerSearch)_([[:punct:](){}a-zA-Z0-9]*)_([a-zA-Z0-9+-]*).html modules.php?name=Amazon&op=$1&keyword=$2&mode=$3
+RewriteRule ^amazon-([a-zA-Z0-9+]*)-([0-9]*).html modules.php?name=Amazon&op=ShowFI&catalog=$1&AMZpage=$2
+RewriteRule ^amazon-([a-zA-Z0-9+]*).html modules.php?name=Amazon&op=ShowFI&catalog=$1
+RewriteRule ^amazon-search-([a-zA-Z0-9]*)-([+(){}a-zA-Z0-9]*)-([0-9]*).html modules.php?name=Amazon&op=More&searchmode=KeywordSearch&keyword=$1&mode=$2&AMZpage=$3
+
+
+2.   In the header.php file I the following at the END of the "$urlin = array( string"
+be careful to on the syntax here,  you will need to add a , to the end of the previously last enty in the list to make the syntax right
+
+"'(?<!/)modules.php\?name=Amazon&amp;op=(KeywordSearch|MarketPlaceSearch|BrowseNodeSearch|AuthorSearch|ArtistSearch|ActorSearch|DirectorSearch|ManufacturerSearch)&amp;keyword=([[:punct:](){}a-zA-Z0-9]*)&amp;mode=([a-zA-Z0-9+-]*)'",
+"'(?<!/)modules.php\?name=Amazon&amp;op=(KeywordSearch|MarketPlaceSearch|BrowseNodeSearch|AuthorSearch|ArtistSearch|ActorSearch|DirectorSearch|ManufacturerSearch)&amp;keyword=([[:punct:](){}a-zA-Z0-9]*)&amp;mode=([a-zA-Z0-9+-]*)&amp;AMZpage=([0-9]*)'",
+"'(?<!/)modules.php\?name=Amazon&amp;asin=([A-Z0-9]*)'",
+"'(?<!/)modules.php\?name=Amazon&amp;op=AsinSearch&amp;keyword=([a-zA-Z0-9]*)'",
+"'(?<!/)modules.php\?name=Amazon&amp;op=ShowFI&amp;catalog=([a-zA-Z0-9+]*)&amp;AMZpage=([0-9]*)'",
+"'(?<!/)modules.php\?name=Amazon&amp;op=ShowFI&amp;catalog=([a-zA-Z0-9+]*)'",
+"'(?<!/)modules.php\?name=Amazon&amp;op=(ShowCart|home)'",
+
+
+3.  Then at the end of the "$urlout = array(" you need to add the following.  Again watch the comma syntax as about.
+Also one important note.  The urlin array and the urlout arrays need to have the entries in the EXACT same sequence or it will not work.
+
+"amazon-search_\\1_\\2_\\3.html",
+"amazon-search_\\1_\\2_\\3_\\4.html",
+"amazon-buy-\\1.html",
+"asin-search-\\1.html",
+"amazon-\\1-\\2.html",
+"amazon-\\1.html",
+"amazon-to-\\1.html",

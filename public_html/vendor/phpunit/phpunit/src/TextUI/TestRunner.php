@@ -1008,19 +1008,17 @@ final class TestRunner extends BaseTestRunner
                 $arguments['excludeGroups'] = array_diff($groupConfiguration->exclude()->asArrayOfStrings(), $groupCliArgs);
             }
 
-            if (!isset($this->arguments['noExtensions'])) {
-                $extensionHandler = new ExtensionHandler;
+            $extensionHandler = new ExtensionHandler;
 
-                foreach ($arguments['configurationObject']->extensions() as $extension) {
-                    $extensionHandler->registerExtension($extension, $this);
-                }
-
-                foreach ($arguments['configurationObject']->listeners() as $listener) {
-                    $arguments['listeners'][] = $extensionHandler->createTestListenerInstance($listener);
-                }
-
-                unset($extensionHandler);
+            foreach ($arguments['configurationObject']->extensions() as $extension) {
+                $extensionHandler->registerExtension($extension, $this);
             }
+
+            foreach ($arguments['configurationObject']->listeners() as $listener) {
+                $arguments['listeners'][] = $extensionHandler->createTestListenerInstance($listener);
+            }
+
+            unset($extensionHandler);
 
             foreach ($arguments['unavailableExtensions'] as $extension) {
                 $arguments['warnings'][] = sprintf(

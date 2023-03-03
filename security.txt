@@ -1,0 +1,225 @@
+/**********************************************************************/
+/* PHP-Nuke Platinum v.7.6.b.4                               SECURITY */
+/*                                                                    */
+/* Despite all security fixes, modifications, tweaks included in      */
+/* PHP-Nuke Platinum, essentially the security of your website comes  */
+/* back to choices you make as an administrator / webmaster.          */
+/*                                                                    */
+/* PHP-Nuke Platinum secures all known vulnerabilities and includes   */
+/* additional security features such as the method of coding used,    */
+/* and the systems Protector and Sentinel. As an administrator /      */
+/* webmaster there are numerous things that you can do which can open */
+/* up vulnerabilities in your site without your own knowledge.        */
+/*                                                                    */
+/* These may include adding new addons, blocks, modules and mods into */
+/* your site that have vulnerabilities in them. For example, you may  */
+/* install a new gallery module. Gallery modules in general are the   */
+/* most exploited module types around, purely because of it's main    */
+/* function - it opens access to your server for public uploading.    */
+/* There are many other factors which can create vulnerabilities due  */
+/* to adding on mods, such as basepath disclosure or even simple      */
+/* patching has not been done correctly.                              */
+/*                                                                    */
+/**********************************************************************/
+/*                                                                    */
+/* Additionally, there are many options in security addons such as    */
+/* Protector and Sentinel which are not enabled from a fresh install. */
+/* Normally, such features include those which are not globally       */
+/* compatible on all servers, or features which may not function      */
+/* fully if the administrator / webmaster has / has not got a static  */
+/* IP address. It is up to yourself to enable and customise these     */
+/* features. Outlined below are some key features which you may like  */
+/* to look into if you wish to enhance the security of your site.     */
+/*                                                                    */
+/* Protector System:                                                  */
+/*     - Auto Protect feature                                         */
+/*     - Deny Proxy feature                                           */
+/*     - God Only feature                                             */
+/*     - Hard Protect feature                                         */
+/*     - Hammer Protection                                            */
+/*     - Page Tracker Settings                                        */
+/*     - Protect Admin feature                                        */
+/*                                                                    */
+/* Sentinel:                                                          */
+/*     - Block Proxies                                                */
+/*     - CGI Auth                                                     */
+/*     - DoS Protection                                               */
+/*     - HTTP Auth                                                    */
+/*                                                                    */
+/* Note: Deny Proxy / Block Proxies is recommended for experienced    */
+/*       and advanced administrators / webmasters.                    */
+/*                                                                    */
+/**********************************************************************/
+/*                                                                    */
+/* In addition to security system admin-based customisation there are */
+/* numerous optional security addons for PHP-Nuke Platinum located in */
+/* the 'supplementary/security' folder. An outline of the usage of    */
+/* these optional features is below.                                  */
+/*                                                                    */
+/* Anti-Spam:                                                         */
+/*     - Email harvesting / spiders crawl websites searching for      */
+/*       email addresses to record and use for other companies        */
+/*       benefits; in most cases spam. This feature will display      */
+/*       email addresses in the following format:                     */
+/*           - webmaster [at] yoursite [dot] com                      */
+/*       This format display will be an active link in which users can*/
+/*       still normally click to email the displayed address.         */
+/*                                                                    */
+/* IP Tracking:                                                       */
+/*     - Although this security feature uses moderate server resources*/
+/*       it can be very useful. This feature tracks users / IP's      */
+/*       actions [http access display]. The feature is already        */
+/*       included with Protector, however it can be still useful to   */
+/*       those who want maximum security.                             */
+/*                                                                    */
+/**********************************************************************/
+/*                                                                    */
+/* Addons, blocks and modules are very often prone to not be using the*/
+/* latest method of file patching. File patching is extremely         */
+/* important in running and maintaining a secure website free from    */
+/* vulnerabilities. It is understandable that most addons, blocks and */
+/* are not using the latest patching simply because authors have      */
+/* personal requirements and time constraints and cannot always stay  */
+/* up-to-date with patching / security news. As an administrator /    */
+/* you can fix this - it will secure the addons you are placing on    */
+/* your website aswell as give you some personal re-assurance that    */
+/* you are up-to-date.                                                */
+/*                                                                    */
+/* Directly accessing files often have patching updates. When         */
+/* 'directly accessing files' is referred to it means when a user     */
+/* accesses a file directly through http. An example of directly      */
+/* accessing a block titled 'block-Test.php' would be done by pointing*/
+/* a web browser to http://www.yoursite.com/blocks/block-Test.php     */
+/* Upon directly accessing a file, you should recieve a message       */
+/* stating that access is denied, or you will be redirected somewhere */
+/* else. If this does not happen, there is a significant vulnerability*/
+/* in the addon / block / module.                                     */
+/*                                                                    */
+/* If you actually recieve the message or you get redirected, it does */
+/* not mean you are using the latest patching. Outlined below are the */
+/* patching methods which can be used when securing access to         */
+/* administration related files. Such files are generally located at  */
+/* /admin/* and modules/modulename/admin/*. The code below normally   */
+/* gets placed / replaced (over old patching code) after <? or after  */
+/* the file credits.                                                  */
+/*                                                                    */
+/* Admin File Direct Access Patching:                                 */
+/**********************************************************************/
+
+if ( !defined('ADMIN_FILE') )
+{
+	die("Illegal File Access");
+}
+
+global $admin_file;
+if (!stristr($_SERVER['SCRIPT_NAME'], "".$admin_file.".php")) {
+    die ("Access Denied");
+}
+
+/**********************************************************************/
+/*                                                                    */
+/* Outlined below are the patching methods which can be used when     */
+/* securing access to blocks files.                                   */
+/*                                                                    */
+/* Blocks File Direct Access Patching:                                */
+/**********************************************************************/
+
+if ( !defined('BLOCK_FILE') ) {
+	die("Illegal Block File Access");
+}
+
+/**********************************************************************/
+/*                                                                    */
+/* Outlined below are the patching methods which can be used when     */
+/* securing access to module files. Note when referring to 'module    */
+/* files, it does not include module admin files. Module admin files  */
+/* are the same patching as outlined above in admin file direct access*/
+/* patching.                                                          */
+/*                                                                    */
+/* Module File Direct Access Patching:                                */
+/**********************************************************************/
+
+if ( !defined('MODULE_FILE') ) {
+	die("Illegal Module File Access");
+}
+
+@require_once("mainfile.php");
+$module_name = basename(dirname(__FILE__));
+
+/**********************************************************************/
+/*                                                                    */
+/* Outlined below are the patching methods which can be used when     */
+/* securing access to miscellaneous files. Such miscellaneous files   */
+/* are files that are not accessed through authorised files for usage.*/
+/*                                                                    */
+/* Miscellaneous File Direct Access Patching:                         */
+/**********************************************************************/
+
+if (stristr($_SERVER['SCRIPT_NAME'], "filename.php")) {
+    die ("You can't access this file directly...");
+}
+
+/**********************************************************************/
+/*                                                                    */
+/* Note: The above information relates only to addons, blocks, modules*/
+/*       and files that are not included in the PHP-Nuke Platinum     */
+/*       package. This is because all PHP-Nuke Platinum files are     */
+/*       patched using the latest secure patching.                    */
+/*                                                                    */
+/*                                                                    */
+/* Relocating your config.php will increase security and decrease the */
+/* chance of malicious attacks on the file occuring. Relocating your  */
+/* config.php consists of numerous steps as outlined below:           */
+/*                                                                    */
+/* Installation instructions:                                         */
+/* Steps to complete: 4                                               */
+/*                                                                    */
+/* 1. Download config.php to your computer.                           */
+/*                                                                    */
+/* 2. Upload your config.php to another directory, for example        */
+/*    /includes/                                                      */
+/*                                                                    */
+/* 3. Go back to the root installation of PHP-Nuke Platinum, and      */
+/*    download the config.php again [remembering that this file       */
+/*    should not have changed yet].                                   */
+/*                                                                    */
+/*    3.1 In config.php, select all [ctrl+a] and delete.              */
+/*                                                                    */
+/*    3.2 Now in the blank config.php copy / paste the information    */
+/*        below:                                                      */
+/**********************************************************************/
+<?php
+
+if (stristr($_SERVER['SCRIPT_NAME'], "config.php")) {
+    Header("Location: index.php");
+    die();
+}
+
+include("includes/config.php");
+
+?>
+/**********************************************************************/
+/*                                                                    */
+/* 4. Upload the new config.php to your root installation directory of*/
+/*    PHP-Nuke Platinum.                                              */
+/*                                                                    */
+/* Note: This can be placed whereever you like. For additional        */
+/*       security you might like to place the original config.php in  */
+/*       its own folder [so no other files will clash with it] and    */
+/*       place a .htaccess and index.html to protect the open         */
+/*       directory                                                    */
+/*                                                                    */
+/**********************************************************************/
+/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                */
+/*       Graeme Allan - Techgfx                   (goose@techgfx.com) */
+/*       Scott Partee - Loki                     (loki@nukeplanet.com)*/
+/**********************************************************************/
+/* All content and includes from this package is intellectual         */
+/* property of TechGFX.com unless stated otherwise. Replication of    */
+/* and copyrighted material is a civil and criminal act and           */
+/* violations may result in legal action.                             */
+/**********************************************************************/
+/* See nukeplanet.com for detailed information on the                 */
+/* this version of the Platinum Suite                                 */
+/* TechGFX: Your dreams, Our imagination                              */
+/**********************************************************************/

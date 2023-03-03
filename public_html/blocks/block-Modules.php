@@ -1,135 +1,273 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
+
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
-if ( !defined('BLOCK_FILE') ) {
-    Header('Location: ../index.php');
-    die();
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Nuke Patched                             v3.1.0       06/26/2005
+ ************************************************************************/
+
+if(!defined('NUKE_EVO')) exit;
+
+function moduleblock_get_active() {
+    global $db, $prefix, $cache;
+
+    $out = array();
+    if(!($result = $db->sql_query("SELECT * FROM `".$prefix."_modules` WHERE `active`='1' AND `inmenu`='1' AND `cat_id`<>0 ORDER BY `cat_id`, `pos` ASC"))) {
+        return '';
+    }
+    while ($row = $db->sql_fetchrow($result)) {
+        $out[$row['cat_id']][] = $row;
+    }
+    $db->sql_freeresult($result);
+    return $out;
 }
-global $prefix, $db, $admin, $user, $modlist, $dummy, $default_module;
-$content = '';
-$ThemeSel = get_theme();
-$def_module = '';
-if (file_exists('themes/'.$ThemeSel.'/module.php')) {
-    include_once('themes/'.$ThemeSel.'/module.php');
-    if (is_active($default_module) AND file_exists('modules/'.$default_module.'/index.php')) {
-        $def_module = $default_module;
+
+function moduleblock_get_cats() {
+    global $db, $prefix, $cache;
+    static $cats;
+    $use = (isset($_POST['save']) || (isset($_GET['area']) && $_GET['area'] == 'block')) ? 0 : 1;
+    if (isset($cats) && is_array($cats) && $use) return $cats;
+
+    if((($cats = $cache->load('module_cats', 'config')) === false) || !isset($cats) || !$use) {
+        $cats = array();
+        if(!($result = $db->sql_query("SELECT * FROM `".$prefix."_modules_cat` ORDER BY `pos` ASC"))) {
+            return '';
+        }
+        while ($row = $db->sql_fetchrow($result)) {
+            $cats[] = $row;
+        }
+        $db->sql_freeresult($result);
+        $cache->save('module_cats', 'config', $cats);
+    }
+
+    return $cats;
+}
+
+function moduleblock_image($name) {
+    global $Default_Theme;
+
+    if(empty($name)) return '';
+
+    if (substr($name,0,strlen('http://')) == 'http://') return $name;
+
+    if(file_exists(NUKE_IMAGES_DIR.$name)) {
+        return 'images/'.$name;
+    }
+
+    if(file_exists(NUKE_IMAGES_DIR.'blocks/modules/'.$name)) {
+        return 'images/blocks/modules/'.$name;
+    }
+    if(!empty($Default_Theme)) {
+        if(file_exists(NUKE_THEMES_DIR.$Default_Theme.'/images/'.$name)) {
+            return 'themes/'.$Default_Theme.'/images/'.$name;
+        }
+    }
+
+    return '';
+}
+
+function moduleblock_display() {
+    global $moduleblock_active, $moduleblock_cats, $content, $plus_minus_images, $module_collapse, $userinfo;
+
+    if(!is_array($moduleblock_active) || !is_array($moduleblock_cats)) return;
+
+    // $c_image = ($module_collapse) ? "&nbsp;&nbsp;<img src=\"".$plus_minus_images['minus']."\" class=\"showstate\" name=\"minus\" width=\"9\" height=\"9\" border=\"0\" onclick=\"expandcontent(this, 'moduleblock0')\" alt=\"\" style=\"cursor: pointer;\" />" : '';
+    //Home
+    // $content .= "<img style=\"width: 16px; height: 16px\" src=\"images/home.png\" alt=\""._HOME."\">&nbsp;<span style=\"font-weight: bold;\">"._HOME."</span>".$c_image."<br />\n";
+    // $content .= "<img style=\"width: 16px; height: 16px\" src=\"images/about.png\" alt=\""._HOME."\">&nbsp;<span style=\"font-weight: bold;\">"._HOME."</span>".$c_image."<br />\n";
+    // $content .= get_evo_icon('evo-sprite home').'&nbsp;<span style="font-weight: bold;">'._HOME.'</span>'.$c_image.'<br />'."\n";
+
+
+
+    $content .= get_evo_icon('evo-sprite home').'&nbsp;<span style="font-weight: bold;">'._HOME.'</span><br />'."\n";
+    $content .= ($module_collapse) ? "<div id=\"moduleblock0\" class=\"switchcontent\">\n" : '';
+    $content .= "&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"index.php\">"._HOME."</a>\n";
+    $content .= ($module_collapse) ? "</div>\n" : '<br />';
+
+    foreach ($moduleblock_cats as $cat) 
+    {
+        if(isset($cat['cid']) && is_integer(intval($cat['cid']))) 
+        {
+            if (!isset($moduleblock_active[intval($cat['cid'])])) 
+            	continue;
+
+            $mod_array = $moduleblock_active[intval($cat['cid'])];
+            if(is_array($mod_array)) 
+            {
+                $img = moduleblock_image($cat['image']);
+                $img = (!empty($img)) ? "<img style=\"width: 16px; height: 16px\" src=\"".$img."\" alt=\"\">&nbsp;" : '';
+                // $c_image = ($module_collapse) ? "&nbsp;&nbsp;<img src=\"".$plus_minus_images['minus']."\" class=\"showstate\" name=\"minus\" width=\"9\" height=\"9\" border=\"0\" onclick=\"expandcontent(this, 'moduleblock".$cat['cid']."')\" alt=\"\" style=\"cursor: pointer;\" />" : '';
+                $content .= $img."<span style=\"font-weight: bold;\">".$cat['name']."</span><br />\n";
+                $content .= ($module_collapse) ? "<div id=\"moduleblock".$cat['cid']."\" class=\"switchcontent\">\n" : '';
+                
+                foreach ($mod_array as $module) 
+                {
+
+                    // echo '<pre style="color: #fff;">'.var_export($module, true).'</pre>';
+
+                    if ($module['view'] >= 2 && !is_mod_admin($module['title'])) 
+                    {
+                        if ($module['view'] == 2 && is_user()) 
+                        {
+                            continue;
+                        } 
+                        elseif ($module['view'] == 3 && !is_user()) 
+                        {
+                            continue;
+                        } 
+                        elseif ($module['view'] == 4) 
+                        {
+                            continue;
+                        } 
+                        elseif ($module['view'] == 6) 
+                        {
+                            $groups = (!empty($module['groups'])) ? $groups = explode('-', $module['groups']) : '';
+                            $ingroup = false;
+                            if(is_array($groups))
+                            {
+                                foreach ($groups as $group) 
+                                {
+                                     if (isset($userinfo['groups'][$group])) 
+                                     {
+                                         $ingroup = true;
+                                     }
+                                }
+                                if (!$ingroup) 
+                                	continue;
+                            }
+                        }
+                    }
+                    if(substr($module['title'],0,3) == '~l~') 
+                    {
+                        $content .= "&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"".$module['custom_title']."\">".substr($module['title'],3)."</a><br />\n";
+                    } 
+                    else 
+                    {
+                        $content .= "&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"modules.php?name=".$module['title']."\">".$module['custom_title']."</a><br />\n";
+                    }
+                }
+                $content .= ($module_collapse) ? "</div>\n" : "";
+            }
+        }
+    }
+}
+
+function moduleblock_get_inactive() {
+    global $db, $prefix, $cache;
+
+    if(!($result = $db->sql_query("SELECT * FROM `".$prefix."_modules` WHERE (`active`='0' OR `inmenu`='0' OR `cat_id`='0') AND `title` NOT LIKE '~l~%' ORDER BY `custom_title` ASC"))) {
+        return '';
+    }
+    while ($row = $db->sql_fetchrow($result)) {
+        $out[] = $row;
+    }
+    $db->sql_freeresult($result);
+    return $out;
+}
+
+function moduleblock_get_inactive_links() {
+    global $db, $prefix, $cache;
+    static $links;
+    $use = (isset($_POST['save']) || (isset($_GET['area']) && $_GET['area'] == 'block')) ? 0 : 1;
+    if (isset($links) && is_array($links) && $use) return $links;
+
+    if ((($links = $cache->load('module_links', 'config')) === false) || !isset($links) || !$use) {
+        $links = '';
+        if(!($result = $db->sql_query("SELECT * FROM `".$prefix."_modules` WHERE (`active`=0 OR `cat_id`='0') AND `title` LIKE '~l~%' ORDER BY `title` ASC"))) {
+            return '';
+        }
+        $links = array();
+        while ($row = $db->sql_fetchrow($result)) {
+            $links[] = $row;
+        }
+        $db->sql_freeresult($result);
+        if(!empty($links) && is_array($links)) {
+            $cache->save('module_links', 'config', $links);
+        } else {
+            $cache->delete('module_links', 'config');
+        }
+    }
+    return $links;
+}
+
+function moduleblock_display_inactive() {
+    global $moduleblock_invisible, $moduleblock_invisible_links, $content;
+
+    $content .= "<hr />\n";
+
+    $content .= "<div class=\"clear acenter\">\n";
+
+    $content .= "<select class=\"col-12\" name=\"name1\" onchange=\"top.location.href=this.options[this.selectedIndex].value\">\n";
+    $content .= "<option value=''>"._MORE."</option>\n";
+    $content .= "<optgroup label=\""._INVISIBLEMODULES."\">\n";
+    $one = 0;
+    if(is_array($moduleblock_invisible)) {
+        foreach ($moduleblock_invisible as $module) {
+            if ($module['active']) {
+                $one = 1;
+                $content .= "<option value=\"modules.php?name=".$module['title']."\">".trim_words($module['custom_title'],13)."</option>\n";
+            } else {
+                $moduleblock_inactive[] = $module;
+            }
+        }
+        if(!$one) $content .= "<option value=''>"._NONE."</option>\n";
     } else {
-        $def_module = '';
+        $content .= "<option value=''>"._NONE."</option>\n";
     }
+    $content .= "</optgroup>\n";
+
+    $content .= "<optgroup label=\""._NOACTIVEMODULES."\">\n";
+    if(is_array($moduleblock_inactive)) {
+        foreach ($moduleblock_inactive as $module) {
+            $content .= "<option value=\"modules.php?name=".$module['title']."\">".trim_words($module['custom_title'],13)."</option>\n";
+        }
+    } else {
+        $content .= "<option value=''>"._NONE."</option>\n";
+    }
+    $content .= "</optgroup>\n";
+
+    $content .= "<optgroup label=\""._INACTIVE_LINKS."\">\n";
+    if(is_array($moduleblock_invisible_links)) {
+        foreach ($moduleblock_invisible_links as $link) {
+            $content .= "<option value=\"".$link['custom_title']."\" target=\"_blank\">".substr($link['title'],3)."</option>\n";
+        }
+    } else {
+        $content .= "<option value=''>"._NONE."</option>\n";
+    }
+    $content .= "</optgroup>\n";
+    $content .= "</select>\n";
+    $content .= "</div>\n";
 }
-$row = $db->sql_fetchrow($db->sql_query('SELECT main_module FROM '.$prefix.'_main'));
-$main_module = $row['main_module'];
-/* If the module doesn't exist, it will be removed from the database automaticaly */
-$result2 = $db->sql_query('SELECT title FROM ' . $prefix . '_modules');
-while ($row2 = $db->sql_fetchrow($result2)) {
-    $title = stripslashes($row2['title']);
-    $a = 0;
-    $handle=opendir('modules');
-    while ($file = readdir($handle)) {
-        if ($file == $title) {
-            $a = 1;
-        }
-    }
-    closedir($handle);
-    if ($a == 0) {
-        $db->sql_query('DELETE FROM '.$prefix.'_modules WHERE title=\''.$title.'\'');
-    }
+
+global $prefix, $db, $language, $currentlang, $nukeurl, $content, $moduleblock_active, $moduleblock_cats;
+
+$content = '';
+$main_module = main_module();
+
+$moduleblock_active = moduleblock_get_active();
+$moduleblock_cats = moduleblock_get_cats();
+moduleblock_display();
+
+if(is_admin()) {
+    global $moduleblock_invisible, $moduleblock_invisible_links;
+    $moduleblock_invisible = moduleblock_get_inactive();
+    $moduleblock_invisible_links = moduleblock_get_inactive_links();
+    moduleblock_display_inactive();
 }
-/* Now we make the Modules block with the correspondent links */
-$content .= '<strong><big>&middot;</big></strong>&nbsp;<a href="index.php">'._HOME.'</a><br />';
-$result3 = $db->sql_query('SELECT * FROM ' . $prefix . '_modules WHERE active=1 AND title!=\''.$def_module.'\' AND inmenu=1 ORDER BY custom_title ASC');
-while ($row3 = $db->sql_fetchrow($result3)) {
-    $groups = $row3['groups'];
-    $m_title = stripslashes($row3['title']);
-    $custom_title = $row3['custom_title'];
-    $view = intval($row3['view']);
-    $m_title2 = preg_replace('/_/', ' ', $m_title);
-    if (!empty($custom_title)) {
-        $m_title2 = $custom_title;
-    }
-    if ($m_title != $main_module) {
-        if ($view == 0) {
-            $content .= '<strong><big>&middot;</big></strong>&nbsp;<a href="modules.php?name='.$m_title.'">'.$m_title2.'</a><br />';
-        } elseif ($view == 1 AND ((is_user($user) AND is_group($user, $m_title)) OR is_admin($admin))) {  
-            $content .= '<strong><big>&middot;</big></strong>&nbsp;<a href="modules.php?name='.$m_title.'">'.$m_title2.'</a><br />';
-        } elseif ($view == 2 AND is_admin($admin)) {
-            $content .= '<strong><big>&middot;</big></strong>&nbsp;<a href="modules.php?name='.$m_title.'">'.$m_title2.'</a><br />';
-        } elseif ($view == 3 AND (paid() OR is_admin($admin))) {
-            $content .= '<strong><big>&middot;</big></strong>&nbsp;<a href="modules.php?name='.$m_title.'">'.$m_title2.'</a><br />';
-        } elseif ($view > 3 AND in_groups($groups)) {
-            $content .= '<strong><big>&middot;</big></strong>&nbsp;<a href="modules.php?name='.$m_title.'">'.$m_title2.'</a><br />';
-        }
-    }
-}
-/* If you're Admin you and only you can see Inactive modules and test it */
-/* If you copied a new module is the /modules/ directory, it will be added to the database */
-if (is_admin($admin)) {
-    $content .= '<br /><center><strong>'._INVISIBLEMODULES.'</strong><br />';
-    $content .= '<span class="tiny">'._ACTIVEBUTNOTSEE.'</span></center><br />';
-    $result5 = $db->sql_query('SELECT title, custom_title FROM '.$prefix.'_modules WHERE active=1 AND inmenu=0 ORDER BY title ASC');
-    while ($row5 = $db->sql_fetchrow($result5)) {
-        $mn_title = stripslashes($row5['title']);
-        $custom_title = $row5['custom_title'];
-        $mn_title2 = preg_replace('/_/', ' ', $mn_title);
-        if (!empty($custom_title)) {
-            $mn_title2 = $custom_title;
-        }
-        if (!empty($mn_title2)) {
-            $content .= '<strong><big>&middot;</big></strong>&nbsp;<a href="modules.php?name='.$mn_title.'">'.$mn_title2.'</a><br />';
-            $dummy = 1;
-        } else {
-            $a = 1;
-        }
-    }
-    if ($a == 1 AND $dummy != 1) {
-        $content .= '<strong><big>&middot;</big></strong>&nbsp;<i>'._NONE.'</i><br />';
-    }
-    $content .= '<br /><center><strong>'._NOACTIVEMODULES.'</strong><br />';
-    $content .= '<span class="tiny">'._FORADMINTESTS.'</span></center><br />';
-    $result6 = $db->sql_query('SELECT title, custom_title FROM '.$prefix.'_modules WHERE active=0 ORDER BY title ASC');
-    while ($row6 = $db->sql_fetchrow($result6)) {
-        $mn_title = stripslashes($row6['title']);
-        $custom_title = $row6['custom_title'];
-        $mn_title2 = preg_replace('/_/', ' ', $mn_title);
-        if (!empty($custom_title)) {
-            $mn_title2 = $custom_title;
-        }
-        if (!empty($mn_title2)) {
-            $content .= '<strong><big>&middot;</big></strong>&nbsp;<a href="modules.php?name='.$mn_title.'">'.$mn_title2.'</a><br />';
-            $dummy = 1;
-        } else {
-            $a = 1;
-        }
-    }
-    if ($a == 1 AND $dummy != 1) {
-        $content .= '<strong><big>&middot;</big></strong>&nbsp;<i>'._NONE.'</i><br />';
-    }
-}
+
 ?>

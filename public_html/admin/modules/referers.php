@@ -1,123 +1,84 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
 
 /************************************************************************/
-/* PHP-NUKE: Advanced Content Management System                         */
-/* ==================================================================== */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
 /* Copyright (c) 2002 by Francisco Burzi                                */
 /* http://phpnuke.org                                                   */
+/*                                                                      */
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/*                                                                      */
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/*         Additional security & Abstraction layer conversion           */
+/*                           2003 chatserv                              */
+/*      http://www.nukefixes.com -- http://www.nukeresources.com        */
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */ 
-/*                                                                      */ 
-/* Copyright (c) 2010-2011 by http://www.platinumnukepro.com            */
-/*                                                                                           */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                 */ 
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com)   */ 
-/*                                                                      */ 
-/* Copyright (c) 2004 - 2006 by http://www.conrads-berlin.de            */ 
-/*     MrFluffy - Axel Conrads                 (axel@conrads-berlin.de) */ 
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.platinumnukepro.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Refer to PlatinumNukePro.com for detailed information on PNPro*/
-/*                                                                      */
-/* Platinum Nuke Pro: Expect to be impressed                                */ 
-/************************************************************************/
-
-if ( !defined('ADMIN_FILE') ) {
-	die("Illegal Admin File Access");
-}
-
-global $prefix, $db, $admin_file;
-$aid = substr("$aid", 0,25);
-$row = $db->sql_fetchrow($db->sql_query("SELECT radminsuper FROM " . $prefix . "_authors WHERE aid='$aid'"));
-if ($row['radminsuper'] == 1) {
-
-/*********************************************************/
-/* Referer Functions to know who links us                */
-/*********************************************************/
-
-function hreferer() {
-    global $bgcolor2, $prefix, $db, $admin_file;
-    include_once("header.php");
-Opentable();
-echo "<strong><center><a href='".$admin_file.".php?op=hreferer'>Referrers Administration</a></center></strong>";
-echo "<strong><center><a href='".$admin_file.".php'>Main Administration</a></center></strong>";
-Closetable();
-//    //GraphicAdmin();
-    OpenTable();
-    echo "<center><font class=\"title\"><strong>" . _HTTPREFERERS . "</strong></font></center>";
-    CloseTable();
-    echo "<br />";
-    OpenTable();
-    echo "<center><strong>" . _WHOLINKS . "</strong></center><br /><br />"
-	."<table border=\"0\" width=\"100%\">";
-    $result = $db->sql_query("SELECT rid, url from " . $prefix . "_referer");
-    while ($row = $db->sql_fetchrow($result)) {
-	$rid = intval($row['rid']);
-	$url = $row['url'];
-	echo "<tr><td bgcolor=\"$bgcolor2\"><font class=\"content\">$rid</td>"
-        
-	    ."<td bgcolor=\"$bgcolor2\"><font class=\"content\"><a href=\"$url\" target=\"_blank\">$url</a></td></tr>";
-    }
-    echo "</table>"
-	."<form action=\"".$admin_file.".php\" method=\"post\">"
-	."<input type=\"hidden\" name=\"op\" value=\"delreferer\">"
-	."<center><input type=\"submit\" value=\"" . _DELETEREFERERS . "\"></center>";
-    CloseTable();
-    include_once("footer.php");
-}
-
-function delreferer() {
-    global $prefix, $db, $admin_file;
-    $db->sql_query("TRUNCATE TABLE ".$prefix."_referer");
-    Header("Location: ".$admin_file.".php?op=hreferer");
-}
-
-switch($op) {
-
-    case "hreferer":
-    hreferer();
-    break;
-
-    case "delreferer":
-    delreferer();
-    break;
-
-}
-
-} else {
-    echo "Access Denied";
-}
+if(!defined('ADMIN_FILE')) die ("Illegal File Access");
+global $prefix, $db;
+if (is_mod_admin()): 
+    if (isset($_GET['del']) && $_GET['del'] == 'all'): 
+        $db->sql_query('DELETE FROM `'.$prefix.'_referer`');
+        $db->sql_query('OPTIMIZE TABLE `'.$prefix.'_referer`');
+        redirect($admin_file.'.php?op=hreferer');
+	else: 
+        include_once(NUKE_BASE_DIR.'header.php');
+        OpenTable();
+        echo '<div align="center">' , PHP_EOL;
+		echo '[ <a href="'.$admin_file.'.php?op=hreferer">'.$admlang['referers']['header'].'</a> ]</div>' , PHP_EOL;
+        echo '<div align="center">' , PHP_EOL;
+		echo '[ <a href="'.$admin_file.'.php">' . $admlang['global']['header_return'] . '</a> ]</div>' , PHP_EOL;
+        CloseTable();
+        OpenTable();
+        echo '<div align="center" style="padding-top:6px;">';
+        echo '</div>';
+		global $domain;
+		echo '<div style="text-align:center"><h1>'.$admlang['referers']['linking'].'',$domain.'?</h1></div>' , PHP_EOL;
+        $result = $db->sql_query("SELECT `url`, `link`, `lasttime` FROM ".$prefix."_referer ORDER by `lasttime` DESC");
+		echo '<table style="width:100%;" border="0" cellpadding="0" cellspacing="1" class="forumline" align="center">' , PHP_EOL;
+		echo '<tr><td class="catHead" style="width: 80%; text-align: center; font-weight: bold;">'.$admlang['referers']['link'].'</td>' , PHP_EOL;
+		echo '<td class="catHead" style="width: 20%; text-align: center; font-weight: bold;">'.$admlang['referers']['date'].'</td></tr>' , PHP_EOL;
+		if($db->sql_numrows($result) > 0): 
+            while (list($url, $link, $time) = $db->sql_fetchrow($result)): 
+				if(!isset($x))
+				$x = 0;
+				$x++;
+                $bgcolor = ($x%2 == 0) ? 'row2' : 'row3';
+				$date = date("F d, Y - h:ia", $time);
+                $link = (!empty($link) && $link != '/' && $link != '/GET/') ? "<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---&gt;&nbsp;".$link : '';
+                echo '<tr>' , PHP_EOL;
+				echo '<td class="'.$bgcolor.'" style="width: 80%; height: 30px; text-align: left; font-weight: bold;">' , PHP_EOL;
+				echo '<a href="'.$url.'" target="_blank">&nbsp;&nbsp;'.$url.'</a>'.$link.'</td>' , PHP_EOL;
+				echo '<td class="'.$bgcolor.'" style="width: 20%; height: 30px; text-align: center; font-weight: bold;">'.$date.'</td>' , PHP_EOL;
+				echo '</tr>' , PHP_EOL;				
+            endwhile;
+			echo '</table>' , PHP_EOL;
+            echo '<div align="center" style="padding-top:10px;">';
+            echo '</div>';
+			echo '<div style="text-align:center; display: block; border:0.1px solid; width: 200px; height:30px; line-height:30px; font-weight: 900; margin: auto auto;">' , PHP_EOL;
+			echo '<a class="genmed" href="'.$admin_file.'.php?op=hreferer&amp;del=all">'.$admlang['referers']['delete'].'</a>' , PHP_EOL;
+			echo '</div>' , PHP_EOL;
+            echo '<div align="center" style="padding-top:10px;">';
+            echo '</div>';
+		else: 
+			echo '<tr>' , PHP_EOL;
+			echo '<td class="row2" colspan="2" style="text-align: center; font-weight: bold;">' , PHP_EOL;
+			echo '-- '.sprintf($admlang['referers']['none'], strtolower(_HTTPREFERERS)).' --' , PHP_EOL;
+			echo '</td>' , PHP_EOL;
+			// echo '<td class="row2" style="width: 20%; text-align: center; font-weight: bold;">&nbsp;</td>' , PHP_EOL;
+			echo '</tr>' , PHP_EOL;
+			echo '</table>' , PHP_EOL;
+        endif;
+		$db->sql_freeresult($result);
+        CloseTable();
+        include_once(NUKE_BASE_DIR.'footer.php');
+    endif;
+else: 
+    echo 'Access Denied';
+endif;
 ?>
-

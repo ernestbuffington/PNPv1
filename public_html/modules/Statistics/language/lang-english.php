@@ -1,54 +1,41 @@
 <?php
-
-/**************************************************************************/
-/* PHP-NUKE: Advanced Content Management System                           */
-/* ============================================                           */
-/*                                                                        */
-/* This is the language module with all the system messages               */
-/*                                                                        */
-/* If you made a translation, please go to the site and send to me        */
-/* the translated file. Please keep the original text order by modules,   */
-/* and just one message per line, also double check your translation!     */
-/*                                                                        */
-/* You need to change the second quoted phrase, not the capital one!      */
-/*                                                                        */
-/* If you need to use double quotes (') remember to add a backslash (\),  */
-/* so your entry will look like: This is \'double quoted\' text.          */
-/* And, if you use HTML code, please double check it.                     */
-/**************************************************************************/
-
-define('_HITS','Hits');
-define('_BROWSERS','Browsers');
-define('_OPERATINGSYS','Operating System');
-define('_UNKNOWN','Unknown');
-define('_OTHER','Other / Unknown');
-define('_MISCSTATS','Miscellaneous Stats');
-define('_REGUSERS','Registered Users:');
-define('_ACTIVEAUTHORS','Active Authors:');
-define('_STORIESPUBLISHED','Stories Published:');
-define('_SACTIVETOPICS','Active Topics:');
-define('_COMMENTSPOSTED','Comments Posted:');
-define('_SSPECIALSECT','Special Sections:');
-define('_ARTICLESSEC','Articles in Sections:');
-define('_LINKSINLINKS','Links in Web Links:');
-define('_LINKSCAT','Categories in Links:');
-define('_NEWSWAITING','News Waiting to be Published:');
-define('_NUKEVERSION','PHP-Nuke Version:');
-define('_SEARCHENGINES','Search Engines');
-define('_BOTS','Robots/Spiders');
-define('_STATS','Access Statistics');
-define('_RETURNBASICSTATS','Return to Basic Statistics');
-define('_BACKTODETSTATS','Back to Detailed Statistics');
-define('_BACKTOMAIN','Back to Main');
-define('_TODAYIS','Today is');
-define('_MOSTMONTH','Busiest Month');
-define('_MOSTDAY','Busiest Day');
-define('_MOSTHOUR','Busiest Hour');
-define('_YEARLYSTATS','Yearly Stats');
-define('_MONTHLYSTATS','Monthly Stats for');
-define('_SPAGESVIEWS','Page Views');
-define('_DAILYSTATS','Daily Stats for');
-define('_HOURLYSTATS','Hourly Stats for');
-define('_VIEWDETAILED','View Detailed Statistics');
-
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+if(!defined('NUKE_EVO')) exit;
+define_once('_BROWSERS','Browsers');
+define_once('_OPERATINGSYS','Operating System');
+define_once('_UNKNOWN','Unknown');
+define_once('_OTHER','Other / Unknown');
+define_once('_MISCSTATS','Miscellaneous Stats');
+define_once('_REGUSERS','Registered Portal Members:');
+define_once('_ACTIVEAUTHORS','Active Authors:');
+define_once('_STORIESPUBLISHED','Blog Posts Published:');
+define_once('_SACTIVETOPICS','Active Topics:');
+define_once('_COMMENTSPOSTED','Blog Posts Comments:');
+define_once('_SSPECIALSECT','Special Sections:');
+define_once('_ARTICLESSEC','Articles in Sections:');
+define_once('_LINKSINLINKS','Web Resource Links:');
+define_once('_LINKSCAT','Web Resource Link Categories:');
+define_once('_NEWSWAITING','Blog Posts Waiting to be Published:');
+define_once('_EVOVER','PHP-Nuke Evolution Version:');
+define_once('_TITANIUMVER','PHP-Nuke Titanium Version:');
+define_once('_TITANIUMFORUMVER','phpBB Titanium Version:');
+define_once('_SEARCHENGINES','Search Engines');
+define_once('_STATS','Access Statistics');
+define_once('_HITS','Hits');
+define_once('_RETURNBASICSTATS','Return to Basic Statistics');
+define_once('_BACKTODETSTATS','Back to Detailed Statistics');
+define_once('_BACKTOMAIN','Back to Main');
+define_once('_TODAYIS','Today is');
+define_once('_MOSTMONTH','Busiest Month');
+define_once('_MOSTDAY','Busiest Day');
+define_once('_MOSTHOUR','Busiest Hour');
+define_once('_YEARLYSTATS','Yearly Stats');
+define_once('_MONTLYSTATS','Monthly Stats for');
+define_once('_SPAGESVIEWS','Page Views');
+define_once('_DAILYSTATS','Daily Stats for');
+define_once('_HOURLYSTATS','Hourly Stats for');
+define_once('_VIEWDETAILED','View Detailed Statistics');
+define_once('_VIEWFORUMSTATS','View Forum Statistics');
 ?>

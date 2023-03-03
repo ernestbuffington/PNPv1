@@ -1,52 +1,62 @@
 <?php
-/**************************************************************************/
-/* RN Your Account: Advanced User Management for RavenNuke
-/* =======================================================================*/
-/*
-/* Copyright (c) 2008, RavenPHPScripts.com	http://www.ravenphpscripts.com
-/*
-/* This program is free software. You can redistribute it and/or modify it
-/* under the terms of the GNU General Public License as published by the
-/* Free Software Foundation, version 2 of the license.
-/*
-/**************************************************************************/
-/* RN Your Account is the based on:
-/*  CNB Your Account http://www.phpnuke.org.br
-/*  NSN Your Account by Bob Marion, http://www.nukescripts.net
-/**************************************************************************/
-if (!defined('RNYA')) {
-	header('Location: ../../../index.php');
-	die();
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
+
+/*********************************************************************************/
+/* CNB Your Account: An Advanced User Management System for phpnuke             */
+/* ============================================                                 */
+/*                                                                              */
+/* Copyright (c) 2004 by Comunidade PHP Nuke Brasil                             */
+/* http://dev.phpnuke.org.br & http://www.phpnuke.org.br                        */
+/*                                                                              */
+/* Contact author: escudero@phpnuke.org.br                                      */
+/* International Support Forum: http://ravenphpscripts.com/forum76.html         */
+/*                                                                              */
+/* This program is free software. You can redistribute it and/or modify         */
+/* it under the terms of the GNU General Public License as published by         */
+/* the Free Software Foundation; either version 2 of the License.               */
+/*                                                                              */
+/*********************************************************************************/
+/* CNB Your Account it the official successor of NSN Your Account by Bob Marion    */
+/*********************************************************************************/
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Nuke Patched                             v3.1.0       06/26/2005
+ ************************************************************************/
+
+if (!defined('MODULE_FILE')) {
+   die ("You can't access this file directly...");
 }
-getusrinfo($user);
-include_once 'header.php';
-title(_YA_AVATARSUCCESS);
-OpenTable();
-nav();
-CloseTable();
-echo '<br />';
-OpenTable();
-// montego - adjusted code to eliminate wasted SQL calls
-$resultbc = $db->sql_query('SELECT config_value FROM ' . $prefix . '_bbconfig WHERE config_name = \'avatar_gallery_path\'');
-list($direktori) = $db->sql_fetchrow($resultbc);
-// montego - added security checks to user provided fields
-$category = check_html($category,'nohtml');
-$avatar = check_html($avatar, 'nohtml');
-if (preg_match('/(\.gif$|\.png$|\.jpg|\.jpeg)$/is', $avatar) && !preg_match('/[.]/', $category) && file_exists('modules/Forums/images/avatars/' . $category . '/' . $avatar)) {
-	$newavatar = $category . '/' . $avatar;
-	$db->sql_query('UPDATE ' . $user_prefix . '_users SET user_avatar=\'' . $newavatar . '\', user_avatar_type=\'3\' WHERE username=\'' . $cookie[1] . '\'');
-	echo '<p class="content" align="center">' . _YA_AVATARFOR . ' ' . $cookie[1] . ' ' . _YA_SAVED . '<br />';
-	if (preg_match('/(http)/', $newavatar)) {
-		echo _YA_NEWAVATAR . ':<br /><br /><img alt="" src="' . $newavatar . '" /><br /><br />';
-		echo '[ <a href="modules.php?name=' . $module_name . '&amp;op=edituser">' . _YA_BACKPROFILE . '</a> | <a href="modules.php?name=' . $module_name . '">' . _YA_DONE . '</a> ]';
-	} elseif ($newavatar) {
-		echo _YA_NEWAVATAR . ':<br /><br /><img alt="" src="' . $direktori . '/' . $newavatar . '" /><br /><br />';
-		echo '[ <a href="modules.php?name=' . $module_name . '&amp;op=edituser">' . _YA_BACKPROFILE . '</a> | <a href="modules.php?name=' . $module_name . '">' . _YA_DONE . '</a> ]';
-	}
-} else {
-	echo '<center>' . _AVATAR_SAVE_ERROR . ' ' ._AVATAR_FORMAT . '<br />' ._GOBACK . '</center>';
+
+if (!defined('CNBYA')) {
+    die('CNBYA protection');
 }
-echo '</p>';
-CloseTable();
-include_once 'footer.php';
+
+    global $cookie, $userinfo;
+    include_once(NUKE_BASE_DIR.'header.php');
+    title(_YA_AVATARSUCCESS);
+    OpenTable();
+    nav();
+    CloseTable();
+    echo "<br />\n";
+    OpenTable();
+    
+    $direktori = $board_config['avatar_gallery_path'];
+    
+    $newavatar=$category."/".$avatar;
+    $db->sql_query("UPDATE ".$user_prefix."_users SET user_avatar='$newavatar', user_avatar_type='3' WHERE username='$cookie[1]'");
+    echo "<center><span class=\"content\">"._YA_AVATARFOR." ".$cookie[1]." "._YA_SAVED."</span></center><br />";
+    if (preg_match("/(http)/", $newavatar)) {
+      echo "<center>"._YA_NEWAVATAR.":<br /><img alt=\"\" src=\"$newavatar\"><br />";
+      echo "[ <a href=\"modules.php?name=$module_name&amp;op=edituser\">"._YA_BACKPROFILE."</a> | <a href=\"modules.php?name=$module_name\">"._YA_DONE."</a> ]</center>";
+    } elseif ($newavatar) {
+      echo "<center>"._YA_NEWAVATAR.":<br /><img alt=\"\" src=\"$direktori/$newavatar\"><br />";
+        echo "[ <a href=\"modules.php?name=$module_name&amp;op=edituser\">"._YA_BACKPROFILE."</a> | <a href=\"modules.php?name=$module_name\">"._YA_DONE."</a> ]</center>";
+    }
+    CloseTable();
+    include_once(NUKE_BASE_DIR.'footer.php');
+
 ?>

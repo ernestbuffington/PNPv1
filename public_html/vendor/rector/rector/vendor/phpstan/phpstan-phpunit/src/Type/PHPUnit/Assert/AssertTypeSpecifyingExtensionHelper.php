@@ -19,6 +19,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\SpecifiedTypes;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierContext;
+use PHPStan\Type\Constant\ConstantStringType;
 use ReflectionObject;
 use function array_key_exists;
 use function count;
@@ -93,11 +94,10 @@ class AssertTypeSpecifyingExtensionHelper
         if (self::$resolvers === null) {
             self::$resolvers = ['InstanceOf' => static function (Scope $scope, Arg $class, Arg $object) : ?Instanceof_ {
                 $classType = $scope->getType($class->value);
-                $classNames = $classType->getConstantStrings();
-                if (count($classNames) !== 1) {
+                if (!$classType instanceof ConstantStringType) {
                     return null;
                 }
-                return new Instanceof_($object->value, new Name($classNames[0]->getValue()));
+                return new Instanceof_($object->value, new Name($classType->getValue()));
             }, 'Same' => static function (Scope $scope, Arg $expected, Arg $actual) : Identical {
                 return new Identical($expected->value, $actual->value);
             }, 'True' => static function (Scope $scope, Arg $actual) : Identical {
@@ -131,11 +131,11 @@ class AssertTypeSpecifyingExtensionHelper
             }, 'IsScalar' => static function (Scope $scope, Arg $actual) : FuncCall {
                 return new FuncCall(new Name('is_scalar'), [$actual]);
             }, 'InternalType' => static function (Scope $scope, Arg $type, Arg $value) : ?FuncCall {
-                $typeNames = $scope->getType($type->value)->getConstantStrings();
-                if (count($typeNames) !== 1) {
+                $typeType = $scope->getType($type->value);
+                if (!$typeType instanceof ConstantStringType) {
                     return null;
                 }
-                switch ($typeNames[0]->getValue()) {
+                switch ($typeType->getValue()) {
                     case 'numeric':
                         $functionName = 'is_numeric';
                         break;

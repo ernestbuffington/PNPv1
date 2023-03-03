@@ -1,10 +1,14 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 
 /********************************************************/
 /* NukeSentinel(tm)                                     */
 /* By: NukeScripts Network (webmaster@nukescripts.net)  */
-/* http://www.nukescripts.net                           */
-/* Copyright © 2000-2007 by NukeScripts Network         */
+/* http://nukescripts.86it.us                           */
+/* Copyright (c) 2000-2008 by NukeScripts Network       */
 /* See CREDITS.txt for ALL contributors                 */
 /********************************************************/
 
@@ -17,11 +21,11 @@ include_once("themes/$theme_Sel/theme.php");
 echo "<LINK REL='StyleSheet' HREF='themes/$theme_Sel/style/style.css' TYPE='text/css' MEDIA='screen'>\n";
 echo "</head><body>\n";
 echo "<h1 align='center'>$pagetitle</h1>\n";
-$getIPs = $db->sql_fetchrow($db->sql_query("SELECT * FROM `".$prefix."_nsnst_blocked_ips` WHERE `ip_addr`='$xIPs'"));
+$getIPs = $db->sql_fetchrow($db->sql_query("SELECT * FROM `".$prefix."_nsnst_blocked_ips` WHERE `ip_addr`='$xIPs' LIMIT 0,1"));
 $getIPs['date'] = date("Y-m-d H:i:s",$getIPs['date']);
-list($getIPs['reason']) = $db->sql_fetchrow($db->sql_query("SELECT `reason` FROM `".$prefix."_nsnst_blockers` WHERE `blocker`='".$getIPs['reason']."'"));
+list($getIPs['reason']) = $db->sql_fetchrow($db->sql_query("SELECT `reason` FROM `".$prefix."_nsnst_blockers` WHERE `blocker`='".$getIPs['reason']."' LIMIT 0,1"));
 $lookupip = str_replace("*", "0", $xIPs);
-echo "<table align='center' border='1' cellpadding='2' cellspacing='2'>\n";
+echo "<table summary='' align='center' border='1' cellpadding='2' cellspacing='2'>\n";
 echo "<tr><td><strong>"._AB_BLOCKEDIP.":</strong></td><td>$xIPs</td></tr>";
 echo "<tr><td><strong>"._AB_USER.":</strong></td><td>".$getIPs['username']."</td></tr>";
 echo "<tr><td><strong>"._AB_AGENT.":</strong></td><td>".$getIPs['user_agent']."</td></tr>";

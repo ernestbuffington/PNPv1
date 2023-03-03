@@ -1,64 +1,65 @@
 <!-- BEGIN ROPM_QUICK_REPLY -->
 </form>
-<script language='JavaScript'>
+<script>
 var theSelection = false;
-	function openAllSmiles(){
-		smiles = window.open('modules.php?name=Forums&file=posting&mode=smilies&popup=1', '_phpbbsmilies', 'HEIGHT=300,resizable=yes,scrollbars=yes,WIDTH=250');
-		smiles.focus();
-		return false;
-	}
+    function openAllSmiles(){
+        smiles = window.open('modules.php?name=Forums&file=posting&mode=smilies&popup=1', '_phpbbsmilies', 'HEIGHT=300,resizable=yes,scrollbars=yes,WIDTH=500');
+        smiles.focus();
+        return false;
+    }
 function quoteSelection()
 {
         if (document.getSelection) txt = document.getSelection();
-	else if (document.selection) txt = document.selection.createRange().text;
-	else return;
+    else if (document.selection) txt = document.selection.createRange().text;
+    else return;
 
-	theSelection = txt.replace(new RegExp('([\\f\\n\\r\\t\\v ])+', 'g')," ");
+    theSelection = txt.replace(new RegExp('([\\f\\n\\r\\t\\v ])+', 'g')," ");
         if (theSelection) {
-			// Add tags around selection
-			emoticon( '[quote]\n' + theSelection + '\n[/quote]\n');
-			document.post.message.focus();
-			theSelection = '';
-			return;
-		}else{
-			alert('{L_NO_TEXT_SELECTED}');
-		}
+            // Add tags around selection
+            emoticon( '[quote]\n' + theSelection + '\n[/quote]\n');
+            document.post.message.focus();
+            theSelection = '';
+            return;
+        }else{
+            alert('{L_NO_TEXT_SELECTED}');
+        }
 }
 
-	function storeCaret(textEl) {
-		if (textEl.createTextRange) textEl.caretPos = document.selection.createRange().duplicate();
-	}
+    function storeCaret(textEl) {
+        if (textEl.createTextRange) textEl.caretPos = document.selection.createRange().duplicate();
+    }
 
-	function emoticon(text) {
-		if (document.post.message.createTextRange && document.post.message.caretPos) {
-			var caretPos = document.post.message.caretPos;
-			caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? text + ' ' : text;
-			document.post.message.focus();
-		} else {
-			document.post.message.value  += text;
-			document.post.message.focus();
-		}
-	}
+    function emoticon(text) {
+        text = ' ' + text + ' ';
+        if (document.post.message.createTextRange && document.post.message.caretPos) {
+            var caretPos = document.post.message.caretPos;
+            caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? text + ' ' : text;
+            document.post.message.focus();
+        } else {
+            document.post.message.value  += text;
+            document.post.message.focus();
+        }
+    }
 
-	function checkForm() {
-		formErrors = false;
-		if (document.post.message.value.length < 2) {
-			formErrors = '{L_EMPTY_MESSAGE}';
-		}
-		if (!document.post.subject.value) {
+    function checkForm() {
+        formErrors = false;
+        if (document.post.message.value.length < 2) {
+            formErrors = '{L_EMPTY_MESSAGE}';
+        }
+        if (!document.post.subject.value) {
                    formErrors += '{L_EMPTY_SUBJECT}';
                 }
                 if (formErrors) {
-			alert(formErrors);
-			return false;
-		} else {
-			if (document.post.quick_quote.checked) {
-				document.post.message.value = document.post.last_msg.value + document.post.message.value;
-			} 
-			document.post.quick_quote.checked = false;
-			return true;
-		}
-	}
+            alert(formErrors);
+            return false;
+        } else {
+            if (document.post.quick_quote.checked) {
+                document.post.message.value = document.post.last_msg.value + document.post.message.value;
+            } 
+            document.post.quick_quote.checked = false;
+            return true;
+        }
+    }
 </script>
 <tr>
 <th colspan="3" height="25" style="padding: 0px"><strong>{L_QUICK_REPLY}</strong></th>
@@ -75,8 +76,8 @@ function quoteSelection()
 <img src="{ROPM_QUICK_REPLY.SMILIES.URL}" border="0" onmouseover="this.style.cursor='hand';" onclick="emoticon('{ROPM_QUICK_REPLY.SMILIES.CODE}');" alt="{ROPM_QUICK_REPLY.SMILIES.DESC}" title="{ROPM_QUICK_REPLY.SMILIES.DESC}" />
 <!-- END SMILIES -->
 <INPUT TYPE=button CLASS=BUTTON NAME="SmilesButt" VALUE="{L_ALL_SMILIES}" ONCLICK="openAllSmiles();">
-				<br />
-				<input type='button' name='quoteselected' class='liteoption' value='{L_QUOTE_SELECTED}' onclick='javascript:quoteSelection()'></td>
+                <br />
+                <input type='button' name='quoteselected' class='liteoption' value='{L_QUOTE_SELECTED}' onclick='javascript:quoteSelection()'></td>
 </td></tr>
 <tr><td align="right" class="row1" valign="top"><span class="gen"><strong>{L_OPTIONS}:</strong></span></td>
 <td class="row2" colspan="2" valign="top"><span class="gensmall">

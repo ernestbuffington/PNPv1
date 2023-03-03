@@ -1,150 +1,221 @@
 <?php
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
-/************************************************************************/
-/* PHP-NUKE: Advanced Content Management System                         */
-/* ==================================================================== */
-/*                                                                      */
-/* Copyright (c) 2002 by Francisco Burzi                                */
-/* http://phpnuke.org                                                   */
-/*                                                                      */
-/* This program is free software. You can redistribute it and/or modify */
-/* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
-/*                                                                      */
-/************************************************************************/
-/********************************************************/
-/* NSN Groups                                           */
-/* By: NukeScripts Network (webmaster@nukescripts.net)  */
-/* http://www.nukescripts.net                           */
-/* Copyright © 2000-2005 by NukeScripts Network         */
-/********************************************************/
-/************************************************************************/
-/* Additional code clean-up, performance enhancements, and W3C and      */
-/* XHTML compliance fixes by Raven and Montego.                         */
-/************************************************************************/
+##########################################################################
+# PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System #
+##########################################################################
+# PHP-NUKE: Advanced Content Management System                           #
+#                                                                        #
+# Copyright (c) 2002 by Francisco Burzi                                  #
+# http://phpnuke.org                                                     #
+#                                                                        #
+# This program is free software. You can redistribute it and/or modify   #
+# it under the terms of the GNU General Public License as published by   #
+# the Free Software Foundation; either version 2 of the License.         #
+##########################################################################
+# Additional security checking code 2003 by chatserv                     #
+# Old web address http://www.nukefixes.com                               #
+# Old web address http://www.nukeresources.com                           #
+##########################################################################
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Nuke Patched                             v3.1.0       06/26/2005
+	  Titanium Patched                         v1.0.0       05/19/2021
+-=[Mod]=-
+      Lock Modules                             v1.0.0       08/04/2005
+	  
+	  Groups Permissiond Mod                   v1.0.0       05/19/2021
+	  This mod adds a stop sign and message for the user when they try
+	  to access a module that is assigned to a group that they are not
+	  a member of.
+ ************************************************************************/
 define('MODULE_FILE', true);
-require_once('mainfile.php');
-$module = 1;
-if (!isset($name)) $name='';
-$name = addslashes(check_html(trim($name), 'nohtml')); //Fixes SQL Injection
-define('PN_MODULE_NAME', $name);
-if(!isset($file)) { $file='index'; }
-if(isset($name)) {
-	if(preg_match('/http\:\/\//i', $name)) { die('Hi&nbsp;and&nbsp;Bye'); }
-	if(preg_match('/http\:\/\//i', $file)) { die('Hi&nbsp;and&nbsp;Bye'); }
-	$modstring = strtolower($_SERVER['QUERY_STRING']);
-	if(stripos_clone($modstring,'&user=') AND ($name=='Private_Messages' || $name=='Forums' || $name=='Members_List')) header('Location: index.php');
-	global $nukeuser, $db, $prefix;
-	$nukeuser = base64_decode($user);
-	$nukeuser = addslashes($nukeuser);
-	$result = $db->sql_query('SELECT * FROM `'.$prefix.'_modules` WHERE `title`=\''.$name.'\'');
-	$row = $db->sql_fetchrow($result);
-	$mod_active = intval($row['active']);
-	$view = intval($row['view']);
-	$groups = $row['groups'];
-	if(($mod_active == 1) OR (isset($admin) AND is_admin($admin))) {
-		if(!isset($mop)) { $mop='modload'; }
-		if(!isset($file)) { $file='index'; }
-		if(preg_match('/\.\./',$name) || preg_match('/\.\./',$file) || preg_match('/\.\./',$mop)) {
-			$pagetitle = '- '._SOCOOL;
-			include_once('header.php');
-			OpenTable();
-			echo '<center><strong>'._SOCOOL.'</strong></center><br />';
-			echo '<center>'._GOBACK.'</center>';
-			CloseTable();
-			include_once('footer.php');
-			die();
-		} else {
-			$ThemeSel = get_theme();
-			if(file_exists('themes/'.$ThemeSel.'/modules/'.$name.'/'.$file.'.php')) {
-				$modpath = 'themes/'.$ThemeSel.'/';
-			} else {
-				$modpath = '';
-			}
-			$modpath .= 'modules/'.$name.'/'.$file.'.php';
-			if(file_exists($modpath)) {
-				if($view == 0) {
-					include_once($modpath);
-				} elseif($view == 1 AND ((isset($user) AND (is_user($user) OR is_group($user, $name))) OR (isset($admin) AND is_admin($admin)))) {
-					include_once($modpath);
-				} elseif($view == 2 AND isset($admin) AND is_admin($admin)) {
-					include_once($modpath);
-				} elseif($view == 3 AND paid()) {
-					include_once($modpath);
-				} elseif($view > 3 AND in_groups($groups)) {
-					include_once($modpath);
-				} else {
-					$pagetitle = '- '._RESTRICTEDAREA;
-					include_once('header.php');
-					OpenTable();
-					echo '<center><strong>'._RESTRICTEDAREA.'</strong></center><br />';
-					echo '<center>'._GOBACK.'</center>';
-					CloseTable();
-					include_once('footer.php');
-					die();
-				}
-			} else {
-				$pagetitle = '- '._FILENOTFOUND;
-				include_once('header.php');
-				OpenTable();
-				echo '<center><strong>'._FILENOTFOUND.'</strong></center><br />';
-				echo '<center>'._GOBACK.'</center>';
-				CloseTable();
-				include_once('footer.php');
-				die ();
-			}
-		}
-	} else {
-		$pagetitle = '- '._MODULENOTACTIVE;
-		include_once('header.php');
-		OpenTable();
-		echo '<center>'._MODULENOTACTIVE.'</center><br />';
-		echo '<center>'._GOBACK.'</center>';
-		CloseTable();
-		include_once('footer.php');
-		die ();
-	}
-} else {
-	$pagetitle = '- '._MODULENOTFOUND;
-	include_once('header.php');
-	OpenTable();
-	echo '<center>'._MODULENOTFOUND.'</center><br />';
-	echo '<center>'._GOBACK.'</center>';
-	CloseTable();
-	include_once('footer.php');
-	die ();
-}
-if(!function_exists('stripos_clone')) {
-	function stripos_clone($haystack, $needle, $offset=0) {
-		return strpos(strtoupper($haystack), strtoupper($needle), $offset);
-	}
-}
+
+if(isset($_GET['file']) && $_GET['file'] == 'posting'): 
+  define('MEDIUM_SECURITY', true);
+endif;
+
+if(isset($_GET['Action']) && $_GET['Action'] == 'AJAX'):
+  define('MEDIUM_SECURITY', true);
+endif;
+
+if(isset($_POST['tos_text']) && isset($_POST['op']) && $_POST['op'] == 'editTOS'):
+  define('MEDIUM_SECURITY', true);
+endif;
+
+require_once(dirname(__FILE__) . '/mainfile.php');
+
+global $name;
+
+if($name): 
+    # Mod: Lock Modules v1.0.0 START
+    global $db, $prefix, $user, $lock_modules;
+
+    if(($lock_modules && $name != 'Your_Account') 
+	&& !is_admin() 
+	&& !is_user() 
+	&& ($name != 'Profile' 
+	&& $mode == 'register' 
+	&& (isset($check_num) 
+	|| isset($HTTP_POST_VARS['submit'])))): 
+	  include(NUKE_MODULES_DIR.'Your_Account/index.php');
+	endif;
+    # Mod: Lock Modules v1.0.0 END
+
+    $module = $db->sql_ufetchrow('SELECT `title`, `active`, `view`, `blocks`, `custom_title`, `groups` FROM `'.$prefix.'_modules` WHERE `title`="'.Fix_Quotes($name).'"');
+	
+	$module_name = $module['title'] ?? '';
+	
+	if ($module_name == 'Your_Account' 
+	|| $module_name == main_module()): 
+		$module['active'] = true;
+		$view = 0;
+	else:
+		$view = $module['view'] ?? '';
+	endif;
+	
+	if(isset($module['active']) || is_mod_admin($module_name)):
+      
+	  if(!isset($file) OR $file != $_REQUEST['file']): 
+		$file='index';
+	  endif;
+	  
+	  if(isset($open)): 
+	    if($open != $_REQUEST['open']): 
+		  $open = '';
+		endif;
+	  endif;
+        
+		if((isset($file) 
+		&& stristr($file,"..")) 
+		|| (isset($mop) 
+		&& stristr($mop,"..")) 
+		|| (isset($open) 
+		&& stristr($open,".."))): 
+		  die('You are so cool...');
+		endif;
+		
+		$showblocks = $module['blocks'] ?? '';
+		
+		if(!isset($module['custom_title']))
+		$module['custom_title'] = '';
+		
+		$module_title = ($module['custom_title'] != '') ? $module['custom_title'] : str_replace('_', ' ', $module_name);
+        $modpath = isset($module['title']) ? NUKE_MODULES_DIR.$module['title']."/$file.php" : NUKE_MODULES_DIR.$name."/$file.php";
+        $groups = (!empty($module['groups'])) ? $groups = explode('-', $module['groups']) : '';
+        
+		if(!empty($open)): 
+         $modpath = isset($module['title']) ? NUKE_MODULES_DIR.$module['title']."/$open.php" : NUKE_MODULES_DIR.$name."/$open.php";
+		endif;
+        		
+		unset($module, $error);
+		
+		if($view >= 1 && !is_admin()): 
+		    # Must Not be a user
+			if($view == 2 AND is_user()): 
+				$error = _MVIEWANON;
+			# Must Be a user 
+			elseif($view == 3 && !is_user()): 
+				$error = _MODULEUSERS;
+		    # Must Be a admin
+			elseif($view == 4 && !is_mod_admin($module['title'])): 
+				$error = _MODULESADMINS;
+		    # Groups
+			elseif($view == 6 && !empty($groups) && is_array($groups)): 
+			    
+				$ingroup = false;
+			    global $userinfo;
+
+			    foreach($groups as $group): 
+    	
+				     if(isset($userinfo['groups'][$group])):
+					 $ingroup = true;
+                 	 # Group Cookie Control START
+					 list($groupname) = $db->sql_ufetchrow("SELECT `group_name` FROM ".$prefix."_bbgroups WHERE `group_id`=".$group."", SQL_NUM);
+   			         $groupcookie = str_replace(" ", "_", $groupname);
+		
+					 if(!isset($_COOKIE[$groupcookie])):
+					   setcookie($groupcookie, $group, time()+2*24*60*60);
+					 endif;
+			         # Group Cookie Control END
+					 endif;
+		
+			    endforeach;
+
+			    if(!$ingroup):
+                  $result = $db->sql_query('SELECT `group_name`
+			                                FROM  '.$prefix.'_bbgroups 
+											WHERE group_id = '.$group.'
+				                            ORDER BY group_id'); 
+				endif;
+				 
+				  if($db->sql_numrows($result)): 
+	              
+                     while(($row = $db->sql_fetchrow($result)) AND (!$ingroup)): 
+                     
+						 # this is so you can add a custom message to any groups on your portal
+						 # just add the special group id number where it says 9999
+						 if($group == 9999):
+						 
+						   $error  = '<div align="center" style="padding-top:6px;">';
+                           $error .= '</div>';
+
+						   $error .= '<h1>'._CREDENTIALS.''.$module_title.' '._AREA.'</h1>';
+						   $error .= '<img class="icons" align="absmiddle" width="200" src="'.img('unknown-error.png','error').'"><br />'; 
+                           $error .= '<strong><font size="4">'._MUSTJOIN.''.$row['group_name'].''._GAINACCESS;
+
+						   $error .= '<div align="center" style="padding-top:6px;">';
+                           $error .= '</div>';
+						 
+						 # this is so you can add a custom message to any groups on your portal
+						 # just add the special group id number where it says 99999
+						 elseif($group == 99999):
+						 
+						   $error  = '<div align="center" style="padding-top:6px;">';
+                           $error .= '</div>';
+
+						   $error .= '<h1>'._CREDENTIALS.''.$module_title.' '._AREA.'</h1>';
+						   $error .= '<img class="icons" align="absmiddle" width="200" src="'.img('unknown-error.png','error').'"><br />'; 
+                           $error .= '<strong><font size="4">'._MUSTJOIN.''.$row['group_name'].''._GAINACCESS;
+
+						   $error .= '<div align="center" style="padding-top:6px;">';
+                           $error .= '</div>';
+					     
+						 else:
+						   
+						   # this is the default message foe users that do not have group access to a module
+						   $error  = '<div align="center" style="padding-top:6px;">';
+                           $error .= '</div>';
+
+						   $error .= '<h1>'._CREDENTIALS.''.$module_title.' '._AREA.'</h1>';
+						   $error .= '<img class="icons" align="absmiddle" width="200" src="'.img('unknown-error.png','error').'"><br />'; 
+                           $error .= '<strong><font size="4">'._MUSTJOIN.''.$row['group_name'].''._GAINACCESS;
+
+						   $error .= '<div align="center" style="padding-top:6px;">';
+                           $error .= '</div>';
+
+					     endif;
+
+					 endwhile;
+        
+                  endif;
+				 $db->sql_freeresult($result);
+			endif;
+		endif;
+		
+        if(isset($error)): 
+          DisplayError($error);
+		elseif(file_exists($modpath)): 
+          include($modpath);
+		else: 
+            DisplayError(_MODULEDOESNOTEXIST);
+		endif;
+     
+	else: 
+        DisplayError(_MODULENOTACTIVE."<br /><br />"._GOBACK);
+    endif;
+ 
+else:
+    include_once(NUKE_INCLUDE_DIR.'functions_evo.php'); # For some reason this was throwing a warning saying it could not see the function redirect!
+    redirect('index.php');
+endif;
 ?>

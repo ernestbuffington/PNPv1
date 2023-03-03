@@ -9,10 +9,9 @@
  * file that was distributed with this source code.
  */
 declare (strict_types=1);
-namespace RectorPrefix202302\Fidry\CpuCoreCounter\Finder;
+namespace RectorPrefix202301\Fidry\CpuCoreCounter\Finder;
 
-use RectorPrefix202302\Fidry\CpuCoreCounter\Executor\ProcessExecutor;
-use RectorPrefix202302\Fidry\CpuCoreCounter\Executor\ProcOpenExecutor;
+use RectorPrefix202301\Fidry\CpuCoreCounter\Exec\ProcOpen;
 use function filter_var;
 use function function_exists;
 use function is_int;
@@ -22,21 +21,13 @@ use const FILTER_VALIDATE_INT;
 use const PHP_EOL;
 abstract class ProcOpenBasedFinder implements CpuCoreFinder
 {
-    /**
-     * @var ProcessExecutor
-     */
-    private $executor;
-    public function __construct(?ProcessExecutor $executor = null)
-    {
-        $this->executor = $executor ?? new ProcOpenExecutor();
-    }
     public function diagnose() : string
     {
         if (!function_exists('proc_open')) {
             return 'The function "proc_open" is not available.';
         }
         $command = $this->getCommand();
-        $output = $this->executor->execute($command);
+        $output = ProcOpen::execute($command);
         if (null === $output) {
             return sprintf('Failed to execute the command "%s".', $command);
         }
@@ -49,20 +40,23 @@ abstract class ProcOpenBasedFinder implements CpuCoreFinder
      */
     public function find() : ?int
     {
-        $output = $this->executor->execute($this->getCommand());
+        if (!function_exists('proc_open')) {
+            return null;
+        }
+        $output = ProcOpen::execute($this->getCommand());
         if (null === $output) {
             return null;
         }
         [$stdout, $stderr] = $output;
         $failed = '' !== trim($stderr);
-        return $failed ? null : $this->countCpuCores($stdout);
+        return $failed ? null : static::countCpuCores($stdout);
     }
     /**
      * @internal
      *
      * @return positive-int|null
      */
-    protected function countCpuCores(string $process) : ?int
+    public static function countCpuCores(string $process) : ?int
     {
         $cpuCount = filter_var($process, FILTER_VALIDATE_INT);
         return is_int($cpuCount) && $cpuCount > 0 ? $cpuCount : null;

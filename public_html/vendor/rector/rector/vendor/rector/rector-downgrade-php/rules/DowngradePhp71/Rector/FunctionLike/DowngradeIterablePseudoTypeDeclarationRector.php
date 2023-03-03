@@ -68,18 +68,10 @@ CODE_SAMPLE
     public function refactor(Node $node) : ?Node
     {
         $iterableType = new IterableType(new MixedType(), new MixedType());
-        $hasChanged = \false;
-        $hasParamChanged = \false;
         foreach ($node->params as $param) {
-            $hasParamChanged = $this->phpDocFromTypeDeclarationDecorator->decorateParamWithSpecificType($param, $node, $iterableType);
-            if ($hasParamChanged) {
-                $hasChanged = \true;
-            }
+            $this->phpDocFromTypeDeclarationDecorator->decorateParamWithSpecificType($param, $node, $iterableType);
         }
         if (!$this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, $iterableType)) {
-            if ($hasChanged) {
-                return $node;
-            }
             return null;
         }
         return $node;

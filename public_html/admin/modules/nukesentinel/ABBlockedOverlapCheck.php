@@ -1,10 +1,14 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 
 /********************************************************/
 /* NukeSentinel(tm)                                     */
 /* By: NukeScripts Network (webmaster@nukescripts.net)  */
-/* http://www.nukescripts.net                           */
-/* Copyright © 2000-2007 by NukeScripts Network         */
+/* http://nukescripts.86it.us                           */
+/* Copyright (c) 2000-2008 by NukeScripts Network       */
 /* See CREDITS.txt for ALL contributors                 */
 /********************************************************/
 
@@ -17,7 +21,7 @@ if(!isset($min)) {
   $pagesint = ($totalselected / $perpage);
   $pages = ceil($pagesint);
   $pagetitle = _AB_NUKESENTINEL.": "._AB_BLOCKEDOVERLAPCHECK;
-  include_once("header.php");
+  include_once(NUKE_BASE_DIR.'header.php');
   OpenTable();
   OpenMenu(_AB_BLOCKEDOVERLAPCHECK);
   ipbanmenu();
@@ -37,7 +41,7 @@ if(!isset($min)) {
   echo "<input type='submit' value=\""._AB_LETSGETSTART."\" />\n";
   echo "</form>\n";
   CloseTable();
-  include_once("footer.php");
+  include_once(NUKE_BASE_DIR.'footer.php');
 } else if($min < $totalselected) {
 
   $max=$min+$perpage;
@@ -45,7 +49,7 @@ if(!isset($min)) {
   $pages = ceil($pagesint);
   $currentpage = ($max / $perpage);
   $pagetitle = _AB_NUKESENTINEL.": "._AB_BLOCKEDOVERLAPCHECK;
-  include_once("header.php");
+  include_once(NUKE_BASE_DIR.'header.php');
   title($pagetitle);
   OpenTable();
   $testmessage = "";
@@ -60,7 +64,7 @@ if(!isset($min)) {
     $testnum3 = $db->sql_numrows($test3);
     $testnum4 = $db->sql_numrows($test4);
     if($testnum1 > 0) {
-      $testmessage .= "<table align='center' border='0' cellpadding='2' cellspacing='2' bgcolor='$bgcolor2' width='100%'>\n";
+      $testmessage .= "<table summary='' align='center' border='0' cellpadding='2' cellspacing='2' bgcolor='$bgcolor2' width='100%'>\n";
       $testmessage .= "<tr bgcolor='$bgcolor1'><td align='center' colspan='6'><strong>".long2ip($xip_lo)." "._AB_IN.":</strong></td></tr>\n";
       $testmessage .= "<tr bgcolor='$bgcolor2'>\n";
       $testmessage .= "<td width='25%'><strong>"._AB_IPLO."</strong></td>\n";
@@ -87,7 +91,7 @@ if(!isset($min)) {
       $testmessage .= "<br />\n";
     }
     if($testnum2 > 0) {
-      $testmessage .= "<table align='center' border='0' cellpadding='2' cellspacing='2' bgcolor='$bgcolor2' width='100%'>\n";
+      $testmessage .= "<table summary='' align='center' border='0' cellpadding='2' cellspacing='2' bgcolor='$bgcolor2' width='100%'>\n";
       $testmessage .= "<tr bgcolor='$bgcolor1'><td align='center' colspan='6'><strong>".long2ip($xip_hi)." "._AB_IN.":</strong></td></tr>\n";
       $testmessage .= "<tr bgcolor='$bgcolor2'>\n";
       $testmessage .= "<td width='25%'><strong>"._AB_IPLO."</strong></td>\n";
@@ -114,7 +118,7 @@ if(!isset($min)) {
       $testmessage .= "<br />\n";
     }
     if($testnum3 > 0) {
-      $testmessage .= "<table align='center' border='0' cellpadding='2' cellspacing='2' bgcolor='$bgcolor2' width='100%'>\n";
+      $testmessage .= "<table summary='' align='center' border='0' cellpadding='2' cellspacing='2' bgcolor='$bgcolor2' width='100%'>\n";
       $testmessage .= "<tr bgcolor='$bgcolor1'><td align='center' colspan='6'><strong>".long2ip($xip_lo)." - ".long2ip($xip_hi)." "._AB_COVERS.":</strong></td></tr>\n";
       $testmessage .= "<tr bgcolor='$bgcolor2'>\n";
       $testmessage .= "<td width='25%'><strong>"._AB_IPLO."</strong></td>\n";
@@ -141,7 +145,7 @@ if(!isset($min)) {
       $testmessage .= "<br />\n";
     }
     if($testnum4 > 0) {
-      $testmessage .= "<table align='center' border='0' cellpadding='2' cellspacing='2' bgcolor='$bgcolor2' width='100%'>\n";
+      $testmessage .= "<table summary='' align='center' border='0' cellpadding='2' cellspacing='2' bgcolor='$bgcolor2' width='100%'>\n";
       $testmessage .= "<tr bgcolor='$bgcolor1'><td align='center' colspan='6'><strong>".long2ip($xip_lo)." - ".long2ip($xip_hi)." "._AB_ISCOVERED.":</strong></td></tr>\n";
       $testmessage .= "<tr bgcolor='$bgcolor2'>\n";
       $testmessage .= "<td width='25%'><strong>"._AB_IPLO."</strong></td>\n";
@@ -172,7 +176,7 @@ if(!isset($min)) {
   if($testmessage != "") {
     echo "<strong>"._AB_SECTION." $currentpage "._AB_OF." $pages (".$pdone."%)</strong><br />\n";
     echo "$testmessage";
-    echo "<table align='center' border='0' cellpadding='2' cellspacing='2'>\n";
+    echo "<table summary='' align='center' border='0' cellpadding='2' cellspacing='2'>\n";
     echo "<tr>\n";
     echo "<form action='".$admin_file.".php?op=ABBlockedOverlapCheck' method='post'>\n";
     echo "<td>\n";
@@ -206,11 +210,11 @@ if(!isset($min)) {
     }
   }
   CloseTable();
-  include_once("footer.php");
+  include_once(NUKE_BASE_DIR.'footer.php');
 
 } else {
   $pagetitle = _AB_NUKESENTINEL.": "._AB_BLOCKEDOVERLAPCHECK;
-  include_once("header.php");
+  include_once(NUKE_BASE_DIR.'header.php');
   OpenTable();
   OpenMenu(_AB_BLOCKEDOVERLAPCHECK);
   ipbanmenu();
@@ -222,7 +226,7 @@ if(!isset($min)) {
   OpenTable();
   echo "<center><strong>"._AB_BLOCKEDOVERLAPCHECK." "._AB_COMPLETED."</strong><br /></center>\n";
   CloseTable();
-  include_once("footer.php");
+  include_once(NUKE_BASE_DIR.'footer.php');
 }
 
 ?>

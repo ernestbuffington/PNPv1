@@ -5,8 +5,8 @@
 </head>
 <body bgcolor="#000000" text="#FFFFFF" link="#FFFFFF">
 <table summary="" align="center" width="75%"><tr><td>
-<p align="center"><img src="includes/nukesentinel/abuse/logo.png" width="468" height="60" alt="" /><br /><strong>We are currently closed for site and/or server updates and/or maintainance.</strong></p>
-<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><img src="includes/nukesentinel/abuse/logo.png" width="468" height="60" alt="" /><br /><b>We are currently closed for site and/or server updates and/or maintainance.</b></p>
+<p align="center"><b>&nbsp;</b></p>
 </td></tr></table>
 </body>
 </html>

@@ -3,13 +3,13 @@
 /********************************************************/
 /* NukeSentinel(tm)                                     */
 /* By: NukeScripts Network (webmaster@nukescripts.net)  */
-/* http://www.nukescripts.net                           */
-/* Copyright © 2000-2007 by NukeScripts Network         */
+/* http://nukescripts.86it.us                           */
+/* Copyright (c) 2000-2007 by NukeScripts Network         */
 /* See CREDITS.txt for ALL contributors                 */
 /********************************************************/
 
 $pagetitle = _AB_NUKESENTINEL.": "._AB_SEARCHIPS;
-include_once("header.php");
+include(NUKE_BASE_DIR."header.php");
 if(!empty($sip)) { $torun = 1; } else { $torun = 0; }
 $sip = str_replace("X", "%", $sip);
 OpenTable();
@@ -19,8 +19,8 @@ CarryMenu();
 searchmenu();
 CloseMenu();
 CloseTable();
-$tempsip = str_replace("%", "X", $sip);
-$tempsip = str_replace("*", "X", $tempsip);
+$tempsip =  str_replace("%", "X", $sip);
+$tempsip =  str_replace("*", "X", $tempsip);
 $tempip = str_replace("*", "0", $sip);
 $tempip = str_replace("%", "0", $tempip);
 $tempip = sprintf("%u", ip2long($tempip));
@@ -284,7 +284,7 @@ if($totalselected > 0) {
     $countrytitle = abget_countrytitle($c2c);
     $getIPs['country'] = $countrytitle['country'];
     $flagimg = flag_img($countrytitle['c2c']);
-    echo "<td width='2%'>$flagimg</td>\n";
+    echo "<td width='2%'>flagimg</td>\n";
     echo "<td align='center'>".date("Y-m-d \@ H:i:s",$lastview)."</td>";
     echo "<td align='center'>$hits</td>";
     echo "<td align='center'>&nbsp;<a href='".$admin_file.".php?op=ABPrintTrackedPages&amp;user_id=$userid&amp;ip_addr=$ipaddr' target='_blank'><img src='images/nukesentinel/print.png' height='16' width='16' alt='"._AB_PRINT."' title='"._AB_PRINT."' border='0' /></a>&nbsp;<a ";
@@ -329,6 +329,6 @@ if($totalselected > 0) {
   CloseTable();
 }
 }
-include_once("footer.php");
+include(NUKE_BASE_DIR."footer.php");
 
 ?>

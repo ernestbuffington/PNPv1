@@ -175,12 +175,7 @@ CODE_SAMPLE
             if ($onlyIfStmt->expr === null) {
                 return;
             }
-            // on Enum usage not in same file, it got object
-            $value = $this->valueResolver->getValue($onlyIfStmt->expr);
-            if (\is_object($value)) {
-                return;
-            }
-            $this->onEqual = $value;
+            $this->onEqual = $this->valueResolver->getValue($onlyIfStmt->expr);
         }
     }
     private function processElse(Else_ $else) : void

@@ -1,33 +1,15 @@
 <?php
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
 /************************************************************************/
 /* HTML Newsletter 1.0 module for PHP-Nuke 6.5 - 7.6                    */
 /* By: NukeWorks (webmaster@nukeworks.biz)                              */
@@ -44,16 +26,11 @@
 ************************************************************************/
 /************************************************************************
 * Script:			HTML Newsletter module for PHP-Nuke 6.5 - 7.6
-* Version:		01.03.02
+* Version:		01.03.01
 * Author:			Rob Herder (aka: montego) of montegoscripts.com
 * Contact:		montego@montegoscripts.com
 * Copyright:	Copyright © 2006 by Montego Scripts
 * License:		GNU/GPL (see provided LICENSE.txt file)
-************************************************************************/
-/************************************************************************
-* Rev Date			Change ID				Description
-* -----------		--------------	-----------------------------------------
-* 02-MAY-2006		RN_0000188			Hide links for newsletters with no file.
 ************************************************************************/
 
 if ( !defined( 'MSNL_LOADED' ) ) { die( "Illegal File Access" ); }
@@ -86,7 +63,7 @@ $msnl_asHTML['SELECT'] = msnl_fGetCategories( $msnl_iCID, MSNL_SHOW_ALL_ON );
 * Build the SQL for the newsletters to display.
 ************************************************************************/
 
-$sql = "SELECT a.`nid`, a.`cid`, b.`ctitle`, `topic`, `sender`, `datesent`, `filename` "
+$sql = "SELECT a.`nid`, a.`cid`, b.`ctitle`, a.`topic`, a.`sender`, a.`datesent` "
 			."FROM `".$prefix."_hnl_newsletters` a, `".$prefix."_hnl_categories` b ";
 
 if ( $msnl_iCID == 0 ) {  //Pull all newsletters regardless of category
@@ -138,7 +115,7 @@ if ( !$result ) { //Bad SQL call
 
 	//Write out the table of newsletters
 
-	echo "<div id='msnl_div_main'><br />\n";
+	echo "<div id='msnl_div_main'><br>\n";
 
 	echo "<table ${msnl_asCSS['TABLE_data']}>\n"
 				."<tr ${msnl_asCSS['TR_hdr']}>"
@@ -163,14 +140,13 @@ if ( !$result ) { //Bad SQL call
 			$msnl_asRec['topic']					= $row['topic'];
 			$msnl_asRec['sender']					= stripslashes( $row['sender'] );
 			$msnl_asRec['datesent']				= $row['datesent'];
-			$msnl_asRec['filename']				= stripslashes( $row['filename'] );
 
 		/************************************************************************
 		* Write out the list of categories found.
 		************************************************************************/
 
 		echo "<tr ${msnl_asCSS['TR_rows']} onmouseover=\"this.style.backgroundColor='$bgcolor2'\" onmouseout=\"this.style.backgroundColor='$bgcolor1'\">\n"
-					."<td ${msnl_asCSS['TD_left_nw']}><strong>".$msnl_asRec['topic']."</strong></td>"
+					."<td ${msnl_asCSS['TD_left_nw']}><b>".$msnl_asRec['topic']."</b></td>"
 					."<td ${msnl_asCSS['TD_left_nw']}>".$msnl_asRec['sender']."</td>"
 					."<td ${msnl_asCSS['TD_center_nw']}>".$msnl_asRec['datesent']."</td>"
 					."<td ${msnl_asCSS['TD_left_nw']}>".$msnl_asRec['ctitle']."</td>"
@@ -178,12 +154,10 @@ if ( !$result ) { //Bad SQL call
 
 		$msnl_sURL = "./modules.php?name=$msnl_sModuleNm&amp;op=msnl_nls_view&amp;msnl_nid=".$msnl_asRec['nid'];
 
-		if (@file_exists('modules/'.$msnl_sModuleNm.'/archive/'.$msnl_asRec['filename'])) {
-			echo "<a href=\"$msnl_sURL\" onclick=\"window.open(this.href, 'ViewNewsletter'); return false\">"
-						."<img ${msnl_asCSS['IMG_def']} src=\"./modules/$msnl_sModuleNm/images/view.png\" height='16' width='16' "
-								."alt=\"". _MSNL_NLS_LNK_VIEWNL ."\">"
-					."</a>&nbsp;\n";
-		}
+		echo "<a href=\"$msnl_sURL\" onclick=\"window.open(this.href, 'ViewNewsletter'); return false\">"
+					."<img ${msnl_asCSS['IMG_def']} src=\"./modules/$msnl_sModuleNm/images/view.png\" height='16' width='16' "
+							."alt=\"". _MSNL_NLS_LNK_VIEWNL ."\">"
+				."</a>&nbsp;\n";
 
 		if ( $msnl_asRec['nid'] > 2 ) {
 
@@ -210,7 +184,7 @@ if ( !$result ) { //Bad SQL call
 	
 	if ( $resultcount < 1 ) { //No rows to display
 	
-		echo "<p><strong>"._MSNL_NLS_MSG_NONLSS."</strong><p>";
+		echo "<p><b>"._MSNL_NLS_MSG_NONLSS."</b><p>";
 		
 	}
 

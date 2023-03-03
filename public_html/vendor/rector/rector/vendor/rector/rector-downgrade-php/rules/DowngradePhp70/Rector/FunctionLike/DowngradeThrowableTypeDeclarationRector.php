@@ -65,18 +65,10 @@ CODE_SAMPLE
     public function refactor(Node $node) : ?Node
     {
         $objectType = new ObjectType('Throwable');
-        $hasChanged = \false;
-        $hasParamChanged = \false;
         foreach ($node->getParams() as $param) {
-            $hasParamChanged = $this->phpDocFromTypeDeclarationDecorator->decorateParamWithSpecificType($param, $node, $objectType);
-            if ($hasParamChanged) {
-                $hasChanged = \true;
-            }
+            $this->phpDocFromTypeDeclarationDecorator->decorateParamWithSpecificType($param, $node, $objectType);
         }
         if (!$this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, $objectType)) {
-            if ($hasChanged) {
-                return $node;
-            }
             return null;
         }
         return $node;

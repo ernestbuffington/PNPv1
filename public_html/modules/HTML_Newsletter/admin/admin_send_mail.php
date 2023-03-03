@@ -1,33 +1,15 @@
 <?php
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
 /************************************************************************/
 /* HTML Newsletter 1.0 module for PHP-Nuke 6.5 - 7.6                    */
 /* By: NukeWorks (webmaster@nukeworks.biz)                              */
@@ -44,16 +26,11 @@
 ************************************************************************/
 /************************************************************************
 * Script:			HTML Newsletter module for PHP-Nuke 6.5 - 7.6
-* Version:		01.03.02
+* Version:		01.03.01
 * Author:			Rob Herder (aka: montego) of montegoscripts.com
 * Contact:		montego@montegoscripts.com
 * Copyright:	Copyright © 2006 by Montego Scripts
 * License:		GNU/GPL (see provided LICENSE.txt file)
-************************************************************************/
-/************************************************************************
-* Rev Date      Change ID       Description
-* -----------   --------------  -----------------------------------------
-* 24-SEP-2006   RN_0000362      Added error check on creation of NL file.
 ************************************************************************/
 
 if ( !defined( 'MSNL_LOADED' ) ) { die( "Illegal File Access" ); }
@@ -69,7 +46,7 @@ $msnl_sFileTmp				= "./modules/$msnl_sModuleNm/archive/tmp.php";
 * Determine if we're in batch send mode. Does nothing right now!
 ************************************************************************/
 
-if ( isSet( $_POST['msnl_op'] ) AND $_POST['msnl_op'] == "hnlnxt" ) {
+if ( isSet( $_POST['msnl_op'] ) AND $_POST['msnl_op'] == "hnlnxt" ) { 
 
 	define('MSNL_BATCH_NEXT', true);
 
@@ -102,16 +79,16 @@ if ( sizeof( $msnl_asERR ) != 0 ) { //Had validation errors so display them
 
 		if ( @file_exists( $msnl_sFileTestEmail ) ) { //Make sure the file still exists
 
-			@include_once( $msnl_sFileTestEmail );
+			@include_once( $msnl_sFileTestEmail );	
 
 			$msnl_sTopic					= stripslashes(	FixQuotes( $ftopic ) );
 			$msnl_sSender					= stripslashes(	FixQuotes( $fsender ) );
 			$msnl_iCID						= intval(	$fcid	);
 			$msnl_sEmailText			= $emailfile;
 
-		} else {  //Does not exist!
+		} else {  //Does not exist!  
 
-			msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_NOTESTEMAIL );
+			msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_NOTESTEMAIL );	
 
 		}
 
@@ -132,7 +109,7 @@ if ( sizeof( $msnl_asERR ) != 0 ) { //Had validation errors so display them
 	} else {
 
 			$msnl_sEmailAddresses	= "";
-
+			
 	}
 
 	/************************************************************************
@@ -169,7 +146,7 @@ if ( sizeof( $msnl_asERR ) != 0 ) { //Had validation errors so display them
 
 	} else {
 
-		msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_INVALIDVIEW );
+		msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_INVALIDVIEW );	
 
 	}
 
@@ -196,10 +173,10 @@ if ( sizeof( $msnl_asERR ) != 0 ) { //Had validation errors so display them
 	************************************************************************/
 
 	$msnl_sDatesent = date( "Y-m-d" );
-
+	
 	if ( $msnl_iView >= 90 ) { //Sending testemail to the Admin
 
-		$msnl_sFilename		= "testemail.php";
+		$msnl_sFilename		= "testemail.php";		
 
 	} else { //Real newsletter filename needed
 
@@ -213,12 +190,8 @@ if ( sizeof( $msnl_asERR ) != 0 ) { //Had validation errors so display them
 
 	if ( !@file_exists( $msnl_sFFilename ) ) { //File does not exist so need to create it
 
-		if ( !@touch( $msnl_sFFilename ) ) { //Cannot create the file - archive directory permissions probably not correct
-
-			msnl_fRaiseAppError( _MSNL_COM_ERR_FILENOTWRITEABLE );
-
-		}
-
+		@touch( $msnl_sFFilename );
+		
 	}
 
 	chmod( $msnl_sFFilename, 0766 );
@@ -231,13 +204,13 @@ if ( sizeof( $msnl_asERR ) != 0 ) { //Had validation errors so display them
 
 			if ( !@copy( $msnl_sFileTestEmail, $msnl_sFFilename ) ) {
 
-				msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_CREATENL );
+				msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_CREATENL );	
 
 			}
 
 		} else {
 
-				msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_NOTESTEMAIL );
+				msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_NOTESTEMAIL );	
 
 		}
 
@@ -246,7 +219,7 @@ if ( sizeof( $msnl_asERR ) != 0 ) { //Had validation errors so display them
 		if ( file_exists( $msnl_sFFilename ) ) { //File exists already so make sure can write to it
 
 			@chmod( $msnl_sFFilename, 0766 );
-
+		
 		}
 
 		$msnl_oFile = fopen( $msnl_sFFilename, "w" );
@@ -267,32 +240,32 @@ if ( sizeof( $msnl_asERR ) != 0 ) { //Had validation errors so display them
 
 	if ( $msnl_iView < 90 ) { //Do not insert if sending testemail to Admin ONLY
 
-		$msnl_iNID = msnl_fAddNls( $msnl_iCID, $msnl_sTopic, $msnl_sSender, $msnl_sFilename,
+		$msnl_iNID = msnl_fAddNls( $msnl_iCID, $msnl_sTopic, $msnl_sSender, $msnl_sFilename, 
 															$msnl_sDatesent, $msnl_iView, $msnl_sGroups );
 
 	} else {
-
+	
 		$msnl_iNID = 2;
-
+		
 	}
-
+	
 	/************************************************************************
 	* Build recipient email SQL string.
 	************************************************************************/
 
 	if ( $msnl_iView == 1 ) {  //All registered users
 
-			$sql = "SELECT `user_id`, `user_email` FROM `".$user_prefix."_users` WHERE `user_email` > ''";
+			$sql = "SELECT `user_id`, `user_email` FROM `".$prefix."_users` WHERE `user_email` > ''";
 
 	} elseif ( $msnl_iView == 2 ) {  //Newsletter subscribers
 
-			$sql = "SELECT `user_id`, `user_email` FROM `".$user_prefix."_users` "
+			$sql = "SELECT `user_id`, `user_email` FROM `".$prefix."_users` "
 						."WHERE `user_email` > '' AND `newsletter` = '1'";
 
 	} elseif ( $msnl_iView == 3 ) {  //Paid subscribers
 
 			$sql = "SELECT `user_id`, `user_email` FROM `"
-						.$user_prefix."_users` a, `"
+						.$prefix."_users` a, `"
 						.$prefix."_subscriptions` b "
 						."WHERE `user_email` > '' AND a.`user_id` = b.`userid`";
 
@@ -301,7 +274,7 @@ if ( sizeof( $msnl_asERR ) != 0 ) { //Had validation errors so display them
 		$nsngrpstr = "'". str_replace("-", "','", $msnl_sGroups) ."'";
 
 		$sql = "SELECT DISTINCT `user_id`, `user_email` FROM `"
-					.$user_prefix."_users` a, `"
+					.$prefix."_users` a, `"
 					.$prefix."_nsngr_users` b "
 					."WHERE b.`uid` = a.`user_id` AND `gid` IN (". $nsngrpstr .") "
 					."ORDER BY a.`user_id`";
@@ -314,8 +287,8 @@ if ( sizeof( $msnl_asERR ) != 0 ) { //Had validation errors so display them
 
 		$sql = "testemail";
 
-	}
-
+	}	
+	
 	/************************************************************************
 	* Send out the newsletter!
 	************************************************************************/
@@ -344,11 +317,11 @@ if ( sizeof( $msnl_asERR ) != 0 ) { //Had validation errors so display them
 			echo "<p>"._MSNL_ADM_SEND_MSG_SENDFAILURE."</p>\n";
 
 		} //End check if newsletter was sent
-
+		
 	} //End check if view is of send type
-
+	
 	echo $msnl_sNlsLnk;
-
+	
 	/************************************************************************
 	* Clean up temporary newsletter files.
 	************************************************************************/
@@ -359,7 +332,7 @@ if ( sizeof( $msnl_asERR ) != 0 ) { //Had validation errors so display them
 
 			if ( !@unlink( $msnl_sFileTestEmail ) ) {
 
-				msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_DELFILETEST );
+				msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_DELFILETEST );	
 
 			}
 
@@ -371,7 +344,7 @@ if ( sizeof( $msnl_asERR ) != 0 ) { //Had validation errors so display them
 
 		if ( !@unlink( $msnl_sFileTmp ) ) {
 
-			msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_DELFILETMP );
+			msnl_fRaiseAppError( _MSNL_ADM_SEND_ERR_DELFILETMP );	
 
 		}
 

@@ -159,17 +159,17 @@ function tt_Htm(tt, t_id, txt)
 	if(t_tit)
 	{
 		t_y += '<tr><td style="padding-left:3px;padding-right:3px;" align="'+t_algn+'"><font color="'+t_titc+'" face="'+t_ff+'" ' +
-			'style="color:'+t_titc+';font-family:'+t_ff+';font-size:'+t_fsz+';"><strong>' +
-			(tt_n4? '&nbsp;' : '')+t_tit+'</strong></font></td></tr>';
+			'style="color:'+t_titc+';font-family:'+t_ff+';font-size:'+t_fsz+';"><b>' +
+			(tt_n4? '&nbsp;' : '')+t_tit+'</b></font></td></tr>';
 	}
 	t_y += '<tr><td><table border="0" cellpadding="'+t_padd+'" cellspacing="'+t_bw+'" width="100%">' +
 		'<tr><td'+(t_bgc? (' bgcolor="'+t_bgc+'"') : '')+(t_bgimg? ' background="'+t_bgimg+'"' : '')+' style="text-align:'+t_algn+';';
 	if(tt_n6) t_y += 'padding:'+t_padd+'px;';
 	t_y += '" align="'+t_algn+'"><font color="'+t_fc+'" face="'+t_ff+'"' +
 		' style="color:'+t_fc+';font-family:'+t_ff+';font-size:'+t_fsz+';font-weight:'+t_fwght+';">';
-	if(t_fwght == 'bold') t_y += '<strong>';
+	if(t_fwght == 'bold') t_y += '<b>';
 	t_y += txt;
-	if(t_fwght == 'bold') t_y += '</strong>';
+	if(t_fwght == 'bold') t_y += '</b>';
 	t_y += '</font></td></tr></table></td></tr></table>';
 	if(t_shw)
 	{

@@ -1,33 +1,15 @@
 <?php
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
 /************************************************************************/
 /* HTML Newsletter 1.0 module for PHP-Nuke 6.5 - 7.6                    */
 /* By: NukeWorks (webmaster@nukeworks.biz)                              */
@@ -43,18 +25,12 @@
 * License: GNU/GPL
 ************************************************************************/
 /************************************************************************
-* Script:     HTML Newsletter module for PHP-Nuke 6.5 - 7.6
-* Version:    01.03.02
-* Author:     Rob Herder (aka: montego) of montegoscripts.com
-* Contact:    montego@montegoscripts.com
-* Copyright:  Copyright © 2006 by Montego Scripts
-* License:    GNU/GPL (see provided LICENSE.txt file)
-************************************************************************/
-/************************************************************************
-* Rev Date      Change ID       Description
-* -----------   --------------  -----------------------------------------
-* 18-MAY-2006   RN_0000185      Make HTML 4.01 Transitional Compliant,
-*                               plus better use of quotes
+* Script:			HTML Newsletter module for PHP-Nuke 6.5 - 7.6
+* Version:		01.03.01
+* Author:			Rob Herder (aka: montego) of montegoscripts.com
+* Contact:		montego@montegoscripts.com
+* Copyright:	Copyright © 2006 by Montego Scripts
+* License:		GNU/GPL (see provided LICENSE.txt file)
 ************************************************************************/
 
 /*Placeholders Table Of Contents
@@ -145,15 +121,16 @@ $newscontentstop = <<< EOD
 										<table width="100%" border="0"
 										cellspacing="1" cellpadding="0">
 											<tr>
-												<td height="27" class="cellpicbg">
+												<td height="27" background=
+												"{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/cellpic1.gif" bgcolor=
+												"#EAEDF4">
 													<table width="100%"
 																 border="0"
 																 cellspacing="0"
 																 cellpadding="4">
 														<tr>
-															<td><font class="storytitle">
-																<strong>Newsletter Contents</strong></font>
-															</td>
+															<td><font class=
+															"block-title"><strong>Newsletter Contents</strong></font></td>
 														</tr>
 													</table>
 												</td>
@@ -246,15 +223,16 @@ $statstable = <<< EOD
 										<table width="100%" border="0"
 										cellspacing="1" cellpadding="0">
 											<tr>
-												<td height="27" class="cellpicbg">
+												<td height="27" background=
+												"{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/cellpic1.gif" bgcolor=
+												"#EAEDF4">
 													<table width="100%"
 																 border="0"
 																 cellspacing="0"
 																 cellpadding="4">
 														<tr>
-															<td><font class="storytitle">
-																<strong>Site Statistics</strong></font>
-															</td>
+															<td><font class=
+															"block-title"><strong>Site Statistics</strong></font></td>
 														</tr>
 													</table>
 												</td>
@@ -277,12 +255,12 @@ $statstable = <<< EOD
 																		</td>
 																		<td align="right">
 																			<font class="content">
-																			<strong>{PAGEHITS}</strong>
+																			<b>{PAGEHITS}</b>
 																			</font>
 																		</td>
 																	</tr>
 																</table>
-																<hr noshade />
+																<hr noshade>
 
 																<table width="100%">
 																	<tr>
@@ -293,12 +271,12 @@ $statstable = <<< EOD
 																		</td>
 																		<td align="right">
 																			<font class="content">
-																			<strong>{MEMBERS}</strong>
+																			<b>{MEMBERS}</b>
 																			</font>
 																		</td>
 																	</tr>
 																</table>
-																<hr noshade />
+																<hr noshade>
 
 																<table width="100%">
 																	<tr>
@@ -309,12 +287,12 @@ $statstable = <<< EOD
 																		</td>
 																		<td align="right">
 																			<font class="content">
-																			<strong>{NEWSITEMS} in {NEWSCAT} categories</strong>
+																			<b>{NEWSITEMS} in {NEWSCAT} categories</b>
 																			</font>
 																		</td>
 																	</tr>
 																</table>
-																<hr noshade />
+																<hr noshade>
 
 																<table width="100%">
 																	<tr>
@@ -325,12 +303,12 @@ $statstable = <<< EOD
 																		</td>
 																		<td align="right">
 																			<font class="content">
-																			<strong>{DOWNLOADS} in {DOWNLOADCAT} categories</strong>
+																			<b>{DOWNLOADS} in {DOWNLOADCAT} categories</b>
 																			</font>
 																		</td>
 																	</tr>
 																</table>
-																<hr noshade />
+																<hr noshade>
 
 																<table width="100%">
 																	<tr>
@@ -341,12 +319,12 @@ $statstable = <<< EOD
 																		</td>
 																		<td align="right">
 																			<font class="content">
-																			<strong>{WEBLINKS} in {WEBLINKCAT} categories</strong>
+																			<b>{WEBLINKS} in {WEBLINKCAT} categories</b>
 																			</font>
 																		</td>
 																	</tr>
 																</table>
-																<hr noshade />
+																<hr noshade>
 
 																<table width="100%">
 																	<tr>
@@ -357,12 +335,12 @@ $statstable = <<< EOD
 																		</td>
 																		<td align="right">
 																			<font class="content">
-																			<strong>{FORUMPOSTS} in {FORUMTOPICS} topics</strong>
+																			<b>{FORUMPOSTS} in {FORUMTOPICS} topics</b>
 																			</font>
 																		</td>
 																	</tr>
 																</table>
-																<hr noshade />
+																<hr noshade>
 
 																<table width="100%">
 																	<tr>
@@ -373,12 +351,12 @@ $statstable = <<< EOD
 																		</td>
 																		<td align="right">
 																			<font class="content">
-																			<strong>{REVIEWS}</strong>
+																			<b>{REVIEWS}</b>
 																			</font>
 																		</td>
 																	</tr>
 																</table>
-																<hr noshade />
+																<hr noshade>
 
 															</td>
 														</tr>
@@ -428,7 +406,9 @@ $latestnewstop = <<< EOD
 										<table width="100%" border="0"
 										cellspacing="1" cellpadding="0">
 											<tr>
-												<td height="27" class="cellpicbg">
+												<td height="27" background=
+												"{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/cellpic3.gif" bgcolor=
+												"#EAEDF4">
 													<table width="100%"
 																 border="0"
 																 cellspacing="0"
@@ -438,7 +418,7 @@ $latestnewstop = <<< EOD
 																<div align="left">
 																	<font class=
 																	"storytitle">
-																	<strong>Our {AMOUNT} Latest News Items</strong>
+																	<b>Our {AMOUNT} Latest News Items</b>
 																	</font>
 																</div>
 															</td>
@@ -533,7 +513,9 @@ $latestdownloadtop =  <<< EOD
 										<table width="100%" border="0"
 										cellspacing="1" cellpadding="0">
 											<tr>
-												<td height="27" class="cellpicbg">
+												<td height="27" background=
+												"{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/cellpic3.gif" bgcolor=
+												"#EAEDF4">
 													<table width="100%"
 																 border="0"
 																 cellspacing="0"
@@ -543,7 +525,7 @@ $latestdownloadtop =  <<< EOD
 																<div align="left">
 																	<font class=
 																	"storytitle">
-																	<strong>Our {AMOUNT} Latest Downloads</strong>
+																	<b>Our {AMOUNT} Latest Downloads</b>
 																	</font>
 																</div>
 															</td>
@@ -630,7 +612,9 @@ $latestweblinktop = <<< EOD
 										<table width="100%" border="0"
 										cellspacing="1" cellpadding="0">
 											<tr>
-												<td height="27" class="cellpicbg">
+												<td height="27" background=
+												"{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/cellpic3.gif" bgcolor=
+												"#EAEDF4">
 													<table width="100%"
 																 border="0"
 																 cellspacing="0"
@@ -640,7 +624,7 @@ $latestweblinktop = <<< EOD
 																<div align="left">
 																	<font class=
 																	"storytitle">
-																	<strong>Our {AMOUNT} Latest Web Links</strong>
+																	<b>Our {AMOUNT} Latest Web Links</b>
 																	</font>
 																</div>
 															</td>
@@ -727,7 +711,9 @@ $latestforumtop = <<< EOD
 										<table width="100%" border="0"
 										cellspacing="1" cellpadding="0">
 											<tr>
-												<td height="27" class="cellpicbg">
+												<td height="27" background=
+												"{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/cellpic3.gif" bgcolor=
+												"#EAEDF4">
 													<table width="100%"
 																 border="0"
 																 cellspacing="0"
@@ -737,7 +723,7 @@ $latestforumtop = <<< EOD
 																<div align="left">
 																	<font class=
 																	"storytitle">
-																	<strong>Our {AMOUNT} Latest Forum Posts</strong>
+																	<b>Our {AMOUNT} Latest Forum Posts</b>
 																	</font>
 																</div>
 															</td>
@@ -793,7 +779,7 @@ $latestforumrow = <<< EOD
 		</td>
 		<td>
 			{FTIME}
-			<br />
+			<br>
 			<a href="{SITEURL}/modules.php?name=Forums&amp;file=profile&amp;mode=viewprofile&amp;u={FUSERID}">
 				{FUSERNAME}
 			</a>
@@ -848,7 +834,9 @@ $latestreviewstop = <<< EOD
 										<table width="100%" border="0"
 										cellspacing="1" cellpadding="0">
 											<tr>
-												<td height="27" class="cellpicbg">
+												<td height="27" background=
+												"{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/cellpic3.gif" bgcolor=
+												"#EAEDF4">
 													<table width="100%"
 																 border="0"
 																 cellspacing="0"
@@ -858,7 +846,7 @@ $latestreviewstop = <<< EOD
 																<div align="left">
 																	<font class=
 																	"storytitle">
-																	<strong>Our {AMOUNT} Latest Reviews</strong>
+																	<b>Our {AMOUNT} Latest Reviews</b>
 																	</font>
 																</div>
 															</td>
@@ -936,32 +924,31 @@ EOD;
 
 $emailfile = <<< EOD
 <!-- Hi {USERNAME} Your System cannot read HTML-Mails! Following message was send to you: {TEXTBODY} -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-	"http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
 <html>
 <head>
-	<title>{SITENAME} Email</title>
-	<style type="text/css">
+  <title>{SITENAME} Email</title>
+  <style>
 		<!--
-		div {font-family: verdana,helvetica; font-size: 10px}
-		font {font-family: verdana,helvetica; font-size: 10px}
-		p {font-family: verdana,helvetica; font-size: 10px}
-		td {font-family: verdana,helvetica; font-size: 10px}
+		DIV {FONT-FAMILY: Verdana,Helvetica; FONT-SIZE: 10px}
+		FONT {FONT-FAMILY: Verdana,Helvetica; FONT-SIZE: 10px}
+		P {FONT-FAMILY: Verdana,Helvetica; FONT-SIZE: 10px}
+		TD {FONT-FAMILY: Verdana,Helvetica; FONT-SIZE: 10px}
 		a:link,a:active,a:visited,a.postlink{color:#006699;text-decoration:none}
 		a:hover{color:#dd6900}
-		body{background:#ecf0f6;color:#000000;font:12px verdana,arial,helvetica,sans-serif;margin:6px;padding:0;}
+		body{background:#ecf0f6;color:#000000;font:12px Verdana,Arial,Helvetica,sans-serif;margin:6px;padding:0;}
 		hr{border: 0px solid #ffffff;border-top-width:1px;height:0px}
 		img{border:0}
-		tr.row { background: #ffffff; color: #000000; font-family: verdana, helvetica, sans-serif; font-size: 10px; text-decoration: none; text-align: top; }
-		tr.subtitle { background: #ffffff; border: 1px solid #000000; color: #000000; font-family: verdana, helvetica, sans-serif; font-size: 10px; font-weight: bold; margin-bottom: 5px; margin-top: 5px; padding: 2px 2px 2px 2px; text-decoration: none; }
-		.cellpicbg{background:#EAEDF4 url({SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/cellpic3.gif)}
+		th{background:#005eb2 url({SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/cellpic3.gif);color:#deeef3;font-size:11px;font-weight:bold;height:27px;white-space:nowrap;text-align:center;padding-left:8px;padding-right:8px}
+		tr.row { background: #FFFFFF; color: #000000; font-family: Verdana, Helvetica, sans-serif; font-size: 10px; text-decoration: none; text-align: top; }
+		tr.subtitle { background: #FFFFFF; border: 1px solid #000000; color: #000000; font-family: Verdana, Helvetica, sans-serif; font-size: 10px; font-weight: bold; margin-bottom: 5px; margin-top: 5px; padding: 2px 2px 2px 2px; text-decoration: none; }
 		.bar { border: 1px solid #000000; margin-bottom: 5px; margin-top: 5px; }
-		.block-title {background: none; color: #006699; font-size: 11px; font-family: verdana, helvetica}
+		.block-title {BACKGROUND: none; COLOR: #006699; FONT-SIZE: 11px; FONT-FAMILY: Verdana, Helvetica}
 		.bodyline{background:#ffffff;border:1px solid #98aab1}
-		.boxcontent {background: none; color: #006699; font-size: 10px; font-family: verdana, helvetica}
-		.content {background: none; color: #006699 font-size: 10px; font-family: verdana, helvetica}
-		.storytitle {background: none; color: #deeef3; font-size: 11px; font-weight: bold; font-family: verdana, helvetica; text-decoration: none}
+		.boxcontent {BACKGROUND: none; COLOR: #006699; FONT-SIZE: 10px; FONT-FAMILY: Verdana, Helvetica}
+		.content {BACKGROUND: none; COLOR: #006699 FONT-SIZE: 10px; FONT-FAMILY: Verdana, Helvetica}
+		.storytitle {BACKGROUND: none; COLOR: #DEEEF3; FONT-SIZE: 11px; FONT-WEIGHT: bold; FONT-FAMILY: Verdana, Helvetica; TEXT-DECORATION: none}
 		.tblbot{background: url({SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/tb4_m.gif) repeat-x;width:100%}
 		.tbll{background: url({SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/tb4_l.gif) no-repeat;width:8px}
 		.tblr{background: url({SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/tb4_r.gif) no-repeat;width:8px}
@@ -975,124 +962,124 @@ $emailfile = <<< EOD
 </head>
 
 <body>
-	<table class="bodyline" width="100%" cellspacing="0"
-				 cellpadding="0" border="0">
-		<tr>
-			<td align="center" valign="top">
-				<table class="topbkg" width="100%" cellspacing="0"
-				cellpadding="0" border="0">
-					<tr>
-						<td width="50%" height="110" valign="middle" align="left">
-							 <a href="{SITEURL}/index.php"><img src="{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/logo.jpg"
-								 border="0" alt="Welcome to $sitename!"></a></td>
+  <table class="bodyline" width="100%" cellspacing="0"
+         cellpadding="0" border="0">
+    <tr>
+      <td align="center" valign="top">
+        <table class="topbkg" width="100%" cellspacing="0"
+        cellpadding="0" border="0">
+          <tr>
+            <td width="50%" height="110" valign="middle" align="left">
+               <a href="{SITEURL}/index.php"><img src="{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/logo.jpg"
+                 border="0" alt="Welcome to $sitename!"></a></td>
 
-						<td width="50%" height="110" valign="middle"><div class="ltrtitle">{SITENAME} Newsletter</div></td>
-					</tr>
-				</table>
+            <td width="50%" height="110" valign="middle"><div class="ltrtitle">{SITENAME} Newsletter</div></td>
+          </tr>
+        </table>
 
-				<table width="100%" border="0" cellspacing="0"
-							 cellpadding="2">
-					<tr>
-						<td class="topnav" width="70%" nowrap>
-							<div align="left">
-								<font class="content"><strong>   By: </strong>{SENDER}<strong> Topic: </strong>{EMAILTOPIC}</font>
-							</div>
-						</td>
+        <table width="100%" border="0" cellspacing="0"
+               cellpadding="2">
+          <tr>
+            <td class="topnav" width="70%" nowrap>
+              <div align="left">
+                <font class="content"><strong>   By: </strong>{SENDER}<strong> Topic: </strong>{EMAILTOPIC}</font>
+              </div>
+            </td>
 
-						<td class="topnav" width="30%" nowrap>
-							<div align="right">{DATE}</div>
-						</td>
-					</tr>
-				</table>
+            <td class="topnav" width="30%" nowrap>
+              <div align="right">{DATE}</div>
+            </td>
+          </tr>
+        </table>
 
-				<table border="0" cellpadding="0" cellspacing="0"
-							 class="tbl">
-					<tr>
-						<td class="tbll"><img src="{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/spacer.gif" alt="" width="8"
-								 height="4"></td>
+        <table border="0" cellpadding="0" cellspacing="0"
+               class="tbl">
+          <tr>
+            <td class="tbll"><img src="{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/spacer.gif" alt="" width="8"
+                 height="4"></td>
 
-						<td class="tblbot"><img src="{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/spacer.gif" alt=""
-								 width="8" height="4"></td>
+            <td class="tblbot"><img src="{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/spacer.gif" alt=""
+                 width="8" height="4"></td>
 
-						<td class="tblr"><img src="{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/spacer.gif" alt="" width="8"
-								 height="4"></td>
-					</tr>
-				</table>
+            <td class="tblr"><img src="{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/spacer.gif" alt="" width="8"
+                 height="4"></td>
+          </tr>
+        </table>
 
-				<table width="100%" cellpadding="0" cellspacing="0"
-							 border="0" align="center">
-					<tr valign="top">
-						<td><img src="{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/spacer.gif" width="1" height="1"
-								 border="0" alt=""></td>
-					</tr>
-				</table>
+        <table width="100%" cellpadding="0" cellspacing="0"
+               border="0" align="center">
+          <tr valign="top">
+            <td><img src="{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/spacer.gif" width="1" height="1"
+                 border="0" alt=""></td>
+          </tr>
+        </table>
 
-				<!-- Main Newsletter Section -->
-				<table width="100%" cellpadding="0" cellspacing="0"
-							 border="0" align="center">
-					<tr valign="top">
-						<td valign="top">
+        <!-- Main Newsletter Section -->
+        <table width="100%" cellpadding="0" cellspacing="0"
+               border="0" align="center">
+          <tr valign="top">
+            <td valign="top">
 
-							<!-- Start of Newsletter Table of Contents Block -->
-							{TOC}
+              <!-- Start of Newsletter Table of Contents Block -->
+              {TOC}
 
-							<!-- Start of Site Statistics -->
-							{STATS}
-						</td>
+              <!-- Start of Site Statistics -->
+              {STATS}
+            </td>
 
-						<td valign="top" width="100%">
-							<table width="100%" border="0" cellspacing="0"
-							cellpadding="4">
-								<tr>
-									<td>
-										<table width="100%" border="0" cellspacing="0"
-													 cellpadding="1">
-											<tr>
-												<td bgcolor="#006699">
-													<table width="100%" border="0"
-													cellspacing="0" cellpadding="0">
-														<tr>
-															<td bgcolor="#FFFFFF">
-																<table width="100%" border="0"
-																cellspacing="1" cellpadding="0">
-																	<tr>
-																		<td bgcolor="#FFFFFF">
-																			<table width="100%"
-																						 border="0"
-																						 cellspacing="0"
-																						 cellpadding="4">
-																				<tr>
-																					<td>
-																						{TEXTBODY}
-																					</td>
-																				</tr>
-																			</table>
-																		</td>
-																	</tr>
-																</table>
-															</td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-										</table>
+            <td valign="top" width="100%">
+              <table width="100%" border="0" cellspacing="0"
+              cellpadding="4">
+                <tr>
+                  <td>
+                    <table width="100%" border="0" cellspacing="0"
+                           cellpadding="1">
+                      <tr>
+                        <td bgcolor="#006699">
+                          <table width="100%" border="0"
+                          cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td bgcolor="#FFFFFF">
+                                <table width="100%" border="0"
+                                cellspacing="1" cellpadding="0">
+                                  <tr>
+                                    <td bgcolor="#FFFFFF">
+                                      <table width="100%"
+                                             border="0"
+                                             cellspacing="0"
+                                             cellpadding="4">
+                                        <tr>
+                                          <td>
+                                            {TEXTBODY}
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
 
-										<table border="0" cellpadding="0"
-													 cellspacing="0" class="tbl">
-											<tr>
-												<td class="tbll"><img src="{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/spacer.gif"
-														 alt="" width="8" height="4"></td>
+                    <table border="0" cellpadding="0"
+                           cellspacing="0" class="tbl">
+                      <tr>
+                        <td class="tbll"><img src="{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/spacer.gif"
+                             alt="" width="8" height="4"></td>
 
-												<td class="tblbot"><img src="{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/spacer.gif"
-												alt="" width="8" height="4"></td>
+                        <td class="tblbot"><img src="{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/spacer.gif"
+                        alt="" width="8" height="4"></td>
 
-												<td class="tblr"><img src="{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/spacer.gif"
-														 alt="" width="8" height="4"></td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-							</table>
+                        <td class="tblr"><img src="{SITEURL}/modules/HTML_Newsletter/templates/{TEMPLATENAME}/spacer.gif"
+                             alt="" width="8" height="4"></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
 
 							<!-- Start of Latest News Articles Section -->
 							<a name="LatestNews"></a>
@@ -1114,13 +1101,13 @@ $emailfile = <<< EOD
 							<a name="LatestReviews"></a>
 							{REVIEWS}
 
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-	</table>
-	<br />
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <br>
 	<center>{BANNER}</center>
 	<div class="unsub">You received this email because you are a registered user of {SITENAME}, if you dont want to receive mail from {SITENAME}, please let us know by following this <a href="mailto:{ADMINEMAIL}?subject=Unsubcribe from Newsletter" title="Unsubscribe me please">link</a>.</div>
 </body>

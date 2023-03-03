@@ -1,33 +1,15 @@
 <?php
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
 /************************************************************************/
 /* HTML Newsletter 1.0 module for PHP-Nuke 6.5 - 7.6                    */
 /* By: NukeWorks (webmaster@nukeworks.biz)                              */
@@ -44,16 +26,11 @@
 ************************************************************************/
 /************************************************************************
 * Script:			HTML Newsletter module for PHP-Nuke 6.5 - 7.6
-* Version:		01.03.02
+* Version:		01.03.01
 * Author:			Rob Herder (aka: montego) of montegoscripts.com
 * Contact:		montego@montegoscripts.com
 * Copyright:	Copyright © 2006 by Montego Scripts
 * License:		GNU/GPL (see provided LICENSE.txt file)
-************************************************************************/
-/************************************************************************
-* Rev Date      Change ID       Description
-* -----------   --------------  -----------------------------------------
-* 24-SEP-2006   RN_0000362      Added error check on creation of NL file.
 ************************************************************************/
 
 if ( !defined( 'MSNL_LOADED' ) ) { die( "Illegal File Access" ); }
@@ -80,11 +57,7 @@ if ( sizeof( $msnl_asERR ) == 0 ) { //Had no validation errors so make the NL an
 
 	$msnl_sTmpFile = "./modules/$msnl_sModuleNm/archive/tmp.php";
 
-	if ( !@touch( $msnl_sTmpFile ) ) { //Cannot create the file - archive directory permissions probably not correct
-
-		msnl_fRaiseAppError( _MSNL_COM_ERR_FILENOTWRITEABLE );
-
-	}
+	@touch( $msnl_sTmpFile );
 
 	@chmod( $msnl_sTmpFile, 0766 );
 
@@ -99,7 +72,7 @@ if ( sizeof( $msnl_asERR ) == 0 ) { //Had no validation errors so make the NL an
 	$msnl_sURL	= "./modules.php?name=".$msnl_sModuleNm."&amp;op=msnl_nls_view&amp;msnl_nid=1";
 
 	echo "<div id=\"msnl_div_preview\">\n"
-				."<strong>"._MSNL_ADM_PREV_MSG_SUCCESS."</strong><br /><br />\n"
+				."<b>"._MSNL_ADM_PREV_MSG_SUCCESS."</b><br /><br />\n"
 				."<a href=\"$msnl_sURL\" title=\""._MSNL_NLS_LNK_VIEWNL."\" "
 					."onclick=\"window.open(this.href, 'ViewNewsletter'); return false\">"
 					._MSNL_ADM_PREV_LAB_PREVNL

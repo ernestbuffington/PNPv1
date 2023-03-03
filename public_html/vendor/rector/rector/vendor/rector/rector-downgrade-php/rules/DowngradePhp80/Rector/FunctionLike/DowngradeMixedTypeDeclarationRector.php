@@ -64,18 +64,10 @@ CODE_SAMPLE
     public function refactor(Node $node) : ?Node
     {
         $mixedType = new MixedType();
-        $hasChanged = \false;
-        $hasParamChanged = \false;
         foreach ($node->getParams() as $param) {
-            $hasParamChanged = $this->phpDocFromTypeDeclarationDecorator->decorateParamWithSpecificType($param, $node, $mixedType);
-            if ($hasParamChanged) {
-                $hasChanged = \true;
-            }
+            $this->phpDocFromTypeDeclarationDecorator->decorateParamWithSpecificType($param, $node, $mixedType);
         }
         if (!$this->phpDocFromTypeDeclarationDecorator->decorateReturnWithSpecificType($node, $mixedType)) {
-            if ($hasChanged) {
-                return $node;
-            }
             return null;
         }
         return $node;

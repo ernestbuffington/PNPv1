@@ -1,0 +1,89 @@
+############################################################## 
+## 
+## MOD Title:             Advanced Username Color (Extra Feature)
+## 
+## MOD Author:            aUsTiN => austin_inc@hotmail.com 
+## 
+## MOD Description:       This will allow auc_listing.php to list moderators, admins & jr admins.
+## 
+## MOD Version:           1.0.0
+## 
+## MOD Help:              http://phpbb-amod.com/ 
+## 
+## Installation Level:    Easy
+## 
+## Installation Time:     1 Minute
+## 
+## Files To Edit:         1
+## 
+## Included Files:        0
+##
+############################################################## 
+############################################################## 
+## 
+## MOD History: 
+##
+##   Sep 18th 2004 - Version 1.0.0
+##         - Beta Released 
+##
+############################################################## 
+## 
+## Before Adding This MOD To Your Forum, You Should Back Up All Files Related To This MOD 
+## 
+############################################################## 
+## 
+##   Definitions: 
+## 
+##      Root: Folder your config.php is located 
+##      templates/*/: Your template folder (All template folders are suggested) 
+##      lang_*/: Your current language folder (All lang folders are suggested) 
+## 
+############################################################## 
+
+----------------------------------- 
+----[ OPEN ]----------------------- 
+-----------------------------------
+
+includes/page_header.php
+
+----------------------------------- 
+----[ FIND ]----------------------- 
+-----------------------------------
+
+	'L_WHOSONLINE_ADMIN' => sprintf($lang['Admin_online_color'], '<span style="color:#' . $theme['fontcolor3'] . '">', '</span>'),
+
+----------------------------------- 
+----[ REPLACE WITH ]---------------
+-----------------------------------
+
+	'L_WHOSONLINE_ADMIN' => sprintf("<a href='auc_listing.". $phpEx ."?group=admins' class='mainmenu'>". $lang['Admin_online_color'] ."</a>", '<span style="color:#' . $theme['fontcolor3'] . '">', '</span>'),
+
+----------------------------------- 
+----[ FIND ]----------------------- 
+-----------------------------------
+
+	'L_WHOSONLINE_MOD' => sprintf($lang['Mod_online_color'], '<span style="color:#' . $theme['fontcolor2'] . '">', '</span>'),
+
+----------------------------------- 
+----[ REPLACE WITH ]---------------
+-----------------------------------
+
+	'L_WHOSONLINE_MOD' => sprintf("<a href='auc_listing.". $phpEx ."?group=mods' class='mainmenu'>". $lang['Mod_online_color'] ."</a>", '<span style="color:#' . $theme['fontcolor2'] . '">', '</span>'),
+
+----------------------------------- 
+----[ FIND (If you use this mod) ]-
+-----------------------------------
+
+	'L_WHOSONLINE_SUPER_MOD' => sprintf($lang['Super_Mod_online_color'], '<span style="color:#' . $theme['fontcolor4'] . '">', '</span>'),
+
+----------------------------------- 
+----[ REPLACE WITH ]---------------
+-----------------------------------
+
+	'L_WHOSONLINE_SUPER_MOD' => sprintf("<a href='auc_listing.". $phpEx ."?group=less_admins' class='mainmenu'>". $lang['Super_Mod_online_color'] ."</a>", '<span style="color:#' . $theme['fontcolor4'] . '">', '</span>'),
+
+----------------------------------- 
+----[ CLOSE & SAVE ]---------------
+-----------------------------------
+
+EoM

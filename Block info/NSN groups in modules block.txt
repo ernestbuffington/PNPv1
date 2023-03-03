@@ -1,0 +1,101 @@
+/**********************************************************************/
+/* PHP-Nuke Platinum v.7.6.b.3                             NSN GROUPS */
+/*                                                                    */
+/* The Navigation block in PHP-Nuke Platinum already has nsn groups   */
+/* modifications preinstalled. If you wish to change this block to    */
+/* another block, it is recommended that you update the block to      */
+/* comply with nsn groups standards. Making these modifications is    */
+/* not neccessary.                                                    */
+/*                                                                    */
+/* Note: Recommended for confident and experienced users only.        */
+/*                                                                    */
+/* Note: This is untested on sommaire navigation.                     */
+/*                                                                    */
+/* Note: If you cannot get these modifications to work, or fail to    */
+/*       locate the correct code, feel free to modify the navigation  */
+/*       block included with PHP-Nuke Platinum 7.6.b.3 to suit your   */
+/*       needs. Be sure to comply with license.txt.                   */
+/*                                                                    */
+/* Important: These modifcations are not needed to the                */
+/*    block-Navigation included with PHP-Nuke Platinum 7.6.b.3        */
+/*    as these modifications are already included.                    */
+/*                                                                    */
+/* Installation instructions:                                         */
+/*  Step 1. Follow the instructions below.                            */
+/*                                                                    */
+/**********************************************************************/
+
+/**********************************************************************/
+/*  Step 2.                                                NSN GROUPS */
+/******[ OPEN ]********************************************************/
+/* [this is for blocks that display modules only]
+/*
+block-YOURBLOCK.php
+
+/*
+/******[ FIND ]********************************************************/
+/*
+    $result3 = $db->sql_query("SELECT * FROM " . $prefix . "_modules WHERE active='1' AND title!='$def_module' AND inmenu='1' ORDER BY custom_title ASC");
+    while ($row3 = $db->sql_fetchrow($result3)) {
+	$groups = $row3['groups'];
+	$m_title = stripslashes($row3['title']);
+
+/*
+/******[ REPLACE, WITH ]***********************************************/
+/*
+    $result3 = $db->sql_query("SELECT * FROM " . $prefix . "_modules WHERE active='1' AND title!='$def_module' AND inmenu='1' ORDER BY custom_title ASC");
+    while ($row3 = $db->sql_fetchrow($result3)) {
+	$groups = $row3['groups'];
+	$m_title = stripslashes($row3['title']);
+
+/*
+/******[ FIND ]********************************************************/
+/*
+	if ($m_title != $main_module) {
+	    if ((is_admin($admin) AND $view == 2) OR $view != 2) {
+		$content .= "<strong><big>&middot;</big></strong>&nbsp;<a href=\"modules.php?name=$m_title\">$m_title2</a><br>\n";
+	    }
+   
+/*
+/******[ REPLACE, WITH ]***********************************************/
+/* 
+	if ($m_title != $main_module) {
+            if ($view == 0) {
+                $content .= "<strong><big>&middot;</big></strong>&nbsp;<a href=\"modules.php?name=$m_title\">$m_title2</a><br>\n";
+            } elseif ($view == 1 AND is_user($user)) {
+                $content .= "<strong><big>&middot;</big></strong>&nbsp;<a href=\"modules.php?name=$m_title\">$m_title2</a><br>\n";
+            } elseif ($view == 2 AND is_admin($admin)) {
+                $content .= "<strong><big>&middot;</big></strong>&nbsp;<a href=\"modules.php?name=$m_title\">$m_title2</a><br>\n";
+            } elseif ($view == 3 AND paid()) {
+                $content .= "<strong><big>&middot;</big></strong>&nbsp;<a href=\"modules.php?name=$m_title\">$m_title2</a><br>\n";
+            } elseif ($view > 3 AND in_groups($groups)) {
+		$content .= "<strong><big>&middot;</big></strong>&nbsp;<a href=\"modules.php?name=$m_title\">$m_title2</a><br>\n";
+	    }
+
+/*
+/******[ FIND ]********************************************************/
+/*
+		    $db->sql_query("INSERT INTO ".$prefix."_modules VALUES (NULL, '$modlist[$i]', '$mod_uname', '0', '0', '1', '0', '')");
+
+/*
+/******[ REPLACE, WITH ]***********************************************/
+/* 
+		    $db->sql_query("INSERT INTO ".$prefix."_modules VALUES (NULL, '$modlist[$i]', '$mod_uname', '0', '0', '1', '0', '0', '')");
+
+/*                                                                    */
+/***************[ SAVE/CLOSE/UPLOAD/REPLACE ALL FILES ]****************/
+/*                                                                    */
+/**********************************************************************/
+/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                */
+/*       Graeme Allan - Techgfx                   (goose@techgfx.com) */
+/*       Scott Partee - Loki                     (loki@nukeplanet.com)*/
+/**********************************************************************/
+/* All content and includes from this package is intellectual         */
+/* property of TechGFX.com unless stated otherwise. Replication of    */
+/* and copyrighted material is a civil and criminal act and           */
+/* violations may result in legal action.                             */
+/**********************************************************************/
+/* See nukeplanet.com for detailed information on the                 */
+/* this version of the Platinum Suite                                 */
+/* TechGFX: Your dreams, Our imagination                              */
+/**********************************************************************/

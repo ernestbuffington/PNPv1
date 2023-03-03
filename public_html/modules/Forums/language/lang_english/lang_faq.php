@@ -1,4 +1,9 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
+
 /***************************************************************************
  *                          lang_faq.php [english]
  *                            -------------------
@@ -8,8 +13,8 @@
  *
  *   $Id: lang_faq.php,v 1.4.2.3 2002/12/18 15:40:20 psotfx Exp $
  *
- *
  ***************************************************************************/
+
 /***************************************************************************
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -18,40 +23,13 @@
  *   (at your option) any later version.
  *
  ***************************************************************************/
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+
 /* CONTRIBUTORS:
-	2002-12-15	Philip M. White (pwhite@mailhaven.com)
-		Fixed many minor grammatical problems.
+    2002-12-15    Philip M. White (pwhite@mailhaven.com)
+        Fixed many minor grammatical problems.
 */
-// 
+
+//
 // To add an entry to your FAQ simply add a line to this file in this format:
 // $faq[] = array("question", "answer");
 // If you want to separate a section enter $faq[] = array("--","Block heading goes here if wanted");
@@ -100,10 +78,18 @@ $faq[] = array("What are Moderators?", "Moderators are individuals (or groups of
 $faq[] = array("What are Usergroups?", "Usergroups are a way in which board administrators can group users. Each user can belong to several groups (this differs from most other boards) and each group can be assigned individual access rights. This makes it easy for administrators to set up several users as moderators of a forum, or to give them access to a private forum, etc.");
 $faq[] = array("How do I join a Usergroup?", "To join a usergroup click the usergroup link on the page header (dependent on template design), you can then view all usergroups. Not all groups are <i>open access</i>, some are closed and some may even have hidden memberships. If the board is open then you can request to join it by clicking the appropriate button. The user group moderator will need to approve your request, they may ask why you want to join the group. Please do not pester a group moderator if they turn your request down, they will have their reasons.");
 $faq[] = array("How do I become a Usergroup Moderator?", "Usergroups are initially created by the board admin, they also assign a board moderator. If you are interested in creating a usergroup then your first point of contact should be the admin, try dropping them a private message.");
+
+$faq[] = array("--","Printer-Friendly Topic View");
+$faq[] = array("What is the :| |: button for? - Cancelling the board's pagination", "By clicking on this button you can locally remove the board's fixed pagination for the current topic to help your web browser do the proper pagination for printing based on actual line spacing, rather than the forum-wide limit for number of messages per page.");
+$faq[] = array("What are the boxes on top of the printable output? - Range selection", "There are two boxes on top of the page and a tape-recorder-like button Show. They allow to select a range of messages. Note that every message in the printable view has a number. Use those numbers to fill out the boxes on top to set up the first and the last message you want to be printed, and press the Show button to rearrange the messages. Another way to set a range is to put a negative number in the second box, which will mean that you want -n of messages to be printed. For example, 4 7 will output messages 4, 5, 6, 7. However if you enter values 4 -7 in first and second box respectively, messages 4, 5, 6, 7, 8, 9, 10 will be shown after you press the rewind button.");
+$faq[] = array("How to print only one message? - Advanced range selection", "First, go to the printable view of the topic by pressing the Printer button in the topic view. Find your message and note the number in the left of it. Type that number into the first box in the top left of the printable view. In the second box put value -1 and press the Show button. This will tell the database to output only one message starting from the given one. Another way of getting this result is by putting the same number in both boxes. Let's say you want to print only the message number 16. Fill out the boxes in the top as such: 16 -1 and press the go button Show. Instead of 16 and -1 you could as well enter 16 and 16. The result will be the same. This example will work only if there are at least sixteen messages in the current topic, of course.");
+$faq[] = array("More questions?", "Detailed documentation and support forums are <a href=\"http://wiking.sourceforge.net/phpBB2/wakka.php?wakka=PrinterFriendlyTopicView\">here</a>");
+
 $faq[] = array("--","Private Messaging");
 $faq[] = array("I cannot send private messages!", "There are three reasons for this; you are not registered and/or not logged on, the board administrator has disabled private messaging for the entire board or the board administrator has prevented you from sending messages. If it is the later case you should try asking the administrator why.");
 $faq[] = array("I keep getting unwanted private messages!", "In the future we will be adding an ignore list to the private messaging system. For now though if you keep receiving unwanted private messages from someone inform the board admin, they have the power to prevent a user from sending private messages at all.");
 $faq[] = array("I have received a spamming or abusive email from someone on this board!", "We are sorry to hear that. The email form feature of this board includes safeguards to try and track users who send such posts. You should email the board administrator with a full copy of the email you received, it is very important this include the headers (these list details of the user that sent the email). They can then take action.");
+
 //
 // These entries should remain in all languages and for all modifications
 //
@@ -111,7 +97,9 @@ $faq[] = array("--","phpBB 2 Issues");
 $faq[] = array("Who wrote this bulletin board?", "This software (in its unmodified form) is produced, released and is copyright  <a href=\"http://www.phpbb.com/\" target=\"_blank\">phpBB Group</a>. It is made available under the GNU General Public Licence and may be freely distributed, see link for more details");
 $faq[] = array("Why isn't X feature available?", "This software was written by and licensed through phpBB Group. If you believe a feature needs to be added then please visit the phpbb.com website and see what phpBB Group have to say. Please do not post feature requests to the board at phpbb.com, the Group uses sourceforge to handle tasking of new features. Please read through the forums and see what, if any, our position may already be for a feature and then follow the procedure given there.");
 $faq[] = array("Who do I contact about abusive and/or legal matters related to this board?", "You should contact the administrator of this board. If you cannot find who this you should first contact one of the forum moderators and ask them who you should in turn contact. If still get no response you should contact the owner of the domain (do a whois lookup) or, if this is running on a free service (e.g. yahoo, free.fr, f2s.com, etc.), the management or abuse department of that service. Please note that phpBB Group has absolutely no control and cannot in any way be held liable over how, where or by whom this board is used. It is absolutely pointless contacting phpBB Group in relation to any legal (cease and desist, liable, defamatory comment, etc.) matter not directly related to the phpbb.com website or the discrete software of phpBB itself. If you do email phpBB Group about any third party use of this software then you should expect a terse response or no response at all.");
+
 //
 // This ends the FAQ entries
 //
+
 ?>

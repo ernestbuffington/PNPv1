@@ -147,16 +147,16 @@ final class CurrentAndParentClassMethodComparator
     }
     private function areParameterDefaultsDifferent(ClassMethod $classMethod, ExtendedMethodReflection $extendedMethodReflection) : bool
     {
-        $parametersAcceptorWithPhpDocs = ParametersAcceptorSelector::selectSingle($extendedMethodReflection->getVariants());
-        foreach ($parametersAcceptorWithPhpDocs->getParameters() as $key => $parameterReflectionWithPhpDoc) {
+        $parametersAcceptor = ParametersAcceptorSelector::selectSingle($extendedMethodReflection->getVariants());
+        foreach ($parametersAcceptor->getParameters() as $key => $parameterReflection) {
             if (!isset($classMethod->params[$key])) {
-                if ($parameterReflectionWithPhpDoc->getDefaultValue() !== null) {
+                if ($parameterReflection->getDefaultValue() !== null) {
                     continue;
                 }
                 return \true;
             }
             $methodParam = $classMethod->params[$key];
-            if ($this->parameterDefaultsComparator->areDefaultValuesDifferent($parameterReflectionWithPhpDoc, $methodParam)) {
+            if ($this->parameterDefaultsComparator->areDefaultValuesDifferent($parameterReflection, $methodParam)) {
                 return \true;
             }
         }

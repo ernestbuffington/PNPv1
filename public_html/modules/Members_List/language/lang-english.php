@@ -1,56 +1,20 @@
 <?php
-
-/**************************************************************************/
-/* PHP-NUKE: Advanced Content Management System                           */
-/* ============================================                           */
-/*                                                                        */
-/* This is the language module with all the system messages               */
-/*                                                                        */
-/* If you made a translation, please go to the site and send to me        */
-/* the translated file. Please keep the original text order by modules,   */
-/* and just one message per line, also double check your translation!     */
-/*                                                                        */
-/* You need to change the second quoted phrase, not the capital one!      */
-/*                                                                        */
-/* If you need to use double quotes (") remember to add a backslash (\),  */
-/* so your entry will look like: This is \"double quoted\" text.          */
-/* And, if you use HTML code, please double check it.                     */
-/**************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                    COPYRIGHT */
-/*                                                                        */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                    */
-/*     Techgfx - Graeme Allan                         (goose@techgfx.com) */
-/*                                                                        */
-/* Copyright (c) 2004 - 2006 by http://www.conrads-berlin.de              */
-/*     MrFluffy - Axel Conrads                   (axel@conrads-berlin.de) */
-/*                                                                        */
-/* Refer to TechGFX.com for detailed information on Platinum Nuke Pro     */
-/*                                                                        */
-/* Platinum Nuke Pro: Expect to be impressed                                  */
-/**************************************************************************/
-
-define("_URL","URL");
-define("_EMAIL","Email");
-define("_REALNAME","Real Name");
-define("_FLAG","Flag");
-define("_FUNCTIONS","Functions");
-define("_PREVIOUS","Previous Page");
-define("_MEMBERSLIST","Members List");
-define("_GREETINGS","Greetings to our latest registered user:");
-define("_SORTBY","Sort by:");
-define("_MNICKNAME","nickname");
-define("_MREALNAME","real name");
-define("_MEMAIL","email");
-define("_MURL","url");
-define("_ONLINEREG","Current Online Registered Users:");
-define("_WEHAVE","We have");
-define("_MREGISTERED","registered users so far. There are");
-define("_MREGONLINE","registered user(s) online right now.");
-define("_REGSOFAR","registered users so far.");
-define("_USERSFOUND","users found for");
-define("_USERSSHOWN","users shown");
-define("_NOMEMBERS","No members found for");
-define("_PAGES","Pages");
-define("_HOMEPAGE","HomePage");
-
-?>
+/************************************************************************/
+/* [Google-Site-Map] 1.0 by TheGhost              			            */
+/* =================================                                    */
+/* Copyright (c) 2021 by The 86it Developers Network          			*/
+/* http://www.86it.us                                                   */
+/************************************************************************/
+define_once("_GOOGLE_MAP","Google Site Map Generator for");
+define_once("_GOOGLE_SITEMAPADMIN","Google Site Map Generator : Admin Panel");
+define_once("_GOOGLE_SITEMAP_ADMIN_HEADER", "Google Site Map Generator : Admin Panel");
+define_once("_GOOGLE_SITEMAP_RETURNMAIN", "Return to Main Administration");
+define_once("_XMLCREATE","XML Creation:");
+define_once("_YES","Yes:");
+define_once("_NO","No:");
+define_once("_BDOWN","File Repository:");
+define_once("_BLOGS","Blogs:");
+define_once("_BREV","Reviews:");
+define_once("_BUSER","Users:");
+define_once("_NTOPICS","Forum posts:");
+define_once("_OK","Ok");

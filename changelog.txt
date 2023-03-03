@@ -1,0 +1,841 @@
+
+/**********************************************************************/
+/* 7.6b4 (March 19, 2006)
+/* Added the bbtonuke 2.0.19 update patch and fixes to date
+/* Fixed security exploit within mainfile.php
+/* Removed games from arcade that would not submit high score
+
+/* 7.6.b.4  (December 22, 2005)                                       */
+/*  - Updated Sentinel to pl1 patch                                   */
+/*  - Readded Protector System with customized version to work in     */
+/*  - unison with Sentinel                                            */
+/*  - Fixed Admin Creation and User Promotion problem                 */
+/*  - Updated Cash Mod settings                                       */
+/*  - Added Admin Notepad for record keeping between Admins           */
+/*                                                                    */
+/* 7.6.b.3  (December 9, 2005)                                        */
+/*  - Updated PHPBB to 2.0.18 and added all new security updates      */
+/*  - Updated Shout Box to 8.5                                        */
+/*  - Added Arcade Tweaks                                             */
+/*  - Fixed Group Assignment error in forums admin                    */
+/*  - Replaced Protector with Sentinel 2.4.2                          */
+/*  - Installed Advanced Backup system                                */
+/*  - Fixed Cash Mod                                                  */
+/*  - Added 230 games to the arcade                                   */
+/*  - Advanced User Color member add problem fixed                    */
+/*  - Fixed Hosting background code to draw from the theme added      */
+/*  - Fixed Sticky and global post problem                            */
+/*  - Fixed User promotion and Your account bug                       */
+/*  - Updated Reviews Module to a working version                     */
+/*  - Fixed Statistics module for Firefox stats                       */
+/*  - Added Topic Reply with Message included Mod                     */
+/*  - Fixed V2D Double Glance theme problem                           */
+/*  - Added News Page Numbers Mod                                     */
+/*  - Fixed Content Module                                            */
+/*  - Updated Audio and Video Stream bbcode compatibility             */
+/*  - Fixed Debug mode on forums admin                                */
+/*  - Added compatability code to Mainfile.php for servers running    */
+/*  - php as cgi which gave them access denied messages in Admin      */
+/*  - Fix The XSS Exploit thanks to Technocrat                        */
+/*  - Removed the Web bbcode function and button from all themes      */
+/*                                                                    */
+/* PHP-Nuke Platinum v.7.6.b.2  (August 2005)                         */
+/*  - Updated PHPBB to 2.0.17 and added all new security updates      */
+/*  - Fixed Shout Box table problem thanks to Althatinny              */
+/*  - Fixed Arcade Error                                              */
+/*  - Fixed Banners Ads                                               */
+/*  - Fixed Log Moderators Action Addon                               */
+/*  - Fixed Theme System                                              */
+/*  - Added Thank You and Cancel Modules for use with Donations Module*/
+/*                                                                    */
+/* 7.6.B.1                                          [July, 2005]      */
+/*   - Updated PHPBB to 2.0.16 added all security updates             */
+/*   - Updated the Your Account Module to 4.4.2                       */
+/*   - Updated the Shout Box to Version 6.02                          */
+/*   - Addedd over 100 Avatars                                        */
+/*   - Updated Arcade and Added over 30 games preinstalled            */
+/*   - Corrected BBCode Gradient                                      */
+/*   - Corrected BBCode Helpline                                      */
+/*   - Corrected BBCode Java                                          */
+/*   - Corrected BBCode PHP                                           */
+/*   - Corrected BBGroups SQL                                         */
+/*   - Corrected Block Modularity Function                            */
+/*   - Corrected Blocks SQL                                           */
+/*   - Corrected Config SQL                                           */
+/*   - Corrected Content Edit Function                                */
+/*   - Corrected Counter SQL                                          */
+/*   - Corrected Display Error SQL                                    */
+/*   - Corrected Logging SQL                                          */
+/*   - Corrected Platinum Technology SQL                              */
+/*   - Corrected Shout Box Java Source                                */
+/*   - Corrected Theme System SQL                                     */
+/*   - Corrected Universal Administration                             */
+/*   - Corrected Users SQL                                            */
+/*   - Corrected Your Account Private Message Plug                    */
+/*   - Secured Work Board                                             */
+/*   - Upgraded Admin Submissions W3C Compliance                      */
+/*   - Upgraded Admin Navigation W3C Compliance                       */
+/*   - Upgraded Administrative W3C Compliance                         */
+/*   - Upgraded Big Story Of Today W3C Compliance                     */
+/*   - Upgraded Docs W3C Compliance                                   */
+/*   - Upgraded Hosting Administration W3C Compliance                 */
+/*   - Upgraded Installation W3C Compliance                           */
+/*   - Upgraded Navigation W3C Compliance                             */
+/*   - Upgraded News Administration                                   */
+/*   - Upgraded News W3C Compliance                                   */
+/*   - Upgraded PHP-Nuke Tools W3C Compliance                         */
+/*   - Upgraded Sentinel Patch Level                                  */
+/*   - Upgraded SQL                                                   */
+/*   - Upgraded Subscription W3C Compliance                           */
+/*   - Upgraded Theme Conversion                                      */
+/*   - Upgraded T-Platinum W3C Compliance                             */
+/*   - Upgraded Universal Administration W3C Compliance               */
+/*   - Upgraded Universal Language                                    */
+/*   - Upgraded User Information W3C Compliance                       */
+/*   - Upgraded Who Is Online W3C Compliance                          */
+/*   - Upgraded Your Account Administration W3C Compliance            */
+/*                                                                    */
+/* 7.6.0 -> 7.6.b BETA                           [ March, 2005] */
+/*   - Added Action Logging                                           */
+/*   - Added Common Replies                                           */
+/*   - Added Custom Head                                              */
+/*   - Added Double Post Control                                      */
+/*   - Added Error Display Switch                                     */
+/*   - Added Function URLAdmin                                        */
+/*   - Added Glance Advanced Username Colour Compatibility            */
+/*   - Added Original Banners                                         */
+/*   - Added PHP-Nuke Index URL                                       */
+/*   - Added Secure Version Check                                     */
+/*   - Added Theme System                                             */
+/*   - Added Theme Conversion Upgrade                                 */
+/*   - Added Users Custom Box                                         */
+/*   - Added 7.6.0 Upgrade Ability                                    */
+/*   - Corrected 691-760 SQL                                          */
+/*   - Corrected Acronym BBCode                                       */
+/*   - Corrected Administration Indentation                           */
+/*   - Corrected Avatar Screen Width                                  */
+/*   - Corrected Arcade Strings                                       */
+/*   - Corrected Arcade Check                                         */
+/*   - Corrected Arcade Default Config                                */
+/*   - Corrected Attachment Download                                  */
+/*   - Corrected Author Search                                        */
+/*   - Corrected Ban Request Language                                 */
+/*   - Corrected Block Administration Abstraction                     */
+/*   - Corrected Classifeds Permissions                               */
+/*   - Corrected Constants Comments                                   */
+/*   - Corrected Cookies                                              */
+/*   - Corrected Database Restoration                                 */
+/*   - Corrected Documentation                                        */
+/*   - Corrected Edit User Cosmetic                                   */
+/*   - Corrected Forum Avatar Management                              */
+/*   - Corrected Forum Globals                                        */
+/*   - Corrected Forum Queries                                        */
+/*   - Corrected Forum Search                                         */
+/*   - Corrected Glance URL                                           */
+/*   - Corrected GZip Detection                                       */
+/*   - Corrected Illegal Extension                                    */
+/*   - Corrected Illegal Path Disclosures                             */
+/*   - Corrected Journal Entities                                     */
+/*   - Corrected Mailing List Email Function                          */
+/*   - Corrected Protector System Cosmetics                           */
+/*   - Corrected Ranks URL Properties                                 */
+/*   - Corrected Related Negative Return                              */
+/*   - Corrected Report TPL                                           */
+/*   - Corrected Search Variables                                     */
+/*   - Corrected Sort Submission                                      */
+/*   - Corrected Statistics Firefox Recognise                         */
+/*   - Corrected Theme Selection                                      */
+/*   - Corrected Topic Notify Posted Message                          */
+/*   - Corrected Unread Posts Redirection                             */
+/*   - Corrected Upgrade SQL Counter                                  */
+/*   - Corrected View Online URL Location                             */
+/*   - Corrected X5 Timezones                                         */
+/*   - Corrected Your Account Field Addition Syntax                   */
+/*   - Corrected Your Account Fixtext Function                        */
+/*   - Corrected Your Account Registration String                     */
+/*   - Removed Duplicate File                                         */
+/*   - Removed Supplementary News                                     */
+/*   - Secured All Administration Files                               */
+/*   - Secured All Block Files                                        */
+/*   - Secured All Desolate Files                                     */
+/*   - Secured All Module Files                                       */
+/*   - Secured Attachment Download                                    */
+/*   - Secured Banners                                                */
+/*   - Secured FAQ                                                    */
+/*   - Secured Feedback                                               */
+/*   - Secured Journal                                                */
+/*   - Secured Mainfile                                               */
+/*   - Secured phpBB HTTP Post Variables                              */
+/*   - Tweaked Engine Performance x25%                                */
+/*   - Upgraded Advanced Username Colour                              */
+/*   - Upgraded Banner Ads                                            */
+/*   - Upgraded BBCode Box Browser Compatbility                       */
+/*   - Upgraded Block Modularity Engine                               */
+/*   - Upgraded Center Blocks                                         */
+/*   - Upgraded Classifeds                                            */
+/*   - Upgraded Contact Plus                                          */
+/*   - Upgraded Group Downloads                                       */
+/*   - Upgraded Language                                              */
+/*   - Upgraded Mailing List                                          */
+/*   - Upgraded Mainfile Functions                                    */
+/*   - Upgraded Module Administrative Links                           */
+/*   - Upgraded Modules Modularity Engine                             */
+/*   - Upgraded Navigation Block                                      */
+/*   - Upgraded phpBB                                                 */
+/*   - Upgraded PHP-Nuke Patched                                      */
+/*   - Upgraded RPG Races                                             */
+/*   - Upgraded Script Depository                                     */
+/*   - Upgraded Shout Box                                             */
+/*   - Upgraded Supporters                                            */
+/*   - Upgraded Work Board                                            */
+/*   - Upgraded Work Probe                                            */
+/*   - Upgraded Work Request                                          */
+/*   - Upgraded Your Account                                          */
+/*                                                                    */
+/* 7.6.0.9 BETA -> 7.6.0                        [25th December, 2004] */
+/*   - Released Public Final                                          */
+/*                                                                    */
+/* 7.6.0.8 BETA -> 7.6.0.9 BETA                 [24th December, 2004] */
+/*   - Added Configure Smilies Table                                  */
+/*   - Corrected Administration Modules Function                      */
+/*   - Corrected Bit Torrent SQL                                      */
+/*   - Corrected Chat Cosmetics                                       */
+/*   - Corrected Modules Block                                        */
+/*   - Corrected Profile Redirection                                  */
+/*   - Corrected Shout Box SQL                                        */
+/*   - Corrected Universal SQL                                        */
+/*   - Corrected Uploads Cosmetic                                     */
+/*   - Corrected Work Request Language                                */
+/*   - Corrected Your Account Language                                */
+/*   - Corrected Your Account Save Theme                              */
+/*   - Secured Mainfile.php                                           */
+/*   - Tweaked Mainfile.php Performance x10%                          */
+/*   - Upgraded Backup Manager                                        */
+/*   - Upgraded Credits                                               */
+/*   - Upgraded Documentation                                         */
+/*   - Upgraded Sentinel                                              */
+/*   - Upgraded Theme Conversion                                      */
+/*                                                                    */
+/* 7.6.0.7 BETA -> 7.6.0.8 BETA                 [19th December, 2004] */
+/*   - Added Album to Supplementary                                   */
+/*   - Added Group Downloads to Supplementary                         */
+/*   - Added News to Supplementary                                    */
+/*   - Added PHP-Nuke Platinum 6.9.0 Upgradability                    */
+/*   - Added Script Depository to Supplementary                       */
+/*   - Added Server Viewer to Supplementary                           */
+/*   - Added Work Probe to Supplementary                              */
+/*   - Added Work Request to Supplementary                            */
+/*   - Corrected Arcade Hard Table Name                               */
+/*   - Corrected Arcade Header                                        */
+/*   - Corrected Arcade Language                                      */
+/*   - Corrected AvantGo File Structure                               */
+/*   - Corrected Banner Ads Language                                  */
+/*   - Corrected Bit Torrent to Supplementary                         */
+/*   - Corrected Chat Adodb                                           */
+/*   - Corrected Classes Language                                     */
+/*   - Corrected Classifeds Hard Prefix                               */
+/*   - Corrected Coppermine to Supplementary                          */
+/*   - Corrected Functions                                            */
+/*   - Corrected Forum Group Permissions                              */
+/*   - Corrected ForumNews Case Language                              */
+/*   - Corrected ForumNews Search                                     */
+/*   - Corrected Donations Block                                      */
+/*   - Corrected Journal Display                                      */
+/*   - Corrected Journal Custom Files                                 */
+/*   - Corrected Legal Documents Language                             */
+/*   - Corrected Legal Documents Inclusions                           */
+/*   - Corrected Members List TPL                                     */
+/*   - Corrected Populate Function                                    */
+/*   - Corrected Private Message Redirection                          */
+/*   - Corrected Private Message Quick Reply                          */
+/*   - Corrected Races Catlist Cosmetic                               */
+/*   - Corrected Races Language                                       */
+/*   - Corrected Script Despository Functionality                     */
+/*   - Corrected Sentinel Administration Configuration                */
+/*   - Corrected Shout Box Administration                             */
+/*   - Corrected Shout Box Avatar                                     */
+/*   - Corrected Sommaire Icons                                       */
+/*   - Corrected Sommaire Language                                    */
+/*   - Corrected Upgrade SQL                                          */
+/*   - Corrected Universal USort                                      */
+/*   - Corrected Uploaded Hard Configuration                          */
+/*   - Corrected Who is Online Language                               */
+/*   - Corrected Your Account Custom Theme Images                     */
+/*   - Corrected Your Account Hard Prefix                             */
+/*   - Corrected Your Account Promotion                               */
+/*   - Corrected Your Account Promotion Configuration                 */
+/*   - Corrected Your Account Save Theme                              */
+/*   - Secured Admin.php Cookies                                      */
+/*   - Secured Bit Torrent Access                                     */
+/*   - Secured Bit Torrent Structure                                  */
+/*   - Secured Coppermine Access                                      */
+/*   - Secured Coppermine Structure                                   */
+/*   - Secured Mainfile.php Trailing Slash                            */
+/*   - Secured Mainfile.php Trailing Slash                            */
+/*   - Upgraded Banner Ads                                            */
+/*   - Upgraded Center Blocks                                         */
+/*   - Upgraded Classes Multilingual                                  */
+/*   - Upgraded Directory Protection                                  */
+/*   - Upgraded File Attachment                                       */
+/*   - Upgraded Groups                                                */
+/*   - Upgraded Install SQL                                           */
+/*   - Upgraded Legal Documents Multilingual                          */
+/*   - Upgraded Mailing List                                          */
+/*   - Upgraded Races Multilingual                                    */
+/*   - Upgraded Shout Box                                             */
+/*   - Upgraded Supporters                                            */
+/*   - Upgraded Sentinel                                              */
+/*   - Upgraded Theme Conversion                                      */
+/*   - Upgraded Upgrade SQL                                           */
+/*   - Upgraded Work Board                                            */
+/*   - Upgraded Your Account Terms of Service                         */
+/*                                                                    */
+/* 7.6.0.6 BETA -> 7.6.0.7 BETA                 [14th December, 2004] */
+/*   - Added AvantGo Enhanced to Supplementary                        */
+/*   - Added Classes to Supplementary                                 */
+/*   - Added Races to Supplementary                                   */
+/*   - Corrected Administrator Quick Navigation                       */
+/*   - Corrected Banner Ads Language                                  */
+/*   - Corrected Chat Parsing                                         */
+/*   - Corrected Donation Globals                                     */
+/*   - Corrected Donation Reconcile                                   */
+/*   - Corrected Forum Quick Reply                                    */
+/*   - Corrected ForumNews Administrator Submissions                  */
+/*   - Corrected ForumNews Cosmetic                                   */
+/*   - Corrected Groups Language                                      */
+/*   - Corrected Java Onload                                          */
+/*   - Corrected Journal Moods                                        */
+/*   - Corrected IP Tracking Language                                 */
+/*   - Corrected Mailing List Variables                               */
+/*   - Corrected Private Message Quick Reply                          */
+/*   - Corrected Private Message Username                             */
+/*   - Corrected Supporters Globals                                   */
+/*   - Corrected Supporters Language                                  */
+/*   - Corrected Survey Globals                                       */
+/*   - Corrected Theme Conversion                                     */
+/*   - Corrected Universal Cosmetic                                   */
+/*   - Corrected Upgrade SQL                                          */
+/*   - Corrected User Info Block                                      */
+/*   - Corrected Your Account Avatar                                  */
+/*   - Corrected Your Account Coppa Cosmetic                          */
+/*   - Corrected Your Account phpBB Connection                        */
+/*   - Corrected Your Account Private Message Cosmetic                */
+/*   - Corrected Your Account Real Name SQL                           */
+/*   - Corrected Your Account Security Graphic Configuration          */
+/*   - Corrected Your Account Signature Length                        */
+/*   - Corrected Your Account ToS Cosmetic                            */
+/*   - Corrected Your Account User Info                               */
+/*   - Removed ForumNews Anti-Spam                                    */
+/*   - Secured Constants                                              */
+/*   - Secured Functions                                              */
+/*   - Secured Posting                                                */
+/*   - Secured Search                                                 */
+/*   - Secured Topic Review                                           */
+/*   - Secured Register                                               */
+/*   - Secured View Profile                                           */
+/*   - Secured Admin Board                                            */
+/*   - Secured Common                                                 */
+/*   - Secured Group CP                                               */
+/*   - Secured Login                                                  */
+/*   - Secured Private Messages                                       */
+/*   - Secured Profile                                                */
+/*   - Secured View Topic                                             */
+/*   - Upgraded ForumNews Admin Submissions                           */
+/*   - Upgraded Guest Username Requirement                            */
+/*   - Upgraded Private Message Quick Reply                           */
+/*   - Upgraded Theme Conversion                                      */
+/*   - Upgraded Your Account Patching                                 */
+/*                                                                    */
+/* 7.6.0.5 BETA -> 7.6.0.6 BETA                  [9th December, 2004] */
+/*   - Added Anti-Spam To Supplementary                               */
+/*   - Added ForumNews Anti-Spam To Supplementary                     */
+/*   - Added ForumNews Print To Supplementary                         */
+/*   - Added Related Topics                                           */
+/*   - Added Security Readme                                          */
+/*   - Corrected Album Globals                                        */
+/*   - Corrected Advanced Survey Block                                */
+/*   - Corrected Backup Manager                                       */
+/*   - Corrected Install SQL                                          */
+/*   - Corrected Short Open Tags                                      */
+/*   - Corrected Upgrade SQL                                          */
+/*   - Corrected Your Account Cookie Check                            */
+/*   - Corrected Your Account Language                                */
+/*   - Corrected Your Account New Finish                              */
+/*   - Corrected Your Account Promotion                               */
+/*   - Corrected Your Account Real Name                               */
+/*   - Corrected Your Account Security Graphic Customise              */
+/*   - Corrected Your Account Security Graphic Display                */
+/*   - Corrected Your Account Terms of Service                        */
+/*   - Secured Admin.php                                              */
+/*   - Secured Config.php                                             */
+/*   - Secured Footer.php                                             */
+/*   - Secured Header.php                                             */
+/*   - Secured Index.php                                              */
+/*   - Secured Mainfile.php                                           */
+/*   - Secured News Comments                                          */
+/*   - Secured Encyclopedia Language                                  */
+/*   - Secured User Information Block                                 */
+/*   - Secured Admin Settings Globals                                 */
+/*   - Secured Admin Authors Variables                                */
+/*   - Secured Admin Case Access                                      */
+/*   - Secured Admin Links Access                                     */
+/*   - Secured Admin Modules Access                                   */
+/*   - Secured Blocks Redirection                                     */
+/*   - Secured Blocks Access                                          */
+/*   - Secured Includes Access                                        */
+/*   - Secured Includes Redirection                                   */
+/*   - Secured T-Platinum Access                                      */
+/*   - Secured Album Access                                           */
+/*   - Secured AvantGo Access                                         */
+/*   - Secured Ban Request Access                                     */
+/*   - Secured Banner Ads Access                                      */
+/*   - Secured Calendar Access                                        */
+/*   - Secured Calendar Globals                                       */
+/*   - Secured Chat Access                                            */
+/*   - Secured Classifeds Access                                      */
+/*   - Secured Classifeds Globals                                     */
+/*   - Secured Contact Access                                         */
+/*   - Secured Content Access                                         */
+/*   - Secured Docs Access                                            */
+/*   - Secured Downloads Access                                       */
+/*   - Secured Encyclopedia Access                                    */
+/*   - Secured Encyclopedia Variables                                 */
+/*   - Secured FAQ Access                                             */
+/*   - Secured ForumNews Access                                       */
+/*   - Secured ForumNews Print Access                                 */
+/*   - Secured Forums Access                                          */
+/*   - Secured Groups Access                                          */
+/*   - Secured Hosting Access                                         */
+/*   - Secured IP Tracking Access                                     */
+/*   - Secured Mailing List Access                                    */
+/*   - Secured Members List Access                                    */
+/*   - Secured News Access                                            */
+/*   - Secured News Comments                                          */
+/*   - Secured PHP-Nuke Tools Access                                  */
+/*   - Secured Private Messages Access                                */
+/*   - Secured Protector Access                                       */
+/*   - Secured Recommend Us Access                                    */
+/*   - Secured Reviews Access                                         */
+/*   - Secured Reviews Comments                                       */
+/*   - Secured Search Access                                          */
+/*   - Secured Sentinel Access                                        */
+/*   - Secured Server Viewer Access                                   */
+/*   - Secured Server Viewer Globals                                  */
+/*   - Secured Server Viewer Variables                                */
+/*   - Secured Shopping Cart Access                                   */
+/*   - Secured Shout Box Access                                       */
+/*   - Secured Sommaire Access                                        */
+/*   - Secured Staff Access                                           */
+/*   - Secured Statistics Access                                      */
+/*   - Secured Stories Archive Access                                 */
+/*   - Secured Submit News Access                                     */
+/*   - Secured Supporters Access                                      */
+/*   - Secured Surveys Access                                         */
+/*   - Secured Top Access                                             */
+/*   - Secured Top Sites Access                                       */
+/*   - Secured Topics Access                                          */
+/*   - Secured Universal Access                                       */
+/*   - Secured Uploads Access                                         */
+/*   - Secured Web Links Access                                       */
+/*   - Secured Work Board Access                                      */
+/*   - Secured Your Account Access                                    */
+/*   - Tweaked Engine Performance Speed x50%                          */
+/*   - Upgraded Directory Protection                                  */
+/*   - Upgraded PHP-Nuke Patched                                      */
+/*                                                                    */
+/* 7.6.0.4 BETA -> 7.6.0.5 BETA                  [8th December, 2004] */
+/*   - Added Limit Image Width                                        */
+/*   - Added Related Topics                                           */
+/*   - Added SPChat                                                   */
+/*   - Added Strike Locked Topic Title                                */
+/*   - Added Survey Block Advanced                                    */
+/*   - Added Topics User Started                                      */
+/*   - Corrected Cookie Check Cosmetic                                */
+/*   - Corrected CSS Cosmetic                                         */
+/*   - Corrected Forum Auth Check                                     */
+/*   - Corrected Forum Permissions                                    */
+/*   - Corrected ForumNews Includes                                   */
+/*   - Corrected Glance Style                                         */
+/*   - Corrected Groups Language                                      */
+/*   - Corrected Header Spelling                                      */
+/*   - Corrected Lost Password Cosmetic                               */
+/*   - Corrected Private Message Quick Reply                          */
+/*   - Corrected Protector System Globals                             */
+/*   - Corrected Subscription Language                                */
+/*   - Corrected subSilver Java                                       */
+/*   - Corrected Theme Conversion Java                                */
+/*   - Corrected T-Platinum Java                                      */
+/*   - Corrected ViewForum Cosmetic                                   */
+/*   - Corrected Your Account Activation                              */
+/*   - Corrected Your Account New User                                */
+/*   - Corrected Your Account Recent Posts                            */
+/*   - Corrected Your Account Cosmetic                                */
+/*   - Corrected Your Account Real Name                               */
+/*   - Corrected Your Account Group Status                            */
+/*   - Corrected Your Account Language                                */
+/*   - Corrected Your Account Email Check                             */
+/*   - Removed 4nChat                                                 */
+/*   - Secured Chat                                                   */
+/*   - Tweaked Block-Survey.php Speed                                 */
+/*   - Tweaked Mainfile.php Speed                                     */
+/*   - Tweaked Page_Header.php Speed                                  */
+/*   - Upgraded Admin Language                                        */
+/*   - Upgraded Arcade                                                */
+/*   - Upgraded Credits                                               */
+/*   - Upgraded ForumNews Documentation                               */
+/*   - Upgraded Groups Emailing                                       */
+/*   - Upgraded Groups SQL                                            */
+/*   - Upgraded Install SQL                                           */
+/*   - Upgraded Supplementary                                         */
+/*   - Upgraded Theme Conversion                                      */
+/*   - Upgraded Upgrade SQL                                           */
+/*   - Upgraded Your Account Terms of Service                         */
+/*   - Upgraded Your Account New Finish                               */
+/*                                                                    */
+/* 7.6.0.3 BETA -> 7.6.0.4 BETA                  [6th December, 2004] */
+/*   - Added Server Statistics                                        */
+/*   - Corrected Admin Submissions                                    */
+/*   - Corrected Documentation                                        */
+/*   - Corrected Emporium Globals                                     */
+/*   - Corrected Groups Cosmetic                                      */
+/*   - Corrected Groups Globals                                       */
+/*   - Corrected Groups SQL                                           */
+/*   - Corrected Hosting Module                                       */
+/*   - Corrected Language Variables                                   */
+/*   - Corrected Protector System Globals                             */
+/*   - Corrected Upgrade SQL                                          */
+/*   - Corrected Your Account Globals                                 */
+/*   - Corrected Your Account Promotion                               */
+/*   - Removed Sever Information                                      */
+/*   - Upgraded Thread Kicker                                         */
+/*                                                                    */
+/* 7.6.0.2 BETA -> 7.6.0.3 BETA                  [2nd December, 2004] */
+/*   - Added Admin Submissions                                        */
+/*   - Added Admin QuickNav                                           */
+/*   - Added Chat to Supplementary                                    */
+/*   - Added ForumNews PHP Syntax Highlighter                         */
+/*   - Added ForumNews Select / Expand                                */
+/*   - Added ForumNews Visual Config Instrucitons                     */
+/*   - Added Guest Username Requirement                               */
+/*   - Added IP Tracking                                              */
+/*   - Added Mailing List                                             */
+/*   - Corrected Center Blocks Globals                                */
+/*   - Corrected Protector System Cosmetic                            */
+/*   - Corrected Reviews Cosmetic                                     */
+/*   - Corrected Sentinel Admin Case                                  */
+/*   - Corrected Server Viewer                                        */
+/*   - Corrected T-Console                                            */
+/*   - Corrected Viewtopic Redirections                               */
+/*   - Corrected Your Account COPPA Cosmetic                          */
+/*   - Corrected Your Account TOS Cosmetic                            */
+/*   - Removed Advanced Survey                                        */
+/*   - Secured Donations                                              */
+/*   - Secured ForumNews Advance                                      */
+/*   - Secured Groups                                                 */
+/*   - Secured Mailing List                                           */
+/*   - Secured Mainfile.php                                           */
+/*   - Secured Sentinel                                               */
+/*   - Secured Sommaire                                               */
+/*   - Secured Uploads                                                */
+/*   - Upgraded Copyright                                             */
+/*   - Upgraded Documentation                                         */
+/*   - Upgraded Donations                                             */
+/*   - Upgraded Downloads                                             */
+/*   - Upgraded ForumNews Advance                                     */
+/*   - Upgraded Groups                                                */
+/*   - Upgraded Install SQL                                           */
+/*   - Upgraded Language                                              */
+/*   - Upgraded Private Message Quick Reply                           */
+/*   - Upgraded T-Console Language                                    */
+/*   - Upgraded Upgrade SQL                                           */
+/*   - Upgraded Your Account                                          */
+/*                                                                    */
+/* 7.6.0.1 BETA -> 7.6.0.2 BETA                 [25th November, 2004] */
+/*   - Added Advanced Survey to Supplementary                         */
+/*   - Added Enhanced FAQ                                             */
+/*   - Added Hosting                                                  */
+/*   - Added Hosting PSD Resources                                    */
+/*   - Added Licensing                                                */
+/*   - Added Original FAQ to Supplementary                            */
+/*   - Added Resize Posted Image                                      */
+/*   - Added Uploads to Supplementary                                 */
+/*   - Corrected Calendar Events                                      */
+/*   - Corrected Calendar Globals                                     */
+/*   - Corrected Chat Cosmetic                                        */
+/*   - Corrected Classifeds Globals                                   */
+/*   - Corrected Contact Globals                                      */
+/*   - Corrected Contact Indentation                                  */
+/*   - Corrected Content BBCode                                       */
+/*   - Corrected Donations Prefix                                     */
+/*   - Corrected Donations Globals                                    */
+/*   - Corrected Downloads Globals                                    */
+/*   - Corrected Groups Globals                                       */
+/*   - Corrected Install Block                                        */
+/*   - Corrected News Globals                                         */
+/*   - Corrected Reviews Globals                                      */
+/*   - Corrected Reviews BBCode                                       */
+/*   - Corrected Search Globals                                       */
+/*   - Corrected Server Viewer Forms                                  */
+/*   - Corrected Server Viewer Globals                                */
+/*   - Corrected Server Viewer Input                                  */
+/*   - Corrected Shopping Cart Globals                                */
+/*   - Corrected Sommaire Language                                    */
+/*   - Corrected Staff Globals                                        */
+/*   - Corrected Statistics Counter                                   */
+/*   - Corrected Supporters Globals                                   */
+/*   - Corrected Top Sites Globals                                    */
+/*   - Corrected Universal Globals                                    */
+/*   - Corrected User Cookies                                         */
+/*   - Corrected User Info Block                                      */
+/*   - Corrected User Info Language                                   */
+/*   - Corrected Web Links Globals                                    */
+/*   - Removed Google Counter                                         */
+/*   - Secured Admin.php                                              */
+/*   - Secured Admin Case                                             */
+/*   - Secured Admin Index                                            */
+/*   - Secured Admin Links                                            */
+/*   - Secured Header.php                                             */
+/*   - Secured Mainfile.php                                           */
+/*   - Secured News Comments                                          */
+/*   - Secured NBBCode.php                                            */
+/*   - Secured Survey Comments                                        */
+/*   - Upgraded Credits                                               */
+/*   - Upgraded Force Word Wrapping                                   */
+/*   - Upgraded PHP-Nuke Patched                                      */
+/*   - Upgraded SQL Install                                           */
+/*   - Upgraded SQL Upgrade                                           */
+/*   - Upgraded Supplementary                                         */
+/*   - Upgraded Theme Conversion                                      */
+/*                                                                    */
+/* 7.5.0.1 BETA -> 7.6.0.1 BETA                 [24th November, 2004] */
+/*   - Added Admin File Editability                                   */
+/*   - Added Authors Check                                            */
+/*   - Added Custom File Folder                                       */
+/*   - Added FireFox Support                                          */
+/*   - Added Install Block                                            */
+/*   - Added RSS FireFox Feed Support                                 */
+/*   - Corrected Administrator Edit Function                          */
+/*   - Corrected Anoymous Permissions                                 */
+/*   - Corrected Attachment Access Data                               */
+/*   - Corrected Banner Ads / Firewall                                */
+/*   - Corrected Buddy List                                           */
+/*   - Corrected Chat Blocks DB Connection                            */
+/*   - Corrected Cookie SubDomain Admin Access                        */
+/*   - Corrected Forum Admin Index URL                                */
+/*   - Corrected Forums Administration Redirection                    */
+/*   - Corrected ForumNews BBStuff                                    */
+/*   - Corrected Forum Rules Language                                 */
+/*   - Corrected Forum Search Results                                 */
+/*   - Corrected GPL Issues                                           */
+/*   - Corrected Jump Box                                             */
+/*   - Corrected Overall Header Redirection                           */
+/*   - Corrected phpBB Profile                                        */
+/*   - Corrected PHP-Nuke Tools Cosmetic                              */
+/*   - Corrected Points Function                                      */
+/*   - Corrected Protector System Cosmetic                            */
+/*   - Corrected Sections Migration                                   */
+/*   - Corrected Shopping Cart Permissions                            */
+/*   - Corrected Shout Box Scripting                                  */
+/*   - Corrected Shout Box Smilies                                    */
+/*   - Corrected Signature Preview / Save                             */
+/*   - Corrected Smilie Statistics                                    */
+/*   - Corrected Supplementary                                        */
+/*   - Corrected User Author Promotion                                */
+/*   - Corrected Your Account Activation Status                       */
+/*   - Removed My_Header.php                                          */
+/*   - Secured Admin.php                                              */
+/*   - Secured Config.php                                             */
+/*   - Secured Mainfile.php                                           */
+/*   - Upgraded phpBB 2.0.11                                          */
+/*   - Upgraded PHP-Nuke 7.6                                          */
+/*                                                                    */
+/* 7.5.0.1 BETA                                 [17th November, 2004] */
+/*   - Added Acronym                                                  */
+/*   - Added Admin Cookie Checks                                      */
+/*   - Added Admin Manage Topic Shadows                               */
+/*   - Added Admin Private Message Manager                            */
+/*   - Added Admin User List                                          */
+/*   - Added Admin Voting                                             */
+/*   - Added Advanced Report                                          */
+/*   - Added Advanced Signature Divider                               */
+/*   - Added Advanced Staff                                           */
+/*   - Added Advanced Username Colour                                 */
+/*   - Added Album                                                    */
+/*   - Added Arcade                                                   */
+/*   - Added At A Glance                                              */
+/*   - Added Ban Request                                              */
+/*   - Added Banner Ads                                               */
+/*   - Added BBCode Box                                               */
+/*   - Added Block Album                                              */
+/*   - Added Block Banner Ads                                         */
+/*   - Added Block Calendar                                           */
+/*   - Added Block Chat                                               */
+/*   - Added Block Classifeds                                         */
+/*   - Added Block Donations                                          */
+/*   - Added Block Expiration                                         */
+/*   - Added Block Google Counter                                     */
+/*   - Added Block Server Information                                 */
+/*   - Added Block Shopping Cart                                      */
+/*   - Added Block Shout Box                                          */
+/*   - Added Block Supporters                                         */
+/*   - Added Block Tools                                              */
+/*   - Added Block Top Referers                                       */
+/*   - Added Block Top Sites                                          */
+/*   - Added Block Total Hits                                         */
+/*   - Added Block Universal                                          */
+/*   - Added Block Web Links                                          */
+/*   - Added Block Work Board                                         */
+/*   - Added Bottom Aligned Signatures                                */
+/*   - Added Buddy List                                               */
+/*   - Added Calendar                                                 */
+/*   - Added Center Blocks                                            */
+/*   - Added Chat                                                     */
+/*   - Added Classifeds                                               */
+/*   - Added CNB Your Account                                         */
+/*   - Added Conditional Blocks                                       */
+/*   - Added Contact Plus                                             */
+/*   - Added Content BBCode                                           */
+/*   - Added Cosmetic Administration Interface                        */
+/*   - Added Cosmetic Articles                                        */
+/*   - Added Cosmetic BBCode                                          */
+/*   - Added Cosmetic Default Avatar                                  */
+/*   - Added Cosmetic Downloads                                       */
+/*   - Added Cosmetic Images Directory                                */
+/*   - Added Cosmetic Journal                                         */
+/*   - Added Cosmetic Ranks                                           */
+/*   - Added Cosmetic Smilies                                         */
+/*   - Added Cosmetic Statistics                                      */
+/*   - Added Cosmetic T-Platinum                                      */
+/*   - Added Cosmetic Topic Icons                                     */
+/*   - Added Cosmetic Your Account                                    */
+/*   - Added Database Backup                                          */
+/*   - Added Disallow Edit Admin Posts                                */
+/*   - Added Disallow Rule                                            */
+/*   - Added Edit User Post Count                                     */
+/*   - Added Emporium                                                 */
+/*   - Added Enhanced Downloads                                       */
+/*   - Added FAQ Editor                                               */
+/*   - Added ForumNews Advance                                        */
+/*   - Added Force Word Wrapping                                      */
+/*   - Added File Attachment                                          */
+/*   - Added Google Counter                                           */
+/*   - Added Global Announcement                                      */
+/*   - Added IntelliCencor                                            */
+/*   - Added IP Ban System                                            */
+/*   - Added IP Whois Lookup                                          */
+/*   - Added Keep it Moving                                           */
+/*   - Added Legal Docs                                               */
+/*   - Added List Smilies Per Post                                    */
+/*   - Added Lock Topic After Post                                    */
+/*   - Added Merge Topics                                             */
+/*   - Added Move Topics Locked                                       */
+/*   - Added Navigation / Module                                      */
+/*   - Added MReviews                                                 */
+/*   - Added Numerical Checks                                         */
+/*   - Added New Administration Permission System                     */
+/*   - Added Groups                                                   */
+/*   - Added Overall Permissions                                      */
+/*   - Added PHP-Nuke Admin Link                                      */
+/*   - Added PHP-Nuke Tools                                           */
+/*   - Added Points Based User Groups                                 */
+/*   - Added Points System                                            */
+/*   - Added Private Messaage Quick Reply                             */
+/*   - Added Printable Page                                           */
+/*   - Added Rank List Advanced                                       */
+/*   - Added Reduce ACP Navigation                                    */
+/*   - Added Restrict Signatures                                      */
+/*   - Added Search Form                                              */
+/*   - Added Search Pacakge                                           */
+/*   - Added Select Expand                                            */
+/*   - Added Server Viewer                                            */
+/*   - Added Shout Box                                                */
+/*   - Added Show Smilies in Topic Title                              */
+/*   - Added Signature Editor Preview Deluxe                          */
+/*   - Added Signature Once Per Page                                  */
+/*   - Added Smilies List                                             */
+/*   - Added Sommaire Parametrable                                    */
+/*   - Added Split Topic Type                                         */
+/*   - Added Statistics                                               */
+/*   - Added Staff                                                    */
+/*   - Added Subscribed Users Block                                   */
+/*   - Added Subscription System                                      */
+/*   - Added Super Quick Reply                                        */
+/*   - Added Supporters                                               */
+/*   - Added Syntax Highlighting                                      */
+/*   - Added Thread Kicker                                            */
+/*   - Added Topic Jump                                               */
+/*   - Added Topic Notify with Message Text                           */
+/*   - Added Top Sites                                                */
+/*   - Added Treasury                                                 */
+/*   - Added Union Tap                                                */
+/*   - Added Universal                                                */
+/*   - Added User Cookie Checks                                       */
+/*   - Added User Online Status                                       */
+/*   - Added View Attachments                                         */
+/*   - Added Web Links                                                */
+/*   - Added Work Board                                               */
+/*   - Added Whos Online                                              */
+/*   - Added Who is Online Time                                       */
+/*   - Corrected Admin.php                                            */
+/*   - Corrected Authors Counter                                      */
+/*   - Corrected Banners.php                                          */
+/*   - Corrected Banners System                                       */
+/*   - Corrected Blocks Administration                                */
+/*   - Corrected Encyclopedia Module                                  */
+/*   - Corrected Forum Language                                       */
+/*   - Corrected Languages                                            */
+/*   - Corrected Mainfile.php                                         */
+/*   - Corrected Private Messages Module                              */
+/*   - Corrected Review Module                                        */
+/*   - Corrected SQL Injections                                       */
+/*   - Corrected Search Module                                        */
+/*   - Corrected Statistics Module                                    */
+/*   - Corrected Subscribers Module                                   */
+/*   - Corrected Survey Module                                        */
+/*   - Corrected Surveys Block                                        */
+/*   - Corrected User Info Blocks                                     */
+/*   - Corrected Variables                                            */
+/*   - Corrected Web Links Module                                     */
+/*   - Corrected Your Account Module                                  */
+/*   - Increased Session Length                                       */
+/*   - Improved Administration System                                 */
+/*   - Improved Modules Administration                                */
+/*   - Improved Page Generation Values                                */
+/*   - Removed Addon_Sample Module                                    */
+/*   - Removed All Themes, Except T-Platinum                          */
+/*   - Removed Amazon Related Files                                   */
+/*   - Removed Auth.php                                               */
+/*   - Removed Ephemerids Module                                      */
+/*   - Removed Reviews                                                */
+/*   - Removed Sections Module                                        */
+/*   - Removed Statistics Version                                     */
+/*   - Removed WebMail Module                                         */
+/*   - Secured Admin.php                                              */
+/*   - Secured Header.php                                             */
+/*   - Secured Mainfile.php                                           */
+/*   - Security Directory Protection                                  */
+/*   - Security Forum Admin                                           */
+/*   - Security PHP-Nuke Patched                                      */
+/*   - Security Protector System                                      */
+/*   - Security T-Console                                             */
+/*   - Tweaked Groups                                                 */
+/*   - Tweaked Members List                                           */
+/*   - Tweaked Web Links                                              */
+/*   - Upgraded phpBB 2.0.10                                          */
+/*   - Upgraded PHP-Nuke 7.5                                          */
+/*                                                                    */
+/**********************************************************************/
+/* Original Platinum 7.6 package was created by                       */
+/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                */
+/*       Graeme Allan - Techgfx                   (goose@techgfx.com) */
+/**********************************************************************/
+/* All content and includes from this package is intellectual         */
+/* property of Techgfx unless stated otherwise. Replication of        */
+/* and copyrighted material is a civil and criminal act and           */
+/* voilations may result in legal action.                             */
+/**********************************************************************/
+/* See Nukeplanet.com for detailed information on Platinum 7.6.b.3    */
+/* Scott Partee - Loki   http://www.nukeplanet.com                    */
+/*                         (loki@nukeplanet.com                       */
+/* TechGFX: Your dreams, Our imagination                              */
+/**********************************************************************/

@@ -1,36 +1,62 @@
 <?php
-/**************************************************************************/
-/* RN Your Account: Advanced User Management for RavenNuke
-/* =======================================================================*/
-/*
-/* Copyright (c) 2008, RavenPHPScripts.com	http://www.ravenphpscripts.com
-/*
-/* This program is free software. You can redistribute it and/or modify it
-/* under the terms of the GNU General Public License as published by the
-/* Free Software Foundation, version 2 of the license.
-/*
-/**************************************************************************/
-/* RN Your Account is the based on:
-/*  CNB Your Account http://www.phpnuke.org.br
-/*  NSN Your Account by Bob Marion, http://www.nukescripts.net
-/**************************************************************************/
-if (!defined('YA_ADMIN')) {
-   header('Location: ../../../index.php');
-  die ();
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
+
+/*********************************************************************************/
+/* CNB Your Account: An Advanced User Management System for phpnuke             */
+/* ============================================                                 */
+/*                                                                              */
+/* Copyright (c) 2004 by Comunidade PHP Nuke Brasil                             */
+/* http://dev.phpnuke.org.br & http://www.phpnuke.org.br                        */
+/*                                                                              */
+/* Contact author: escudero@phpnuke.org.br                                      */
+/* International Support Forum: http://ravenphpscripts.com/forum76.html         */
+/*                                                                              */
+/* This program is free software. You can redistribute it and/or modify         */
+/* it under the terms of the GNU General Public License as published by         */
+/* the Free Software Foundation; either version 2 of the License.               */
+/*                                                                              */
+/*********************************************************************************/
+/* CNB Your Account it the official successor of NSN Your Account by Bob Marion    */
+/*********************************************************************************/
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Nuke Patched                             v3.1.0       06/26/2005
+ ************************************************************************/
+
+if (!defined('MODULE_FILE')) {
+    die ('Access Denied');
 }
-if (($radminsuper==1) OR ($radminuser==1)) {
-    $pagetitle = ': '._USERADMIN.' - '._ADDUSER;
-	include_once 'header.php';
+
+if (!defined('YA_ADMIN')) {
+    die('CNBYA admin protection');
+}
+
+if (!defined('CNBYA')) {
+    die('CNBYA protection');
+}
+
+if(is_mod_admin($module_name)) {
+
+    $pagetitle = ": "._USERADMIN." - "._ADDUSER;
+    include_once(NUKE_BASE_DIR.'header.php');
+	OpenTable();
+	echo "<div align=\"center\">\n<a href=\"modules.php?name=Your_Account&file=admin\">" . _USER_ADMIN_HEADER . "</a></div>\n";
+    echo "<br /><br />";
+	echo "<div align=\"center\">\n[ <a href=\"$admin_file.php\">" . _USER_RETURNMAIN . "</a> ]</div>\n";
+	CloseTable();
+	echo "<br />";
     title(_USERADMIN." - "._ADDUSER);
     amain();
-    echo '<br />';
+    echo "<br />\n";
     OpenTable();
-	readfile('modules/'.$module_name.'/credits.html');
-#	$creditsHTML = file_get_contents('modules/'.$module_name.'/credits.html');
-#	$creditsHTML = file_get_contents('modules/Your_Account/credits.html');
-#	preg_match("#<body>(.*)</body>#i", $creditsHTML, $credits);
-#	echo $credits[1];
+    readfile("modules/$module_name/credits.html");
     CloseTable();
-	include_once 'footer.php';
+    include_once(NUKE_BASE_DIR.'footer.php');
+
 }
+
 ?>

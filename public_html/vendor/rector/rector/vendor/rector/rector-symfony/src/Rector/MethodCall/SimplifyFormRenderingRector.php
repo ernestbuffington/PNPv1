@@ -10,7 +10,6 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Symfony\TypeAnalyzer\ControllerAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
@@ -18,20 +17,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class SimplifyFormRenderingRector extends AbstractRector
 {
-    /**
-     * @readonly
-     * @var \Rector\Symfony\TypeAnalyzer\ControllerAnalyzer
-     */
-    private $controllerAnalyzer;
-    public function __construct(ControllerAnalyzer $controllerAnalyzer)
-    {
-        $this->controllerAnalyzer = $controllerAnalyzer;
-    }
     public function getRuleDefinition() : RuleDefinition
     {
         return new RuleDefinition('Symplify form rendering by not calling `->createView()` on `render` function', [new CodeSample(<<<'CODE_SAMPLE'
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 class ReplaceFormCreateViewFunctionCall extends AbstractController
 {
     public function form(): Response
@@ -43,8 +31,6 @@ class ReplaceFormCreateViewFunctionCall extends AbstractController
 }
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 class ReplaceFormCreateViewFunctionCall extends AbstractController
 {
     public function form(): Response
@@ -69,7 +55,7 @@ CODE_SAMPLE
      */
     public function refactor(Node $node) : ?Node
     {
-        if (!$this->controllerAnalyzer->isController($node->var)) {
+        if (!$this->isObjectType($node->var, new ObjectType('Symfony\\Bundle\\FrameworkBundle\\Controller\\AbstractController'))) {
             return null;
         }
         if ($node->isFirstClassCallable()) {

@@ -1,41 +1,18 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
+
 /***************************************************************************
- *                                lang_admin_arcade.php
+ *                           lang_admin_arcade.php
  *                            -------------------
  *
- *   PHPNuke Ported Arcade - http://arcade.portedmods.com
+ *   PHPNuke Ported Arcade - http://www.nukearcade.com
  *   Original Arcade Mod phpBB by giefca - http://www.gf-phpbb.com
  *
  ***************************************************************************/
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+
 $lang['Arcade_Admin'] = 'Arcade Admin';
 $lang['Manage_arcade_games'] = 'Arcade Games Management';
 $lang['Config_arcade'] = 'Configuration';
@@ -78,10 +55,10 @@ $lang['arcade_cat_move_and_del'] = 'Move and delete';
 $lang['Admin_arcade_editcat_explain'] = 'On this panel you can change the category information.';
 $lang['arcade_delete_cat_explain'] = 'On this panel you can remove a category by moving its contents.';
 $lang['arcade_categorie_settings'] = 'General category options';
-$lang['Game_width'] = "Width of the game"; 
-$lang['Game_width_explain'] = "Here you can specify the width, in pixels, of the game in Flash"; 
-$lang['Game_height'] = "Height of the game"; 
-$lang['Game_height_explain'] = "Here you can specify the height, in pixels, of the game in Flash"; 
+$lang['Game_width'] = "Width of the game";
+$lang['Game_width_explain'] = "Here you can specify the width, in pixels, of the game in Flash";
+$lang['Game_height'] = "Height of the game";
+$lang['Game_height_explain'] = "Here you can specify the height, in pixels, of the game in Flash";
 $lang['Game_category'] = 'Game category';
 $lang['Game_category_explain'] = "Specify the category to which the game is attached.";
 $lang['Arcade_sets'] = "Played games";
@@ -106,9 +83,9 @@ $lang['Game_name_explain'] = "A name which is relavent to the game.";
 $lang['Game_description'] = "Game description";
 $lang['Game_description_explain'] = "Type a small description of the game:  topic, controls, etc.";
 $lang['Game_thumbail'] = "Game thumbnail";
-$lang['Game_thumbail_explain'] = "Type the name of the image which will appear next to this game in the games list.<br/>The files must be placed in the directory /games/pics/ .";
+$lang['Game_thumbail_explain'] = "Type the name of the image which will appear next to this game in the games list.<br />The files must be placed in the directory /games/pics/ .";
 $lang['Game_swf'] = "Name of the swf file";
-$lang['Game_swf_explain'] = "Type the exact name of the swf file corresponding to the game(ex : wonder.swf ).<br/>All the swf files must be placed in the directory /games/ .";
+$lang['Game_swf_explain'] = "Type the exact name of the swf file corresponding to the game(ex : wonder.swf ).<br />All the swf files must be placed in the directory /games/ .";
 $lang['Score_settings'] = "Score settings";
 $lang['Score_settings_explain'] = "<strong>These options are specific to each game and must be set so that the management of the score can function.</strong>";
 $lang['Game_scorevariable'] = "Variable Score name";
@@ -145,7 +122,7 @@ $lang['Auth_Arcade_Control_Group'] = 'Set the group permissions for the arcade '
 $lang['Group_arcade_auth_explain'] = 'You can modify the permissions to the arcades categories assigned with each group.  Do not forget that by changing the permissions of the group, the group permissions of the user will always overide the individual permissions.';
 $lang['User_arcade_auth_explain'] = 'You can modify the permissions to the arcades categories assigned with each user.  Do not forget that by changing the permissions of the user, the group permissions of the user will always overide the individual permissions.';
 $lang['Arcade_auth_updated'] = 'The permissions for the arcade were updated';
-$lang['Click_return_arcadeauth'] = 'Click %here%s to return to the arcade Permissions';
+$lang['Click_return_arcadeauth'] = 'Click %shere%s to return to the arcade Permissions';
 $lang['game_access_settings'] = 'Game Access Restrictions';
 $lang['limit_by_posts'] = 'Enable Arcade Access Restrictions';
 $lang['posts_needed'] = 'Posts Needed';
@@ -166,9 +143,9 @@ $lang['Add_game_desc_desc'] = 'The description of the game';
 $lang['Add_score_var'] = 'Score Variable';
 $lang['Add_scorevar_desc'] = 'The name of the variable used for scoring';
 $lang['Add_game_file'] = 'Game File Name';
-$lang['Add_game_file_desc'] = 'The full name of the game file<br>(Only if it is different than [score_variable].swf... Or else leave it blank)';
+$lang['Add_game_file_desc'] = 'The full name of the game file<br />(Only if it is different than [score_variable].swf... Or else leave it blank)';
 $lang['Add_pic_file'] = 'Picture File Name';
-$lang['Add_pic_file_desc'] = 'The full name of the game\'s picture<br>(Only if it is different than [score_variable].gif... Or else leave it blank)';
+$lang['Add_pic_file_desc'] = 'The full name of the game\'s picture<br />(Only if it is different than [score_variable].gif... Or else leave it blank)';
 $lang['Add_cat'] = 'Category';
 $lang['Add_cat_desc'] = 'The category for the game';
 $lang['Add_type'] = 'Game Type';
@@ -181,7 +158,9 @@ $lang['Arcade_game_added'] = ' has been added successfully!';
 $lang['Click_return_add_game'] = 'Click %shere%s to return to the Add a Game';
 $lang['arcade_announcement'] = 'Arcade Announcement';
 $lang['arcade_announcement_explain'] = 'This message will be displayed at the top of the arcade header.  Use HTML to format the text.';
+
 //
 // That's all Folks!
 // -------------------------------------------------
+
 ?>

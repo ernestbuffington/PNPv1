@@ -1,33 +1,22 @@
 <?php
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+
+/***************************************************************************
+ *                           functions_related.php
+ *                          -----------------------
+ *   copyright            : ©2003 Freakin' Booty ;-P
+ *   built for            : Related topics 0.1.2
+ *
+ *
+ ***************************************************************************/
+
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ ***************************************************************************/
 
 if(!defined('IN_PHPBB'))
 {
@@ -38,7 +27,7 @@ if(!defined('IN_PHPBB'))
 function get_related_topics($topic_id)
 {
 	global $board_config, $db, $lang, $template, $theme, $images, $phpEx;
-	global $userdata, $_COOKIE;
+	global $userdata, $HTTP_COOKIE_VARS;
 
 	//
 	// Fetch all words that appear in the title of $topic_id
@@ -65,7 +54,7 @@ function get_related_topics($topic_id)
 	$is_auth = auth(AUTH_READ, AUTH_LIST_ALL, $userdata);
 
 	$forum_ids = array(0);
-	while( list($forum_id, $forum_auth) = @each($is_auth) )
+	foreach ($is_auth as $forum_id => $forum_auth)
 	{
 		if( $forum_auth['auth_read'] )
 		{
@@ -217,15 +206,15 @@ function get_related_topics($topic_id)
 			}
 		}
 
-		$tracking_topics = ( isset($_COOKIE[$board_config['cookie_name'] . '_t']) ) ? unserialize($_COOKIE[$board_config['cookie_name'] . '_t']) : '';
-		$tracking_forums = ( isset($_COOKIE[$board_config['cookie_name'] . '_f']) ) ? unserialize($_COOKIE[$board_config['cookie_name'] . '_f']) : '';
+		$tracking_topics = ( isset($HTTP_COOKIE_VARS[$board_config['cookie_name'] . '_t']) ) ? unserialize($HTTP_COOKIE_VARS[$board_config['cookie_name'] . '_t']) : '';
+		$tracking_forums = ( isset($HTTP_COOKIE_VARS[$board_config['cookie_name'] . '_f']) ) ? unserialize($HTTP_COOKIE_VARS[$board_config['cookie_name'] . '_f']) : '';
 
 		$newest_post_img = '';
 		if( $userdata['session_logged_in'] )
 		{
 			if( $row['post_time'] > $userdata['user_lastvisit'] ) 
 			{
-				if( !empty($tracking_topics) || !empty($tracking_forums) || isset($_COOKIE[$board_config['cookie_name'] . '_f_all']) )
+				if( !empty($tracking_topics) || !empty($tracking_forums) || isset($HTTP_COOKIE_VARS[$board_config['cookie_name'] . '_f_all']) )
 				{
 					$unread_topics = true;
 
@@ -245,9 +234,9 @@ function get_related_topics($topic_id)
 						}
 					}
 
-					if( isset($_COOKIE[$board_config['cookie_name'] . '_f_all']) )
+					if( isset($HTTP_COOKIE_VARS[$board_config['cookie_name'] . '_f_all']) )
 					{
-						if( $_COOKIE[$board_config['cookie_name'] . '_f_all'] >= $row['post_time'] )
+						if( $HTTP_COOKIE_VARS[$board_config['cookie_name'] . '_f_all'] >= $row['post_time'] )
 						{
 							$unread_topics = false;
 						}
@@ -270,7 +259,6 @@ function get_related_topics($topic_id)
 				}
 				else
 				{
-                    
 					$folder_image = $folder_new;
 					$folder_alt = ( $row['topic_status'] == TOPIC_LOCKED ) ? $lang['Topic_locked'] : $lang['New_posts'];
 

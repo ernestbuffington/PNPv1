@@ -1,33 +1,28 @@
 <?php
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
+
+/***************************************************************************
+ *                              smtp.php
+ *                       -------------------
+ *   begin                : Wed May 09 2001
+ *   copyright            : (C) 2001 The phpBB Group
+ *   email                : support@phpbb.com
+ *
+ *   Id: smtp.php,v 1.16.2.10 2005/05/06 20:50:11 acydburn Exp
+ *
+ ***************************************************************************/
+
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ ***************************************************************************/
 
 define('SMTP_INCLUDED', 1);
 
@@ -36,9 +31,9 @@ define('SMTP_INCLUDED', 1);
 // by SirSir to allow multiline responses when
 // using SMTP Extensions
 //
-function server_parse($socket, $response, $line = __LINE__)
+function server_parse($socket, $response, $line = __LINE__) 
 {
-        $server_response = '';
+    $server_response = '';
         while (substr($server_response, 3, 1) != ' ')
         {
                 if (!($server_response = fgets($socket, 256)))
@@ -65,7 +60,7 @@ function smtpmail($mail_to, $subject, $message, $headers = '')
         {
                 if (is_array($headers))
                 {
-                        if (sizeof($headers) > 1)
+                        if (count($headers) > 1)
                         {
                                 $headers = join("\n", $headers);
                         }
@@ -86,7 +81,8 @@ function smtpmail($mail_to, $subject, $message, $headers = '')
                 @reset($header_array);
 
                 $headers = '';
-                while(list(, $header) = each($header_array))
+                //while(list(, $header) = each($header_array))
+				foreach (array_keys($header_array) as $header)
                 {
                         if (preg_match('#^cc:#si', $header))
                         {
@@ -101,8 +97,8 @@ function smtpmail($mail_to, $subject, $message, $headers = '')
                 }
 
                 $headers = chop($headers);
-		$cc = explode(', ', $cc);
-		$bcc = explode(', ', $bcc);
+        $cc = explode(', ', $cc);
+        $bcc = explode(', ', $bcc);
         }
 
         if (trim($subject) == '')
@@ -152,19 +148,20 @@ function smtpmail($mail_to, $subject, $message, $headers = '')
         server_parse($socket, "250", __LINE__);
 
         // Specify each user to send to and build to header.
-	$to_header = '';
+    $to_header = '';
 
-	// Add an additional bit of error checking to the To field.
-	$mail_to = (trim($mail_to) == '') ? 'Undisclosed-recipients:;' : trim($mail_to);
-	if (preg_match('#[^ ]+\@[^ ]+#', $mail_to))
-	{
-		fputs($socket, "RCPT TO: <$mail_to>\r\n");
-		server_parse($socket, "250", __LINE__);
-	}
+    // Add an additional bit of error checking to the To field.
+    $mail_to = (trim($mail_to) == '') ? 'Undisclosed-recipients:;' : trim($mail_to);
+    if (preg_match('#[^ ]+\@[^ ]+#', $mail_to))
+    {
+        fputs($socket, "RCPT TO: <$mail_to>\r\n");
+        server_parse($socket, "250", __LINE__);
+    }
 
         // Ok now do the CC and BCC fields...
         @reset($bcc);
-        while(list(, $bcc_address) = each($bcc))
+        //while(list(, $bcc_address) = each($bcc))
+		foreach (array_keys($bcc) as $bcc_address)
         {
                 // Add an additional bit of error checking to bcc header...
                 $bcc_address = trim($bcc_address);
@@ -176,7 +173,8 @@ function smtpmail($mail_to, $subject, $message, $headers = '')
         }
 
         @reset($cc);
-        while(list(, $cc_address) = each($cc))
+        //while(list(, $cc_address) = each($cc))
+		foreach (array_keys($cc) as $cc_address)
         {
                 // Add an additional bit of error checking to cc header
                 $cc_address = trim($cc_address);

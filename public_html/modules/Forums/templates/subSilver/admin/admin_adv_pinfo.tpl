@@ -1,4 +1,0 @@
-<h1>{AACP_HEADER}</h1>
-<p>{AACP_INFO_TEXT}</p>
-{AACP_AUSGABE}
-<br />

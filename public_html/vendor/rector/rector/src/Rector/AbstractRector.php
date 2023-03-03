@@ -43,7 +43,7 @@ use Rector\PhpDocParser\NodeTraverser\SimpleCallableNodeTraverser;
 use Rector\PostRector\Collector\NodesToRemoveCollector;
 use Rector\Skipper\Skipper\Skipper;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use RectorPrefix202302\Symfony\Contracts\Service\Attribute\Required;
+use RectorPrefix202301\Symfony\Contracts\Service\Attribute\Required;
 abstract class AbstractRector extends NodeVisitorAbstract implements PhpRectorInterface
 {
     /**
@@ -300,9 +300,6 @@ CODE_SAMPLE;
         if ($this->nodeComparator->areSameNode($newNode, $oldNode)) {
             return;
         }
-        if ($oldNode instanceof InlineHTML) {
-            return;
-        }
         $newNode->setAttribute(AttributeKey::PHP_DOC_INFO, $oldNode->getAttribute(AttributeKey::PHP_DOC_INFO));
         if (!$newNode instanceof Nop) {
             $newNode->setAttribute(AttributeKey::COMMENTS, $oldNode->getAttribute(AttributeKey::COMMENTS));
@@ -389,6 +386,10 @@ CODE_SAMPLE;
         if (!$firstNodePreviousNode instanceof Node && $node->hasAttribute(AttributeKey::PREVIOUS_NODE)) {
             /** @var Node $previousNode */
             $previousNode = $node->getAttribute(AttributeKey::PREVIOUS_NODE);
+            if ($previousNode instanceof InlineHTML && !$firstNode instanceof InlineHTML) {
+                // re-print InlineHTML is safe
+                $previousNode->setAttribute(AttributeKey::ORIGINAL_NODE, null);
+            }
             $nodes = \array_merge([$previousNode], \is_array($nodes) ? $nodes : \iterator_to_array($nodes));
         }
         $lastNode = \end($nodes);

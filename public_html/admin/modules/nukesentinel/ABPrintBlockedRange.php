@@ -1,10 +1,14 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 
 /********************************************************/
 /* NukeSentinel(tm)                                     */
 /* By: NukeScripts Network (webmaster@nukescripts.net)  */
-/* http://www.nukescripts.net                           */
-/* Copyright © 2000-2007 by NukeScripts Network         */
+/* http://nukescripts.86it.us                           */
+/* Copyright (c) 2000-2008 by NukeScripts Network       */
 /* See CREDITS.txt for ALL contributors                 */
 /********************************************************/
 
@@ -19,7 +23,7 @@ echo "</head><body>\n";
 echo "<h1 align='center'>$pagetitle</h1>\n";
 $totalselected = $db->sql_numrows($db->sql_query("SELECT * FROM `".$prefix."_nsnst_blocked_ranges`"));
 if($totalselected > 0) {
-  echo "<table align='center' border='2' cellpadding='2' cellspacing='2'>\n";
+  echo "<table summary='' align='center' border='2' cellpadding='2' cellspacing='2'>\n";
   echo "<tr>\n";
   echo "<td><strong>"._AB_IPLO."</strong></td>\n";
   echo "<td><strong>"._AB_IPHI."</strong></td>\n";
@@ -30,7 +34,7 @@ if($totalselected > 0) {
   echo "</tr>\n";
   $result = $db->sql_query("SELECT * FROM `".$prefix."_nsnst_blocked_ranges` ORDER BY `ip_lo`");
   while($getIPs = $db->sql_fetchrow($result)) {
-    list($getIPs['reason']) = $db->sql_fetchrow($db->sql_query("SELECT `reason` FROM `".$prefix."_nsnst_blockers` WHERE `blocker`='".$getIPs['reason']."'"));
+    list($getIPs['reason']) = $db->sql_fetchrow($db->sql_query("SELECT `reason` FROM `".$prefix."_nsnst_blockers` WHERE `blocker`='".$getIPs['reason']."' LIMIT 0,1"));
     $getIPs['reason'] = str_replace("Abuse-", "", $getIPs['reason']);
     $getIPs['ip_lo_ip'] = long2ip($getIPs['ip_lo']);
     $getIPs['ip_hi_ip'] = long2ip($getIPs['ip_hi']);

@@ -29,10 +29,12 @@
 -=[Mod]=-
  ************************************************************************/
 
+$lang_new[$module_name]['link_us_link'] = 'Link to Us';
+
 //Index
 $lang_new[$module_name]['ADD_LINK_BUTTON'] = 'Add Link Button';
 $lang_new[$module_name]['ADMIN_CONFIG'] = 'Admin Config';
-$lang_new[$module_name]['ADMINISTRATION'] = 'Platinum Nuke Pro Link-Us :: Modules Admin Panel';
+$lang_new[$module_name]['ADMINISTRATION'] = 'Link-Us :: Modules Admin Panel';
 $lang_new[$module_name]['MAIN_ADMINISTRATION'] = 'Main Administration';
 $lang_new[$module_name]['CONFIG_ERROR'] = 'Cannot read Configuration Table';
 $lang_new[$module_name]['MODULE_CONFIG'] ='Module Config';
@@ -68,7 +70,7 @@ $lang_new[$module_name]['ADDED'] = 'Added';
 $lang_new[$module_name]['VISITS'] = 'Visits';
 $lang_new[$module_name]['CLICKS'] = 'Clicks';
 $lang_new[$module_name]['DESCRIPTION'] = 'Description';
-$lang_new[$module_name]['STANDARD_BUTTONS'] = 'Standard Size Buttons';
+$lang_new[$module_name]['STANDARD_BUTTONS'] = 'Standard Size Buttons are witdth=88 height=31';
 $lang_new[$module_name]['BANNER_BUTTONS'] = 'Banner Size Buttons';
 $lang_new[$module_name]['RESOURCE_BUTTONS'] = 'Resource Buttons';
 $lang_new[$module_name]['NO_ACTIVE_SITES'] = 'No Active Sites';

@@ -1,0 +1,1 @@
+UPDATE nuke_bbconfig SET config_value='.0.11' where config_name='version';

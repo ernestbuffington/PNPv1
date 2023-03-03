@@ -1,0 +1,209 @@
+/**********************************************************************/
+/* PHP-Nuke Platinum v.7.6.b.2                       THEME CONVERSION */
+/*                                                                    */
+/* This set of instructions will upgrade PHP-Nuke Platinum 7.6.0      */
+/* themes to be compatible with PHP-Nuke Platinum 7.6.b.2             */
+/*                                                                    */
+/*                                                                    */
+/*                                                                    */
+/* Before making the modifications below to your theme, be sure you   */
+/* backup all files before editing and replacing them. It is very     */
+/* important you back your files up, it is not PHP-Nuke Platinum's    */
+/* problem if something goes wrong.                                   */
+/*                                                                    */
+/* This set of instructions is intended for confident intermediate    */
+/* users of PHP-Nuke as your theme will require alot of editing. In   */
+/* order for it to work correctly, this document must be strictly     */
+/* followed. If you cannot back your files up, or you are not         */
+/* confident in following this document, it is recommended that you   */
+/* do not proceed beyond this point.                                  */
+/*                                                                    */
+/* Installation instructions:                                         */
+/*  Step 1. Follow the instructions below.                            */
+/**********************************************************************/
+
+/**********************************************************************/
+/*  Step 2.                                          THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR_THEME/forums/posting_body.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/*
+			  <input type="text" name="helpbox" size="45" maxlength="100" style="width:450px; font-size:10px" class="helpline" value="{L_STYLES_TIP}" />
+			  </span></td>
+		  </tr>
+
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+		  <!-- Canned MOD Begin -->
+		  <tr>
+			<td colspan="9">{S_CANNED_SELECT}</td>
+		  </tr>
+		  <!-- Canned MOD End -->
+
+/*
+/******[ FIND ]********************************************************/
+/*
+"BBphpsh()"
+
+/*
+/******[ REPLACE, WITH ]***********************************************/
+"BBCphp()"
+
+/*
+/******[ FIND ]********************************************************/
+/*
+'phpsh'
+
+/*
+/******[ REPLACE, WITH ]***********************************************/
+/*
+'php'
+
+/**********************************************************************/
+/*  Step 3.                                          THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR_THEME/forums/profile_add_body.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/*
+		<tr> 
+	  <td class="row1"><span class="gen">{SIG_DESC}:</span></span></td>
+	  <td class="row2"><INPUT TYPE="button" VALUE="{SIG_BUTTON_DESC}" onclick="window.location.href='{SIG_EDIT_LINK}'"></td>
+	</tr>
+
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+	<!-- Canned MOD Begin -->
+	<!-- BEGIN switch_canned -->
+	<tr> 
+	  <td class="catSides" colspan="2" height="28">&nbsp;</td>
+	</tr>
+	<tr> 
+	  <th class="thSides" colspan="2" height="25" valign="middle">{L_CANNED_MESSAGES}</th>
+	</tr>
+	<!-- BEGIN canned_group -->
+	<tr>
+	  <td class="row2" colspan="2"><span class="gensmall">{switch_canned.canned_group.HEADER}</span></td>
+	</tr>
+	<!-- BEGIN canned -->
+	<tr>
+	  <td class="row1" valign="top"><span class="gen">{switch_canned.canned_group.canned.DESCRIPTION}:</span></td>
+	  <td class="row2"><input type="text" name="canned_title[{switch_canned.canned_group.canned.INDEX}][]" value="{switch_canned.canned_group.canned.CANNED_TITLE}"/><br />
+			<textarea name="canned_message[{switch_canned.canned_group.canned.INDEX}][]" style="width: 300px" rows="6" cols="30" class="post">{switch_canned.canned_group.canned.CANNED_MESSAGE}</textarea></td>
+	</tr>
+	<!-- END canned -->
+	<!-- END canned_group -->
+	<!-- END switch_canned -->
+	<!-- Canned MOD End -->
+
+/**********************************************************************/
+/*  Step 4.                                          THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR_THEME/forums/viewtopic_body.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{postrow.POSTER_POSTS} 
+
+/*
+/******[ REPLACE WITH ]*************************************************/
+/*
+<a href="{postrow.U_SEARCH_USER_POSTS}" class="genmed">{postrow.POSTER_POSTS}</a>
+
+
+/*
+/******[ FIND ]********************************************************/
+/*
+
+	  {S_VIEW_KICKED} {S_TOPIC_ADMIN}</td>
+	<td align="right" valign="top" nowrap="nowrap">{JUMPBOX}<span class="gensmall">{S_AUTH_LIST}</span></td>
+
+/*
+/******[ BEFORE, ADD ]*************************************************/
+/*
+	  <!-- Canned MOD Begin -->
+	  <form style="margin-top: 0px; margin-bottom: 4px;" action="{U_CANNED_POSTING}" method="post">
+	  <input type="hidden" name="mode" value="reply" />
+	  <input type="hidden" name="f" value="{FORUM_ID}" />
+	  <input type="hidden" name="t" value="{TOPIC_ID}" />
+	  {S_CANNED_SELECT}</form>
+	  <!-- Canned MOD End -->
+
+#
+#-----[ FIND ]------------------------------------------ 
+# 
+{postrow.POSTER_FROM}
+
+
+# 
+#-----[ IN-LINE AFTER, ADD ]------------------------------------------ 
+#
+<br />{postrow.CASH}<br /><a href="{postrow.ITEMSNAME}">Items</a>{postrow.ITEMS}
+
+#
+#-----[ OPEN ]------------------------------------------ 
+#
+themes/YOUR THEME/forums/overall_header.tpl
+
+# 
+#-----[ FIND ]------------------------------------------ 
+#
+Staff</a>
+
+#
+#-----[ IN LINE AFTER- only add this line if you want the Shop link to show up in the forum headers]-- 
+#
+&nbsp;&nbsp;&#8226;&nbsp;<a href="{U_SHOP}" class="mainmenu">{SHOP}</a>
+
+
+#
+#-----[ OPEN ]------------------------------------------ 
+#
+themes/YOUR THEME/forums/profile_view_body.tpl
+
+# 
+#-----[ FIND ]------------------------------------------ 
+#Default:	  <td> <b><span class="gen">{INTERESTS}</span></b></td>
+# 
+{INTERESTS}
+
+# 
+#-----[ FIND ]------------------------------------------ 
+# (on the next line)
+# 
+		</tr>
+#
+#-----[ AFTER, ADD ]------------------------------------------ 
+#
+		{CASH}
+
+#
+#-----[ SAVE/CLOSE ALL FILES ]------------------------------------------
+#
+
+/*
+/***************[ SAVE/CLOSE/UPLOAD/REPLACE ALL FILES ]****************/
+/*                                                                    */
+/**********************************************************************/
+/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                */
+/*       Graeme Allan - Techgfx                   (goose@techgfx.com) */
+/*       Scott Partee - Loki                     (loki@nukeplanet.com)*/
+/**********************************************************************/
+/* All content and includes from this package is intellectual         */
+/* property of TechGFX.com unless stated otherwise. Replication of    */
+/* and copyrighted material is a civil and criminal act and           */
+/* violations may result in legal action.                             */
+/**********************************************************************/
+/* See nukeplanet.com for detailed information on the                 */
+/* this version of the Platinum Suite                                 */
+/* TechGFX: Your dreams, Our imagination                              */
+/**********************************************************************/

@@ -1,0 +1,21 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} !^www\.
+RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L] 
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
+
+deny from 200.150.35.165
+deny from 69.243.47.54
+deny from 68.34.112.209
+deny from 71.114.62.162
+deny from 69.243.44.134
+deny from 69.243.45.51
+deny from 24.55.180.176
+deny from 71.114.65.115
+deny from 208.31.155.254
+deny from 82.146.165.139
+
+php_flag magic_quotes_gpc Off 
+

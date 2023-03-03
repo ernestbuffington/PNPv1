@@ -1,44 +1,21 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
 
 /********************************************************/
 /* NukeSentinel(tm)                                     */
-/* By: NukeScripts(tm) (http://www.nukescripts.net)     */
-/* Copyright © 2000-2008 by NukeScripts(tm)             */
+/* By: NukeScripts(tm) (http://nukescripts.86it.us)     */
+/* Copyright (c) 2000-2008 by NukeScripts(tm)           */
 /* See CREDITS.txt for ALL contributors                 */
 /********************************************************/
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
 
-if(!defined('NUKESENTINEL_ADMIN')) { header("Location: ../../../".$admin_file.".php"); }
-$pagetitle = _AB_NUKESENTINEL.": "._AB_ADDIP;
-include_once("header.php");
+if (!defined('NUKESENTINEL_ADMIN')) {
+   die ('You can\'t access this file directly...');
+}
+
+include_once(NUKE_BASE_DIR.'header.php');
 OpenTable();
 OpenMenu(_AB_ADDIP);
 mastermenu();
@@ -46,9 +23,9 @@ CarryMenu();
 blockedipmenu();
 CloseMenu();
 CloseTable();
-echo '<br />'."\n";
+
 OpenTable();
-echo '<form action="'.$admin_file.'.php" method="post">'."\n";
+echo '<form action="'.$admin_file.'.php" method="post" class="nuke-sentienl-blocked-ip-form">'."\n";
 echo '<table summary="" align="center" border="0" cellpadding="2" cellspacing="2">'."\n";
 echo '<tr bgcolor="'.$bgcolor1.'"><td align="center" class="content" colspan="2">'._AB_ADDIPS.'</td></tr>'."\n";
 // Start submitted by technocrat
@@ -63,10 +40,10 @@ if(!isset($tip)) {
 }
 // End submitted by technocrat
 echo '<tr><td bgcolor="'.$bgcolor2.'"><strong>'._AB_IPBLOCKED.':</strong></td>'."\n";
-echo '<td><input type="text" name="xip[0]" value="'.$tip[0].'" size="4" maxlength="3" style="text-align: center;" />'."\n";
-echo '. <input type="text" name="xip[1]" value="'.$tip[1].'" size="4" maxlength="3" style="text-align: center;" />'."\n";
-echo '. <input type="text" name="xip[2]" value="'.$tip[2].'" size="4" maxlength="3" style="text-align: center;" />'."\n";
-echo '. <input type="text" name="xip[3]" value="'.$tip[3].'" size="4" maxlength="3" style="text-align: center;" /></td></tr>'."\n";
+echo '<td><input class="nuke-sentinel-add-ip" type="text" name="xip[0]" value="'.$tip[0].'" size="4" maxlength="3" style="text-align: center;" />'."\n";
+echo '. <input class="nuke-sentinel-add-ip" type="text" name="xip[1]" value="'.$tip[1].'" size="4" maxlength="3" style="text-align: center;" />'."\n";
+echo '. <input class="nuke-sentinel-add-ip" type="text" name="xip[2]" value="'.$tip[2].'" size="4" maxlength="3" style="text-align: center;" />'."\n";
+echo '. <input class="nuke-sentinel-add-ip" type="text" name="xip[3]" value="'.$tip[3].'" size="4" maxlength="3" style="text-align: center;" /></td></tr>'."\n";
 echo '<tr><td bgcolor="'.$bgcolor2.'"><strong>'._AB_USERID.':</strong></td><td><input type="text" name="xuser_id" size="10" value="1" /></td></tr>'."\n";
 echo '<tr><td bgcolor="'.$bgcolor2.'"><strong>'._AB_USERNAME.':</strong></td><td><input type="text" name="xusername" size="20" value="'.$anonymous.'" /></td></tr>'."\n";
 echo '<tr><td bgcolor="'.$bgcolor2.'"><strong>'._AB_AGENT.':</strong></td><td><input type="text" name="xuser_agent" size="40" value="'._AB_UNKNOWN.'" /></td></tr>'."\n";
@@ -106,6 +83,6 @@ echo '<tr><td colspan="2" align="center"><input type="hidden" name="op" value="A
 echo '</table>'."\n";
 echo '</form>'."\n";
 CloseTable();
-include_once("footer.php");
+include_once(NUKE_BASE_DIR.'footer.php');
 
 ?>

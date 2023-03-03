@@ -1,35 +1,32 @@
 <?php
+/*=======================================================================
+ PHP-Nuke Titanium | Nuke-Evolution Basic : Enhanced and Advanced
+ =======================================================================*/
 
 /************************************************************************/
-/*    Pc-Nuke! Systems -  Advanced Content Management System            */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
+/*                                                                      */
+/* Copyright (c) 2005 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
+/*                                                                      */
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
 /************************************************************************/
-/*    PCN AdsPlus v2.0 -- by Pc-Nuke! --  www.pcnuke.com                */
-/************************************************************************/
-/*    Created by PcNuke.com -- Released on: 06.10.20. y.m.d             */
-/*    http://www.max.pcnuke.com  --  http://www.pcnuke.com              */
-/*    All Rights Reserved 2006 -- by Pc-Nuke!                           */
-/*    No Modding, Porting, Changing, or Distribution of this program    */
-/*    is allowed without written permission from www.pcnuke.com         */
-/************************************************************************/
-/*         The Power of the Nuke - Without the Radiation!               */
-/************************************************************************/
-/************************************************************************/
-/* - Copyright Notice (read and understand the GNU_GPL)                 */
-/* - THIS PACKAGE IS RELEASED AS GPL/GNU SCRIPTING.                     */
-/* - http://www.max.pcnuke.com/modules.php?name=GNU_GPL                 */
-/************************************************************************/
-/*         Always Backup your file system and database before           */
-/*      doing any type of installation or changes such as these.        */
-/*      Failure to do so may end up costing you much repair time        */
-/************************************************************************/
- 
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Nuke Patched                             v3.1.0       08/06/2005
+ ************************************************************************/
+
 if (!defined('ADMIN_FILE')) {
-	die ("Access Denied");
+    die('Access Denied');
 }
 
 global $admin_file;
-if ($radminsuper == 1) {
-    adminmenu($admin_file.'.php?op=BannersAdmin', _ADVERTISING, 'ads.png');
-}
+$module_name = basename(dirname(dirname(__FILE__)));
+get_lang($module_name);
+adminmenu($admin_file.'.php?op=BannersAdmin', _BANNERS, 'icon.png');
 
 ?>

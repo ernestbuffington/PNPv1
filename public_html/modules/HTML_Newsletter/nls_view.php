@@ -1,33 +1,15 @@
 <?php
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
 /************************************************************************/
 /* HTML Newsletter 1.0 module for PHP-Nuke 6.5 - 7.6                    */
 /* By: NukeWorks (webmaster@nukeworks.biz)                              */
@@ -43,21 +25,20 @@
 * License: GNU/GPL
 ************************************************************************/
 /************************************************************************
-* Script:     HTML Newsletter module for PHP-Nuke 6.5 - 7.6
-* Version:    01.03.02
-* Author:     Rob Herder (aka: montego) of montegoscripts.com
-* Contact:    montego@montegoscripts.com
-* Copyright:  Copyright © 2006 by Montego Scripts
-* License:    GNU/GPL (see provided LICENSE.txt file)
+* Script:			HTML Newsletter module for PHP-Nuke 6.5 - 7.6
+* Version:		01.03.01
+* Author:			Rob Herder (aka: montego) of montegoscripts.com
+* Contact:		montego@montegoscripts.com
+* Copyright:	Copyright © 2006 by Montego Scripts
+* License:		GNU/GPL (see provided LICENSE.txt file)
 ************************************************************************/
 /************************************************************************
-* Rev Date      Change ID       Description
-* -----------   --------------  -----------------------------------------
-* 18-MAY-2006   RN_0000185      Make XHTML 1.0 Compliant, plus better use of quotes
-* 12-MAR-2006   MSNL_010301_04  Move admin check to admin scripts for 7.4
+* Rev Date			Change ID				Description
+* -----------		--------------	-----------------------------------------
+* 12-MAR-2006		MSNL_010301_04	Move admin check to admin scripts for 7.4
 ************************************************************************/
 
-if ( !defined( 'MSNL_LOADED' ) ) { die( 'Illegal File Access' ); }
+if ( !defined( 'MSNL_LOADED' ) ) { die( "Illegal File Access" ); }
 
 /************************************************************************
 * Get the Newsletter to view
@@ -65,9 +46,9 @@ if ( !defined( 'MSNL_LOADED' ) ) { die( 'Illegal File Access' ); }
 
 $msnl_iNID = intval( $msnl_nid );
 
-$sql = 'SELECT `filename`, `hits`, `view`, `groups`, `cid` FROM `'
-	.$prefix.'_hnl_newsletters` '
-	.'WHERE `nid` = \''.$msnl_iNID.'\'';
+$sql = "SELECT `filename`, `hits`, `view`, `groups`, `cid` FROM `"
+			.$prefix."_hnl_newsletters` "
+			."WHERE `nid` = '$msnl_iNID'";
 			
 $result					= msnl_fSQLCall( $sql );
 $resultcount		= $db->sql_numrows( $result );
@@ -98,9 +79,9 @@ if ( !$result || $resultcount < 1 ) { //Bad SQL call
 
 			$msnl_asRec['hits']++;
 
-			$sql	= 'UPDATE `'.$prefix.'_hnl_newsletters` '
-				.'SET `hits` = \''.$msnl_asRec['hits'].'\' '
-				.'WHERE `nid` = \''.$msnl_iNID.'\'';
+			$sql	= "UPDATE `".$prefix."_hnl_newsletters` "
+						. "SET `hits` = '".$msnl_asRec['hits']."' "
+						. "WHERE `nid` = '$msnl_iNID'";
 
 			$db->sql_query( $sql );
 
@@ -108,11 +89,11 @@ if ( !$result || $resultcount < 1 ) { //Bad SQL call
 
 		//Get the newsletter file then echo the newsletter
 
-		$msnl_sFilePath	= 'modules/'.$msnl_sModuleNm.'/archive/'.$msnl_asRec['filename'];
+		$msnl_sFilePath	= "./modules/$msnl_sModuleNm/archive/".$msnl_asRec['filename'];
 
 		if ( @file_exists( $msnl_sFilePath ) ) {
 
-			@include_once( $msnl_sFilePath );
+			@include( $msnl_sFilePath );
 
 		} else {
 

@@ -1,65 +1,42 @@
 <?php
-/**************************************************************************/
-/* RN Your Account: Advanced User Management for RavenNuke
-/* =======================================================================*/
-/*
-/* Copyright (c) 2008, RavenPHPScripts.com	http://www.ravenphpscripts.com
-/*
-/* This program is free software. You can redistribute it and/or modify it
-/* under the terms of the GNU General Public License as published by the
-/* Free Software Foundation, version 2 of the license.
-/*
-/**************************************************************************/
-/* RN Your Account is the based on:
-/*  CNB Your Account http://www.phpnuke.org.br
-/*  NSN Your Account by Bob Marion, http://www.nukescripts.net
-/**************************************************************************/
-if ( !defined('ADMIN_FILE') )
-{
-	die ('Access Denied');
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
+
+/*********************************************************************************/
+/* CNB Your Account: An Advanced User Management System for phpnuke             */
+/* ============================================                                 */
+/*                                                                              */
+/* Copyright (c) 2004 by Comunidade PHP Nuke Brasil                             */
+/* http://dev.phpnuke.org.br & http://www.phpnuke.org.br                        */
+/*                                                                              */
+/* Contact author: escudero@phpnuke.org.br                                      */
+/* International Support Forum: http://ravenphpscripts.com/forum76.html         */
+/*                                                                              */
+/* This program is free software. You can redistribute it and/or modify         */
+/* it under the terms of the GNU General Public License as published by         */
+/* the Free Software Foundation; either version 2 of the License.               */
+/*                                                                              */
+/*********************************************************************************/
+/* CNB Your Account it the official successor of NSN Your Account by Bob Marion    */
+/*********************************************************************************/
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+      Nuke Patched                             v3.1.0       06/26/2005
+ ************************************************************************/
+
+if (!defined('ADMIN_FILE')) {
+   die('Access Denied');
 }
-$module_name = 'Your_Account'; 
+
 switch($op) {
-    case 'mod_users':
-    case 'modifyUser':
-    case 'yaActivateUser':
-    case 'yaActivateUserConf':
-    case 'yaAddUser':
-    case 'yaAddUserConf':
-    case 'yaAdmin':
-    case 'yaApproveUser':
-    case 'yaApproveUserConf':
-    case 'yaCredits':
-    case 'yaCustomFields':
-    case 'yaDeleteUser':
-    case 'yaDeleteUserConf':
-    case 'yaDelField':
-    case 'yaDelFieldConf':
-    case 'yaDenyUser':
-    case 'yaDenyUserConf':
-    case 'yaDetailsUser':
-    case 'yaDetailTemp':
-    case 'yaListPending':
-    case 'yaListUsers':
-    case 'yaModifyTemp':
-    case 'yaModifyTempConf':
-    case 'yaModifyUserConf':
-    case 'yaRemoveUser':
-    case 'yaRemoveUserConf':
-    case 'yaResendMail':
-    case 'yaResendMailConf':
-    case 'yaRestoreUser':
-    case 'yaRestoreUserConf':
-    case 'yaSaveFields':
-    case 'yaSearchUser':
-    case 'yaSuspendUser':
-    case 'yaSuspendUserConf':
-    case 'yaUsers':
-    case 'yaUsersConfig':
-    case 'yaUsersConfigSave':
-	case 'yaPromoteUser':
-	case 'yaPromoteUserConf':
-    include_once('modules/'.$module_name.'/admin/index.php');
+
+    case "mod_users":
+        redirect("modules.php?name=Your_Account&file=admin");
     break;
+
 }
+
 ?>

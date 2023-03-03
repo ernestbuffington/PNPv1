@@ -1,82 +1,86 @@
 <?php
 
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
-/********************************************************************
+/*=======================================================================
+ Nuke-Evolution   :   Enhanced Web Portal System
+ ========================================================================
 
-                    DarkForgeGFX Link To Us
-				  
-	(c) 2007 - 2008 by DarkForgeGFX - http://www.darkforgegfx.com
-		
-********************************************************************/
+ Nuke-Evo Base          :   #$#BASE
+ Nuke-Evo Version       :   #$#VER
+ Nuke-Evo Build         :   #$#BUILD
+ Nuke-Evo Patch         :   #$#PATCH
+ Nuke-Evo Filename      :   #$#FILENAME
+ Nuke-Evo Date          :   #$#DATE
 
-		$id = $_GET['id'];
-        $result = $db->sql_query("select * from ".$prefix."_link_us where id='$id'");
-        $row = $db->sql_fetchrow($result);
+ (c) 2007 - 2018 by Lonestar Modules - https://lonestar-modules.com
+ ========================================================================
+
+ LICENSE INFORMATIONS COULD BE FOUND IN COPYRIGHTS.PHP WHICH MUST BE
+ DISTRIBUTED WITHIN THIS MODULEPACKAGE OR WITHIN FILES WHICH ARE
+ USED FROM WITHIN THIS PACKAGE.
+ IT IS "NOT" ALLOWED TO DISTRIBUTE THIS MODULE WITHOUT THE ORIGINAL
+ COPYRIGHT-FILE.
+ ALL INFORMATIONS ABOVE THIS SECTION ARE "NOT" ALLOWED TO BE REMOVED.
+ THEY HAVE TO STAY AS THEY ARE.
+ IT IS ALLOWED AND SHOULD BE DONE TO ADD ADDITIONAL INFORMATIONS IN
+ THE SECTIONS BELOW IF YOU CHANGE OR MODIFY THIS FILE.
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+-=[Mod]=-
+ ************************************************************************/
+ 
+LinkusAdminMain();
+
+$row = $db->sql_ufetchrow("SELECT * FROM ".$prefix."_link_us where id='$id' LIMIT 0,1 ");
+
+$id = $row['id'];
+$site_name = $row['site_name'];
+$site_url = $row['site_url'];
+$site_image = $row['site_image'];
+$site_description = $row['site_description'];
+$site_status = $row['site_status'];
+
+if($row['site_status'] == 0)
+  $inactive = "checked"; 
+
+if($row['site_status'] == 1)
+  $active = "checked"; 
 		
-		if($row['site_status'] == 0){$inactive = "checked";}
-		if($row['site_status'] == 1){$active = "checked";}
-		
-        echo "<br>\n";
-        OpenTable();
-        echo "<center><table border='0' cellpadding='5' cellspacing='5'>";
-        echo "<form action='".$admin_file.".php?op=edit_button_save' method='post'>";
-        
-        echo "<tr><td><strong>Site ID:</strong></td><td><strong>".$row['id']."</strong></tr></td>";	
-			
-        echo "<tr><td><strong>Site Name:</strong></td><td><input type='text' name='site_name' size='30' value='".$row['site_name']."'></tr></td>";
-			
-        echo "<tr><td><strong>Site URL:</strong></td><td><input type='text' name='site_url' size='60' value='".$row['site_url']."'></tr></td>";
-				
-        echo "<tr><td><strong>Site Image:</strong></td><td><input type='text' name='site_image' size='30' value='".$row['site_image']."'></tr></td>";		
-	echo " <tr>";
-	// Link-Us fix start - sgtmudd
-echo "	<td width='40%'><strong>Site Image:</strong></td>";
-if($config['button_method'] == 1){ $type = "type='input'"; } else { $type = "type='file'"; }
-echo "      <td width='40%'><input name='site_image' ".$type." size='50'><br />( Available Image Types: Jpeg, JPG, Gif & PNG )</td>";
-echo " </tr>";
-	// Link-Us fix end - sgtmudd
-        echo "<tr><td><strong>Date Added:</strong></td><td>".$row['date_added']."</tr></td>";	
-			
-        echo "<tr><td valign='top'><strong>Site Description's:</strong></td><td><textarea rows='5' cols='50' name='site_description'>".$row['site_description']."</textarea></tr></td>";		
-		
-		if($row['site_status'] == 1){
-		echo "<tr><td><strong>Site Status:</strong></td><td>Active:<input name='site_status' type='radio' value='1' checked>&nbsp;Deactivated:<input name='site_status' type='radio' value='0'></td></tr>";
-		}else{
-		echo "<tr><td><strong>Site Status:</strong></td><td>Active:<input name='site_status' type='radio' value='1'>&nbsp;Deactivated:<input name='site_status' type='radio' value='0' checked></td></tr>";
-		}
-		
-		echo "</table></center>";
-		//echo "<input type='hidden' name='id' value='".$row['id']."'>";
-        echo "<center><input type='submit' value='Edit Button'></center>";		
-        echo "</form>";		
-        CloseTable();
+echo "<br />\n";
+OpenTable();
+echo "<table border='0' width='70%' cellpadding='5' cellspacing='5' style='margin: auto;'>";
+
+echo "<form action='".$admin_file.".php?op=edit_button_save' name='edit_button' method='post'>";
+
+echo "<tr><td><strong>".$lang_new[$module_name]['SITE_ID'].":</strong></td><td><strong>".$row['id']."</strong></tr></td>";
+
+echo "<tr><td><strong>".$lang_new[$module_name]['SITE_NAME'].":</strong></td><td><input type='hidden' name='site_name' size='60' value='".$row['site_name']."' />".$row['site_name']."</tr></td>";
+
+echo "<tr><td><strong>".$lang_new[$module_name]['SITE_URL'].":</strong></td><td><input type='text' name='site_url' size='60' value='".$row['site_url']."' /></tr></td>";
+
+echo "<tr><td><strong>".$lang_new[$module_name]['SITE_IMAGE'].":</strong></td><td><input type='text' name='site_image' size='30' value='".$row['site_image']."' /></tr></td>";
+
+echo "<tr><td><strong>".$lang_new[$module_name]['DATE_ADDED'].":</strong></td><td>".formatTimestamp($row['date_added'])."</tr></td>";
+
+echo "<tr><td valign='top'><strong>".$lang_new[$module_name]['SITE_DESCRIPTION'].":</strong></td></tr><tr><td colspan='2'>";
+
+echo Make_TextArea('site_description', $row['site_description'],'edit_button', '100%', '300px');
+echo "</tr></td>";
+	
+if($row['site_status'] == 1)
+{
+    echo "<tr><td><strong>".$lang_new[$module_name]['SITE_STATUS'].":</strong></td><td><input name='site_status' type='radio' 
+	value='1' checked='checked'>".$lang_new[$module_name]['ACTIVE']."&nbsp;<input name='site_status' type='radio' value='0'>".$lang_new[$module_name]['DEACTIVATED']."</td></tr>";
+} 
+else 
+{
+    echo "<tr><td><strong>".$lang_new[$module_name]['SITE_STATUS'].":</strong></td><td>".$lang_new[$module_name]['ACTIVE'].":<input name='site_status' type='radio' 
+	value='1' checked='checked'>&nbsp;".$lang_new[$module_name]['DEACTIVATED'].":<input name='site_status' type='radio' value='0'></td></tr>";
+}
+
+echo "</table></center>";
+echo "<center><input type='submit' value='".$lang_new[$module_name]['SAVE_EDIT_LINK_BUTTON']."' />";
+echo "</form>";
+CloseTable();
 
 ?>

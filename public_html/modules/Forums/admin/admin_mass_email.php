@@ -1,4 +1,9 @@
 <?php
+/*======================================================================= 
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
+ =======================================================================*/
+
+
 /***************************************************************************
 *                             admin_mass_email.php
 *                              -------------------
@@ -6,7 +11,7 @@
 *     copyright            : (C) 2001 The phpBB Group
 *     email                : support@phpbb.com
 *
-*     $Id: admin_mass_email.php,v 1.15.2.7 2003/05/03 23:24:01 acydburn Exp $
+*     Id: admin_mass_email.php,v 1.15.2.7 2003/05/03 23:24:01 acydburn Exp
 *
 ****************************************************************************/
 
@@ -19,37 +24,7 @@
  *
  ***************************************************************************/
 
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
-
-define('IN_PHPBB', 1);
+if (!defined('IN_PHPBB')) define('IN_PHPBB', true);
 
 if( !empty($setmodules) )
 {
@@ -64,8 +39,8 @@ if( !empty($setmodules) )
 //
 $no_page_header = TRUE;
 $phpbb_root_path = './../';
-require_once($phpbb_root_path . 'extension.inc');
-require_once('./pagestart.' . $phpEx);
+require($phpbb_root_path . 'extension.inc');
+require('./pagestart.' . $phpEx);
 
 //
 // Increase maximum execution time in case of a lot of users, but don't complain about it if it isn't
@@ -79,10 +54,10 @@ $subject = '';
 //
 // Do the job ...
 //
-if ( isset($_POST['submit']) )
+if ( isset($HTTP_POST_VARS['submit']) )
 {
-        $subject = stripslashes(trim($_POST['subject']));
-        $message = stripslashes(trim($_POST['message']));
+        $subject = stripslashes(trim($HTTP_POST_VARS['subject']));
+        $message = stripslashes(trim($HTTP_POST_VARS['message']));
 
         $error = FALSE;
         $error_msg = '';
@@ -99,7 +74,7 @@ if ( isset($_POST['submit']) )
                 $error_msg .= ( !empty($error_msg) ) ? '<br />' . $lang['Empty_message'] : $lang['Empty_message'];
         }
 
-        $group_id = intval($_POST[POST_GROUPS_URL]);
+        $group_id = intval($HTTP_POST_VARS[POST_GROUPS_URL]);
 
         $sql = ( $group_id != -1 ) ? "SELECT u.user_email FROM " . USERS_TABLE . " u, " . USER_GROUP_TABLE . " ug WHERE ug.group_id = $group_id AND ug.user_pending <> " . TRUE . " AND u.user_id = ug.user_id" : "SELECT user_email FROM " . USERS_TABLE;
         if ( !($result = $db->sql_query($sql)) )
@@ -128,7 +103,7 @@ if ( isset($_POST['submit']) )
 
         if ( !$error )
         {
-                include_once("../../../includes/emailer.php");
+                include("../../../includes/emailer.php");
 
                 //
                 // Let's do some checking to make sure that mass mail functions
@@ -176,15 +151,20 @@ if ( isset($_POST['submit']) )
         }
 }
 
-if ( $error )
+if(!isset($error))
+$error = '';
+
+if($error)
 {
-        $template->set_filenames(array(
-                'reg_header' => 'error_body.tpl')
-        );
-        $template->assign_vars(array(
-                'ERROR_MESSAGE' => $error_msg)
-        );
-        $template->assign_var_from_handle('ERROR_BOX', 'reg_header');
+  $template->set_filenames(array(
+    'reg_header' => 'error_body.tpl')
+  );
+  
+  $template->assign_vars(array(
+    'ERROR_MESSAGE' => $error_msg)
+  );
+  
+  $template->assign_var_from_handle('ERROR_BOX', 'reg_header');
 }
 
 //
@@ -213,11 +193,14 @@ $select_list .= '</select>';
 //
 // Generate page
 //
-include_once('./page_header_admin.'.$phpEx);
+include('./page_header_admin.'.$phpEx);
 
 $template->set_filenames(array(
         'body' => 'admin/user_email_body.tpl')
 );
+
+if(!isset($notice))
+$notice = '';
 
 $template->assign_vars(array(
         'MESSAGE' => $message,
@@ -238,6 +221,6 @@ $template->assign_vars(array(
 
 $template->pparse('body');
 
-include_once('./page_footer_admin.'.$phpEx);
+include('./page_footer_admin.'.$phpEx);
 
 ?>

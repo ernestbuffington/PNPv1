@@ -1,33 +1,15 @@
 <?php
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
 /************************************************************************/
 /* HTML Newsletter 1.0 module for PHP-Nuke 6.5 - 7.6                    */
 /* By: NukeWorks (webmaster@nukeworks.biz)                              */
@@ -43,56 +25,49 @@
 * License: GNU/GPL
 ************************************************************************/
 /************************************************************************
-* Script:     HTML Newsletter module for PHP-Nuke 6.5 - 7.6
-* Version:    01.03.02
-* Author:     Rob Herder (aka: montego) of montegoscripts.com
-* Contact:    montego@montegoscripts.com
-* Copyright:  Copyright © 2006 by Montego Scripts
-* License:    GNU/GPL (see provided LICENSE.txt file)
-************************************************************************/
-/************************************************************************
-* Rev Date      Change ID       Description
-* -----------   --------------  -----------------------------------------
-* 17-AUG-2006   RN_0000313      Newsletter List Index Not Properly Being Incremented 
-* 18-MAY-2006   RN_0000185      Make XHTML 1.0 Compliant, plus better use of quotes
-* 02-MAY-2006   RN_0000188      Hide links for newsletters with no file.
+* Script:			HTML Newsletter module for PHP-Nuke 6.5 - 7.6
+* Version:		01.03.01
+* Author:			Rob Herder (aka: montego) of montegoscripts.com
+* Contact:		montego@montegoscripts.com
+* Copyright:	Copyright © 2006 by Montego Scripts
+* License:		GNU/GPL (see provided LICENSE.txt file)
 ************************************************************************/
 
-if ( !defined( 'MSNL_LOADED' ) ) { die( 'Illegal File Access' ); }
+if ( !defined( 'MSNL_LOADED' ) ) { die( "Illegal File Access" ); }
 
 /************************************************************************
 * Start displaying module content
 ************************************************************************/
 
-@include_once( 'header.php' );
+@include( "header.php" );
 
 $msnl_giHeadersSent	= 1;
-msnl_fPrintHTML('BEGIN');
-@require_once( 'modules/'.$msnl_sModuleNm.'/javascript.php' );
+msnl_fPrintHTML("BEGIN");
+@require_once( "./modules/$msnl_sModuleNm/javascript.php" );
 
-echo '<div id="msnl_div_title">';
+echo "<div id='msnl_div_title'>\n";
 
 opentable();
 
-echo '<p '.$msnl_asCSS['BLOCK_center'].'>'
-	.'<span class="title">'
-	._MSNL_NLS_LST_LAB_ARCHTITL
-	.'</span>';
+echo "\n<p ${msnl_asCSS['BLOCK_center']}>\n"
+				."<span class='title'>"
+					._MSNL_NLS_LST_LAB_ARCHTITL
+				."</span>\n";
 
 //Show link to administration if an admin is logged on
 if ( is_admin( $admin ) ) {	//MSNL_010301_04
 
-	echo '<br />'
-		.'[ <a href="'.$admin_file.'.php?op=msnl_admin" title="'. _MSNL_NLS_LST_LNK_ADMNLS 
-		.'">'. _MSNL_NLS_LST_LAB_ADMNLS .'</a> ]';
+	echo "<br />\n"
+			."[ <a href=\"".$admin_file.".php?op=msnl_admin\" title=\"" . _MSNL_NLS_LST_LNK_ADMNLS 
+			."\">". _MSNL_NLS_LST_LAB_ADMNLS ."</a> ]\n";
 
 }
 
-echo '</p>';
+echo "</p>\n";
 
 closetable();
 
-echo '<br /></div>'."\n";
+echo "<br /></div>\n";
 
 opentable();
 
@@ -100,11 +75,11 @@ opentable();
 * Get Newsletter List 
 ************************************************************************/
 
-$sql = 'SELECT `nid`, nl.`cid`, `topic`, `sender`, `datesent`, `view`, `groups`, '
-	.'`hits`, `ctitle`, `cblocklimit`, `filename`  FROM `'
-	.$prefix.'_hnl_newsletters` nl, `'
-	.$prefix.'_hnl_categories` nc '
-	.'WHERE nl.`cid` = nc.`cid` ORDER BY `ctitle` ASC, `datesent` DESC';
+$sql = "SELECT `nid`, nl.`cid`, `topic`, `sender`, `datesent`, `view`, `groups`, "
+			."`hits`, `ctitle`, `cblocklimit`  FROM `"
+			.$prefix."_hnl_newsletters` nl, `"
+			.$prefix."_hnl_categories` nc "
+			."WHERE nl.`cid` = nc.`cid` ORDER BY `ctitle` ASC, `datesent` DESC";
 
 $result = msnl_fSQLCall( $sql );
 
@@ -118,12 +93,12 @@ if ( !$result ) { //Bad SQL call
 
 } else { //Successful SQL call
 
-	echo '<div id="msnl_div_listnls">';
+	echo "<div id='msnl_div_listnls'>\n";
 	opentable();
 
 	$idx_tot_nls		= 1;	//Index for total number of newsletters displayed
 	$idx_nl_nbr			= 1;	//Index for number of newsletters displayed within a category
-	$prev_category	= '';	//For determining category breaks
+	$prev_category	= "";	//For determining category breaks
 
 	while ( $row = $db->sql_fetchrow( $result ) ) {
 
@@ -137,7 +112,6 @@ if ( !$result ) { //Bad SQL call
 		$hits 				= intval($row['hits']);
 		$ctitle 			= stripslashes($row['ctitle']);
 		$cblocklimit 	= intval($row['cblocklimit']);
-		$filename 		= stripslashes($row['filename']);
 
 		if ( msnl_fIsViewable($view, $cid, $groups) ) {  //Is the newsletter viewable by the user?
 
@@ -147,13 +121,13 @@ if ( !$result ) { //Bad SQL call
 
 					CloseTable();
 					
-					echo '<br />';
+					echo "<br />";
 
 					OpenTable();
 
 				}
 
-				echo '<p '.$msnl_asCSS['BLOCK_center'].'><strong>'.$ctitle.'</strong></p>';
+				echo "<p ${msnl_asCSS['BLOCK_center']}><strong>$ctitle</strong></p>\n";
 
 				$prev_category = $ctitle;
 
@@ -161,17 +135,13 @@ if ( !$result ) { //Bad SQL call
 
 			} //End of show new category title
 
-			$mod_row = msnl_fGetBlockRow( $idx_nl_nbr, $nid, $topic, $sender, $hits, $datesent, $filename );
+			$mod_row = msnl_fGetBlockRow( $idx_nl_nbr, $nid, $topic, $sender, $hits, $datesent );
 
-			if ( !empty($mod_row) ) {
-			
-				echo $mod_row;
+			echo $mod_row;
 
-				echo '<br />';
+			echo "<br />\n";
 
-				$idx_nl_nbr++;
-
-			}
+			$idx_nl_nbr++;
 
 		} //End of msnl_fIsViewable IF
 
@@ -179,14 +149,14 @@ if ( !$result ) { //Bad SQL call
 
 	CloseTable();
 
-	echo '</div>'."\n";
+	echo "</div>\n";
 	
 } //End If of check for successful DB call
 
 CloseTable();
 
-msnl_fPrintHTML('END');
+msnl_fPrintHTML("END");
 
-@include_once( 'footer.php' );
+@include( "footer.php" );
 
 ?>

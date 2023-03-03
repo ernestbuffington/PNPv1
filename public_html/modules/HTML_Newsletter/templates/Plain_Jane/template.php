@@ -1,33 +1,15 @@
 <?php
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
 /************************************************************************/
 /* HTML Newsletter 1.0 module for PHP-Nuke 6.5 - 7.6                    */
 /* By: NukeWorks (webmaster@nukeworks.biz)                              */
@@ -43,18 +25,12 @@
 * License: GNU/GPL
 ************************************************************************/
 /************************************************************************
-* Script:     HTML Newsletter module for PHP-Nuke 6.5 - 7.6
-* Version:    01.03.02
-* Author:     Rob Herder (aka: montego) of montegoscripts.com
-* Contact:    montego@montegoscripts.com
-* Copyright:  Copyright © 2006 by Montego Scripts
-* License:    GNU/GPL (see provided LICENSE.txt file)
-************************************************************************/
-/************************************************************************
-* Rev Date      Change ID       Description
-* -----------   --------------  -----------------------------------------
-* 18-MAY-2006   RN_0000185      Make HTML 4.01 Transitional Compliant, 
-*                               plus better use of quotes
+* Script:			HTML Newsletter module for PHP-Nuke 6.5 - 7.6
+* Version:		01.03.01
+* Author:			Rob Herder (aka: montego) of montegoscripts.com
+* Contact:		montego@montegoscripts.com
+* Copyright:	Copyright © 2006 by Montego Scripts
+* License:		GNU/GPL (see provided LICENSE.txt file)
 ************************************************************************/
 
 /*Placeholders Table Of Contents
@@ -116,241 +92,241 @@
 {FORUMTOPICS} = This is the total forum topics.
 */
 
-$statstable = '
-<div class="content">
-<div class="title">Some statistics from {SITENAME}.</div>
-<table width="100%" align="center">
-	<tr class="row">
-		<td width="75%">
+$statstable = "
+<div class=\"content\">
+<div class=\"title\">Some statistics from {SITENAME}.</div>
+<table width=\"100%\" align=\"center\">
+	<tr class=\"row\">
+		<td width=\"75%\">
 			Total Page Hits:
 		</td>
-		<td width="25%" align="left">
+		<td width=\"25%\" align=left>
 			{PAGEHITS}
 		</td>
 	</tr>
-	<tr class="row">
-		<td width="75%">
+	<tr class=\"row\">
+		<td width=\"75%\">
 			Total Members:
 		</td>
-		<td width="25%" align="left">
+		<td width=\"25%\" align=left>
 			{MEMBERS}
 		</td>
 	</tr>
-	<tr class="row">
-		<td width="75%">
+	<tr class=\"row\">
+		<td width=\"75%\">
 			Total News Items:
 		</td>
-		<td width="25%" align="left">
+		<td width=\"25%\" align=left>
 			{NEWSITEMS} in {NEWSCAT} categories
 		</td>
 	</tr>
-	<tr class="row">
-		<td width="75%">
+	<tr class=\"row\">
+		<td width=\"75%\">
 			Total Downloads:
 		</td>
-		<td width="25%" align="left">
+		<td width=\"25%\" align=left>
 			{DOWNLOADS} in {DOWNLOADCAT} categories
 		</td>
 	</tr>
-	<tr class="row">
-		<td width="75%">
+	<tr class=\"row\">
+		<td width=\"75%\">
 			Total Web Links:
 		</td>
-		<td width="25%" align="left">
+		<td width=\"25%\" align=left>
 			{WEBLINKS} in {WEBLINKCAT} categories
 		</td>
 	</tr>
-	<tr class="row">
-		<td width="75%">
+	<tr class=\"row\">
+		<td width=\"75%\">
 			Total Forum Posts:
 		</td>
-		<td width="25%" align="left">
+		<td width=\"25%\" align=left>
 			{FORUMPOSTS} in {FORUMTOPICS} topics
 		</td>
 	</tr>
 </table>
-</div>';
+</div>";
 
-$latestnewstop = '
-<div class="content">
-<div class="title"><a href="{SITEURL}/modules.php?name=News">Our {AMOUNT} latest news items.</a></div>
-<table width="100%" align="center">
-	<tr class="subtitle">
-		<td width="5%">
+$latestnewstop = "
+<div class=\"content\">
+<div class=\"title\"><a href=\"{SITEURL}/modules.php?name=News\">Our {AMOUNT} latest news items.</a></div>
+<table width=\"100%\" align=\"center\">
+	<tr class=\"subtitle\">
+		<td width=\"5%\">
 		</td>
-		<td width="65%">
+		<td>
 			Title
 		</td>
-		<td width="15%">
+		<td width=\"15%\">
 			Topic
 		</td>
-		<td width="15%">
+		<td width=\"15%\">
 			Author
 		</td>
-	</tr>';
+	</tr>";
 
-$latestnewsrow = '
-<tr class="row">
-	<td>
-		<a href="{SITEURL}/modules.php?name=News&amp;file=article&amp;sid={NEWSID}&amp;mode=&amp;order=0&amp;thold=0">
+$latestnewsrow = 
+	"<tr class=\"row\">
+		<td>
+			<a href=\"{SITEURL}/modules.php?name=News&amp;file=article&amp;sid={NEWSID}&amp;mode=&amp;order=0&amp;thold=0\">
+				{ROWNUMBER}
+			</a>
+		</td>
+		<td>
+			<a href=\"{SITEURL}/modules.php?name=News&amp;file=article&amp;sid={NEWSID}&amp;mode=&amp;order=0&amp;thold=0\">
+				{TITLE} ({HITS} hits)
+			</a>
+		</td>
+		<td>
+			<a href=\"{SITEURL}/modules.php?name=News&amp;new_topic={TOPICID}\">
+				{TOPIC}
+			</a>
+		</td>
+		<td>
+			{AUTHOR}
+		</td>
+	</tr>";
+
+$latestnewsend = 
+"</table>
+</div>";
+
+$latestdownloadtop = "
+<div class=\"content\">
+<div class=\"title\"><a href=\"{SITEURL}/modules.php?name=Downloads\" title=\"Our latest downloads\">Our {AMOUNT} latest downloads</a></div>
+<table width=\"100%\" align=\"center\">
+	<tr class=\"subtitle\">
+		<td width=\"5%\">
+		</td>
+		<td>
+			Title
+		</td>
+		<td width=\"10%\">
+			Hits
+		</td>
+	</tr>";
+
+$latestdownloadrow =
+"	<tr class=\"row\">
+		<td>
 			{ROWNUMBER}
-		</a>
-	</td>
-	<td>
-		<a href="{SITEURL}/modules.php?name=News&amp;file=article&amp;sid={NEWSID}&amp;mode=&amp;order=0&amp;thold=0">
-			{TITLE} ({HITS} hits)
-		</a>
-	</td>
-	<td>
-		<a href="{SITEURL}/modules.php?name=News&amp;new_topic={TOPICID}">
-			{TOPIC}
-		</a>
-	</td>
-	<td>
-		{AUTHOR}
-	</td>
-</tr>';
-
-$latestnewsend = '
-</table>
-</div>';
-
-$latestdownloadtop = '
-<div class="content">
-<div class="title"><a href="{SITEURL}/modules.php?name=Downloads" title="Our latest downloads">Our {AMOUNT} latest downloads</a></div>
-<table width="100%" align="center">
-	<tr class="subtitle">
-		<td width="5%">
 		</td>
-		<td width="85%">
+		<td>
+			<a href=\"{SITEURL}/modules.php?name=Downloads&amp;d_op=getit&amp;lid={DOWNLOADID}\">
+				{TITLE}
+			</a>
+		</td>
+		<td>
+			{HITS}
+		</td>
+	</tr>";
+
+$latestdownloadend =
+"</table>
+</div>";
+
+$latestweblinktop = "
+<div class=\"content\">
+<div class=\"title\"><a href=\"{SITEURL}/modules.php?name=Downloads\" title=\"Our latest web links\">Our {AMOUNT} latest web links</a></div>
+<table width=\"100%\" align=\"center\">
+	<tr class=\"subtitle\">
+		<td width=\"5%\">
+		</td>
+		<td>
 			Title
 		</td>
-		<td width="10%">
+		<td width=\"10%\">
 			Hits
 		</td>
-	</tr>';
+	</tr>";
 
-$latestdownloadrow = '
-<tr class="row">
-	<td>
-		{ROWNUMBER}
-	</td>
-	<td>
-		<a href="{SITEURL}/modules.php?name=Downloads&amp;d_op=getit&amp;lid={DOWNLOADID}">
-			{TITLE}
-		</a>
-	</td>
-	<td>
-		{HITS}
-	</td>
-</tr>';
-
-$latestdownloadend = '
-</table>
-</div>';
-
-$latestweblinktop = '
-<div class="content">
-<div class="title"><a href="{SITEURL}/modules.php?name=Downloads" title="Our latest web links">Our {AMOUNT} latest web links</a></div>
-<table width="100%" align="center">
-	<tr class="subtitle">
-		<td width="5%">
+$latestweblinkrow = 
+"	<tr class=\"row\">
+		<td>
+			{ROWNUMBER}
 		</td>
-		<td width="85%">
-			Title
+		<td>
+			<a href=\"{SITEURL}/modules.php?name=Web_Links&amp;l_op=viewlinkdetails&amp;lid={LINKID}&amp;ttitle={TITLE}\">
+				{TITLE}
+			</a>
 		</td>
-		<td width="10%">
-			Hits
+		<td>
+			{HITS}
 		</td>
-	</tr>';
+	</tr>";
 
-$latestweblinkrow = '
-<tr class="row">
-	<td>
-		{ROWNUMBER}
-	</td>
-	<td>
-		<a href="{SITEURL}/modules.php?name=Web_Links&amp;l_op=viewlinkdetails&amp;lid={LINKID}&amp;ttitle={TITLE}">
-			{TITLE}
-		</a>
-	</td>
-	<td>
-		{HITS}
-	</td>
-</tr>';
+$latestweblinkend =
+"</table>
+</div>";
 
-$latestweblinkend = '
-</table>
-</div>';
-
-$latestforumtop .= '
-<div class="content">
-<div class="title"><a href="{SITEURL}/modules.php?op=modload&amp;name=Forums" title="Our latest forum posts">Our {AMOUNT} latest forum posts</a></div>
-<table width="100%" border="0" cellspacing="2" cellpadding="2" align="center">
-	<tr class="subtitle">
-		<td width="5%">
+$latestforumtop .= "
+<div class=\"content\">
+<div class=\"title\"><a href=\"{SITEURL}/modules.php?op=modload&amp;name=Forums\" title=\"Our latest forum posts\">Our {AMOUNT} latest forum posts</a></div>
+<table width=\"100%\" border=\"0\" cellspacing=\"2\" cellpadding=\"2\" align=\"center\">
+	<tr class=\"subtitle\">
+		<td width=\"5%\">
 		</td>
-		<td width="48%">
+		<td>
 			Topic
 		</td>
-		<td width="7%">
+		<td width=\"7%\">
 			Answer
 		</td>
-		<td width="10%">
+		<td width=\"10%\">
 			Author
 		</td>
-		<td width="7%">
+		<td width=\"7%\">
 			Viewed
 		</td>
-		<td width="23%">
+		<td width=\"23%\">
 			Latest Poster
 		</td>
-	</tr>';
+	</tr>";
 
-$latestforumrow = '
-<tr class="row">
-	<td>
-		{ROWNUMBER}
-	</td>
-	<td>
-		<a href="{SITEURL}/modules.php?name=Forums&amp;file=viewtopic&amp;t={FTOPICID}#{FTOPICLASTPOSTID}">
-			{FTOPICTITLE}
-		</a>
-	</td>
-	<td>
-		{FTOPICREPLIES}
-	</td>
-	<td>
-		<a href="{SITEURL}/modules.php?name=Forums&amp;file=profile&amp;mode=viewprofile&amp;u={FTPUSERID}">
-			{FTPUSERNAME}
-		</a>
-	</td>
-	<td>
-		{FVIEWS}
-	</td>
-	<td>
-		{FTIME}
-		<br />
-		<a href="{SITEURL}/modules.php?name=Forums&amp;file=profile&amp;mode=viewprofile&amp;u={FUSERID}">
-			{FUSERNAME}
-		</a>
-	</td>
-</tr>';
+$latestforumrow =
+"	<tr class=\"row\">
+		<td>
+			{ROWNUMBER}
+		</td>
+		<td>
+			<a href=\"{SITEURL}/modules.php?name=Forums&amp;file=viewtopic&amp;t={FTOPICID}#{FTOPICLASTPOSTID}\">
+				{FTOPICTITLE}
+			</a>
+		</td>
+		<td>
+			{FTOPICREPLIES}
+		</td>
+		<td>
+			<a href=\"{SITEURL}/modules.php?name=Forums&amp;file=profile&amp;mode=viewprofile&amp;u={FTPUSERID}\">
+				{FTPUSERNAME}
+			</a>
+		</td>
+		<td>
+			{FVIEWS}
+		</td>
+		<td>
+			{FTIME}
+			<br>
+			<a href=\"{SITEURL}/modules.php?name=Forums&amp;file=profile&amp;mode=viewprofile&amp;u={FUSERID}\">
+				{FUSERNAME}
+			</a>
+		</td>
+	</tr>";
 
-$latestforumend = '
-</table>
-</div>';
+$latestforumend =
+"</table>
+</div>";
 
-$emailfile = '
-<!-- Hi {USERNAME} Your System cannot read HTML-Mails! Following message was send to you: {TEXTBODY} -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-	"http://www.w3.org/TR/html4/loose.dtd">
+
+$emailfile =
+"<!-- Hi {USERNAME} Your System cannot read HTML-Mails! Following message was send to you: {TEXTBODY} -->
+<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\">
 <html>
 <head>
 
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html; charset=ISO-8859-1\">
 <title>{SITENAME} Email</title>
-<style type="text/css">
+<style type=\"text/css\">
 
 <!--
 
@@ -373,21 +349,21 @@ tr.row { background: #FFFFFF; color: #000000; font-family: Verdana, Helvetica, s
 </style>
 </head>
 <body>
-<div id="main">
-	<div id="title">Newsletter from {SITENAME} sent on {DATE}</div>
-	<div id="subtitle">By: {SENDER} Topic: {EMAILTOPIC}</div>
-	<div class="content">{TEXTBODY}</div>
-	<div class="bar"></div>
+<div id=\"main\">
+	<div id=\"title\">Newsletter from {SITENAME} sent on {DATE}</div>
+	<div id=\"subtitle\">By: {SENDER} Topic: {EMAILTOPIC}</div>
+	<div class=\"content\">{TEXTBODY}</div>
+	<div class=\"bar\"></div>
 	{NEWS}
 	{DOWNLOADS}
 	{WEBLINKS}
 	{FORUMS}
 	{STATS}
 </div>
-	<div id="banner">{BANNER}</div>
-	<div class="bar"></div>
-	<div id="unsub">You received this email because you are a registered user of {SITENAME}, if you dont want to receive mail from {SITENAME}, please let us know by following this <a href="mailto:{ADMINEMAIL}?subject=Newsletter">link</a>.</div>
+	<div id=\"banner\">{BANNER}</div>
+	<div class=\"bar\"></div>
+	<div id=\"unsub\">You received this email because you are a registered user of {SITENAME}, if you dont want to receive mail from {SITENAME}, please let us know by following this <a href=\"mailto:{ADMINEMAIL}?subject=Newsletter\">link</a>.</div>
 </body>
 </html>
-';
+";
 ?>

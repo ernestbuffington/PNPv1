@@ -18,6 +18,7 @@ use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTypeChanger;
 use Rector\BetterPhpDocParser\ValueObject\Type\SpacingAwareArrayTypeNode;
 use Rector\Core\Rector\AbstractScopeAwareRector;
 use Rector\Core\Util\StringUtils;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PhpDocParser\TypeAnalyzer\ClassMethodReturnTypeResolver;
 use Rector\PHPStanStaticTypeMapper\Enum\TypeKind;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -84,7 +85,7 @@ CODE_SAMPLE
      */
     public function refactorWithScope(Node $node, Scope $scope) : ?Node
     {
-        if ($this->isInTestCase($scope)) {
+        if ($this->isInTestCase($node)) {
             return null;
         }
         /** @var Return_[] $returns */
@@ -152,8 +153,12 @@ CODE_SAMPLE
      * Skip test case, as return methods there are usually with test data only.
      * Those arrays are hand made and return types are getting complex and messy, so this rule should skip it.
      */
-    private function isInTestCase(Scope $scope) : bool
+    private function isInTestCase(ClassMethod $classMethod) : bool
     {
+        $scope = $classMethod->getAttribute(AttributeKey::SCOPE);
+        if (!$scope instanceof Scope) {
+            return \false;
+        }
         $classReflection = $scope->getClassReflection();
         if (!$classReflection instanceof ClassReflection) {
             return \false;

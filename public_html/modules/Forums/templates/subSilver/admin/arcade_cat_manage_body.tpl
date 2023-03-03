@@ -4,11 +4,11 @@
 
 <table width="100%" cellpadding="6" cellspacing="1" border="0" class="forumline">
 <tr>
-	<th class="thTop" height="25" valign="middle" nowrap="nowrap" colspan="2">{L_DESCRIPTION}</th>
-	<th class="thTop" height="25" valign="middle" nowrap="nowrap">{L_ACTION}</th>
-	<th class="thTop" height="25" valign="middle" nowrap="nowrap">{L_DELETE}</th>
-	<th class="thTop" height="25" valign="middle" nowrap="nowrap">{L_DEPLACE}</th>
-	<th class="thTop" height="25" valign="middle" nowrap="nowrap">{L_SYNCHRO}</th>
+    <th class="thTop" height="25" valign="middle" nowrap="nowrap" colspan="2">{L_DESCRIPTION}</th>
+    <th class="thTop" height="25" valign="middle" nowrap="nowrap">{L_ACTION}</th>
+    <th class="thTop" height="25" valign="middle" nowrap="nowrap">{L_DELETE}</th>
+    <th class="thTop" height="25" valign="middle" nowrap="nowrap">{L_DEPLACE}</th>
+    <th class="thTop" height="25" valign="middle" nowrap="nowrap">{L_SYNCHRO}</th>
 </tr>
 <!-- BEGIN arcade_catrow -->
 <tr>
@@ -27,11 +27,11 @@
 </tr>
 <!-- END arcade_catrow -->
 <form action="{S_ACTION}" method="post">{S_HIDDEN_FIELDS} 
-	<tr>
-		<td class="cat" height="28" align="center" valign="middle" colspan="7">
-		<input type="submit" name="{S_SUBMIT}" value="{L_NEWCAT}" class="mainoption" />
-		</td>
-	</tr>
+    <tr>
+        <td class="cat" height="28" align="center" valign="middle" colspan="7">
+        <input type="submit" name="{S_SUBMIT}" value="{L_NEWCAT}" class="mainoption" />
+        </td>
+    </tr>
 </form>
 </table>
 <br />

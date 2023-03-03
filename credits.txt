@@ -1,0 +1,1398 @@
+/**********************************************************************/
+/* PHP-Nuke Platinum v.7.6.b.2 thru 7.6.b.4                   CREDITS */
+/* [UPDATES]                                                          */
+/*                                                                    */
+/*    Name:      Loki /Teknerd aka Scott Partee                       */
+/*    Email:     loki@nukeplanet.com                                  */
+/*    Website:   http://www.nukeplanet.com                            */
+/*    Version:   7.6.b.2 thru 7.6.b.4                                 */
+/*                                                                    */
+/* [FIXES]                                                            */
+/*    Name:      Loki /Teknerd aka Scott Partee                       */
+/*    Email:     loki@nukeplanet.com                                  */
+/*    Website:   http://www.nukeplanet.com                            */
+/*    Version:   7.6.b.2 thru 7.6.b.4                                 */
+/*                                                                    */
+/*    Name:      Technocrat                                           */
+/*    Email:     unknown                                              */
+/*    Website:   http://www.platinummods.com                          */
+/*    Version:   7.6.b.3                                              */
+/*                                                                    */
+/*                                                                    */
+/* [ADDONS]                                                           */
+/*    Name:      Admin Submissions                                    */
+/*    Copyright: TechGFX a.k.a Graeme Allan                           */
+/*    Email:     goose@techgfx.com                                    */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  02/12/2004                                           */
+/*    Website:   http://www.techgfx.com                               */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Admin QuickNav                                       */
+/*    Copyright: TechGFX a.k.a Graeme Allan                           */
+/*    Email:     goose@techgfx.com                                    */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  02/12/2004                                           */
+/*    Website:   http://www.techgfx.com                               */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Conditional Blocks                                   */
+/*    Copyright: Paladin                                              */
+/*    Email:     paladin@intaleather.com.au                           */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  10/10/2004                                           */
+/*    Website:   http://paladin.intaleather.com.au                    */
+/*    Updated:   http://www.conrad-berlin.de                          */
+/*    Version:   1.1.1                                                */
+/*                                                                    */
+/*    Name:      Database Manager                                     */
+/*    Copyright: DJ_Maze                                              */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  13/03/2004                                           */
+/*    Website:   http://www.cpgnuke.com                               */
+/*    Updated:   http://www.portedmods.com                            */
+/*    Version:   1.9.0                                                */
+/*                                                                    */
+/*                                                                    */
+/*    Name:      Navigation / Module                                  */
+/*    Copyright: SPCDATA                                              */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  17/09/2004                                           */
+/*    Website:   http://www.nextnet.se                                */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   2.0.0                                                */
+/*                                                                    */
+/*    Name:      NSN Center Blocks                                    */
+/*    Copyright: Nuke Scripts Network                                 */
+/*    Email:     webmaster@nukescripts.net                            */
+/*    GNU/GPL:   No                                                   */
+/*    Released:  12/03/2005                                           */
+/*    Website:   http://www.nukescripts.net                           */
+/*    Version:   2.1.3                                                */
+/*                                                                    */
+/*                                                                    */
+/*    Name:      Sommaire Parametrable                                */
+/*    Copyright: marcoledingue                                        */
+/*    Email:     marcoledingue@free.fr                                */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  11/04/2004                                           */
+/*    Website:   Undefined                                            */
+/*    Version:   3.1                                                  */
+/*                                                                    */
+/*    Name:      Survey Block Advanced                                */
+/*    Copyright: csidou                                               */
+/*    Email:     webmaster@phpnuke-dz.com                             */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  04/09/2003                                           */
+/*    Website:   http://www.phpnuke-dz.com                            */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Who is Online                                        */
+/*    Copyright: WarpSpeed                                            */
+/*    Email:     warpspeed@4thDimension.de                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.warp-speed.de                             */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   0.9.1                                                */
+/*                                                                    */
+/* [FORUM MODIFICATIONS]                                              */
+/*                                                                    */
+/*    Name:      Acronym                                              */
+/*    Copyright: CodeMonkeyX                                          */
+/*    Email:     nickyoungso@yahoo.com                                */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.codemonkeyx.net                           */
+/*    Version:   0.9.5                                                */
+/*                                                                    */
+/*    Name:      Admin Manage Topic Shadows                           */
+/*    Copyright: Nivisec                                              */
+/*    Email:     support@nivisec.com                                  */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.nivisec.com                               */
+/*    Version:   2.0.1                                                */
+/*                                                                    */
+/*    Name:      Admin Private Message Manager                        */
+/*    Copyright: Nivisec                                              */
+/*    Email:     support@nivisec.com                                  */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.nivisec.com                               */
+/*    Version:   1.5.2                                                */
+/*                                                                    */
+/*    Name:      Admin User List                                      */
+/*    Copyright: wGEric                                               */
+/*    Email:     eric@best-dev.com                                    */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://mods.best-dev.com                             */
+/*    Updated:   http://www.nukeresources.com                         */
+/*    Version:   2.0.2                                                */
+/*                                                                    */
+/*    Name:      Admin Voting                                         */
+/*    Copyright: ErDrRon                                              */
+/*    Email:     ErDrRon@aol.com                                      */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  04/12/2003                                           */
+/*    Website:   http://www.ErDrRon.com                               */
+/*    Updated:   http://www.nukeresources.com                         */
+/*    Version:   1.1.8                                                */
+/*                                                                    */
+/*    Name:      Advanced Report                                      */
+/*    Copyright: S2B                                                  */
+/*    Email:     s2b@toennessen.com                                   */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  16/09/2004                                           */
+/*    Website:   http://www.s2b-forum.de.vu                           */
+/*    Updated:   http://www.nukeresources.com                         */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Advanced Signature Divider                           */
+/*    Copyright: crxgames                                             */
+/*    Email:     crxgames@gmail.com                                   */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  14/10/2004                                           */
+/*    Website:   http://www.crxgames.com                              */
+/*    Version:   1.0.1                                                */
+/*                                                                    */
+/*    Name:      Advanced Staff Page                                  */
+/*    Copyright: Acid                                                 */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   Undefined                                            */
+/*    Version:   2.0.3                                                */
+/*                                                                    */
+/*    Name:      Advanced Username Colour                             */
+/*    Copyright: aUsTiN                                               */
+/*    Email:     austin_inc@hotmail.com                               */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  18/09/2004                                           */
+/*    Website:   http://www.phpbb-amod.com                            */
+/*    Version:   1.0.1                                                */
+/*                                                                    */
+/*    Name:      Anti-Spam                                            */
+/*    Copyright: ViRuS                                                */
+/*    Email:     support@coding-forum.ch                              */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  26/10/2004                                           */
+/*    Website:   http://www.coding-forum.ch                           */
+/*    Updated:   http://www.jeffrusso.net                             */
+/*    Version:   1.1.0                                                */
+/*                                                                    */
+/*    Name:      Arcade                                               */
+/*    Copyright: Giefca                                               */
+/*    Email:     giefca@hotmail.com                                   */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  10/06/2004                                           */
+/*    Website:   http://www.gf-phpbb.com                              */
+/*    Updated:   http://arcade.portedmods.com                         */
+/*    Version:   3.0.2                                                */
+/*                                                                    */
+/*    Name:      At a Glance                                          */
+/*    Copyright: blulegend                                            */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   Undefined                                            */
+/*    Version:   2.1.0                                                */
+/*                                                                    */
+/*    Name:      BBCode Box                                           */
+/*    Copyright: AL Tnen                                              */
+/*    Email:     al_tnen@hotmail.com                                  */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.tnen.zzn.com                              */
+/*    Updated:   http://www.cpgnuke.com                               */
+/*    Version:   4.5.1                                                */
+/*                                                                    */
+/*    Name:      Bottom Aligned Signatures                            */
+/*    Copyright: John B. Abela                                        */
+/*    Email:     abela@phpbb.com                                      */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.johnabela.com                             */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Buddy List                                           */
+/*    Copyright: Freakin' Booty                                       */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.freakingbooty.tk                          */
+/*    Version:   0.9.5                                                */
+/*                                                                    */
+/*    Name:      Common Replies                                       */
+/*    Copyright: Sune Trudslev                                        */
+/*    Email:     sune.trudslev@tanis.dk                               */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  29/11/2004                                           */
+/*    Website:   http://www.tanis.dk                                  */
+/*    Version:   1.0.4                                                */
+/*                                                                    */
+/*    Name:      Configure Smilies Table                              */
+/*    Copyright: Smartor                                              */
+/*    Email:     smartor_xp@hotmail.com                               */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://smartor.is-root.com                           */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Disallow Edit Admin Posts                            */
+/*    Copyright: Freakin' Booty                                       */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.freakingbooty.tk                          */
+/*    Version:   0.0.2                                                */
+/*                                                                    */
+/*    Name:      Double Post Control                                  */
+/*    Copyright: Kinetix                                              */
+/*    Email:     webmaster@ikrontik.tk                                */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.ikrontik.tk                               */
+/*    Version:   1.1.0                                                */
+/*                                                                    */
+/*    Name:      Edit User Post Count                                 */
+/*    Copyright: Acid                                                 */
+/*    Email:     acid_junky@web.de                                    */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   Undefined                                            */
+/*    Updated:   http://www.portedmods.com                            */
+/*    Version:   1.0.1                                                */
+/*                                                                    */
+/*    Name:      FAQ Editor                                           */
+/*    Copyright: Verteron                                             */
+/*    Email:     verteron@verteron.net                                */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   Undefined                                            */
+/*    Updated:   http://www.portedmods.com                            */
+/*    Version:   0.8.6                                                */
+/*                                                                    */
+/*    Name:      File Attachment                                      */
+/*    Copyright: Acyd Burn                                            */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  01/08/2004                                           */
+/*    Website:   http://www.opentools.de                              */
+/*    Updated:   http://www.portedmods.com                            */
+/*    Version:   2.3.11                                               */
+/*                                                                    */
+/*    Name:      Force Word Wrapping                                  */
+/*    Copyright: TerraFrost                                           */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  04/06/2004                                           */
+/*    Website:   http://www.frostjedi.com                             */
+/*    Version:   1.0.12                                               */
+/*                                                                    */
+/*    Name:      Global Announcement                                  */
+/*    Copyright: Niels Chr. Denmark                                   */
+/*    Email:     ncr@db9.dk                                           */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://mods.db9.dk                                   */
+/*    Updated:   http://www.portedmods.com                            */
+/*    Version:   1.2.3                                                */
+/*                                                                    */
+/*    Name:      Guest Username Requirement                           */
+/*    Copyright: Rondom                                               */
+/*    Email:     rondom@arcor.de                                      */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  12/11/2004                                           */
+/*    Website:   http://www.rondom.gu2.info                           */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.2.0                                                */
+/*                                                                    */
+/*    Name:      IP Whois Lookup                                      */
+/*    Copyright: Barz                                                 */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   Undefined                                            */
+/*    Updated:   http://www.codezwiz.com                              */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Keep it Moving                                       */
+/*    Copyright: Bill Beardslee                                       */
+/*    Email:     webmaster@webxtractions.com                          */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.webxtractions.com                         */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Limit Image Width                                    */
+/*    Copyright: Vic D'Elfant                                         */
+/*    Email:     vic@pythago.nl                                       */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  26/10/2004                                           */
+/*    Website:   http://www.pythago.nl                                */
+/*    Version:   1.0.6                                                */
+/*                                                                    */
+/*    Name:      List Smilies Per Post                                */
+/*    Copyright: OXPUS                                                */
+/*    Email:     webmaster@oxpus.de                                   */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  02/08/2004                                           */
+/*    Website:   http://www.oxpus.de                                  */
+/*    Version:   1.0.2                                                */
+/*                                                                    */
+/*    Name:      Lock Topic After Post                                */
+/*    Copyright: Meik Sievertsen                                      */
+/*    Email:     acyd.burn@gmx.de                                     */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   Undefined                                            */
+/*    Version:   1.0.1                                                */
+/*                                                                    */
+/*    Name:      Log Actions                                          */
+/*    Copyright: morpheus2matrix                                      */
+/*    Email:     morpheus@2037.biz                                    */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  06/10/2003                                           */
+/*    Updated:   03/16/2005                                           */
+/*    Website:   http://morpheus.2037.biz                             */
+/*    Updated:   http://www.platinummods.com                          */
+/*    Version:   1.1.0                                                */
+/*                                                                    */
+/*    Name:      Merge Topics                                         */
+/*    Copyright: Ptirhiik                                             */
+/*    Email:     admin@rpgnet-fr.com                                  */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  21/10/2003                                           */
+/*    Website:   http://www.rpgnet-fr.com                             */
+/*    Version:   1.0.1                                                */
+/*                                                                    */
+/*    Name:      Move Topics Locked                                   */
+/*    Copyright: Bentley Raccoon                                      */
+/*    Email:     bentley@rik.wsq.nl                                   */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  22/06/2004                                           */
+/*    Website:   http://www.rik.wsq.nl                                */
+/*    Version:   1.1.2                                                */
+/*                                                                    */
+/*    Name:      Overall Permissions                                  */
+/*    Copyright: Smartor                                              */
+/*    Email:     smartor_xp@hotmail.com                               */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://smartor.is-root.com                           */
+/*    Version:   1.0.2                                                */
+/*                                                                    */
+/*    Name:      PHP-Nuke Admin Link                                  */
+/*    Copyright: ShadowAlex                                           */
+/*    Email:     irsasquatch@gmail.com                                */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   Undefined                                            */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.0.1                                                */
+/*                                                                    */
+/*    Name:      PHP-Nuke Index URL                                   */
+/*    Copyright: Techgfx                                              */
+/*    Email:     goose@techgfx.com                                    */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  28/03/2005                                           */
+/*    Website:   http://www.techgfx.com                               */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      PHP Syntax Highlighting                              */
+/*    Copyright: markus_petrux                                        */
+/*    Email:     phpbb.mods@phpmix.com                                */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  27/09/2004                                           */
+/*    Website:   http://www.phpmix.com                                */
+/*    Updated:   http://www.portedmods.com                            */
+/*    Version:   1.0.2                                                */
+/*                                                                    */
+/*    Name:      Private Message Quick Reply                          */
+/*    Copyright: Rondom                                               */
+/*    Email:     rondom@arcor.de                                      */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  07/01/2004                                           */
+/*    Website:   http://www.rondom.gu2.info                           */
+/*    Updated:   http://www.portedmods.com                            */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.3.6                                                */
+/*                                                                    */
+/*    Name:      Printable Page                                       */
+/*    Copyright: Adam Ismay                                           */
+/*    Email:     admin@boardz.tk                                      */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   Undefined                                            */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Rank List Advanced                                   */
+/*    Copyright: Ptirhiik                                             */
+/*    Email:     admin@rpgnet-fr.com                                  */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.rpgnet-fr.com                             */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Reduce ACP Navigation                                */
+/*    Copyright: OXPUS                                                */
+/*    Email:     webmaster@oxpus.de                                   */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  29/02/2004                                           */
+/*    Website:   http://www.oxpus.de                                  */
+/*    Version:   2.1.2                                                */
+/*                                                                    */
+/*    Name:      Related Topics                                       */
+/*    Copyright: Freakin' Booty                                       */
+/*    Email:     http://www.freakingbooty.tk                          */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.oxpus.de                                  */
+/*    Website:   http://www.codezwiz.com                              */
+/*    Version:   0.1.1                                                */
+/*                                                                    */
+/*    Name:      Resize Posted Image                                  */
+/*    Copyright: spooky2280                                           */
+/*    Email:     webmaster@christianfecteau.com                       */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  20/11/2004                                           */
+/*    Website:   http://portfolio.christianfecteau.com                */
+/*    Version:   1.1.0                                                */
+/*                                                                    */
+/*    Name:      Restrict Signatures                                  */
+/*    Copyright: Freakin' Booty                                       */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.freakingbooty.tk                          */
+/*    Version:   0.1.1                                                */
+/*                                                                    */
+/*    Name:      Search Form                                          */
+/*    Copyright: Acyd Burn                                            */
+/*    Email:     acyd.burn@gmx.de                                     */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  20/11/2002                                           */
+/*    Website:   http://www.opentools.de                              */
+/*    Version:   1.0.2                                                */
+/*                                                                    */
+/*    Name:      Select Expand                                        */
+/*    Copyright: markus_petrux                                        */
+/*    Email:     phpbb.mods@phpmix.com                                */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  27/09/2004                                           */
+/*    Website:   http://www.phpmix.com                                */
+/*    Updated:   http://www.portedmods.com                            */
+/*    Version:   1.0.2                                                */
+/*                                                                    */
+/*    Name:      Show Smilies in Topic Titles                         */
+/*    Copyright: Suisse                                               */
+/*    Email:     chatwithbea@bluewin.ch                               */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  14/04/2004                                           */
+/*    Website:   http://www.techno-revelation.com                     */
+/*    Version:   1.1.0                                                */
+/*                                                                    */
+/*    Name:      Signature Editor Preview Deluxe                      */
+/*    Copyright: EGO2000                                              */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   Undefined                                            */
+/*    Version:   1.1.1                                                */
+/*                                                                    */
+/*    Name:      Signature Once Per Page                              */
+/*    Copyright: LK + Agnostik                                        */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   Undefined                                            */
+/*    Updated:   http://www.portedmods.com                            */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Smilies List                                         */
+/*    Copyright: Namsul                                               */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.bigdag.com.au                             */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Split Topic Type                                     */
+/*    Copyright: Ptirhiik                                             */
+/*    Email:     admin@rpgnet-fr.com                                  */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.rpgnet-fr.com                             */
+/*    Version:   1.0.3                                                */
+/*                                                                    */
+/*    Name:      Strike Locked Topic Title                            */
+/*    Copyright: Acecool                                              */
+/*    Email:     webmaster@acecoolco.com                              */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  02/11/2003                                           */
+/*    Website:   http://www.acecoolco.com                             */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Thread Kicker                                        */
+/*    Copyright: Majorflam                                            */
+/*    Email:     majorflam@blueyonder.co.uk                           */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  28/10/2004                                           */
+/*    Website:   http://www.majormod.com                              */
+/*    Updated:   http://www.portedmods.com                            */
+/*    Version:   1.0.3                                                */
+/*                                                                    */
+/*    Name:      Super Quick Reply                                    */
+/*    Copyright: hayk                                                 */
+/*    Email:     hayk@mail.ru                                         */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  08/10/2004                                           */
+/*    Website:   http://hayk.a13n.org                                 */
+/*    Updated:   http://www.portedmods.com                            */
+/*    Version:   1.0.2                                                */
+/*                                                                    */
+/*    Name:      Topic Jump                                           */
+/*    Copyright: Tealc                                                */
+/*    Email:     mark@tealc.net                                       */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  26/04/2004                                           */
+/*    Website:   http://emuleworld.net                                */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Topic Notify with Message Text                       */
+/*    Copyright: Antony Bailey                                        */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   Undefined                                            */
+/*    Version:   1.0.1                                                */
+/*                                                                    */
+/*    Name:      Topics User Started                                  */
+/*    Copyright: deejay                                               */
+/*    Email:     danieljanesch@gmx.at                                 */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  11/10/2003                                           */
+/*    Website:   http://www.the-deejay.com                            */
+/*    Version:   1.0.1                                                */
+/*                                                                    */
+/*    Name:      User Online Status                                   */
+/*    Copyright: Kooky                                                */
+/*    Email:     kooky@altern.org                                     */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  04/06/2004                                           */
+/*    Website:   http://perso.edeign.com/kooky                        */
+/*    Version:   1.0.1                                                */
+/*                                                                    */
+/*    Name:      View Attachments                                     */
+/*    Copyright: Acyd Burn                                            */
+/*    Email:     acyd.burn@gmx.de                                     */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.opentools.de                              */
+/*    Updated:   http://www.codezwiz.com                              */
+/*    Updated:   http://www.portedmods.com                            */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Who Is Online Time                                   */
+/*    Copyright: lightdarkness                                        */
+/*    Email:     lightdarkness@gmail.com                              */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  27/07/2004                                           */
+/*    Website:   http://www.lightdarkness42.com                       */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.0.2                                                */
+/*                                                                    */
+/* [MODULES]                                                          */
+/*                                                                    */
+/*                                                                    */
+/*    Name:      AvantGo Enhanced                                     */
+/*    Copyright: Shawn Archer / Prian                                 */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  29/12/2002                                           */
+/*    Website:   http://www.nukestyles.com                            */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Ban Request                                          */
+/*    Copyright: Chiefbutz                                            */
+/*    Email:     chiefbutz@hotmail.com                                */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://chiefbutz.rules.it                            */
+/*    Updated:   http://www.nuke-platinum.de                          */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*                                                                    */
+/*    Name:      Calendar                                             */
+/*    Copyright: Bill Smith                                           */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  25/05/2004                                           */
+/*    Website:   http://www.bootsware.com                             */
+/*    Updated:   http://www.nuke-platinum.de                          */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   0.6.1                                                */
+/*                                                                    */
+/*                                                                    */
+/*                                                                    */
+/*    Name:      Classifeds                                           */
+/*    Copyright: Sudirman Angriawan                                   */
+/*    Email:     nukecpower@yahoo.com                                 */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  31/07/2004                                           */
+/*    Website:   http://www.nukec.org                                 */
+/*    Updated:   http://www.nuke-platinum.de                          */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   3.0.0b2                                              */
+/*                                                                    */
+/*    Name:      CNB Your Account                                     */
+/*    Copyright: Comunidade PHP Nuke Brasil                           */
+/*    Email:     escudero@phpnuke.org.br                              */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  01/12/2004                                           */
+/*    Website:   http://www.phpnuke.org.br                            */
+/*    Version:   4.4.0b2                                              */
+/*                                                                    */
+/*    Name:      Contact Plus                                         */
+/*    Copyright: Shawn Archer / Prian                                 */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  13/04/2004                                           */
+/*    Website:   http://www.nukestyles.com                            */
+/*    Updated:   http://www.nuke-platinum.de                          */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   2.2.0b                                               */
+/*                                                                    */
+/*    Name:      Content BBCode                                       */
+/*    Copyright: Anor                                                 */
+/*    Email:     anor@portedmods.com                                  */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  12/07/2004                                           */
+/*    Website:   http://www.portedmods.com                            */
+/*    Updated:   http://www.nukeresources.com                         */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.0.1                                                */
+/*                                                                    */
+/*                                                                    */
+/*    Name:      Emporium                                             */
+/*    Copyright: Burnwave, Ltd.                                       */
+/*    Email:     burnwaveltd@hotmail.com                              */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  18/10/2004                                           */
+/*    Website:   http://www.burnwave.com                              */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   2.3.5.2                                              */
+/*                                                                    */
+/*    Name:      Enhanced Downloads                                   */
+/*    Copyright: Shawn Archer / Prian                                 */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  20/05/2004                                           */
+/*    Website:   http://www.nukestyles.com                            */
+/*    Updated:   http://www.nuke-platinum.de                          */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.7.0a                                               */
+/*                                                                    */
+/*    Name:      FAQ                                                  */
+/*    Copyright: Maku                                                 */
+/*    Email:     maku@phpnuku.ee                                      */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  20/02/2004                                           */
+/*    Website:   http://www.phpnuke.ee                                */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Hosting                                              */
+/*    Copyright: Maku                                                 */
+/*    Email:     maku@phpnuku.ee                                      */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  20/02/2004                                           */
+/*    Website:   http://www.phpnuke.ee                                */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      IP Tracking                                          */
+/*    Copyright: Scott Rubin                                          */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  13/03/2004                                           */
+/*    Website:   http://www.ierealtor.com                             */
+/*    Version:   1.5.0                                                */
+/*                                                                    */
+/*    Name:      Legal Docs                                           */
+/*    Copyright: NukeStyles                                           */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  13/04/2003                                           */
+/*    Website:   http://www.nukestyles.com                            */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      MReviews                                             */
+/*    Copyright: Thalassemia                                          */
+/*    Email:     webmaster@thalassemia.com.pk                         */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  11/02/2004                                           */
+/*    Website:   http://www.thalassemia.com.pk                        */
+/*    Updated:   http://www.nuke-platinum.de                          */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.6.1                                                */
+/*                                                                    */
+/*    Name:      My_Uploads                                           */
+/*    Copyright: Alex                                                 */
+/*    Email:     alex@gnaunited.com                                   */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.gnaunited.com                             */
+/*    Updated:   http://www.nuke-platinum.de                          */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   4.4.0                                                */
+/*                                                                    */
+/*                                                                    */
+/*    Name:      NSN Groups                                           */
+/*    Copyright: Nuke Scripts Network                                 */
+/*    Email:     webmaster@nukescripts.net                            */
+/*    GNU/GPL:   No                                                   */
+/*    Released:  12/03/2005                                           */
+/*    Website:   http://www.nukescripts.net                           */
+/*    Updated:   http://www.nuke-platinum.de                          */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.6.4                                                */
+/*                                                                    */
+/*    Name:      NSN Group Downloads                                  */
+/*    Copyright: Nuke Scripts Network                                 */
+/*    Email:     webmaster@nukescripts.net                            */
+/*    GNU/GPL:   No                                                   */
+/*    Released:  12/03/2005                                           */
+/*    Website:   http://www.nukescripts.net                           */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.0.3                                                */
+/*                                                                    */
+/*    Name:      NSN Mailing List(s)                                  */
+/*    Copyright: Nuke Scripts Network                                 */
+/*    Email:     webmaster@nukescripts.net                            */
+/*    GNU/GPL:   No                                                   */
+/*    Released:  12/03/2005                                           */
+/*    Website:   http://www.nukescripts.net                           */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.0.3                                                */
+/*                                                                    */
+/*                                                                    */
+/*    Name:      NSN Supporters                                       */
+/*    Copyright: Nuke Scripts Network                                 */
+/*    Email:     webmaster@nukescripts.net                            */
+/*    GNU/GPL:   No                                                   */
+/*    Released:  12/03/2005                                           */
+/*    Website:   http://www.nukescripts.net                           */
+/*    Version:   1.2.0                                                */
+/*                                                                    */
+/*                                                                    */
+/*    Name:      NSN Theme System                                     */
+/*    Copyright: Nuke Scripts Network                                 */
+/*    Email:     webmaster@nukescripts.net                            */
+/*    GNU/GPL:   No                                                   */
+/*    Released:  12/03/2005                                           */
+/*    Website:   http://www.nukescripts.net                           */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.0.1                                                */
+/*                                                                    */
+/*    Name:      NSN Work Board                                       */
+/*    Copyright: Nuke Scripts Network                                 */
+/*    Email:     webmaster@nukescripts.net                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  12/03/2005                                           */
+/*    Website:   http://www.nukescripts.net                           */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.4.2                                                */
+/*                                                                    */
+/*    Name:      NSN Work Probe                                       */
+/*    Copyright: Nuke Scripts Network                                 */
+/*    Email:     webmaster@nukescripts.net                            */
+/*    GNU/GPL:   No                                                   */
+/*    Released:  12/03/2005                                           */
+/*    Website:   http://www.nukescripts.net                           */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.2.2                                                */
+/*                                                                    */
+/*    Name:      NSN Work Request                                     */
+/*    Copyright: Nuke Scripts Network                                 */
+/*    Email:     webmaster@nukescripts.net                            */
+/*    GNU/GPL:   No                                                   */
+/*    Released:  12/03/2005                                           */
+/*    Website:   http://www.nukescripts.net                           */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.2.2                                                */
+/*                                                                    */
+/*    Name:      PHP-Nuke Tools                                       */
+/*    Copyright: Disipal                                              */
+/*    Email:     disipal@disipal.net                                  */
+/*    GNU/GPL:   No                                                   */
+/*    Released:  13/08/2003                                           */
+/*    Website:   http://www.disipal.net                               */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   3.0.0                                                */
+/*                                                                    */
+/*                                                                    */
+/*    Name:      Search Package                                       */
+/*    Copyright: Shawn Archer / Prian                                 */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  26/07/2003                                           */
+/*    Website:   http://www.nukestyles.com                            */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.1.0a                                               */
+/*                                                                    */
+/*    Name:      Shout Box                                            */
+/*    Copyright: SuperCat                                             */
+/*    Email:     webmaster@ourscripts.net                             */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  29/11/2004                                           */
+/*    Website:   http://www.ourscripts.com                            */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   7.5.0                                                */
+/*                                                                    */
+/*    Name:      Staff                                                */
+/*    Copyright: Caffeine Junkies                                     */
+/*    Email:     lilmuckers@caffeine-junkies.com                      */
+/*    GNU/GPL:   No                                                   */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.caffeine-junkies.com                      */
+/*    Updated:   http://www.nuke-platinum.de                          */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   0.2.0                                                */
+/*                                                                    */
+/*    Name:      Top Sites                                            */
+/*    Copyright: Sid                                                  */
+/*    Email:     webmaster@xanys.com                                  */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://nuke.xanys.com                                */
+/*    Updated:   http://www.nuke-platinum.de                          */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.4.0                                                */
+/*                                                                    */
+/*    Name:      Treasury                                             */
+/*    Copyright: Dave Lawrence                                        */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  19/01/2004                                           */
+/*    Website:   http://www.fragnastika.com                           */
+/*    Updated:   http://www.nuke-platinum.de                          */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Universal                                            */
+/*    Copyright: Barry Caplin                                         */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   No                                                   */
+/*    Released:  19/10/2004                                           */
+/*    Website:   http://www.e-devstudio.com                           */
+/*    Updated:   http://www.nuke-platinum.de                          */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   2.5.0.1                                              */
+/*                                                                    */
+/*    Name:      Web Links                                            */
+/*    Copyright: Darren Poulton                                       */
+/*    Email:     paladin@intaleather.com.au                           */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  04/09/2004                                           */
+/*    Website:   http://paladin.intaleather.com.au                    */
+/*    Updated:   http://www.nextnet.se                                */
+/*    Updated:   http://www.nuke-platinum.de                          */
+/*    Updated:   http://www.techgfx.com                               */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/* [SECURITY]                                                         */
+/*                                                                    */
+/*    Name:      Directory Protection                                 */
+/*    Copyright: TechGFX a.k.a Graeme Allan                           */
+/*    Email:     goose@techgfx.com                                    */
+/*    GNU/GPL:   No                                                   */
+/*    Released:  12/08/2004                                           */
+/*    Website:   http://www.techgfx.com                               */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Forum Admin                                          */
+/*    Copyright: Chatserv                                             */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   No                                                   */
+/*    Released:  23/09/2004                                           */
+/*    Website:   http://www.nukeresources.com                         */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      PHP-Nuke Patched                                     */
+/*    Copyright: Chatserv                                             */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   No                                                   */
+/*    Released:  04/03/2005                                           */
+/*    Website:   http://www.nukeresources.com                         */
+/*    Version:   3.1.0                                                */
+/*                                                                    */
+/*                                                                    */
+/*    Name:      Sentinel                                             */
+/*    Copyright: Nuke Scripts Network                                 */
+/*    Email:     webmaster@nukescripts.net                            */
+/*    GNU/GPL:   No                                                   */
+/*    Website:   http://www.nukescripts.net                           */
+/*    Version:   2.4.2                                                */
+/*                                                                    */
+/*    Name:      ThemeConsole                                         */
+/*    Copyright: Mighty_Y                                             */
+/*    Copyright: TechGFX a.k.a Graeme Allan                           */
+/*    Email:     mighty_Y@portedmods.com                              */
+/*    Email:     goose@techgfx.com                                    */
+/*    GNU/GPL:   No                                                   */
+/*    Released:  12/08/2004                                           */
+/*    Website:   http://portedmods.com                                */
+/*    Website:   http://www.techgfx.com                               */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/* [TWEAKS]                                                           */
+/*                                                                    */
+/*    Name:      Fix Group                                            */
+/*    Copyright: Chatserv                                             */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  15/08/2003                                           */
+/*    Website:   http://www.nukefixes.com                             */
+/*    Version:   2.0.0                                                */
+/*                                                                    */
+/*    Name:      W3C Compliant updates and Sentinel Manual            */
+/*    Copyright: 64bitguy   Steph Benoit                              */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Website:   http://64bit.us/                                     */
+/*                                                                    */
+/*    Name:      Function URLAdmin                                    */
+/*    Copyright: SuperCat                                             */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  28/03/2005                                           */
+/*    Website:   http://www.ourscripts.com                            */
+/*    Version:   1.1.0                                                */
+/*                                                                    */
+/*    Name:      GZip Fix                                             */
+/*    Copyright: Chatserv                                             */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  Undefined                                            */
+/*    Website:   http://www.nukefixes.com                             */
+/*    Version:   2.0.0                                                */
+/*                                                                    */
+/*    Name:      Members List Find User                               */
+/*    Copyright: Sko22                                                */
+/*    Email:     sko22@quellicheilpc.com                              */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  04/03/2004                                           */
+/*    Website:   http://www.quellicheilpc.com                         */
+/*    Updated:   http://www.codezwiz.com                              */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      PHP Error Display Switch                             */
+/*    Copyright: Techgfx                                              */
+/*    Email:     goose@techgfx.com                                    */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  28/03/2005                                           */
+/*    Website:   http://www.techgfx.com                               */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Secure Version Check                                 */
+/*    Copyright: Techgfx                                              */
+/*    Email:     goose@techgfx.com                                    */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  28/03/2005                                           */
+/*    Website:   http://www.techgfx.com                               */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/*    Name:      Web Links Scanner                                    */
+/*    Copyright: MrFluffy                                             */
+/*    Email:     Undefined                                            */
+/*    GNU/GPL:   Yes                                                  */
+/*    Released:  06/11/2004                                           */
+/*    Website:   http://www.nuke-platinum.de                          */
+/*    Version:   1.0.0                                                */
+/*                                                                    */
+/* [7.6.B.2 AND 7.6.B.3 BETA TESTERS]                                 */
+/*                                                                    */
+/*    Name:      Keith                                                */
+/*    Email:     anor@portedmods.com                                  */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.portedmods.com                            */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      jtf                                                  */
+/*    Email:     jtf.admin@gmail.com                                  */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.jtftechworld.com/                         */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      allthatinny                                          */
+/*    Email:     allthatinny@optonline.net                            */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://gamezone.viperhosting.net/                    */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      blue_eyed_devil                                      */
+/*    Email:     blue_eyed_devil_1488@hotmail.com                     */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   Undefined                                            */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      Bort                                                 */
+/*    Email:     robbort23@hotmail.com                                */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.nepanights.net/                           */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      Distortedcore                                        */
+/*    Email:     distorted_realms@distortedcore.com                   */
+/*    Proviso:   PHP-Nuke Platinum / Inferno                          */
+/*    Website:   http://www.distortedcore.com                         */
+/*    Version:   7.6.b.2 - 7.6.b.3 / 1.0.0.1 - 1.0.0.9                */
+/*                                                                    */
+/*    Name:      danhkts                                              */
+/*    Email:     danhinfo@free.fr                                     */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   undefined                                            */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      DREDD                                                */
+/*    Email:     bzjudge@yahoo.com                                    */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.judgecentral.com/                         */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      felosi                                               */
+/*    Email:     felosi@felosiz-spot.net                              */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   undefined                                            */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      foxmice                                              */
+/*    Email:     sjov@team-foxmice.dk                                 */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.team-foxmice.dk/                          */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      Rantin_26                                            */
+/*    Email:     webmaster@rantinracing.com                           */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://rantinracing.com                              */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      ronin                                                */
+/*    Email:     kracka81@hotmail.com                                 */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.elitesourcegaming.com/                    */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      ice5192man                                           */
+/*    Email:     drain_my_pain5192@hotmail.com                        */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.tactical-gaming.com/                      */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      neoHasse                                             */
+/*    Email:     neohasse@hotmail.com                                 */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://svenskapolare.mine.nu/                        */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      Kamikazi                                             */
+/*    Email:     michaelquickel@comcast.net                           */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.kamikazi-inc.com/                         */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      clinton                                              */
+/*    Email:     just_looken@hotmail.com                              */
+/*    Proviso:   PHP-Nuke Platinum / Inferno                          */
+/*    Website:   undefined                                            */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      sixonetonoffun                                       */
+/*    Email:     sixonetonoffun@aol.com                               */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   undefined                                            */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      agnt                                                 */
+/*    Email:     agntorange@gmail.com                                 */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.gahtest.gahclan.com/                      */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      murderink                                            */
+/*    Email:     pcjayz@yahoo.ca                                      */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://jayzpc.com/                                   */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      NeoVipeR                                             */
+/*    Email:     xerostatic@sigma-6.net                               */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.sigma-6.net/                              */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      yahellbooterinc                                      */
+/*    Email:     yahellbooterinc@yahoo.com                            */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   Undefined                                            */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      daniel1949                                           */
+/*    Email:     daniel-paul_bender@t-online.de                       */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.daniels-kuecheplanet.com/                 */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      bigwookie                                            */
+/*    Email:     bigwookie@the-soe.com                                */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.the-soe.com/                              */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      astewart                                             */
+/*    Email:     isometric@eastlink.ca                                */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.macamenity.com/index/                     */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      hanson                                               */
+/*    Email:     hansonbb@yahoo.com                                   */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   Undefined                                            */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      danny                                                */
+/*    Email:     admatthews@dfmenterprises.com                        */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   undefined                                            */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      kenneth                                              */
+/*    Email:     elitetoken@gmail.com                                 */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   undefined                                            */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      Zacharias                                            */
+/*    Email:     kogungor@ozelkuvvetler.org                           */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   undefined                                            */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      SPECTRE                                              */
+/*    Email:     phenomenon@spectreworld.com.au                       */
+/*    Proviso:   PHP-Nuke Platinum / Inferno                          */
+/*    Website:   undefined                                            */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      Youdownloadit                                        */
+/*    Email:     webmaster@youdownloadit.co.uk                        */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.youdownloadit.co.uk                       */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      lamerock                                             */
+/*    Email:     lamerock@gmail.com                                   */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://lamerock.penguhosting.com/main/               */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*    Name:      Pirken                                               */
+/*    Email:     pirken@dirtysniper.com                               */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   undefined                                            */
+/*    Version:   7.6.b.2 - 7.6.b.3                                    */
+/*                                                                    */
+/*   There were many more Beta Testers and people who contributed     */
+/*   alot to the development.  I am sorry if I missed you in these    */
+/*   credits.
+/*                                                                    */
+/*                                                                    */
+/* [ORIGINAL PLATINUM 7.6.0 BETA TESTERS]                             */
+/*                                                                    */
+/*    Name:      Anor                                                 */
+/*    Email:     anor@portedmods.com                                  */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.portedmods.com                            */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Artifice                                             */
+/*    Email:     artifice@artificeshabitat.com                        */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.artificeshabitat.com                      */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      BrainSmashR                                          */
+/*    Email:     brainsmashr@hotmail.com                              */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   Undefined                                            */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Chatserv                                             */
+/*    Email:     webmaster@nukeresources.com                          */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.nukeresources.com                         */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Distortedcore                                        */
+/*    Email:     distorted_realms@distortedcore.com                   */
+/*    Proviso:   PHP-Nuke Platinum / Inferno                          */
+/*    Website:   http://www.distortedcore.com                         */
+/*    Version:   7.6.0.1 - 7.6.0.9 / 1.0.0.1 - 1.0.0.9                */
+/*                                                                    */
+/*    Name:      JagaTelesin                                          */
+/*    Email:     webmaster@tes4.com                                   */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.tes4.com                                  */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Jean-luc                                             */
+/*    Email:     admin@nukefrance.com                                 */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.nukefrance.com                            */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Ltabdiel                                             */
+/*    Email:     ltabdiel@gmail.com                                   */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.red.com                                   */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Mesum                                                */
+/*    Email:     mesum21@yahoo.com                                    */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.chicagobase.com                           */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Mighty_Y                                             */
+/*    Email:     mighty_y@portedmods.com                              */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.portedmods.com                            */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Mikem                                                */
+/*    Email:     mikem@areamike.com                                   */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.nukemods.com                              */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      MrFluffy                                             */
+/*    Email:     mrfluffy@ayhsel.de                                   */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.nuke-platinum.de                          */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      MRTomney                                             */
+/*    Email:     webmaster@daveshouse.org                             */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.daveshouse.net                            */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Mtechnik                                             */
+/*    Email:     ceo@diverselab.com                                   */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.diverselab.com                            */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Mysterious                                           */
+/*    Email:     rmdudleyl@netscape.net                               */
+/*    Proviso:   PHP-Nuke Platinum / Inferno                          */
+/*    Website:   http://www.starz-clan.com                            */
+/*    Version:   7.6.0.1 - 7.6.0.9 / 1.0.0.1 - 1.0.0.9                */
+/*                                                                    */
+/*    Name:      Mystery                                              */
+/*    Email:     mystery@mystery.cantonpa.net                         */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.mysterys-corner.net                       */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Nikon                                                */
+/*    Email:     snchbch@hotmail.com                                  */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   Undefined                                            */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Onefreak                                             */
+/*    Email:     onefreak@onesplace.net                               */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.onesplace.net                             */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Phantomk                                             */
+/*    Email:     phantomk@3web.net                                    */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.nukegaming.com                            */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Rambo                                                */
+/*    Email:     rambo@jagwars.dyns.net                               */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   Undefined                                            */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Raven                                                */
+/*    Email:     krauty@gmail.com                                     */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.designesentrix.net                        */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Sli                                                  */
+/*    Email:     b.caplin@e-devstudio.com                             */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.e-devstudio.com                           */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Shadowalex                                           */
+/*    Email:     dribdrut@yahoo.com                                   */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   Undefined                                            */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Smartguy                                             */
+/*    Email:     webmaster@phpnuke-israel.org                         */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   Undefined                                            */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Teknerd                                              */
+/*    Email:     loki@nukeplanet.com                                  */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.nukeplanet.com                            */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Tff-2004                                             */
+/*    Email:     admin@ddng.co.uk                                     */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.ddng.co.uk                                */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/*    Name:      Viper                                                */
+/*    Email:     webmaster@phpnukefiles.com                           */
+/*    Proviso:   PHP-Nuke Platinum                                    */
+/*    Website:   http://www.phpnukefiles.com                          */
+/*    Version:   7.6.0.1 - 7.6.0.9                                    */
+/*                                                                    */
+/**********************************************************************/
+/* Original Platinum 7.6 package was created by                       */
+/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                */
+/*       Graeme Allan - Techgfx                   (goose@techgfx.com) */
+/**********************************************************************/
+/* All content and includes from this package is intellectual         */
+/* property of Techgfx unless stated otherwise. Replication of        */
+/* and copyrighted material is a civil and criminal act and           */
+/* voilations may result in legal action.                             */
+/**********************************************************************/
+/* See Nukeplanet.com for detailed information on Platinum 7.6.b.3    */
+/* Scott Partee - Loki   http://www.nukeplanet.com                    */
+/*                         (loki@nukeplanet.com                       */
+/* TechGFX: Your dreams, Our imagination                              */
+/**********************************************************************/

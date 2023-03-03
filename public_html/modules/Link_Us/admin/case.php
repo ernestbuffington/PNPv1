@@ -1,41 +1,49 @@
 <?php
 
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
-/********************************************************************
+/*=======================================================================
+ Nuke-Evolution   :   Enhanced Web Portal System
+ ========================================================================
 
-                    DarkForgeGFX Link To Us
-				  
-	(c) 2007 - 2008 by DarkForgeGFX - http://www.darkforgegfx.com
-		
-********************************************************************/
+ Nuke-Evo Base          :   #$#BASE
+ Nuke-Evo Version       :   #$#VER
+ Nuke-Evo Build         :   #$#BUILD
+ Nuke-Evo Patch         :   #$#PATCH
+ Nuke-Evo Filename      :   #$#FILENAME
+ Nuke-Evo Date          :   #$#DATE
+
+ (c) 2007 - 2018 by Lonestar Modules - https://lonestar-modules.com
+ ========================================================================
+
+ LICENSE INFORMATIONS COULD BE FOUND IN COPYRIGHTS.PHP WHICH MUST BE
+ DISTRIBUTED WITHIN THIS MODULEPACKAGE OR WITHIN FILES WHICH ARE
+ USED FROM WITHIN THIS PACKAGE.
+ IT IS "NOT" ALLOWED TO DISTRIBUTE THIS MODULE WITHOUT THE ORIGINAL
+ COPYRIGHT-FILE.
+ ALL INFORMATIONS ABOVE THIS SECTION ARE "NOT" ALLOWED TO BE REMOVED.
+ THEY HAVE TO STAY AS THEY ARE.
+ IT IS ALLOWED AND SHOULD BE DONE TO ADD ADDITIONAL INFORMATIONS IN
+ THE SECTIONS BELOW IF YOU CHANGE OR MODIFY THIS FILE.
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+-=[Mod]=-
+ ************************************************************************/
+ 
+$module_name = basename(dirname(dirname(__FILE__)));
+
+$lang_path = NUKE_MODULES_DIR . $module_name . '/language/';
+if (@file_exists($lang_path . 'lang-' . $currentlang . '.php'))
+{
+    @include_once($lang_path . 'lang-' . $currentlang . '.php');
+}
+elseif (@file_exists($lang_path . 'lang-' . $board_config['default_lang'] . '.php'))
+{
+    @include_once($lang_path . 'lang-' . $board_config['default_lang'] . '.php');
+}
+else
+{
+    DisplayError(_NO_ADMIN_MODULE_LANGUAGE_FOUND . $module_name);
+}
 
 switch($op) {
 
@@ -44,16 +52,18 @@ switch($op) {
 	case 'insert_button':
 	case 'edit_button':
 	case 'delete_button':
+	case 'approve_button':
 	case 'edit_button_save':
 	case 'active_sites':
 	case 'inactive_sites':
 	case 'admin_config':
 	case 'update_main':
-	case 'linkus_block_config':
-	case 'update_settings':
+	case 'lu_block_config':
+	case 'lu_update_block_settings':
 	case 'module_config':
 	case 'update_module_settings':
-    include_once("modules/Link_Us/admin/index.php");
+	case 'button_pending':
+    include(NUKE_MODULES_DIR.$module_name.'/admin/index.php');
     break;
 
 }

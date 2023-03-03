@@ -1,80 +1,83 @@
 <?php
 
-/************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
-/*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
-/********************************************************************
+/*=======================================================================
+ Nuke-Evolution   :   Enhanced Web Portal System
+ ========================================================================
 
-                    DarkForgeGFX Link To Us
-				  
-	(c) 2007 - 2008 by DarkForgeGFX - http://www.darkforgegfx.com
+ Nuke-Evo Base          :   #$#BASE
+ Nuke-Evo Version       :   #$#VER
+ Nuke-Evo Build         :   #$#BUILD
+ Nuke-Evo Patch         :   #$#PATCH
+ Nuke-Evo Filename      :   #$#FILENAME
+ Nuke-Evo Date          :   #$#DATE
+
+ (c) 2007 - 2018 by Lonestar Modules - https://lonestar-modules.com
+ ========================================================================
+
+ LICENSE INFORMATIONS COULD BE FOUND IN COPYRIGHTS.PHP WHICH MUST BE
+ DISTRIBUTED WITHIN THIS MODULEPACKAGE OR WITHIN FILES WHICH ARE
+ USED FROM WITHIN THIS PACKAGE.
+ IT IS "NOT" ALLOWED TO DISTRIBUTE THIS MODULE WITHOUT THE ORIGINAL
+ COPYRIGHT-FILE.
+ ALL INFORMATIONS ABOVE THIS SECTION ARE "NOT" ALLOWED TO BE REMOVED.
+ THEY HAVE TO STAY AS THEY ARE.
+ IT IS ALLOWED AND SHOULD BE DONE TO ADD ADDITIONAL INFORMATIONS IN
+ THE SECTIONS BELOW IF YOU CHANGE OR MODIFY THIS FILE.
+
+/*****[CHANGES]**********************************************************
+-=[Base]=-
+-=[Mod]=-
+ ************************************************************************/
+
+global $prefix, $config, $admin_file, $directory_mode;
+
+$config = $db->sql_ufetchrow("SELECT * FROM ".$prefix."_link_us_config LIMIT 0,1 ");
+
+if($config['button_method'] == 0){		
+    if (!file_exists($config['upload_file'])) {
+      if (!@mkdir($config['upload_file'], $directory_mode)) {
+          @mkdir($config['upload_file'], $directory_mode);
+      }
+    }
 		
-********************************************************************/
-
-	global $prefix, $db, $uploaddir;
-
-function check_image_type($type) {
-	switch($type) {
-		case 'image/jpeg':
-		case 'image/pjpeg':
-		case 'image/jpg':
-			return '.jpg';
-			break;
-		case 'image/gif':
-			return '.gif';
-			break;
-		case 'image/png':
-			return '.png';
-			break;
-		default:
-			return false;
-			break;
-	}
-	return false;
-}
-
-		if($config['button_method'] == 0){		
-			
-		if (!file_exists("$uploaddir")) {
-			mkdir("$uploaddir", 0755);
+		if (check_image_type($_FILES['site_image']['type']) == false){ echo $lang_new[$module_name]['ERROR']; }
+		if (move_uploaded_file($_FILES['site_image']['tmp_name'], $config['upload_file'] . $_FILES['site_image']['name'])) {
+			$img_upload = $config['upload_file'].$_FILES['site_image']['name'];
+		}
+		} else {
+  			$img_upload = $site_image;
 		}
 		
-		if (check_image_type($_FILES['site_image']['type']) == false) echo 'ERROR! Unknown image format';
-		if (move_uploaded_file($_FILES['site_image']['tmp_name'], $uploaddir . $_FILES['site_image']['name'])) {
-			$img_upload = "".$uploaddir."".$_FILES['site_image']['name']."";
-   			Header("Location: ".$admin_file.".php?op=link_us");
-		}
-		}else{
-			$img_upload = $site_image;
-		}
-		$result = $db->sql_query("INSERT INTO `".$prefix."_link_us` values (NULL, '".$site_name."', '".$site_url."', '".$img_upload."', '".$site_description."', '0', '1', '".$date_added."', '".$button_type."')");
+		$result = $db->sql_query("INSERT INTO ".$prefix."_link_us(`id`, 
+		                                                   `site_name`, 
+														    `site_url`, 
+														  `site_image`, 
+													`site_description`, 
+													       `site_hits`, 
+														 `site_status`, 
+														  `date_added`, 
+														 `button_type`, 
+														     `user_id`, 
+														   `user_name`, 
+														  `user_email`, 
+														     `user_ip`) 
 		
-		if($another_button == 1){Header("Location: ".$admin_file.".php?op=add_button");}else{Header("Location: ".$admin_file.".php?op=link_us");}
-
-?>
+		    VALUES (NULL, 
+		'".$site_name."', 
+		'".$site_url."', 
+		'".$img_upload."', 
+		'".$site_description."', 
+		'".$site_hits."', 
+		'".$site_status."', 
+		'".$date_added."', 
+		'".$button_type."', 
+		'".$user_id."', 
+		'".$user_name."', 
+		'".$user_email."', 
+		'".$user_ip."')");
+		
+		if($another_button == 1){
+    		redirect($admin_file.'.php?op=add_button');
+		} else {
+    		redirect($admin_file.'.php?op=link_us');
+		}

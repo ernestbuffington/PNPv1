@@ -5,13 +5,13 @@
 </head>
 <body bgcolor="#000000" text="#FFFFFF" link="#FFFFFF">
 <table summary="" align="center" width="75%"><tr><td>
-<p align="center"><img src="includes/nukesentinel/abuse/logo.png" width="468" height="60" alt="" /><br /><strong>You have attempted to enter this site using a proxy.</strong></p>
-<p align="center"><strong>This site does not allow proxy connections. Below is what we can tell about your connection.</strong></p>
-<p align="center"><strong>If you think this is a mistake you can contact the site webmaster at <a href="mailto:__ADMINMAIL2__">__ADMINMAIL1__</a>.</strong></p>
-<p><strong>User Agent:</strong> __USERAGENT__<br />
-<strong>Remote Address:</strong> __REMOTEADDR__<br />
-<strong>Client IP:</strong> __CLIENTIP__<br />
-<strong>Forwarded For:</strong> __FORWARDEDFOR__</p>
+<p align="center"><img src="includes/nukesentinel/abuse/logo.png" width="468" height="60" alt="" /><br /><b>You have attempted to enter this site using a proxy.</b></p>
+<p align="center"><b>This site does not allow proxy connections. Below is what we can tell about your connection.</b></p>
+<p align="center"><b>If you think this is a mistake you can contact the site webmaster at <a href="mailto:__ADMINMAIL2__">__ADMINMAIL1__</a>.</b></p>
+<p><b>User Agent:</b> __USERAGENT__<br />
+<b>Remote Address:</b> __REMOTEADDR__<br />
+<b>Client IP:</b> __CLIENTIP__<br />
+<b>Forwarded For:</b> __FORWARDEDFOR__</p>
 </td></tr></table>
 </body>
 </html>

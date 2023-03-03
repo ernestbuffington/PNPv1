@@ -456,15 +456,6 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
                 continue;
             }
 
-            if ($class->isAbstract() && $class->isSubclassOf(TestCase::class)) {
-                $this->addWarning(
-                    sprintf(
-                        'Abstract test case classes with "Test" suffix are deprecated (%s)',
-                        $class->getName()
-                    )
-                );
-            }
-
             if (!$class->isAbstract()) {
                 if ($class->hasMethod(BaseTestRunner::SUITE_METHODNAME)) {
                     try {
@@ -628,7 +619,7 @@ class TestSuite implements IteratorAggregate, Reorderable, SelfDescribing, Test
                         call_user_func([$this->name, $beforeClassMethod]);
                     }
                 }
-            } catch (SkippedTestSuiteError|SkippedTestError $error) {
+            } catch (SkippedTestSuiteError $error) {
                 foreach ($this->tests() as $test) {
                     $result->startTest($test);
                     $result->addFailure($test, $error, 0);

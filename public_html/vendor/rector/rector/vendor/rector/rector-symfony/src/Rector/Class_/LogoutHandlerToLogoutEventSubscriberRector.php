@@ -9,10 +9,8 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Symfony\NodeAnalyzer\ClassAnalyzer;
 use Rector\Symfony\NodeFactory\GetSubscribedEventsClassMethodFactory;
 use Rector\Symfony\NodeFactory\OnLogoutClassMethodFactory;
-use Rector\Symfony\NodeManipulator\ClassManipulator;
 use Rector\Symfony\ValueObject\EventReferenceToMethodName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -38,22 +36,10 @@ final class LogoutHandlerToLogoutEventSubscriberRector extends AbstractRector
      * @var \Rector\Symfony\NodeFactory\GetSubscribedEventsClassMethodFactory
      */
     private $getSubscribedEventsClassMethodFactory;
-    /**
-     * @readonly
-     * @var \Rector\Symfony\NodeAnalyzer\ClassAnalyzer
-     */
-    private $classAnalyzer;
-    /**
-     * @readonly
-     * @var \Rector\Symfony\NodeManipulator\ClassManipulator
-     */
-    private $classManipulator;
-    public function __construct(OnLogoutClassMethodFactory $onLogoutClassMethodFactory, GetSubscribedEventsClassMethodFactory $getSubscribedEventsClassMethodFactory, ClassAnalyzer $classAnalyzer, ClassManipulator $classManipulator)
+    public function __construct(OnLogoutClassMethodFactory $onLogoutClassMethodFactory, GetSubscribedEventsClassMethodFactory $getSubscribedEventsClassMethodFactory)
     {
         $this->onLogoutClassMethodFactory = $onLogoutClassMethodFactory;
         $this->getSubscribedEventsClassMethodFactory = $getSubscribedEventsClassMethodFactory;
-        $this->classAnalyzer = $classAnalyzer;
-        $this->classManipulator = $classManipulator;
         $this->logoutHandlerObjectType = new ObjectType('Symfony\\Component\\Security\\Http\\Logout\\LogoutHandlerInterface');
     }
     public function getRuleDefinition() : RuleDefinition
@@ -112,11 +98,10 @@ CODE_SAMPLE
         if (!$this->isObjectType($node, $this->logoutHandlerObjectType)) {
             return null;
         }
-        if (!$this->classAnalyzer->hasImplements($node, 'Symfony\\Component\\Security\\Http\\Logout\\LogoutHandlerInterface')) {
+        if (!$this->hasImplements($node)) {
             return null;
         }
-        $this->classManipulator->removeImplements($node, [$this->logoutHandlerObjectType->getClassName()]);
-        $node->implements[] = new FullyQualified('Symfony\\Component\\EventDispatcher\\EventSubscriberInterface');
+        $this->refactorImplements($node);
         // 2. refactor logout() class method to onLogout()
         $logoutClassMethod = $node->getMethod('logout');
         if (!$logoutClassMethod instanceof ClassMethod) {
@@ -130,5 +115,24 @@ CODE_SAMPLE
         $getSubscribedEventsClassMethod = $this->getSubscribedEventsClassMethodFactory->create($eventReferencesToMethodNames);
         $node->stmts[] = $getSubscribedEventsClassMethod;
         return $node;
+    }
+    private function refactorImplements(Class_ $class) : void
+    {
+        $class->implements[] = new FullyQualified('Symfony\\Component\\EventDispatcher\\EventSubscriberInterface');
+        foreach ($class->implements as $key => $implement) {
+            if (!$this->isName($implement, $this->logoutHandlerObjectType->getClassName())) {
+                continue;
+            }
+            unset($class->implements[$key]);
+        }
+    }
+    private function hasImplements(Class_ $class) : bool
+    {
+        foreach ($class->implements as $implement) {
+            if ($this->isName($implement, 'Symfony\\Component\\Security\\Http\\Logout\\LogoutHandlerInterface')) {
+                return \true;
+            }
+        }
+        return \false;
     }
 }

@@ -1,33 +1,15 @@
 <?php
 /************************************************************************/
-/* Platinum Nuke Pro: Expect to be impressed                  COPYRIGHT */
+/* PHP-NUKE: Web Portal System                                          */
+/* ===========================                                          */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                  */
-/*     Techgfx - Graeme Allan                       (goose@techgfx.com) */
+/* Copyright (c) 2002 by Francisco Burzi                                */
+/* http://phpnuke.org                                                   */
 /*                                                                      */
-/* Copyright (c) 2004 - 2006 by http://www.nukeplanet.com               */
-/*     Loki / Teknerd - Scott Partee           (loki@nukeplanet.com)    */
-/*                                                                      */
-/* Copyright (c) 2007 - 2017 by http://www.platinumnukepro.com          */
-/*                                                                      */
-/* Refer to platinumnukepro.com for detailed information on this CMS    */
-/*******************************************************************************/
-/* This file is part of the PlatinumNukePro CMS - http://platinumnukepro.com   */
-/*                                                                             */
-/* This program is free software; you can redistribute it and/or               */
-/* modify it under the terms of the GNU General Public License                 */
-/* as published by the Free Software Foundation; either version 2              */
-/* of the License, or any later version.                                       */
-/*                                                                             */
-/* This program is distributed in the hope that it will be useful,             */
-/* but WITHOUT ANY WARRANTY; without even the implied warranty of              */
-/* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the               */
-/* GNU General Public License for more details.                                */
-/*                                                                             */
-/* You should have received a copy of the GNU General Public License           */
-/* along with this program; if not, write to the Free Software                 */
-/* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
-/*******************************************************************************/
+/* This program is free software. You can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation; either version 2 of the License.       */
+/************************************************************************/
 /************************************************************************/
 /* HTML Newsletter 1.0 module for PHP-Nuke 6.5 - 7.6                    */
 /* By: NukeWorks (webmaster@nukeworks.biz)                              */
@@ -43,21 +25,16 @@
 * License: GNU/GPL
 ************************************************************************/
 /************************************************************************
-* Script:     HTML Newsletter module for PHP-Nuke 6.5 - 7.6
-* Version:    01.03.02
-* Author:     Rob Herder (aka: montego) of montegoscripts.com
-* Contact:    montego@montegoscripts.com
-* Copyright:  Copyright © 2006 by Montego Scripts
-* License:    GNU/GPL (see provided LICENSE.txt file)
-************************************************************************/
-/************************************************************************
-* Rev Date      Change ID       Description
-* -----------   --------------  -----------------------------------------
-* 18-MAY-2006   RN_0000185      Make XHTML 1.0 Compliant, plus better use of quotes
+* Script:			HTML Newsletter module for PHP-Nuke 6.5 - 7.6
+* Version:		01.03.01
+* Author:			Rob Herder (aka: montego) of montegoscripts.com
+* Contact:		montego@montegoscripts.com
+* Copyright:	Copyright © 2006 by Montego Scripts
+* License:		GNU/GPL (see provided LICENSE.txt file)
 ************************************************************************/
 
 if ( !defined( 'MSNL_LOADED' ) and !defined( 'BLOCK_FILE' ) and !defined( 'NUKE_FILE' ) ) {
-	die( 'Illegal File Access' );
+	die( "Illegal File Access" );
 }
 
 /************************************************************************
@@ -65,56 +42,78 @@ if ( !defined( 'MSNL_LOADED' ) and !defined( 'BLOCK_FILE' ) and !defined( 'NUKE_
 * the module and admin.
 ************************************************************************/
 
-echo '<script type="text/javascript">';
-echo '<!-- Javascript functions for HTML Newsletter Admin tools'."\n";
+echo "<script type='text/javascript'>\n";
+echo "<!-- Javascript functions for HTML Newsletter Admin tools\n";
 
 //Try and stop the preview pop-up when using the history(-1) function
 
-echo 'msnl_iPreviewON = 1;'."\n";;
+echo "msnl_iPreviewON = 1;\n";
 
 /************************************************************************
 * Function: msnl_FormHandler()
-* Inputs:   msnl_sOP = The operation to pass into the form submit
-* Usage:    Used to change a page's form operation based on different
-*           page links (functions).
+* Inputs:		msnl_sOP	= The operation to pass into the form submit
+* Usage: 		Used to change a page's form operation based on different
+* 					page links (functions).
 ************************************************************************/
 
-echo 'function msnl_FormHandler(msnl_sOP) {';
-echo '	document.msnl_frm.op.value = msnl_sOP;';
-echo '	document.msnl_frm.submit();';
-echo '}'."\n";;
+echo "function msnl_FormHandler(msnl_sOP) {\n";
+echo "	document.msnl_frm.op.value = msnl_sOP;\n";
+echo "	document.msnl_frm.submit();\n";
+echo "}\n";
 
 /************************************************************************
 * Function: msnl_ObjHandler()
-* Inputs:   msnl_sOP = The operation to pass into the form submit
-*           msnl_sVAR = The specific form variable to change the value for
-*           msnl_iID = The ID value to change the variable to (integer
-*             value ONLY)
-* Usage:    This function is similar to msnl_FormHandler except that it
-*           has further granular control over the form variable being
-*           modified and is primarily used for object level maintainance
-*           functions.
+* Inputs:		msnl_sOP	= The operation to pass into the form submit
+* 					msnl_sVAR	= The specific form variable to change the value for
+* 					msnl_iID	= The ID value to change the variable to (integer
+* 						value ONLY)
+* Usage: 		This function is similar to msnl_FormHandler except that it
+* 					has further granular control over the form variable being
+* 					modified and is primarily used for object level maintainance
+* 					functions.
 ************************************************************************/
 
-echo 'function msnl_ObjHandler(msnl_sOP, msnl_sVAR, msnl_iID) {';
-echo '	eval("document.msnl_frm." + msnl_sVAR + ".value = msnl_iID");';
-echo '	msnl_FormHandler(msnl_sOP);';
-echo '}'."\n";;
+echo "function msnl_ObjHandler(msnl_sOP, msnl_sVAR, msnl_iID) {\n";
+echo "	eval('document.msnl_frm.' + msnl_sVAR + '.value = msnl_iID');\n";
+echo "	msnl_FormHandler(msnl_sOP);\n";
+echo "}\n";
 
 /************************************************************************
 * Function: msnl_ObjFocus()
-* Inputs:   msnl_sField	= The form field to set focus on
-* Usage:    Used to set the focus on the provided form field upon
-*           completing the writing of the page.
+* Inputs:		msnl_sField	= The form field to set focus on
+* Usage: 		Used to set the focus on the provided form field upon
+* 					completing the writing of the page.
 ************************************************************************/
 
-echo 'function msnl_ObjFocus(msnl_sField) {';
-echo '	eval("document.msnl_frm." + msnl_sField + ".focus()");';
-echo '}'."\n";;
+echo "function msnl_ObjFocus(msnl_sField) {\n";
+echo "	eval('document.msnl_frm.' + msnl_sField + '.focus()');\n";
+echo "}\n";
 
+/************************************************************************
+* Function: msnl_OpenWindow()
+* Inputs:		msnl_sURL	= The URL to open in the new window
+* Usage: 		Used to pop-up a new window and pass a URL to it.  This is
+* 					used for the view newsletter function in the block and archives.
+************************************************************************/
+/*
+echo "function msnl_OpenWindow(msnl_sURL) {\n";
+echo "  alert(msnl_sURL);";
+echo "	ViewNls=window.open(msnl_sURL,'ViewNewsletter','width=800,height=600,menubar,scrollbars,resizable,left=0,top=0');\n";
+echo "}\n";
+*/
+/************************************************************************
+* Function: msnl_OpenNew()
+* Inputs:		msnl_sURL	= The URL to open in the new window
+* Usage: 		Used to pop-up a new window and pass a URL to it.
+************************************************************************/
+/*
+echo "function msnl_OpenNew(msnl_sURL) {\n";
+echo "	ViewNls=window.open(msnl_sURL,'ViewNewWindow', '');\n";
+echo "}\n";
+*/
 //Close the javascript hide tag
 
-echo '-->';
-echo '</script>';
-
+echo "-->\n";
+echo "</script>\n";
+				
 ?>

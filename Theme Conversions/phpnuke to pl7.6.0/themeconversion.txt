@@ -1,0 +1,1715 @@
+/**********************************************************************/
+/* PHP-Nuke Platinum v.7.6.0                         THEME CONVERSION */
+/*                                                                    */
+/* This set of instructions will modify your themes to be compatible  */
+/* with PHP-Nuke Platinum 7.6.0.                                      */
+/*                                                                    */
+/* There are 21 files to edit. There are 84 included files which you  */
+/* must upload to your theme directory maintaining the structure      */
+/* included in the YOUR-THEME folder. Remember to rename YOUR-THEME   */
+/* to the name of the theme that you are converting. There are 23     */
+/* steps to follow during the theme conversion process.               */
+/*                                                                    */
+/* Before making the modifications below to your theme, be sure you   */
+/* backup all files before editing and replacing them. It is very     */
+/* important you back your files up, it is not Platinum Suite's(TM)   */
+/* problem if something goes wrong.                                   */
+/*                                                                    */
+/* This set of instructions is intended for confident intermediate    */
+/* users of PHP-Nuke as your theme will require alot of editing. In   */
+/* order for it to work correctly, this document must be strictly     */
+/* followed. If you cannot back your files up, or you are not         */
+/* confident in following this document, it is recommended that you   */
+/* do not proceed beyond this point.                                  */
+/*                                                                    */
+/* Installation instructions:                                         */
+/*  Step 1. Upload all files in the "YOUR-THEMES" folder to the       */
+/*          location of the theme that you are converting. For        */
+/*          easier uploading, you can rename the "YOUR-THEME" folder  */
+/*          to the name of the theme that you are converting.         */
+/*  Step 2. Follow the instructions below.                            */
+/**********************************************************************/
+
+/**********************************************************************/
+/*  Step 3.                                          THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR-THEME/forums/bbcode.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/*
+<!-- BEGIN quote_username_open --></span>
+<table
+
+/*
+/******[ IN-LINE, FIND ] **********************************************/
+/*
+<table
+
+/*
+/******[ IN-LINE AFTER, ADD ] *****************************************/
+/*
+ class="bodyline"
+
+/*
+/******[ FIND ]********************************************************/
+/*
+<!-- BEGIN img --><img
+
+/*
+/******[ IN-LINE, FIND ] **********************************************/
+/*
+ border="0"
+
+/*
+/******[ IN-LINE AFTER, ADD ] *****************************************/
+/*
+ longdesc="resizemod"
+
+/*
+/******[ FIND ]********************************************************/
+/*
+	  <td><span class="genmed"><b>{USERNAME} {L_WROTE}:</b></span></td>
+	</tr>
+	<tr>
+	  <td class="quote"><!-- END quote_username_open -->
+
+/*
+/******[ REPLACE WTH ] ************************************************/
+/*
+		<td class="helpline"><span class="genmed"><b>{USERNAME} {L_WROTE}:</b>
+<script type="text/javascript" src="{U_SXBB_JSLIB}"></script>
+<script type="text/javascript">
+<!--
+	var id = 'SXBB' + (1000 + Math.floor(Math.random() * 5000));
+	SXBB[id] = new _SXBB(id);
+	SXBB[id].T['select'] = '{L_SELECT}';
+	SXBB[id].T['expand'] = '{L_EXPAND}';
+	SXBB[id].T['contract'] = '{L_CONTRACT}';
+	SXBB[id].writeCmd();
+//-->
+</script>
+		</span></td>
+	</tr>
+	<tr>
+	  <td class="quote">
+<script type="text/javascript">
+<!--
+	SXBB[id].writeDiv();
+//-->
+</script><!-- END quote_username_open -->
+
+/*
+/******[ FIND ]********************************************************/
+/*
+<!-- BEGIN quote_open --></span>
+<table
+
+/*
+/******[ IN-LINE, FIND ] **********************************************/
+/*
+<table
+
+/*
+/******[ IN-LINE AFTER, ADD ] *****************************************/
+/*
+ class="bodyline"
+
+/*
+/******[ FIND ]********************************************************/
+/*
+	  <td><span class="genmed"><b>{L_QUOTE}:</b></span></td>
+	</tr>
+	<tr>
+	  <td class="quote"><!-- END quote_open -->
+
+/*
+/******[ REPLACE WTH ] ************************************************/
+/*
+		<td class="helpline"><span class="genmed"><b>{L_QUOTE}:</b>
+<script type="text/javascript" src="{U_SXBB_JSLIB}"></script>
+<script type="text/javascript">
+<!--
+	var id = 'SXBB' + (1000 + Math.floor(Math.random() * 5000));
+	SXBB[id] = new _SXBB(id);
+	SXBB[id].T['select'] = '{L_SELECT}';
+	SXBB[id].T['expand'] = '{L_EXPAND}';
+	SXBB[id].T['contract'] = '{L_CONTRACT}';
+	SXBB[id].writeCmd();
+//-->
+</script>
+		</span></td>
+	</tr>
+	<tr>
+	  <td class="quote">
+<script type="text/javascript">
+<!--
+	SXBB[id].writeDiv();
+//-->
+</script><!-- END quote_open -->
+
+/*
+/******[ FIND ]********************************************************/
+/*
+<!-- BEGIN quote_close --></td>
+
+/*
+/******[ REPLACE WTH ] ************************************************/
+/*
+<!-- BEGIN quote_close -->
+<script type="text/javascript">
+<!--
+	document.write('</div>');
+//-->
+</script>
+		</td>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+<!-- BEGIN code_open --></span>
+<table
+
+/*
+/******[ IN-LINE, FIND ] **********************************************/
+/*
+<table
+
+/*
+/******[ IN-LINE AFTER, ADD ] *****************************************/
+/*
+ class="bodyline"
+
+/*
+/******[ FIND ]********************************************************/
+/*
+	  <td><span class="genmed"><b>{L_CODE}:</b></span></td>
+	</tr>
+	<tr>
+	  <td class="code"><!-- END code_open -->
+
+/*
+/******[ REPLACE WTH ] ************************************************/
+/*
+		<td class="helpline"><span class="genmed"><b>{L_CODE}:</b>
+<script type="text/javascript" src="{U_SXBB_JSLIB}"></script>
+<script type="text/javascript">
+<!--
+	var id = 'SXBB' + (1000 + Math.floor(Math.random() * 5000));
+	SXBB[id] = new _SXBB(id);
+	SXBB[id].T['select'] = '{L_SELECT}';
+	SXBB[id].T['expand'] = '{L_EXPAND}';
+	SXBB[id].T['contract'] = '{L_CONTRACT}';
+	SXBB[id].writeCmd();
+//-->
+</script>
+		</span></td>
+	</tr>
+	<tr>
+	  <td class="code">
+<script type="text/javascript">
+<!--
+	SXBB[id].writeDiv();
+//-->
+</script><!-- END code_open -->
+
+/*
+/******[ FIND ]********************************************************/
+/*
+<!-- BEGIN code_close --></td>
+
+/*
+/******[ REPLACE WTH ] ************************************************/
+/*
+<!-- BEGIN code_close -->
+<script type="text/javascript">
+<!--
+	document.write('</div>');
+//-->
+</script>
+		</td>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+<!-- BEGIN email --><a href="mailto:{EMAIL}">{EMAIL}</A><!-- END email -->
+   
+/*
+/******[ AFTER, ADD ]*************************************************/
+/* 
+<!-- BEGIN align_open --><div style="text-align:{ALIGN}"><!-- END align_open -->
+<!-- BEGIN align_close --></div><!-- END align_close -->
+
+<!-- BEGIN marq_open --><marquee direction="{MARQ}" scrolldelay="120"><!-- END marq_open -->
+<!-- BEGIN marq_close --></marquee><!-- END marq_close -->
+
+<!-- BEGIN table_open --><table style="{TABLE}"><tr><!-- END table_open -->
+<!-- BEGIN table_close --></tr></table><!-- END table_close -->
+
+<!-- BEGIN cell_open --><td style="{CELL}"><!-- END cell_open -->
+<!-- BEGIN cell_close --></td><!-- END cell_close -->
+
+<!-- BEGIN font_open --><span style="font-family:{FONT}"><!-- END font_open --> 
+<!-- BEGIN font_close --></span><!-- END font_close --> 
+
+<!-- BEGIN php_open --></span>
+<table class="bodyline" border="0" align="center" width="90%" cellpadding="3" cellspacing="1">
+<tr>
+<td class="helpline"><span class="genmed"><b>{L_PHP}:</b>
+<script type="text/javascript" src="{U_SXBB_JSLIB}"></script>
+<script type="text/javascript">
+<!--
+	var id = 'SXBB' + (1000 + Math.floor(Math.random() * 5000));
+	SXBB[id] = new _SXBB(id);
+	SXBB[id].T['select'] = '{L_SELECT}';
+	SXBB[id].T['expand'] = '{L_EXPAND}';
+	SXBB[id].T['contract'] = '{L_CONTRACT}';
+	SXBB[id].writeCmd();
+//-->
+</script>
+		</span></td>
+	</tr>
+	<tr>
+	  <td class="code">
+<script type="text/javascript">
+<!--
+	SXBB[id].writeDiv();
+//-->
+</script><!-- END php_open -->
+<!-- BEGIN php_close -->
+<script type="text/javascript">
+<!--
+	document.write('</div>');
+//-->
+</script>
+		</td>
+</tr></table>
+<span class="postbody">
+<!-- END php_close -->
+
+<!-- BEGIN poet_open --><div tag='{POET}' style='display:none'><!-- END poet_open -->
+<!-- BEGIN poet_close --></div><script>doPoetry()</script><!-- END poet_close -->
+
+<!-- BEGIN ram --><div align="center"><embed src="{URL}" align="center" 
+width="275" height="40" type="audio/x-pn-realaudio-plugin" console="cons" 
+controls="ControlPanel" autostart="false"></embed></div><!-- END ram -->
+
+<!-- BEGIN flash --><!-- URL's used in the movie--> 
+<!-- text used in the movie--> 
+<!-- --> 
+<OBJECT classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=5,0,0,0" WIDTH={WIDTH} HEIGHT={HEIGHT}> 
+<PARAM NAME=movie VALUE="{URL}"><PARAM NAME=quality VALUE=high> <PARAM NAME=scale VALUE=noborder> <PARAM NAME="AllowScriptAccess" VALUE="never"> <PARAM NAME=wmode VALUE=transparent> <PARAM NAME=bgcolor VALUE=#000000>
+  <EMBED src="{URL}" quality=high AllowScriptAccess="never" scale=noborder wmode=transparent bgcolor=#000000 WIDTH={WIDTH} HEIGHT={HEIGHT} TYPE="application/x-shockwave-flash" PLUGINSPAGE="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash">
+</EMBED></OBJECT><!-- END flash --> 
+
+<!-- BEGIN stream --><object id="wmp" width="300" height="70" classid="CLSID:22d6f312-b0f6-11d0-94ab-0080c74c7e95" 
+codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,0,0,0" 
+standby="Loading Microsoft Windows Media Player components..." type="application/x-oleobject"> 
+<param name="FileName" value="{URL}"> 
+<param name="ShowControls" value="1"> 
+<param name="ShowDisplay" value="0"> 
+<param name="ShowStatusBar" value="1"> 
+<param name="AutoSize" value="1"> 
+        <embed type="application/x-mplayer2" 
+pluginspage="http://www.microsoft.com/windows95/downloads/contents/wurecommended/s_wufeatured/mediaplayer/default.asp" 
+src="{URL}" name=MediaPlayer2 showcontrols=1 showdisplay=0 showstatusbar=1 autosize=1 visible=1 animationatstart=0 transparentatstart=1 loop=0 height=70 width=300> 
+</embed></object><!-- END stream -->
+
+<!-- BEGIN video --><object id="wmp" width=300 height=300 classid="CLSID:22d6f312-b0f6-11d0-94ab-0080c74c7e95" 
+codebase="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,0,0,0" 
+standby="Loading Microsoft Windows Media Player components..." type="application/x-oleobject">
+<param name="FileName" value="{URL}"> 
+<param name="ShowControls" value="1"> 
+<param name="ShowDisplay" value="0"> 
+<param name="ShowStatusBar" value="1"> 
+<param name="AutoSize" value="1"> 
+<param name="autoplay" value="0"> 
+<embed type="application/x-mplayer2" 
+pluginspage="http://www.microsoft.com/windows95/downloads/contents/wurecommended/s_wufeatured/mediaplayer/default.asp" 
+src="{URL}" name=MediaPlayer2 showcontrols=1 showdisplay=0 showstatusbar=1 autosize=1 autoplay=0 visible=1 animationatstart=0 transparentatstart=1 loop=0 height=300 width=300> 
+</embed> 
+</object><!-- END video -->
+
+<!-- BEGIN hr --><hr noshade color='#000000' size='1'><!-- END hr -->
+
+<!-- BEGIN fade_open -->
+<span style="height: 1; Filter: Alpha(Opacity=100, FinishOpacity=0, Style=1, StartX=0, FinishX=100%)">
+<!-- END fade_open -->
+<!-- BEGIN fade_close -->
+</span>
+<!-- END fade_close -->
+/**********************************************************************/
+/*  Step 4.                                          THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR-THEME/forums/forums.cfg
+
+/*
+/******[ FIND ]********************************************************/
+/*
+?>
+
+/*
+/******[ BEFORE, ADD ]*************************************************/
+/*
+$images['bbc_cut'] = "$current_template_images/{LANG}/bbc_cut.gif";
+$images['bbc_copy'] = "$current_template_images/{LANG}/bbc_copy.gif";
+$images['bbc_paste'] = "$current_template_images/{LANG}/bbc_paste.gif";
+$images['bbc_markall'] = "$current_template_images/{LANG}/bbc_markall.gif";
+$images['bbc_bold'] = "$current_template_images/{LANG}/bbc_bold.gif";
+$images['bbc_italic'] = "$current_template_images/{LANG}/bbc_italic.gif";
+$images['bbc_underline'] = "$current_template_images/{LANG}/bbc_underline.gif";
+$images['bbc_quoteselected'] = "$current_template_images/{LANG}/bbc_quoteselected.gif";
+$images['bbc_quote'] = "$current_template_images/{LANG}/bbc_quote.gif";
+$images['bbc_code'] = "$current_template_images/{LANG}/bbc_code.gif";
+$images['bbc_image'] = "$current_template_images/{LANG}/bbc_image.gif";
+$images['bbc_url'] = "$current_template_images/{LANG}/bbc_url.gif";
+$images['folder_global_announce'] = "$current_template_images/folder_global_announce.gif";
+$images['folder_global_announce_new'] = "$current_template_images/folder_global_announce_new.gif";
+$images['icon_buddy'] = "$current_template_images/{LANG}/icon_buddy.gif";
+$images['icon_buddy_remove'] = "$current_template_images/{LANG}/icon_buddy_remove.gif";
+$images['icon_kick'] = "$current_template_images/{LANG}/icon_kick.gif";
+$images['icon_unkick'] = "$current_template_images/{LANG}/icon_unkick.gif";
+$images['icon_top'] = "$current_template_images/icon_top.gif";
+$images['icon_bottom'] = "$current_template_images/icon_bottom.gif";
+$images['icon_next_post'] = "$current_template_images/icon_next_post.gif";
+$images['icon_previous_post'] = "$current_template_images/icon_previous_post.gif";
+$images['icon_reportpost'] = "$current_template_images/report.gif";
+$images['icon_reportpost2'] = "$current_template_images/report2.gif";
+$images['topic_mod_merge'] = "$current_template_images/topic_merge.gif";
+
+/**********************************************************************/
+/*  Step 5.                                          THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR-THEME/forums/groupcp_info_body.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/*
+	  <th class="thTop">{L_EMAIL}</th>
+
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+	  <th class="thTop">{L_ONLINE_STATUS}</th>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{L_GROUP_MODERATOR}
+
+/*
+/******[ IN-LINE, FIND ]***********************************************/
+/*
+colspan="8"
+
+/*
+/******[ IN-LINE REPLACE, WITH ]***************************************/
+/* [or add +1 unit to 'colspan' if other mods have been installed]
+/*
+colspan="9"
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{MOD_EMAIL_IMG}</span></td>
+
+/*
+/******[ AFTER ON NEW LINE, ADD ]**************************************/
+/*
+	  <td class="row1" align="center" valign="middle"><span class="gen">{MOD_ONLINE_STATUS}</span></td>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{L_GROUP_MEMBERS}
+
+/*
+/******[ IN-LINE, FIND ]***********************************************/
+/*
+colspan="8"
+
+/*
+/******[ IN-LINE REPLACE, WITH ]***************************************/
+/* [or add +1 unit to 'colspan' if other mods have been installed]
+/*
+colspan="9"
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{member_row.EMAIL_IMG}</span></td>
+
+/*
+/******[ AFTER ON NEW LINE, ADD ]**************************************/
+/*
+	  <td class="{member_row.ROW_CLASS}" align="center" valign="middle"><span class="gen">{member_row.ONLINE_STATUS}</span></td>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{L_NO_MEMBERS}
+
+/*
+/******[ IN-LINE, FIND ]***********************************************/
+/*
+colspan="7"
+
+/*
+/******[ IN-LINE REPLACE, WITH ]***************************************/
+/* [or add +1 unit to 'colspan' if other mods have been installed]
+/*
+colspan="8"
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{L_HIDDEN_MEMBERS}
+
+/*
+/******[ IN-LINE, FIND ]***********************************************/
+/*
+colspan="7"
+
+/*
+/******[ IN-LINE REPLACE, WITH ]***************************************/
+/* [or add +1 unit to 'colspan' if other mods have been installed]
+/*
+colspan="8"
+
+/*
+/******[ FIND ]********************************************************/
+/*
+		<td class="catBottom" colspan="8" align="right"><span class="cattitle">
+
+/*
+/******[ IN-LINE, FIND ]***********************************************/
+/*
+colspan="8"
+
+/*
+/******[ IN-LINE REPLACE, WITH ]***************************************/
+/* [or add +1 unit to 'colspan' if other mods have been installed]
+/*
+colspan="9"
+
+/**********************************************************************/
+/*  Step 6.                                          THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR_THEME/forums/groupcp_pending_info.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{L_EMAIL}</th>
+
+/*
+/******[ AFTER ON NEW LINE, ADD ]**************************************/
+/*
+	  <th class="thTop">{L_ONLINE_STATUS}</th>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{L_PENDING_MEMBERS}
+
+/*
+/******[ IN-LINE, FIND ]***********************************************/
+/*
+colspan="8"
+
+/*
+/******[ IN-LINE REPLACE, WITH ]***************************************/
+/* [or add +1 unit to 'colspan' if other mods have been installed]
+/*
+colspan="9"
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{pending_members_row.EMAIL_IMG}</span></td>
+
+/*
+/******[ AFTER ON NEW LINE, ADD ]**************************************/
+/*
+	  <td class="{pending_members_row.ROW_CLASS}" align="center"><span class="gen">{pending_members_row.ONLINE_STATUS}</span></td>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+	  <td class="cat" colspan="8" align="right"><span class="cattitle">
+
+/*
+/******[ IN-LINE, FIND ]***********************************************/
+/*
+colspan="8"
+
+/*
+/******[ IN-LINE REPLACE, WITH ]***************************************/
+/* [or add +1 unit to 'colspan' if other mods have been installed]
+/*
+colspan="9"
+
+/**********************************************************************/
+/*  Step 7.                                          THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR_THEME/forums/index_body.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/* [this is the first line]
+/*
+<table width="100%" cellspacing="0" cellpadding="2" border="0" align="center">
+   
+/*
+/******[ BEFORE, ADD ]*************************************************/
+/* 
+<table width="100%" cellspacing="0" cellpadding="4" border="0" align="center">
+   <tr>
+      <td width="100%" colspan="2" valign="top">
+      <!-- MOD GLANCE BEGIN -->
+      {GLANCE_OUTPUT}
+      <!-- MOD GLANCE END -->
+   </tr>
+</table>
+
+/*
+/******[ FIND ]********************************************************/
+/* [partial search / compare if you cannot find exact code]
+/*
+	<td class="row1" align="left"><span class="gensmall">{TOTAL_USERS_ONLINE}   [ {L_WHOSONLINE_ADMIN} ]   [ {L_WHOSONLINE_MOD} ]<br />{RECORD_USERS}<br />{LOGGED_IN_USER_LIST}</span></td>
+
+/*
+/******[ REPLACE WITH ] ************************************************/
+/*
+	<td class="row1" align="left"><span class="gensmall">{TOTAL_USERS_ONLINE}   [ {L_WHOSONLINE_ADMIN} ]   [ {L_WHOSONLINE_MOD} ]
+	<!-- BEGIN colors -->
+	{colors.GROUPS}
+	<!-- END colors -->
+	<br />{RECORD_USERS}<br />{LOGGED_IN_USER_LIST}</span></td>
+
+/**  [NOW IF YOU WANT TO JUST SHOW THE CUSTOM COLOR RANKS YOU CREATE AND NOT THE STANDARD]  */
+/**  [ADMINISTRATOR AND MODERATOR RANKS AT THE BOTTOM THEN REMOVE THIS CODE FROM THE ABOVE] */
+/**  [LINE] OTHERWISE LEAVE IT IN.     [ {L_WHOSONLINE_ADMIN} ]   [ {L_WHOSONLINE_MOD} ]    */
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{L_SEARCH_SELF}
+
+/*
+/******[ AFTER ON NEW LINE, ADD ]**************************************/
+/*
+<a href="{U_SEARCH_STARTEDTOPICS}" class="gensmall">{L_SEARCH_STARTEDTOPICS}</a><br />
+
+/**********************************************************************/
+/*  Step 8.                                          THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR_THEME/forums/memberlist_body.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/* [this is normally the first line]
+/*
+<form method="post" action="{S_MODE_ACTION}">
+
+/*
+/******[ REPLACE WTH ] ************************************************/
+/*
+<form method="post" action="{S_MODE_ACTION}" name="post">
+
+/*
+/******[ FIND ]********************************************************/
+/*
+		<input type="submit" name="submit" value="{L_SUBMIT}" class="liteoption" />
+		</span></td>
+	</tr>
+
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+	<tr>
+	  <td align="left"><span class="nav">&nbsp;</span></td>
+	  <td align="right" nowrap="nowrap"><span class="genmed">
+	  <input type="text"  class="post" name="username" maxlength="25" size="25" tabindex="1" value="" />&nbsp;<input type="submit" name="submituser" value="{L_LOOK_UP}" class="mainoption" />&nbsp;<input type="submit" name="usersubmit" value="{L_FIND_USERNAME}" class="liteoption" onClick="window.open('{U_SEARCH_USER}', '_phpbbsearch', 'HEIGHT=250,resizable=yes,WIDTH=400');return false;" />
+	  </span></td>
+	</tr>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{L_JOINED}</th>
+
+/*
+/******[ AFTER ON NEW LINE, ADD ]**************************************/
+/*
+	  <th class="thTop" nowrap="nowrap">{L_ONLINE_STATUS}</th>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{L_WEBSITE}</th>
+	</tr>
+
+/*
+/******[ AFTER ON NEW LINE, ADD ]**************************************/
+/*
+	<!-- BEGIN no_username -->
+	<tr> 
+	  <td class="row1" align="center" colspan="9"><span class="gen">&nbsp;{no_username.NO_USER_ID_SPECIFIED}&nbsp;</span></td>
+	</tr>
+	<!-- END no_username -->
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{memberrow.JOINED}</span></td>
+
+/*
+/******[ AFTER ON NEW LINE, ADD ]**************************************/
+/*
+	  <td class="{memberrow.ROW_CLASS}" align="center" valign="middle"><span class="gen">{memberrow.ONLINE_STATUS}</span></td>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+	  <td class="catBottom" colspan="8" height="28">&nbsp;</td>
+
+/*
+/******[ IN-LINE, FIND ]***********************************************/
+/*
+colspan="8"
+
+/*
+/******[ IN-LINE REPLACE, WITH ]***************************************/
+/* [or add +1 unit to 'colspan' if other mods have been installed]
+/*
+colspan="9"
+
+/**********************************************************************/
+/*  Step 9.                                          THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR-THEME/forums/modcp_body.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{topicrow.TOPIC_TYPE}
+
+/*
+/******[ ADD, BEFORE ]*************************************************/
+/*
+{topicrow.TOPIC_ATTACHMENT_IMG}
+
+
+/**********************************************************************/
+/*  Step 10.                                         THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR_THEME/forums/posting_body.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/* [Partial Search. NOTE: the ..'s represent code in your file.]
+/*   - As the code you need to find is approximately 200 lines in
+/*     lenght, the ..'s below are there just as place holders.
+/*   - You will need to selcet the code from <script to </script>
+/*
+<script language="JavaScript" type="text/javascript">
+<!--
+// bbCode control by
+// subBlue design
+// www.subBlue.com
+..
+..
+..
+..
+..
+..
+..
+..
+//-->
+</script>
+
+/*
+/******[ REPLACE WITH ]************************************************/
+/*
+<script language="JavaScript" src="modules/Forums/bbcode_box/add_bbcode.js" type="text/javascript"></script>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+<form action="{S_POST_ACTION}" method="post" name="post" onsubmit="return checkForm(this)">
+
+/*
+/******[ REPLACE WITH ]************************************************/
+/*
+<form action="{S_POST_ACTION}" method="post" name="post" onsubmit="return checkForm(this)" {S_FORM_ENCTYPE}>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+		<td><a href="javascript:emoticon('{smilies_row.smilies_col.SMILEY_CODE}')"><img src="{smilies_row.smilies_col.SMILEY_IMG}" border="0" alt="{smilies_row.smilies_col.SMILEY_DESC}" title="{smilies_row.smilies_col.SMILEY_DESC}" /></a></td> 
+
+/*
+/******[ REPLACE WITH ]************************************************/
+/*
+		<td><img src="{smilies_row.smilies_col.SMILEY_IMG}" border="0" onmouseover="this.style.cursor='hand';" onclick="emoticon('{smilies_row.smilies_col.SMILEY_CODE}');" alt="{smilies_row.smilies_col.SMILEY_DESC}" title="{smilies_row.smilies_col.SMILEY_DESC}" /></a></td>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+		  <tr align="center" valign="middle"> 
+			<td><span class="genmed">
+			  <input type="button" class="button" accesskey="b" name="addbbcode0" value=" B " style="font-weight:bold; width: 30px" onClick="bbstyle(0)" onMouseOver="helpline('b')" />
+			  </span></td>
+			<td><span class="genmed"> 
+			  <input type="button" class="button" accesskey="i" name="addbbcode2" value=" i " style="font-style:italic; width: 30px" onClick="bbstyle(2)" onMouseOver="helpline('i')" />
+			  </span></td>
+			<td><span class="genmed"> 
+			  <input type="button" class="button" accesskey="u" name="addbbcode4" value=" u " style="text-decoration: underline; width: 30px" onClick="bbstyle(4)" onMouseOver="helpline('u')" />
+			  </span></td>
+			<td><span class="genmed"> 
+			  <input type="button" class="button" accesskey="q" name="addbbcode6" value="Quote" style="width: 50px" onClick="bbstyle(6)" onMouseOver="helpline('q')" />
+			  </span></td>
+			<td><span class="genmed"> 
+			  <input type="button" class="button" accesskey="c" name="addbbcode8" value="Code" style="width: 40px" onClick="bbstyle(8)" onMouseOver="helpline('c')" />
+			  </span></td>
+			<td><span class="genmed"> 
+			  <input type="button" class="button" accesskey="l" name="addbbcode10" value="List" style="width: 40px" onClick="bbstyle(10)" onMouseOver="helpline('l')" />
+			  </span></td>
+			<td><span class="genmed"> 
+			  <input type="button" class="button" accesskey="o" name="addbbcode12" value="List=" style="width: 40px" onClick="bbstyle(12)" onMouseOver="helpline('o')" />
+			  </span></td>
+			<td><span class="genmed"> 
+			  <input type="button" class="button" accesskey="p" name="addbbcode14" value="Img" style="width: 40px"  onClick="bbstyle(14)" onMouseOver="helpline('p')" />
+			  </span></td>
+			<td><span class="genmed"> 
+			  <input type="button" class="button" accesskey="w" name="addbbcode16" value="URL" style="text-decoration: underline; width: 40px" onClick="bbstyle(16)" onMouseOver="helpline('w')" />
+			  </span></td>
+		  </tr>
+		  <tr> 
+			<td colspan="9"> 
+			  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr> 
+				  <td><span class="genmed"> &nbsp;{L_FONT_COLOR}:
+					<select name="addbbcode18" onChange="bbfontstyle('[color=' + this.form.addbbcode18.options[this.form.addbbcode18.selectedIndex].value + ']', '[/color]')" onMouseOver="helpline('s')">
+					  <option style="color:black; background-color: {T_TD_COLOR1}" value="{T_FONTCOLOR1}" class="genmed">{L_COLOR_DEFAULT}</option>
+					  <option style="color:darkred; background-color: {T_TD_COLOR1}" value="darkred" class="genmed">{L_COLOR_DARK_RED}</option>
+					  <option style="color:red; background-color: {T_TD_COLOR1}" value="red" class="genmed">{L_COLOR_RED}</option>
+					  <option style="color:orange; background-color: {T_TD_COLOR1}" value="orange" class="genmed">{L_COLOR_ORANGE}</option>
+					  <option style="color:brown; background-color: {T_TD_COLOR1}" value="brown" class="genmed">{L_COLOR_BROWN}</option>
+					  <option style="color:yellow; background-color: {T_TD_COLOR1}" value="yellow" class="genmed">{L_COLOR_YELLOW}</option>
+					  <option style="color:green; background-color: {T_TD_COLOR1}" value="green" class="genmed">{L_COLOR_GREEN}</option>
+					  <option style="color:olive; background-color: {T_TD_COLOR1}" value="olive" class="genmed">{L_COLOR_OLIVE}</option>
+					  <option style="color:cyan; background-color: {T_TD_COLOR1}" value="cyan" class="genmed">{L_COLOR_CYAN}</option>
+					  <option style="color:blue; background-color: {T_TD_COLOR1}" value="blue" class="genmed">{L_COLOR_BLUE}</option>
+					  <option style="color:darkblue; background-color: {T_TD_COLOR1}" value="darkblue" class="genmed">{L_COLOR_DARK_BLUE}</option>
+					  <option style="color:indigo; background-color: {T_TD_COLOR1}" value="indigo" class="genmed">{L_COLOR_INDIGO}</option>
+					  <option style="color:violet; background-color: {T_TD_COLOR1}" value="violet" class="genmed">{L_COLOR_VIOLET}</option>
+					  <option style="color:white; background-color: {T_TD_COLOR1}" value="white" class="genmed">{L_COLOR_WHITE}</option>
+					  <option style="color:black; background-color: {T_TD_COLOR1}" value="black" class="genmed">{L_COLOR_BLACK}</option>
+					</select> &nbsp;{L_FONT_SIZE}:<select name="addbbcode20" onChange="bbfontstyle('[size=' + this.form.addbbcode20.options[this.form.addbbcode20.selectedIndex].value + ']', '[/size]')" onMouseOver="helpline('f')">
+					  <option value="7" class="genmed">{L_FONT_TINY}</option>
+					  <option value="9" class="genmed">{L_FONT_SMALL}</option>
+					  <option value="12" selected class="genmed">{L_FONT_NORMAL}</option>
+					  <option value="18" class="genmed">{L_FONT_LARGE}</option>
+					  <option  value="24" class="genmed">{L_FONT_HUGE}</option>
+					</select>
+					</span></td>
+				  <td nowrap="nowrap" align="right"><span class="gensmall"><a href="javascript:bbstyle(-1)" class="genmed" onMouseOver="helpline('a')">{L_BBCODE_CLOSE_TAGS}</a></span></td>
+				</tr>
+			  </table>
+			</td>
+		  </tr>
+
+/*
+/******[ REPLACE, WITH ]***********************************************/
+/*
+		  <tr align="right" valign="middle">
+			<td>
+			  <p dir="rtl" style="margin-top: 0; margin-bottom: 0" align="left"><span class="gen"> 
+			  <span class="genmed"> 
+			  &nbsp;<select name="fc" onChange="BBCfc()" onMouseOver="helpline('fc')" 	
+					  <option style="color:darkred; background-color: {T_TD_COLOR1}" value="darkred" class="genmed" dir="ltr">
+              <option selected>Font Color</option>
+              <option style="color:black;" value="{T_FONTCOLOR1}" value="{T_FONTCOLOR1}">{L_COLOR_DEFAULT}</option>
+              <option value="darkred">{L_COLOR_DARK_RED}</option>
+					  <option style="color:red; background-color: {T_TD_COLOR1}" value="red" class="genmed">{L_COLOR_RED}</option>
+					  <option style="color:orange; background-color: {T_TD_COLOR1}" value="orange" class="genmed">{L_COLOR_ORANGE}</option>
+					  <option style="color:brown; background-color: {T_TD_COLOR1}" value="brown" class="genmed">{L_COLOR_BROWN}</option>
+					  <option style="color:yellow; background-color: {T_TD_COLOR1}" value="yellow" class="genmed">{L_COLOR_YELLOW}</option>
+					  <option style="color:green; background-color: {T_TD_COLOR1}" value="green" class="genmed">{L_COLOR_GREEN}</option>
+					  <option style="color:olive; background-color: {T_TD_COLOR1}" value="olive" class="genmed">{L_COLOR_OLIVE}</option>
+					  <option style="color:cyan; background-color: {T_TD_COLOR1}" value="cyan" class="genmed">{L_COLOR_CYAN}</option>
+					  <option style="color:blue; background-color: {T_TD_COLOR1}" value="blue" class="genmed">{L_COLOR_BLUE}</option>
+					  <option style="color:darkblue; background-color: {T_TD_COLOR1}" value="darkblue" class="genmed">{L_COLOR_DARK_BLUE}</option>
+					  <option style="color:indigo; background-color: {T_TD_COLOR1}" value="indigo" class="genmed">{L_COLOR_INDIGO}</option>
+					  <option style="color:violet; background-color: {T_TD_COLOR1}" value="violet" class="genmed">{L_COLOR_VIOLET}</option>
+					  <option style="color:white; background-color: {T_TD_COLOR1}" value="white" class="genmed">{L_COLOR_WHITE}</option>
+					  <option style="color:black; background-color: {T_TD_COLOR1}" value="black" class="genmed">{L_COLOR_BLACK}</option>
+			  </select>&nbsp;&nbsp; <select name="fs" onChange="BBCfs()" onMouseOver="helpline('fs')" 
+			  		  <option value="7" class="genmed" dir="ltr">
+              <option selected>Font Size</option>
+              {L_FONT_TINY}</option>
+					  <option value="9" class="genmed">{L_FONT_SMALL}</option>
+					  <option value="12" class="genmed">{L_FONT_NORMAL}</option>
+					  <option value="18" class="genmed">{L_FONT_LARGE}</option>
+					  <option  value="24" class="genmed">{L_FONT_HUGE}</option>
+					</select> <span lang="ar-sy">&nbsp;</span><select name="ft" onChange="BBCft()" onMouseOver="helpline('ft')" 
+        <option style="color:black; background-color: #FFFFFF " value="{L_ARIAL}" class="genmed" dir="ltr">
+                                          <option selected>Font type</option>
+                                          <option value="Arial">Default font
+                                          </option>
+<option style="color:black; background-color: #FFFFFF " value="Andalus" class="genmed">
+Andalus</option> 
+<option style="color:black; background-color: #FFFFFF " value="Arial" class="genmed">
+Arial</option> 
+<option style="color:black; background-color: #FFFFFF " value="Comic Sans MS" class="genmed">
+Comic Sans MS</option> 
+<option style="color:black; background-color: #FFFFFF " value="Courier New" class="genmed">
+Courier New</option> 
+                                          <option value="Lucida Console">Lucida Console
+                                          </option>
+<option style="color:black; background-color: #FFFFFF " value="Microsoft Sans Serif" class="genmed">
+Microsoft Sans Serif</option> 
+<option style="color:black; background-color: #FFFFFF " value="Symbol" class="genmed">
+Symbol</option> 
+<option style="color:black; background-color: #FFFFFF " value="Tahoma" class="genmed">
+Tahoma</option> 
+<option style="color:black; background-color: #FFFFFF " value="Times New Roman" class="genmed">
+Times New Roman</option> 
+<option style="color:black; background-color: #FFFFFF " value="Traditional Arabic" class="genmed">
+Traditional Arabic</option> 
+<option style="color:black; background-color: #FFFFFF " value="Verdana" class="genmed">
+Verdana</option> 
+<option style="color:black; background-color: #FFFFFF " value="Webdings" class="genmed">
+Webdings</option> 
+<option style="color:black; background-color: #FFFFFF " value="Wingdings" class="genmed">
+Wingdings</option> 
+                                  </select></span></span></span><p dir="rtl" style="margin-top: 0; margin-bottom: 0">
+              <span class="genmed"><span style="font-size: 5pt">&nbsp;</span></span></td>
+		  </tr>
+		  <span class="gen"> 
+		  <tr> 
+			<td width="100%"> 
+			  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr> 
+                        <td> 
+                          <table width="100%" border="0" cellspacing="0" cellpadding="0"> 
+                                <tr> 
+                                  <td>
+                                  <p dir="ltr" align="left"><span class="gen">  
+			  <span class="genmed"> 
+			                      <span lang="ar-sy">&nbsp;</span><img src="modules/Forums/bbcode_box/images/justify.gif" alt="justify" name="justify" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCjustify()" onMouseOver="helpline('justify')" type="image"><img src="modules/Forums/bbcode_box/images/right.gif" alt="right" name="right" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCright()" onMouseOver="helpline('right')" type="image"><img src="modules/Forums/bbcode_box/images/center.gif" alt="center" name="center" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCcenter()" onMouseOver="helpline('center')" type="image"><img src="modules/Forums/bbcode_box/images/left.gif" alt="left" name="left" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCleft()" onMouseOver="helpline('left')" type="image">&nbsp;&nbsp; 
+                                  <img src="modules/Forums/bbcode_box/images/bold.gif" alt="bold" name="bold" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCbold()" onMouseOver="helpline('b')" type="image"><img src="modules/Forums/bbcode_box/images/italic.gif" alt="italic" name="italic" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCitalic()" onMouseOver="helpline('i')" type="image"><img src="modules/Forums/bbcode_box/images/under.gif" alt="under line" name="under" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCunder()" onMouseOver="helpline('u')" type="image">&nbsp;&nbsp; 
+                                  <img src="modules/Forums/bbcode_box/images/fade.gif" alt="fade" name="fade" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCfade()" onMouseOver="helpline('fade')" type="image"><img src="modules/Forums/bbcode_box/images/grad.gif" alt="gradient" name="grad" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCgrad()" onMouseOver="helpline('grad')" type="image">&nbsp;&nbsp; 
+                                  <img src="modules/Forums/bbcode_box/images/rtl.gif" alt="Right to Left" name="dirrtl" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCdir('rtl')" onMouseOver="helpline('rtl')" type="image"><img src="modules/Forums/bbcode_box/images/ltr.gif" alt="Left to Right" name="dirltr" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCdir('ltr')" onMouseOver="helpline('ltr')" type="image">&nbsp;&nbsp; 
+                                  <img src="modules/Forums/bbcode_box/images/marqd.gif" alt="Marque to down" name="marqd" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCmarqd()" onMouseOver="helpline('marqd')" type="image"><img src="modules/Forums/bbcode_box/images/marqu.gif" alt="Marque to up" name="marqu" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCmarqu()" onMouseOver="helpline('marqu')" type="image"><img src="modules/Forums/bbcode_box/images/marql.gif" alt="Marque to left" name="marql" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCmarql()" onMouseOver="helpline('marql')" type="image"><img src="modules/Forums/bbcode_box/images/marqr.gif" alt="Marque to right" name="marqr" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCmarqr()" onMouseOver="helpline('marqr')" type="image"></span></span></td> 
+                                </tr> 
+                                <tr> 
+                                  <td dir="rtl">
+                                  <p align="right" dir="rtl" style="margin-top: 0; margin-bottom: 0">
+                                  <span style="font-size: 5pt">&nbsp;</span><p align="left" dir="ltr" style="margin-top: 0; margin-bottom: 0"><span class="gen"> 
+			  <span class="genmed"> 
+			                      &nbsp;<img src="modules/Forums/bbcode_box/images/code.gif" alt="Code" name="code" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCcode()" onMouseOver="helpline('code')" type="image"><img src="modules/Forums/bbcode_box/images/php.gif" alt="php" name="php" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCphp()" onMouseOver="helpline('php')" type="image"><img src="modules/Forums/bbcode_box/images/quote.gif" alt="Quote" name="quote" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCquote()" onMouseOver="helpline('quote')" type="image">&nbsp;&nbsp; 
+                                  <img src="modules/Forums/bbcode_box/images/url.gif" alt="URL" name="url" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCurl()" onMouseOver="helpline('url')" type="image"><img src="modules/Forums/bbcode_box/images/email.gif" alt="Email" name="email" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCmail()" onMouseOver="helpline('mail')" type="image">&nbsp;&nbsp;
+                                  <img src="modules/Forums/bbcode_box/images/img.gif" alt="Image" name="img" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCimg()" onMouseOver="helpline('img')" type="image"><img src="modules/Forums/bbcode_box/images/flash.gif" alt="Flash" name="flash" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCflash()" onMouseOver="helpline('flash')" type="image"><img src="modules/Forums/bbcode_box/images/video.gif" alt="Video" name="video" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCvideo()" onMouseOver="helpline('video')" type="image"><img src="modules/Forums/bbcode_box/images/sound.gif" alt="Stream" name="stream" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCstream()" onMouseOver="helpline('stream')" type="image"><img src="modules/Forums/bbcode_box/images/ram.gif" alt="Real Media" name="ram" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCram()" onMouseOver="helpline('ram')" type="image">&nbsp;&nbsp;
+                                  <img src="modules/Forums/bbcode_box/images/hr.gif" alt="H-Line" name="hr" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBChr()" onMouseOver="helpline('hr')" type="image">&nbsp;&nbsp; 
+                                  <img src="modules/Forums/bbcode_box/images/plain.gif" alt="Remove BBcode" name="plain" width="30" height="27" border="0" style="border-style: outset; border-width: 1" onClick="BBCplain()" onMouseOver="helpline('plain')" type="image"></span></td> 
+                                </tr> 
+                          </table> 
+                        </td> 
+                  </tr> 
+
+			  </table>
+			</td>
+		  </tr>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+		  <!-- END switch_delete_checkbox -->
+  
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+		  <!-- BEGIN switch_lock_topic -->
+		  <tr>
+			<td> 
+			  <input type="checkbox" name="lock" {S_LOCK_CHECKED} />
+			</td>
+			<td><span class="gen">{L_LOCK_TOPIC}</span></td>
+		  </tr>
+		  <!-- END switch_lock_topic -->
+		  <!-- BEGIN switch_unlock_topic -->
+		  <tr> 
+			<td> 
+			  <input type="checkbox" name="unlock" {S_UNLOCK_CHECKED} />
+			</td>
+			<td><span class="gen">{L_UNLOCK_TOPIC}</span></td>
+		  </tr>
+		  <!-- END switch_unlock_topic -->
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{POLLBOX}
+
+/*
+/******[ BEFORE, ADD ]*************************************************/
+/*
+{ATTACHBOX}
+
+/*
+/******[ FIND ]********************************************************/
+/*
+			  <input type="text" name="helpbox" size="45" maxlength="100" style="width:450px; font-size:10px" class="helpline" value="{L_STYLES_TIP}" />
+			  </span></td>
+		  </tr>
+
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+		  <!-- Canned MOD Begin -->
+		  <tr>
+			<td colspan="9">{S_CANNED_SELECT}</td>
+		  </tr>
+		  <!-- Canned MOD End -->
+
+/**********************************************************************/
+/*  Step 11.                                         THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR_THEME/forums/posting_preview.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{MESSAGE}</span>
+
+/*
+/******[ AFTER ON NEW LINE, ADD ]**************************************/
+/*
+					<!-- BEGIN postrow -->
+					{ATTACHMENTS}
+					<!-- END postrow -->
+
+/**********************************************************************/
+/*  Step 12.                                         THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR-THEME/forums/posting_smilies.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/*
+		<td><a href="javascript:emoticon('{smilies_row.smilies_col.SMILEY_CODE}')"><img src="{smilies_row.smilies_col.SMILEY_IMG}" border="0" alt="{smilies_row.smilies_col.SMILEY_DESC}" title="{smilies_row.smilies_col.SMILEY_DESC}" /></a></td> 
+
+/*
+/******[ REPLACE WITH ]************************************************/
+/*
+		<td><img src="{smilies_row.smilies_col.SMILEY_IMG}" border="0" onmouseover="this.style.cursor='hand';" onclick="emoticon('{smilies_row.smilies_col.SMILEY_CODE}');" alt="{smilies_row.smilies_col.SMILEY_DESC}" title="{smilies_row.smilies_col.SMILEY_DESC}" /></a></td>
+
+/**********************************************************************/
+/*  Step 13.                                         THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR_THEME/forums/posting_topic_review.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{postrow.MESSAGE}
+
+/*
+/******[ AFTER ON NEW LINE, ADD ]**************************************/
+/*
+<br>{postrow.ATTACHMENTS}
+
+/**********************************************************************/
+/*  Step 14.                                         THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR_THEME/forums/privmsgs_body.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/*
+<table border="0" cellspacing="0" cellpadding="0" align="center" width="100%">
+  <tr> 
+
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+	<td align="right">
+	  <!-- BEGIN switch_box_size_notice -->
+	  <table width="175" cellspacing="1" cellpadding="2" border="0" class="bodyline">
+		<tr> 
+		  <td colspan="3" width="175" class="row1" nowrap="nowrap"><span class="gensmall">{ATTACH_BOX_SIZE_STATUS}</span></td>
+		</tr>
+		<tr> 
+		  <td colspan="3" width="175" class="row2">
+			<table cellspacing="0" cellpadding="1" border="0">
+			  <tr> 
+				<td bgcolor="{T_TD_COLOR2}"><img src="modules/Forums/templates/subSilver/images/spacer.gif" width="{ATTACHBOX_LIMIT_IMG_WIDTH}" height="8" alt="{ATTACH_LIMIT_PERCENT}" /></td>
+			  </tr>
+			</table>
+		  </td>
+		</tr>
+		<tr> 
+		  <td width="33%" class="row1"><span class="gensmall">0%</span></td>
+		  <td width="34%" align="center" class="row1"><span class="gensmall">50%</span></td>
+		  <td width="33%" align="right" class="row1"><span class="gensmall">100%</span></td>
+		</tr>
+	  </table>
+	  <!-- END switch_box_size_notice -->
+	</td>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+<form method="post" name="privmsg_list" action="{S_PRIVMSGS_ACTION}">
+
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+  <table width="100%" cellspacing="2" cellpadding="2" border="0" align="center">
+	<tr>
+	  <td>&nbsp;</td>
+	  <td nowrap="nowrap">
+
+/*
+/******[ FIND ]********************************************************/
+/*
+  <table border="0" cellpadding="3" cellspacing="1" width="100%" class="forumline">
+	<tr> 
+	  <th width="5%" height="25" class="thCornerL" nowrap="nowrap">&nbsp;{L_FLAG}&nbsp;</th>
+
+/*
+/******[ BEFORE, ADD ]**************************************************/
+/*
+	  </td>
+	</tr>
+	<tr>
+	  <td valign="top">{BUDDY_LIST}</td>
+	  <td nowrap="nowrap" valign="top">
+
+/*
+/******[ FIND ]********************************************************/
+/*
+<span class="topictitle">&nbsp;<a href="{listrow.U_READ}" class="topictitle">{listrow.SUBJECT}
+
+/*
+/******[ BEFORE DIRECTLY, ADD ]****************************************/
+/*
+{listrow.PRIVMSG_ATTACHMENTS_IMG}
+
+/*
+/******[ FIND ]********************************************************/
+/*
+</form>
+
+/*
+/******[ BEFORE, ADD ]**************************************************/
+/*
+	  </td>
+	</tr>
+  </table>
+
+/**********************************************************************/
+/*  Step 15.                                         THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR_THEME/forums/privmsgs_preview.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/*
+	<td valign="top" colspan="2" class="row1"><span class="postbody">{MESSAGE}</span></td>
+
+/*
+/******[ REPLACE WITH ]************************************************/
+/*
+	<td valign="top" colspan="2" class="row1"><span class="postbody">{MESSAGE}</span>
+	<!-- BEGIN postrow -->
+	{ATTACHMENTS}
+	<!-- END postrow -->
+	</td>
+
+/**********************************************************************/
+/*  Step 16.                                         THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR_THEME/forums/privmsgs_read_body.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{MESSAGE_FROM}</span>
+
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+<span class="gensmall">{POSTER_FROM_ONLINE_STATUS}</span>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+	  <td valign="top" colspan="3" class="row1"><span class="postbody">{MESSAGE}</span></td>
+
+/*
+/******[ REPLACE WITH ]************************************************/
+/*
+	  <td valign="top" colspan="3" class="row1"><span class="postbody">{MESSAGE}</span>
+<!-- BEGIN postrow -->
+	{ATTACHMENTS}
+<!-- END postrow -->
+	  </td>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{PROFILE_IMG}
+
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+ {BUDDY_IMG}
+
+/*
+/******[ FIND ]********************************************************/
+/*
+		<input type="submit" name="delete" value="{L_DELETE_MSG}" class="liteoption" />
+
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+<!-- BEGIN switch_attachments -->
+		&nbsp; 
+		<input type="submit" name="pm_delete_attach" value="{L_DELETE_ATTACHMENTS}" class="liteoption" />
+<!-- END switch_attachments -->
+
+/*
+/******[ FIND ]********************************************************/
+/*
+</table>
+<table width="100%" cellspacing="2" border="0" align="center" cellpadding="2">
+
+/*
+/******[ BEFORE, ADD ]*************************************************/
+/*
+{ROPM_QUICKREPLY_OUTPUT}
+
+/**********************************************************************/
+/*  Step 17.                                         THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR-THEME/forums/profile_add_body.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/*
+	<tr> 
+	  <td class="row1"><span class="gen">{L_SIGNATURE}:</span><br /><span class="gensmall">{L_SIGNATURE_EXPLAIN}<br /><br />{HTML_STATUS}<br />{BBCODE_STATUS}<br />{SMILIES_STATUS}</span></td>
+	  <td class="row2"> 
+		<textarea name="signature"style="width: 300px"  rows="6" cols="30" class="post">{SIGNATURE}</textarea>
+	  </td>
+	</tr>
+
+/*
+/******[ REPLACE WITH ]************************************************/
+/*
+	<tr> 
+	  <td class="row1"><span class="gen">{SIG_DESC}:</span></span></td>
+	  <td class="row2"><INPUT TYPE="button" VALUE="{SIG_BUTTON_DESC}" onclick="window.location.href='{SIG_EDIT_LINK}'"></td>
+	</tr>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+	<tr>
+		<td class="row1"><span class="gen">{L_BOARD_LANGUAGE}:</span></td>
+
+/*
+/******[ BEFORE, ADD ]*************************************************/
+/*
+	<tr>
+	  <td class="row1"><span class="gen">{L_SHOW_QUICK_REPLY}:</span></td>
+	  <td class="row2">
+		<input type="radio" name="showquickreply" value="1" {SHOW_QUICK_REPLY_YES} />
+		<span class="gen">{L_YES}</span>&nbsp;&nbsp;
+		<input type="radio" name="showquickreply" value="0" {SHOW_QUICK_REPLY_NO} />
+		<span class="gen">{L_NO}</span></td>
+	</tr>
+	<tr> 
+	  <td class="row1"><span class="gen">{L_WORD_WRAP}:</span><br /><span class="gensmall">{L_WORD_WRAP_EXPLAIN}</span></td>
+	  <td class="row2"><span class="gensmall"><input type="text" name="user_wordwrap" value="{WRAP_ROW}" size="2" maxlength="2" class="post" /> {L_WORD_WRAP_EXTRA}</span></td>
+	</tr>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{L_BOARD_LANGUAGE}:</span></td>
+
+/*
+/******[ AFTER ON NEW LINE, ADD ]**************************************/
+/*
+	{PHOTO_BOX}
+
+/*
+/******[ FIND ]********************************************************/
+/*
+		<tr> 
+	  <td class="row1"><span class="gen">{SIG_DESC}:</span></span></td>
+	  <td class="row2"><INPUT TYPE="button" VALUE="{SIG_BUTTON_DESC}" onclick="window.location.href='{SIG_EDIT_LINK}'"></td>
+	</tr>
+
+/*
+/******[ AFTER ON NEW LINE, ADD ]**************************************/
+/*
+	<!-- Canned MOD Begin -->
+	<!-- BEGIN switch_canned -->
+	<tr> 
+	  <td class="catSides" colspan="2" height="28">&nbsp;</td>
+	</tr>
+	<tr> 
+	  <th class="thSides" colspan="2" height="25" valign="middle">{L_CANNED_MESSAGES}</th>
+	</tr>
+	<!-- BEGIN canned_group -->
+	<tr>
+	  <td class="row2" colspan="2"><span class="gensmall">{switch_canned.canned_group.HEADER}</span></td>
+	</tr>
+	<!-- BEGIN canned -->
+	<tr>
+	  <td class="row1" valign="top"><span class="gen">{switch_canned.canned_group.canned.DESCRIPTION}:</span></td>
+	  <td class="row2"><input type="text" name="canned_title[{switch_canned.canned_group.canned.INDEX}][]" value="{switch_canned.canned_group.canned.CANNED_TITLE}"/><br />
+			<textarea name="canned_message[{switch_canned.canned_group.canned.INDEX}][]" style="width: 300px" rows="6" cols="30" class="post">{switch_canned.canned_group.canned.CANNED_MESSAGE}</textarea></td>
+	</tr>
+	<!-- END canned -->
+	<!-- END canned_group -->
+	<!-- END switch_canned -->
+	<!-- Canned MOD End -->
+
+/**********************************************************************/
+/*  Step 18.                                         THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR_THEME/forums/profile_view_body.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{INTERESTS}</span></b></td>
+		</tr>
+
+/*
+/******[ AFTER ON NEW LINE, ADD ]**************************************/
+/*
+      <tr>
+        <td valign="top" align="right" nowrap="nowrap"><span class="gen">{L_ARCADE}:</span></td>
+        <td><b><span class="gen">{URL_STATS}</span></b></td>
+      </tr>
+<!-- BEGIN switch_upload_limits -->
+		<tr> 
+			<td valign="top" align="right" nowrap="nowrap"><span class="gen">{L_UPLOAD_QUOTA}:</span></td>
+			<td> 
+				<table width="175" cellspacing="1" cellpadding="2" border="0" class="bodyline">
+				<tr> 
+					<td colspan="3" width="100%" class="row2">
+						<table cellspacing="0" cellpadding="1" border="0">
+						<tr> 
+							<td bgcolor="{T_TD_COLOR2}"><img src="modules/Forums/templates/subSilver/images/spacer.gif" width="{UPLOAD_LIMIT_IMG_WIDTH}" height="8" alt="{UPLOAD_LIMIT_PERCENT}" /></td>
+						</tr>
+						</table>
+					</td>
+				</tr>
+				<tr> 
+					<td width="33%" class="row1"><span class="gensmall">0%</span></td>
+					<td width="34%" align="center" class="row1"><span class="gensmall">50%</span></td>
+					<td width="33%" align="right" class="row1"><span class="gensmall">100%</span></td>
+				</tr>
+				</table>
+				<b><span class="genmed">[{UPLOADED} / {QUOTA} / {PERCENT_FULL}]</span> </b><br />
+				<span class="genmed"><a href="{U_UACP}" class="genmed">{L_UACP}</a></span></td>
+			</td>
+		</tr>
+<!-- END switch_upload_limits -->
+
+/*
+/******[ FIND ]********************************************************/
+/*
+<noscript>{ICQ_IMG}</noscript></td>
+		</tr>
+
+/*
+/******[ AFTER ON NEW LINE, ADD ]***************************************/
+/*
+		<tr> 
+		  <td valign="middle" nowrap="nowrap" align="right"><span class="gen">{L_BUDDY}:</span></td>
+		  <td class="row1" valign="middle">{BUDDY_IMG}</td>
+		</tr>
+		<tr> 
+		  <td valign="middle" nowrap="nowrap" align="right"><span class="gen">{L_ONLINE_STATUS}:</span></td>
+		  <td class="row1" valign="middle"><span class="gen">{ONLINE_STATUS}</span></td>
+		</tr>
+
+# 
+#-----[ FIND ]------------------------------------------ 
+#Default:	  <td> <b><span class="gen">{INTERESTS}</span></b></td>
+# 
+{INTERESTS}
+
+# 
+#-----[ FIND ]------------------------------------------
+# (on the next line)
+#
+		</tr>
+#
+#-----[ AFTER, ADD ]------------------------------------------ 
+#
+		{CASH}
+
+
+
+/**********************************************************************/
+/*  Step 19.                                         THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR_THEME/forums/viewforum_body.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/*
+<form method="post" action="{S_POST_DAYS_ACTION}">
+
+/*
+/******[ REPLACE WITH ]************************************************/
+/* [this is normally the first line]
+/*
+<form method="post" action="modules.php?name=Forums&file=search&mode=results">
+  <input type="hidden" name="search_forum" value="{FORUM_ID}">
+  <input type="hidden" name="show_results" value="topics">
+  <input type="hidden" name="search_terms" value="any">
+  <input type="hidden" name="search_fields" value="all">
+
+/*
+/******[ FIND ]********************************************************/
+/*
+	  <td align="right" valign="bottom" class="nav" nowrap="nowrap"><span class="gensmall"><a href="{U_MARK_READ}">{L_MARK_TOPICS_READ}</a></span></td>
+
+/*
+/******[ REPLACE, WITH ]***********************************************/
+/*
+	  <td align="right" valign="bottom" class="nav" nowrap="nowrap"><span class="gensmall">{L_SEARCH_FOR}: </span><input class="liteoption" type="text" name="search_keywords" value="" size="20" maxlength="150" />&nbsp;<input type="submit" name="submit" value="{L_GO}" alt="{L_SUBMIT_SEARCH}" class="liteoption" /><br /><span class="gensmall"><a href="{U_MARK_READ}">{L_MARK_TOPICS_READ}</a></span></td>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+	<!-- BEGIN topicrow -->
+
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+<!-- mod : split topic type -->
+	<!-- BEGIN topictype -->
+	<tr>
+	  <td colspan="6" align="left" class="catLeft"><span class="cattitle">{topicrow.topictype.TITLE}</span></td>
+	</tr>
+	<!-- END topictype -->
+<!-- fin mod : split topic type -->
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{topicrow.NEWEST_POST_IMG}
+
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+{topicrow.TOPIC_ATTACHMENT_IMG}
+
+/*
+/******[ FIND ]********************************************************/
+/*
+	<!-- END switch_no_topics -->
+
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+</form>
+<form method="post" action="{S_POST_DAYS_ACTION}">
+
+/*
+/******[ FIND ]********************************************************/
+/*
+<td width="20" align="center"><img src="{FOLDER_ANNOUNCE_IMG}" alt="{L_ANNOUNCEMENT}" /></td>
+<td class="gensmall">{L_ANNOUNCEMENT}</td>
+
+/*
+/******[ REPLACE WITH ]************************************************/
+/*
+<td width="20" align="center"><img src="{FOLDER_GLOBAL_ANNOUNCE_IMG}" alt="{L_GLOBAL_ANNOUNCEMENT}" /></td>
+<td class="gensmall">{L_GLOBAL_ANNOUNCEMENT}</td>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+<td width="20" align="center"><img src="{FOLDER_STICKY_IMG}" alt="{L_STICKY}" /></td>
+<td class="gensmall">{L_STICKY}</td>
+
+/*
+/******[ REPLACE WITH ]************************************************/
+/*
+<td width="20" align="center"><img src="{FOLDER_ANNOUNCE_IMG}" alt="{L_ANNOUNCEMENT}" /></td>
+<td class="gensmall">{L_ANNOUNCEMENT}</td>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{L_NO_NEW_POSTS_LOCKED}</td>
+
+/*
+/******[ AFTER ON NEW LINE, ADD ]***************************************/
+/*
+<td>&nbsp;&nbsp;</td>
+<td width="20" align="center"><img src="{FOLDER_STICKY_IMG}" alt="{L_STICKY}" /></td>
+<td class="gensmall">{L_STICKY}</td>
+
+/**********************************************************************/
+/*  Step 20.                                         THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR_THEME/forums/viewtopic_body.tpl
+
+/*
+/******[ FIND ]********************************************************/
+/* 1. If you can't find this exact line, search for: {postrow.U_MINI_POST}
+/* 2. Above that code you will see <tr
+/* 3. Above the <tr you will see either <table or <td (if you see <table
+/*      then above the <table you will see the <td  This is what we are
+/*      looking for.
+/* 4. So now you have found the <td, select the line and select all the
+/*      lines below it until you find the next </table></td>
+/* 5. Replace the selected code with the code from the next step.
+/*
+        <td class="{postrow.ROW_CLASS}" width="100%" height="28" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td width="100%"><a href="{postrow.U_MINI_POST}"><img src="{postrow.MINI_POST_IMG}" width="12" height="9" alt="{postrow.L_MINI_POST_ALT}" title="{postrow.L_MINI_POST_ALT}" border="0" /></a><span class="postdetails">{L_POSTED}: {postrow.POST_DATE}<span class="gen">&nbsp;</span>&nbsp; &nbsp;{L_POST_SUBJECT}: {postrow.POST_SUBJECT}</span></td>
+				<td valign="top" align="right" nowrap="nowrap">{postrow.QUOTE_IMG} {postrow.EDIT_IMG} {postrow.DELETE_IMG} {postrow.IP_IMG}</td>
+			</tr>
+			<tr> 
+				<td colspan="2"><hr /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><span class="postbody">{postrow.MESSAGE}{postrow.SIGNATURE}</span><span class="gensmall">{postrow.EDITED_MESSAGE}</span></td>
+			</tr>
+		</table></td>
+
+/*
+/******[ REPLACE WITH ]*************************************************/
+/*
+                <td class="{postrow.ROW_CLASS}" width="100%" height="28" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" height="100%">
+                    <tr>
+                        <td width="100%"><a href="{postrow.U_MINI_POST}"><img src="{postrow.MINI_POST_IMG}" width="12" height="9" alt="{postrow.L_MINI_POST_ALT}" title="{postrow.L_MINI_POST_ALT}" border="0" /></a><span class="postdetails">{L_POSTED}: {postrow.POST_DATE}<span class="gen">&nbsp;</span>&nbsp; &nbsp;{L_POST_SUBJECT}: {postrow.POST_SUBJECT}</span></td>
+                        <td valign="top" align="right" nowrap="nowrap">{postrow.QUOTE_IMG} {postrow.EDIT_IMG} {postrow.REPORT_IMG} {postrow.DELETE_IMG} {postrow.IP_IMG} {postrow.topicjump}</td>
+                    </tr>
+                    <tr> 	
+                        <td colspan="2"><hr /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" HEIGHT="100%" VALIGN="TOP"><span class="postbody">{postrow.MESSAGE}</span>{postrow.ATTACHMENTS}<span class="postbody"></span><BR /><SPAN CLASS="gensmall">{postrow.EDITED_MESSAGE}</SPAN></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" VALIGN="BOTTOM"><SPAN CLASS="postbody">{postrow.SIGNATURE}</SPAN></td>
+                    </tr>
+                </table></td>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{postrow.PROFILE_IMG}
+
+/*
+/******[ REPLACE WITH ]************************************************/
+/*
+{postrow.THREAD_KICK_IMG} {postrow.PROFILE_IMG} {postrow.BUDDY_IMG}
+
+/*
+/******[ FIND ]********************************************************/
+/* [find twice if applicable]
+/*
+{FORUM_NAME}</a></span></td>
+
+/*
+/******[ AFTER ON NEW LINE, ADD ]***************************************/
+/*
+<td align="right" valign="bottom"><span class="mainmenu"><a href="{U_PRINT}" title="{L_PRINT}" class="mainmenu">{L_PRINT}</a></span></td>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{S_TOPIC_ADMIN}
+
+/*
+/******[ BEFORE, ADD ]*************************************************/
+/*
+{S_VIEW_KICKED}
+
+/*
+/******[ FIND ]********************************************************/
+/* Note: Refer to "[ OR ]" if you cannot find the code directly below
+/*
+<table width="100%" cellspacing="2" border="0" align="center">
+  <tr> 
+	<td width="50%" valign="top" nowrap="nowrap" align="left"><span class="gensmall">
+	 {S_VIEW_KICKED}
+
+/*
+/******[ OR ]
+/* Note: If you cannot find the code above, search for the code below
+/*
+
+<table width="100%" cellspacing="2" border="0" align="center">
+  <tr> 
+	<td width="40%" valign="top" nowrap="nowrap" align="left"><span class="gensmall">{S_WATCH_TOPIC}</span><br />
+
+/*
+/******[ BEFORE, ADD ]*************************************************/
+/*
+<!-- BEGIN switch_quick_reply -->
+	{QRBODY}
+<!-- END switch_quick_reply -->
+
+/*
+/******[ FIND ]********************************************************/
+/*
+<a name="{postrow.U_POST_ID}"></a>
+
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+{postrow.rowtit}
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{postrow.POSTER_FROM}
+
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+<br />{postrow.POSTER_ONLINE_STATUS}
+
+/*
+/******[ FIND ]********************************************************/
+/*
+	<td align="right" valign="top" nowrap="nowrap">{JUMPBOX}<span class="gensmall">{S_AUTH_LIST}</span></td>
+  </tr>
+</table>
+
+/*
+/******[ AFTER, ADD ]**************************************************/
+/*
+{RELATED_TOPICS}
+
+/*
+/******[ FIND ]********************************************************/
+/*
+{postrow.POSTER_POSTS} 
+
+/*
+/******[ REPLACE, WITH ]***********************************************/
+/*
+<a href="{postrow.U_SEARCH_USER_POSTS}" class="genmed">{postrow.POSTER_POSTS}</a>
+
+/*
+/******[ FIND ]********************************************************/
+/*
+	  {S_VIEW_KICKED} {S_TOPIC_ADMIN}</td>
+	<td align="right" valign="top" nowrap="nowrap">{JUMPBOX}<span class="gensmall">{S_AUTH_LIST}</span></td>
+
+/*
+/******[ BEFORE, ADD ]*************************************************/
+/*
+	  <!-- Canned MOD Begin -->
+	  <form style="margin-top: 0px; margin-bottom: 4px;" action="{U_CANNED_POSTING}" method="post">
+	  <input type="hidden" name="mode" value="reply" />
+	  <input type="hidden" name="f" value="{FORUM_ID}" />
+	  <input type="hidden" name="t" value="{TOPIC_ID}" />
+	  {S_CANNED_SELECT}</form>
+	  <!-- Canned MOD End -->
+	  
+-----[ FIND ]------------------------------------------ 
+# 
+{postrow.POSTER_FROM}
+
+
+# 
+#-----[ IN-LINE AFTER, ADD ]------------------------------------------ 
+#
+<br />{postrow.CASH}<br /><a href="{postrow.ITEMSNAME}">Items</a>{postrow.ITEMS}
+
+
+/**********************************************************************/
+/*  Step 21.                                         THEME CONVERSION */
+/******[ OPEN ]********************************************************/
+/*
+themes/YOUR_THEME/style/style.css
+
+/*
+/******[ FIND ]********************************************************/
+/*
+input.button {
+
+/*
+/******[ REPLACE WITH ]************************************************/
+/*
+
+input.button, button.button {
+
+#
+#-----[ OPEN ]------------------------------------------
+#
+themes/YOUR THEME/forums/overall_header.tpl
+
+#
+#-----[ FIND ]------------------------------------------ 
+#
+After the last line  usually is </tr></table>
+
+# 
+#-----[ ADD ON NEW LINE AFTER ]---------------------------------
+#
+
+<div align="center"><strong><a href="modules.php?name=Forums&file=arcade">Arcade</a>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<a href="modules.php?name=Forums&file=attachments">Attachments</a>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<a href="modules.php?name=Forums&file=buddylist">Buddy List</a>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<a href="modules.php?name=Forums&file=ranks">Ranks</a>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<a href="modules.php?name=Forums&file=rules">Rules</a>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<a href="modules.php?name=Forums&file=smilies_list">Smilies List</a>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<a href="modules.php?name=Forums&file=statistics">Statistics</a>&nbsp;&nbsp;&#8226;&nbsp;&nbsp;<a href="modules.php?name=Forums&file=staff">Staff</a></strong><br>
+</div></center>
+
+#
+#-----[ SAVE/CLOSE ALL FILES ]------------------------------------------
+#
+
+/*
+/***************[ SAVE/CLOSE/UPLOAD/REPLACE ALL FILES ]****************/
+/*                                                                    */
+/**********************************************************************/
+/* Copyright (c) 2004 - 2006 by http://www.techgfx.com                */
+/*       Graeme Allan - Techgfx                   (goose@techgfx.com) */
+/*       Scott Partee - Loki                     (loki@nukeplanet.com)*/
+/**********************************************************************/
+/* All content and includes from this package is intellectual         */
+/* property of TechGFX.com unless stated otherwise. Replication of    */
+/* and copyrighted material is a civil and criminal act and           */
+/* violations may result in legal action.                             */
+/**********************************************************************/
+/* See nukeplanet.com for detailed information on the                 */
+/* this version of the Platinum Suite                                 */
+/* TechGFX: Your dreams, Our imagination                              */
+/**********************************************************************/
