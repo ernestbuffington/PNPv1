@@ -1,9 +1,9 @@
 <?php
 /*=======================================================================
- PHP-Nuke Platinum : Enhanced and Advanced PHP-Nuke Titanium
+ PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 /************************************************************************
-  PHP-Nuke Platinum / Nuke-Evolution: Advanced Installer
+  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium (Web Installer)
   ============================================
   Copyright (c) 2023 by The Titanium Group
 
@@ -15,7 +15,7 @@
 
   Notes              : You may NOT use this installer for your own
                        needs or script. It is written specifically
-                       for PHP-Nuke Platinum, Nuke-Evolution and/or Xtreme
+                       for PHP-Nuke Platinum, Nuke-Evolution Xtreme and/or Titanium
 					   
  * TernaryToElvisRector (http://php.net/manual/en/language.operators.comparison.php#language.operators.comparison.ternary https://stackoverflow.com/a/1993455/1348344)
  * LongArrayToShortArrayRector
