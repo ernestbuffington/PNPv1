@@ -1677,6 +1677,8 @@ function AMZtitle($text)
 # This function shows the Amazon Tile bar with the department catalog.
 
 	global $db, $AMZModule_Name, $AMZCartID, $prefix, $AMZLocale, $bgcolor1, $bgcolor2, $admin, $HTTP_HOST, $textcolor2, $textcolor1;
+    $module_name = 'Amazon';
+    get_lang($module_name);
 
 # Determine total and quantity of items in Shopping Cart
 	$total_price = calculate_price($AMZCartID);
@@ -1734,7 +1736,7 @@ function AMZtitle($text)
 	echo "</td></tr></table>";
 	echo "</td></tr></table></div>\n";
 	CloseTable();
-	echo "<br>";
+	
 }
 
 Function StarsImage($Rating)
@@ -3074,10 +3076,21 @@ function amazon_xml_loadxml($URL)
 	$sql = "SELECT UNIX_TIMESTAMP(time) as unixtime, url, xml FROM ".$prefix."_amazon_cache WHERE url = '$LocalFile'";
 	$result = $db->sql_query($sql);
 	$row = $db->sql_fetchrow($result);
+    
+	if(empty($row['unixtime']))
+	$row['unixtime'] = time();
+	
+	$cTime = $row['unixtime'];
 
-	$cTime = $row[\UNIXTIME];
-	$cUrl = $row[\URL];
-	$cXML = $row[\XML];
+	if(empty($row['url']))
+    $row['url'] = '';
+	
+	$cUrl = $row['url'];
+
+	if(empty($row['xml']))
+    $row['xml'] = '';
+
+	$cXML = $row['xml'];
 
 	$AMZNow = time();
 	if (($cTime + $amazon_xml_cache_maxtime) > $AMZNow )
