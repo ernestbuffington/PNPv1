@@ -4,7 +4,7 @@
 ** PHP-Nuke Platinum v4.0.4 - Project Start Date 11/04/2022 Friday 4:09 am             **
 *****************************************************************************************
 ** https://www.platinum.coders.exchange
-** https://github.com/ernestbuffington/PHP-Nuke.Titanium.Dev.4
+** https://github.com/ernestbuffington/PNPv2
 ** https://www.platinum.coders.exchange/index.php (DEMO)
 ** Apache License, Version 2.0. MIT license 
 ** Copyright (C) 2021

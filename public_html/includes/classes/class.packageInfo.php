@@ -14,13 +14,13 @@ namespace titanium\fileLogger {
             
             'authors' => array(
                 'gehaxelt' => array(
-                    'github' => 'https://github.com/ernestbuffington/PHP-Nuke.Titanium.Dev.4',
+                    'github' => 'https://github.com/ernestbuffington/PNPv2',
                     'email' => 'ernest.buffington@gmail.com',
                     'site' => 'https://www.platinum.coders.exchange'
                 ),
                 
                 'pedzed' => array(
-                    'github' => 'https://github.com/ernestbuffington/PHP-Nuke.Titanium.Dev.4'
+                    'github' => 'https://github.com/ernestbuffington/PNPv2'
                 )
             )
         );

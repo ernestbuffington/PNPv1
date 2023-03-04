@@ -54,7 +54,7 @@ else:
 endif;
 
 echo '<td class="header_logo" style="background-image:url(themes/'.$theme_name.'/images/hd/hd_09.png)" width="100%" valign="top">'.PHP_EOL;
-echo '<a href="https://github.com/ernestbuffington/PHP-Nuke.Titanium.Dev.4" target="_blank"><img class="hover_effect" width="64" src="images/brands/png/github-active.png" /></a>&nbsp;&nbsp;'.PHP_EOL;
+echo '<a href="https://github.com/ernestbuffington/PNPv2" target="_blank"><img class="hover_effect" width="64" src="images/brands/png/github-active.png" /></a>&nbsp;&nbsp;'.PHP_EOL;
 echo '<a href="https://3v4l.org/kuLmD#v7.4.33" target="_blank"><img class="hover_effect" width="64" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-plain.svg" /></a>'.PHP_EOL;
 echo '<a href="https://html-css-js.com/html/generator/" target="_blank"><img class="hover_effect" width="64" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" /></a>'.PHP_EOL;
 echo '<a href="https://html-css-js.com/css/generator/" target="_blank"><img class="hover_effect" width="64" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" /></a>'.PHP_EOL;

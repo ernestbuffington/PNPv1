@@ -5,7 +5,7 @@
 ** PHP-Nuke Platinum v4.0.4 - Project Start Date 11/04/2022 Friday 4:09 am             **
 *****************************************************************************************
 ** https://www.platinum.coders.exchange
-** https://github.com/ernestbuffington/PHP-Nuke.Titanium.Dev.4
+** https://github.com/ernestbuffington/PNPv2
 ** https://www.platinum.coders.exchange/index.php (DEMO)
 ** Apache License, Version 2.0. MIT license 
 ** Copyright (C) 2022
@@ -56,7 +56,7 @@ function makefooter() {
         <td width="34" height="43">
         <a href="https://www.platinum.coders.exchange/index.php"><img src="graphics/12.jpg" width="34" height="43" alt="" border="0" /></a></td>
         <td width="30" height="43">
-        <a href="https://github.com/ernestbuffington/PHP-Nuke.Titanium.Dev.4"><img src="graphics/13.jpg" width="30" height="43" alt="" border="0" /></a></td>
+        <a href="https://github.com/ernestbuffington/PNPv2"><img src="graphics/13.jpg" width="30" height="43" alt="" border="0" /></a></td>
         <td width="35" height="43">
         <a href="mailto:support@an602.86it.us"><img src="graphics/14.jpg" width="35" height="43" alt="" border="0" /></a></td>
         <td width="59" height="43">

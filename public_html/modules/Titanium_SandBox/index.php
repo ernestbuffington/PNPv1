@@ -7,7 +7,7 @@
 * This file is part of the Titanium SandBox package.
 *
 * @copyright (c) PHP-Nuke Platinum 2022 
-* <https://github.com/ernestbuffington/PHP-Nuke.Titanium.Dev.4>
+* <https://github.com/ernestbuffington/PNPv2>
 * @license GNU General Public License, version 2 (GPL-2.0)
 *
 * For full copyright and license information, please see
