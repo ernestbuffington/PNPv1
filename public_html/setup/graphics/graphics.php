@@ -29,7 +29,7 @@ function makeheader() {
         global $step;
         echo "<table border=\"0\" width=\"780\" height=\"176\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\">
         <tr>
-        <td width=\"356\" rowspan=\"2\" height=\"183\"><img height=\"183\" alt=\"\" src=\"graphics/1.jpg\" width=\"356\"></td><td 
+        <td width=\"356\" rowspan=\"2\" height=\"183\"><img height=\"183\" alt=\"\" src=\"graphics/1b.jpg\" width=\"356\"></td><td 
 		width=\"424\" height=\"91\"><img height=\"91\" alt=\"\" src=\"graphics/2.jpg\" width=\"424\" hspace=\"0\" vspace=\"0\"></td>
         </tr>
         <tr>
