@@ -108,17 +108,16 @@ $this->parser = xml_parser_create();
             $this->errorMsg = $text;
         }
         
-        if(@$this->fieldType[$this->currentField] === AMAZON_FIELD_TYPE_CONTAINER) {
+        if($this->fieldType[$this->currentField] === AMAZON_FIELD_TYPE_CONTAINER) {
             
-        } elseif(@$this->fieldType[$this->currentField] === AMAZON_FIELD_TYPE_ARRAY) {
-            $lastIndex = @(is_countable($this->record[$this->currentField]) ? count($this->record[$this->currentField]) : 0) - 1;
+        } elseif($this->fieldType[$this->currentField] === AMAZON_FIELD_TYPE_ARRAY) {
+            $lastIndex = (is_countable($this->record[$this->currentField]) ? count($this->record[$this->currentField]) : 0) - 1;
             $this->wroteElementData ? 
-                @$this->record[$this->currentField][$lastIndex] .= $text :
-                @$this->record[$this->currentField][$lastIndex+1] = $text ;
-        } elseif(@$this->fieldType[$this->currentField] === AMAZON_FIELD_TYPE_SINGLE) {
-            @$this->record[$this->currentField] .= $text;
+                $this->record[$this->currentField][$lastIndex] .= $text :
+                $this->record[$this->currentField][$lastIndex+1] = $text ;
+        } elseif($this->fieldType[$this->currentField] === AMAZON_FIELD_TYPE_SINGLE) {
+            $this->record[$this->currentField] .= $text;
         }
         $this->wroteElementData = true;
     }
 }
-?>
