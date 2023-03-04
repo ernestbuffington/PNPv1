@@ -22,18 +22,32 @@
 /* along with this program; if not, write to the Free Software                 */
 /* Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA. */
 /*******************************************************************************/
+
+/*********************************************
+ Applied rules:
+ * DirNameFileConstantToDirConstantRector
+ * LongArrayToShortArrayRector
+ * EregToPregMatchRector (http://php.net/reference.pcre.pattern.posix https://stackoverflow.com/a/17033826/1348344 https://docstore.mik.ua/orelly/webprog/pcook/ch13_02.htm)
+ * RandomFunctionRector
+ * ListToArrayDestructRector (https://wiki.php.net/rfc/short_list_syntax https://www.php.net/manual/en/migration71.new-features.php#migration71.new-features.symmetric-array-destructuring)
+ * SetCookieRector (https://www.php.net/setcookie https://wiki.php.net/rfc/same-site-cookie)
+ * AddLiteralSeparatorToNumberRector (https://wiki.php.net/rfc/numeric_literal_separator)
+ * ChangeSwitchToMatchRector (https://wiki.php.net/rfc/match_expression_v2)
+ * NullToStrictStringFuncCallArgRector
+ *********************************************/
+
 $AMZCodeVer = "2.7.2";
 if(!isset($_COOKIE['AMZCartID']))
 {
-	$AMZCartID = md5(uniqid(rand()));
-	setcookie("AMZCartID", $AMZCartID, time() + 31536000);
+	$AMZCartID = md5(uniqid(random_int(0, mt_getrandmax())));
+	setcookie("AMZCartID", $AMZCartID, ['expires' => time() + 31_536_000]);
 }
 else
 {
 	$AMZCartID = $_COOKIE['AMZCartID'];
 }
 
-$module_name = basename(dirname(__FILE__));
+$module_name = basename(__DIR__);
 get_lang($module_name);
 $AMZStore_Name = "Store";
 $pagetitle = "- $AMZStore_Name";
@@ -45,7 +59,7 @@ $result = $db->sql_query("SELECT AMZVer, AMZModule_Name, AMZ_id, cache_maxtime, 
 
 if ($result)
 {
-	list($AMZVer, $AMZModule_Name, $amazon_id, $amazon_xml_cache_maxtime, $AMZMore, $AMZSingle, $AMZQuickAdd, $AMZShowReview, $AMZShowSimilar, $AMZLocale, $AMZReviewMod, $AMZImgType, $AMZDefault_Asin, $AMZ_Popular, $AMZBuyBox, $AMZShowXML) = $db->sql_fetchrow($result);
+	[$AMZVer, $AMZModule_Name, $amazon_id, $amazon_xml_cache_maxtime, $AMZMore, $AMZSingle, $AMZQuickAdd, $AMZShowReview, $AMZShowSimilar, $AMZLocale, $AMZReviewMod, $AMZImgType, $AMZDefault_Asin, $AMZ_Popular, $AMZBuyBox, $AMZShowXML] = $db->sql_fetchrow($result);
 }
 
 function Home()
@@ -63,20 +77,17 @@ function Home()
 	OpenTable();
 	AMZSearchForm();
 	CloseTable();
-	echo "<br>";
 
 	OpenTable();
 	show_all_catalog();
 	CloseTable();
-	echo "<br>";
 
 	OpenTable();
 	show_catalog();
 	CloseTable();
-	echo "<br>";
 
 	OpenTable();
-	echo "<center><b>" . _AMZPRICENOTICE . "</b></center>";
+	echo "<div align=\"center\"><b>" . _AMZPRICENOTICE . "</b></div>";
 	CloseTable();
 
 ## START of Copyright notice ######################################################
@@ -87,10 +98,10 @@ function Home()
 # ejdiaz@preciogasolina.com to purchase a software package with out the copyright #
 # notice.                                                                         #
 ###################################################################################
-    $cpname = ereg_replace("_", " ", $module_name);
+    $cpname = preg_replace('#_#m', " ", (string) $module_name);
 	echo "<table width=\"100%\" border=\"0\" cellspacing = \"0\" cellpadding=\"0\" >";
 	echo "<tr><td align = left>";
-    echo "Powered by <a href=\"http://preciogasolina.com/nukeamazon.html\">NukeAmazon</a> $AMZVer © 2004 <a href=\"http://preciogasolina.com\">PrecioGasolina.com</a>";
+    echo "Powered by <a href=\"https://www.platinum.coders.exchange\">NukeAmazon</a> $AMZVer ";
 	echo "</td><td align = right>";
 	echo "<a href=\"javascript:creditwindow()\">$cpname &copy;</a>";
 	echo "</td></tr></table>";
@@ -109,21 +120,21 @@ function Amazon($asin)
 
 	if ($result)
 	{
-		list($AMZVer, $AMZModule_Name, $amazon_id, $amazon_xml_cache_maxtime, $AMZMore, $AMZSingle, $AMZQuickAdd, $AMZShowReview, $AMZShowSimilar, $AMZLocale, $AMZReviewMod, $AMZImgType, $AMZDefault_Asin, $AMZ_Popular, $AMZBuyBox, $AMZShowXML) = $db->sql_fetchrow($result);
+		[$AMZVer, $AMZModule_Name, $amazon_id, $amazon_xml_cache_maxtime, $AMZMore, $AMZSingle, $AMZQuickAdd, $AMZShowReview, $AMZShowSimilar, $AMZLocale, $AMZReviewMod, $AMZImgType, $AMZDefault_Asin, $AMZ_Popular, $AMZBuyBox, $AMZShowXML] = $db->sql_fetchrow($result);
 	}
 
 	$result = $db->sql_query("select count(*) from " . $prefix . "_amazon_items");
 	$AMZ_Test_Items = false;
 	if ($result)
 	{
-		list($AMZ_Test_Items) = $db->sql_fetchrow($result);
+		[$AMZ_Test_Items] = $db->sql_fetchrow($result);
 	}
 
 	if ($AMZVer != $AMZCodeVer)
 	{
 		include("header.php");
 		OpenTable();
-		echo "<font class=\"title\"><center>There seems to be a problem with this module.<br>Please come back later.<br>Thank You.</center></font><br>";
+		echo "<font class=\"title\"><div align=\"center\"> There seems to be a problem with this module.<br>Please come back later.<br>Thank You.</div></font><br>";
 		CloseTable();
 		echo "\n<!-- eStore Powered by NukeAmazon v$AMZVer for PHP-Nuke  -->\n";
 		echo "<!-- Get a FREE copy of this great store at http://preciogasolina.com/nukeamazon.html -->\n\n";
@@ -143,17 +154,14 @@ function Amazon($asin)
 		OpenTable();
 		AMZSearchForm();
 		CloseTable();
-		echo "<br>";
 
 		OpenTable();
 		show_catalog();
 		CloseTable();
-		echo "<br>";
 
 		OpenTable();
 		show_all_catalog();
 		CloseTable();
-		echo "<br>";
 	}
 	else
 	{
@@ -187,15 +195,14 @@ function Amazon($asin)
 		echo $Similar;
 		echo "</td></tr></table>";
 		CloseTable();
-		echo "<br>";
+
 		OpenTable();
 		show_catalog();
 		CloseTable();
-		echo "<br>";
 	}
 
 	OpenTable();
-	echo "<center><b>" . _AMZPRICENOTICE . "</b></center>";
+	echo "<div align=\"center\"><b>" . _AMZPRICENOTICE . "</b></div>";
 	CloseTable();
 ## START of Copyright notice ######################################################
 # This software displays a copyright notice with the words:                       #
@@ -205,10 +212,10 @@ function Amazon($asin)
 # ejdiaz@preciogasolina.com to purchase a software package with out the copyright #
 # notice.                                                                         #
 ###################################################################################
-    $cpname = ereg_replace("_", " ", $module_name);
+    $cpname = preg_replace('#_#m', " ", (string) $module_name);
 	echo "<table width=\"100%\" border=\"0\" cellspacing = \"0\" cellpadding=\"0\" >";
 	echo "<tr><td align = left>";
-    echo "Powered by <a href=\"http://preciogasolina.com/nukeamazon.html\">NukeAmazon</a> $AMZVer © 2004 <a href=\"http://preciogasolina.com\">PrecioGasolina.com</a>";
+    echo "Powered by <a href=\"https://www.platinum.coders.exchange\">NukeAmazon</a> $AMZVer ";
 	echo "</td><td align = right>";
 	echo "<a href=\"javascript:creditwindow()\">$cpname &copy;</a>";
 	echo "</td></tr></table>";
@@ -240,9 +247,9 @@ function AmazonResults($searchmode, $keyword, $mode, $AMZpage)
 	OpenTable();
 	AMZSearchForm();
 
-	echo "<center><font class=\"title\"><b>" . _AMZSEARCHR . "</b></font></center><br>";
+	echo "<div align=\"center\"><font class=\"title\"><b>" . _AMZSEARCHR . "</b></font></div><br>";
 
-	$keyword = str_replace("{", "(", $keyword);
+	$keyword = str_replace("{", "(", (string) $keyword);
 	$keyword= str_replace("}", ")", $keyword);
 
 	echo "" . _AMZYOURSEARCH . ": <b>";
@@ -257,15 +264,14 @@ function AmazonResults($searchmode, $keyword, $mode, $AMZpage)
 	echo "</b><br><br>";
 	$AmazonData = amazon_search($searchmode, $keyword, $mode, $AMZType, $AMZpage);
 
-	$AMZSEARCH = array ($searchmode, $keyword, $mode, $AMZpage);
+	$AMZSEARCH = [$searchmode, $keyword, $mode, $AMZpage];
 
 	echo AmazonProductDetail($AmazonData, 'medium', $AMZMainProduct, $col, $AMZSEARCH);
 	CloseTable();
 
-	echo "<br>";
 
 	OpenTable();
-	echo "<center><b>" . _AMZPRICENOTICE . "</b></center>";
+	echo "<div align=\"center\"><b>" . _AMZPRICENOTICE . "</b></div>";
 	CloseTable();
 ## START of Copyright notice ######################################################
 # This software displays a copyright notice with the words:                       #
@@ -275,10 +281,10 @@ function AmazonResults($searchmode, $keyword, $mode, $AMZpage)
 # ejdiaz@preciogasolina.com to purchase a software package with out the copyright #
 # notice.                                                                         #
 ###################################################################################
-    $cpname = ereg_replace("_", " ", $module_name);
+    $cpname = preg_replace('#_#m', " ", (string) $module_name);
 	echo "<table width=\"100%\" border=\"0\" cellspacing = \"0\" cellpadding=\"0\" >";
 	echo "<tr><td align = left>";
-    echo "Powered by <a href=\"http://preciogasolina.com/nukeamazon.html\">NukeAmazon</a> $AMZVer © 2004 <a href=\"http://preciogasolina.com\">PrecioGasolina.com</a>";
+    echo "Powered by <a href=\"https://www.platinum.coders.exchange\">NukeAmazon</a> $AMZVer ";
 	echo "</td><td align = right>";
 	echo "<a href=\"javascript:creditwindow()\">$cpname &copy;</a>";
 	echo "</td></tr></table>";
@@ -293,7 +299,7 @@ function ShowFI($catalog, $AMZpage)
 {
     global $module_name, $db, $prefix, $AMZSingle, $admin, $AMZVer, $textcolor1, $textcolor2, $bgcolor1, $bgcolor2;
 
-	$catalog = urldecode($catalog);
+	$catalog = urldecode((string) $catalog);
 	AMZCacheClear();
 
 	include("header.php");
@@ -316,17 +322,17 @@ function ShowFI($catalog, $AMZpage)
 	$result = $db->sql_query($AMZ_SQL);
 	$total_rows = $db->sql_numrows($result);
 
-	$keyword = explode(":", featured_search($catalog, $AMZpage));
+	$keyword = explode(":", (string) featured_search($catalog, $AMZpage));
 	$AMZTotal = $keyword[0];
-	echo "<br><center>";
+	echo "<br><div align=\"center\">";
 	$AmazonData = amazon_search('AsinSearch', $keyword[1], $catalog, $AMZType, $AMZpage);
-	$AMZSEARCH = array ($searchmode, $keyword[1], $catalog, $AMZpage, $AMZTotal);
+	$AMZSEARCH = [$searchmode, $keyword[1], $catalog, $AMZpage, $AMZTotal];
 	echo AmazonProductDetail($AmazonData, 'medium', $AMZMainProduct, $col, $AMZSEARCH);
-	echo "</center>";
+	echo "</div>";
 	CloseTable();
-	echo "<br>";
+	
 	OpenTable();
-	echo "<center><b>" . _AMZPRICENOTICE . "</b></center>";
+	echo "<div align=\"center\"><b>" . _AMZPRICENOTICE . "</b></div>";
 	CloseTable();
 ## START of Copyright notice ######################################################
 # This software displays a copyright notice with the words:                       #
@@ -336,10 +342,10 @@ function ShowFI($catalog, $AMZpage)
 # ejdiaz@preciogasolina.com to purchase a software package with out the copyright #
 # notice.                                                                         #
 ###################################################################################
-    $cpname = ereg_replace("_", " ", $module_name);
+    $cpname = preg_replace('#_#m', " ", (string) $module_name);
 	echo "<table width=\"100%\" border=\"0\" cellspacing = \"0\" cellpadding=\"0\" >";
 	echo "<tr><td align = left>";
-    echo "Powered by <a href=\"http://preciogasolina.com/nukeamazon.html\">NukeAmazon</a> $AMZVer © 2004 <a href=\"http://preciogasolina.com\">PrecioGasolina.com</a>";
+    echo "Powered by <a href=\"https://www.platinum.coders.exchange\">NukeAmazon</a> $AMZVer ";
 	echo "</td><td align = right>";
 	echo "<a href=\"javascript:creditwindow()\">$cpname &copy;</a>";
 	echo "</td></tr></table>";
@@ -374,16 +380,16 @@ function AmazonMarketResults($searchmode, $keyword, $mode, $AMZpage)
 
 	$AmazonData = amazon_search($searchmode, $keyword, $mode, $AMZType, $AMZpage);
 
-	$AMZSEARCH = array ($searchmode, $keyword, $mode, $AMZpage);
+	$AMZSEARCH = [$searchmode, $keyword, $mode, $AMZpage];
 
 	echo MarketPlaceDetail($AmazonData, 'medium', $AMZMainProduct, $col, $AMZSEARCH);
 
 	CloseTable();
 
-	echo "<br>";
+	
 
 	OpenTable();
-	echo "<center><b>" . _AMZPRICENOTICE . "</b></center>";
+	echo "<div align=\"center\"><b>" . _AMZPRICENOTICE . "</b></div>";
 	CloseTable();
 ## START of Copyright notice ######################################################
 # This software displays a copyright notice with the words:                       #
@@ -393,10 +399,10 @@ function AmazonMarketResults($searchmode, $keyword, $mode, $AMZpage)
 # ejdiaz@preciogasolina.com to purchase a software package with out the copyright #
 # notice.                                                                         #
 ###################################################################################
-    $cpname = ereg_replace("_", " ", $module_name);
+    $cpname = preg_replace('#_#m', " ", (string) $module_name);
 	echo "<table width=\"100%\" border=\"0\" cellspacing = \"0\" cellpadding=\"0\" >";
 	echo "<tr><td align = left>";
-    echo "Powered by <a href=\"http://preciogasolina.com/nukeamazon.html\">NukeAmazon</a> $AMZVer © 2004 <a href=\"http://preciogasolina.com\">PrecioGasolina.com</a>";
+    echo "Powered by <a href=\"https://www.platinum.coders.exchange\">NukeAmazon</a> $AMZVer ";
 	echo "</td><td align = right>";
 	echo "<a href=\"javascript:creditwindow()\">$cpname &copy;</a>";
 	echo "</td></tr></table>";
@@ -418,7 +424,7 @@ function clickproduct($asin)
 
 if ($result)
 {
-	list($AMZVer, $AMZModule_Name, $amazon_id, $amazon_xml_cache_maxtime, $AMZMore, $AMZSingle, $AMZQuickAdd, $AMZShowReview, $AMZShowSimilar, $AMZLocale, $AMZReviewMod, $AMZImgType, $AMZDefault_Asin, $AMZ_Popular, $AMZBuyBox, $AMZShowXML) = $db->sql_fetchrow($result);
+	[$AMZVer, $AMZModule_Name, $amazon_id, $amazon_xml_cache_maxtime, $AMZMore, $AMZSingle, $AMZQuickAdd, $AMZShowReview, $AMZShowSimilar, $AMZLocale, $AMZReviewMod, $AMZImgType, $AMZDefault_Asin, $AMZ_Popular, $AMZBuyBox, $AMZShowXML] = $db->sql_fetchrow($result);
 }
 
 	$clickurl = "http://www.amazon.com";
@@ -459,65 +465,24 @@ if ($result)
     Header("Location: $clickurl");
 }
 
-switch($op)
-{
-
-	default:
-		Amazon($asin);
-		break;
-	case "home":
-		Home();
-		break;
-	case "AsinSearch":
-		Amazon($keyword);
-		break;
-	case "ShowFI":
-		ShowFI($catalog, $AMZpage);
-		break;
-	case "MarketPlaceSearch":
-		AmazonMarketResults('MarketPlaceSearch', $keyword, $mode, $AMZpage);
-		break;
-	case "SellerProfile":
-		AmazonMarketResults('SellerProfile', $keyword, $mode, $AMZpage);
-		break;
-	case "ShowResults":
-		AmazonResults('KeywordSearch', $keyword, $mode, $AMZpage);
-		break;
-	case "AuthorSearch":
-		AmazonResults('AuthorSearch', $keyword, 'books', $AMZpage);
-		break;
-	case "ArtistSearch":
-		AmazonResults('ArtistSearch', $keyword, 'music', $AMZpage);
-		break;
-	case "ActorSearch":
-		AmazonResults('ActorSearch', $keyword, $mode, $AMZpage);
-		break;
-	case "DirectorSearch":
-		AmazonResults('DirectorSearch', $keyword, $mode, $AMZpage);
-		break;
-	case "ManufacturerSearch":
-		AmazonResults('ManufacturerSearch', $keyword, $mode, $AMZpage);
-		break;
-	case "BrowseNodeSearch":
-		AmazonResults('BrowseNodeSearch', $keyword, $mode, $AMZpage);
-		break;
-	case "More":
-		AmazonResults($searchmode, $keyword, $mode, $AMZpage);
-		break;
-	case "Add":
-		AMZ_submit($asin);
-		break;
-	case "Del":
-		AMZ_remove($asin);
-		break;
-	case "click":
-		clickproduct($asin);
-		break;
-	case "AddToCart":
-		AMZ_Cart($asin, $quantity, $save, $cartnode);
-		break;
-	case "ShowCart":
-		AMZ_Cart($asin, $quantity, $save, $cartnode);
-		break;
-}
-?>
+match (isset($op)) {
+    "home" => Home(),
+    "AsinSearch" => Amazon($keyword),
+    "ShowFI" => ShowFI($catalog, $AMZpage),
+    "MarketPlaceSearch" => AmazonMarketResults('MarketPlaceSearch', $keyword, $mode, $AMZpage),
+    "SellerProfile" => AmazonMarketResults('SellerProfile', $keyword, $mode, $AMZpage),
+    "ShowResults" => AmazonResults('KeywordSearch', $keyword, $mode, $AMZpage),
+    "AuthorSearch" => AmazonResults('AuthorSearch', $keyword, 'books', $AMZpage),
+    "ArtistSearch" => AmazonResults('ArtistSearch', $keyword, 'music', $AMZpage),
+    "ActorSearch" => AmazonResults('ActorSearch', $keyword, $mode, $AMZpage),
+    "DirectorSearch" => AmazonResults('DirectorSearch', $keyword, $mode, $AMZpage),
+    "ManufacturerSearch" => AmazonResults('ManufacturerSearch', $keyword, $mode, $AMZpage),
+    "BrowseNodeSearch" => AmazonResults('BrowseNodeSearch', $keyword, $mode, $AMZpage),
+    "More" => AmazonResults($searchmode, $keyword, $mode, $AMZpage),
+    "Add" => AMZ_submit($asin),
+    "Del" => AMZ_remove($asin),
+    "click" => clickproduct($asin),
+    "AddToCart" => AMZ_Cart($asin, $quantity, $save, $cartnode),
+    "ShowCart" => AMZ_Cart($asin, $quantity, $save, $cartnode),
+    default => Amazon(isset($asin)),
+};
