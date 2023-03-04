@@ -1180,7 +1180,7 @@ function AmazonProductDetail($amazon, $ImageSize, $MainProd, $cols, $AMZSEARCH)
 	$content .= "</table>\n";
 
 # Search for Related Items in ...
-	if (is_array($arr['browsename']))
+	if (is_array(isset($arr['browsename'])))
 	{
 # BrowseId
 		$content .= "<br>\n";
@@ -3148,4 +3148,3 @@ function AMZ_file_get_contents($filename)
 #	- Fixed correct 'mode' for Amazon search.
 #	- Fixed problem with accessories not showing.
 #	- Fixed table bug for similar products
-?>
