@@ -363,7 +363,7 @@ function track_titanium_current_version()
 	 * Version checker json
 	 */
 	$version_refresh = get_query_var( 'check-version', 'get', 'string', false );
-	$version_check_cache = cache_json_data('https://platinum.coders.exchange/versions/titanium-version.json', dirname(__FILE__).'/version.cache', $version_refresh); 
+	$version_check_cache = cache_json_data('https://platinum.coders.exchange/versions/platinum-version.json', dirname(__FILE__).'/version.cache', $version_refresh); 
 
 	if($version_check_cache['version'] == NUKE_PLATINUM):
 
@@ -455,7 +455,7 @@ function GraphicAdmin($pos=1)
 	 * Retrieve the live news json feed
 	 */
 	$version_refresh = get_query_var( 'check-version', 'get', 'string', false );
-	$live_news_feed_cache = cache_json_data('https://platinum.coders.exchange/versions/titanium-live-feed.json', dirname(__FILE__).'/live-feed.cache', $version_refresh);
+	$live_news_feed_cache = cache_json_data('https://platinum.coders.exchange/versions/platinum-live-feed.json', dirname(__FILE__).'/live-feed.cache', $version_refresh);
 
 	echo '<td style="vertical-align: top; width: 36%;">';
 	echo '<table style="width: 100%;" border="0" cellpadding="3" cellspacing="1" class="forumline">';
@@ -728,7 +728,7 @@ function track_titanium_current_version_bs()
 	 * Version checker json
 	 */
 	$version_refresh = get_query_var( 'check-version', 'get', 'string', false );
-	$version_check_cache = cache_json_data('https://platinum.coders.exchange/versions/titanium-version.json', dirname(__FILE__).'/version.cache', $version_refresh); 
+	$version_check_cache = cache_json_data('https://platinum.coders.exchange/versions/platinum-version.json', dirname(__FILE__).'/version.cache', $version_refresh); 
 
 	if ( $version_check_cache['version'] == NUKE_PLATINUM):
 
@@ -793,7 +793,7 @@ function administration_panel( $pos = 1 )
 				</h3>
 				<div class="feed-Bx">
 						
-					<?php $live_news_feed_cache = cache_json_data('https://platinum.coders.exchange//versions/titanium-live-feed.json', dirname(__FILE__).'/live-feed.cache', $refresh_feed); ?>
+					<?php $live_news_feed_cache = cache_json_data('https://platinum.coders.exchange/versions/platinum-live-feed.json', dirname(__FILE__).'/live-feed.cache', $refresh_feed); ?>
 					<table style="width: 100%;" border="0" cellpadding="3" cellspacing="1">                                             
 						<?php foreach( array_reverse($live_news_feed_cache) as $key => $value ): $color_title = ($value['color']) ? ' style="color:'.$value['color'].'"' : ''; ?>
 
@@ -852,7 +852,7 @@ function administration_panel( $pos = 1 )
 			<div class="col-sm-6 col-md-6 col-lg-6 col-xl-3 admin-info-cubes">
 				<a href="<?php echo $versioncheck['update_url']; ?>">
 					<div class="small-box <?php echo $versioncheck['class'] ?>">
-						<h2 class="title"><?php echo $versioncheck['new_version_number'].' '.TITANIUM_EDITION ?></h2>
+						<h2 class="title"><?php echo $versioncheck['new_version_number'].' '.PLATINUM_EDITION ?></h2>
 						<span class="desc"><?php echo $versioncheck['message']; ?></span>
 						<div class="icon">
 							<i class="fas fa-code-branch"></i>
