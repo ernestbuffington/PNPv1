@@ -30,7 +30,7 @@
 /*  - Added Network Support for The 86it Developers Network           */
 /*  - Added New Menu Block (Replaces Sommaire)                        */
 /*  - Added New Version Checking System                               */
-/*  - Added Platinum Developer Feeed to Admin Panel                   */
+/*  - Added Platinum Developer Feed to Admin Panel                    */
 /*                                                                    */
 /*                                                                    */
 /* 7.6b4 (March 19, 2006)                                             */
