@@ -166,6 +166,8 @@ function Amazon($asin)
 	else
 	{
 		$book_detail = get_book_details($asin);
+		if(!isset($book_detail['productname'][0]))
+		$book_detail['productname'][0] = '';
 		$pagetitle = "- " . $AMZStore_Name . " - " . $book_detail['productname'][0];
 		include ("header.php");
 	    include ("includes/NukeAmazon/js.php");
