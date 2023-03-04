@@ -16,7 +16,7 @@
 /* And, if you use HTML code, please double check it.                     */
 /**************************************************************************/
 define_once("_AMZYCART","_AMZYCART Not Set");
-define_once("_AMZBROWSECATALOGS","_AMZBROWSECATALOGS Not Set");
+define_once("_AMZBROWSECATALOGS","Browse Catalogs");
 
 define_once("_AMZ12WKS","Usually ships in 1 to 2 weeks");
 define_once("_AMZ12D","Usually ships in 1 to 2 days");
