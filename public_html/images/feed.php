@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Live Feed from the PHP-Nuke Platinum Dev 4 Website</title>
+<title>Live Feed from the PHP-Nuke Platinum Developer Website</title>
 </head>
 <body> 
 <strong>Current Build:</strong> v4.0.0b Dev 4<hr>
-<strong>PHP-Nuke Platinum Dev 4 Repsoitory</strong> (Nightly Builds)<br />
-This is the Current US Version of PHP-Nuke Platinum v4.0.0b (Dev 4)<br /> 
+<strong>PHP-Nuke Platinum Repsoitory</strong> (Nightly Builds)<br />
+This is the Current US Version of PHP-Nuke Platinum v7.6.5b<br /> 
 This is a hardened version of PHP-Nuke Xtreme and is secure and safe.<br />
 <a href="https://github.com/ernestbuffington/PHP-Nuke.Titanium.Dev.4" target="_blank">https://github.com/ernestbuffington/PHP-Nuke.Titanium.Dev.4</a>
 <hr>
