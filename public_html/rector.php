@@ -8,7 +8,7 @@ use Rector\Set\ValueObject\LevelSetList;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
-		  __DIR__ . '/modules/Amazon/credits.php',
+		  __DIR__ . '/admin/modules/amazon.php',
     ]);
 
     // register a single rule
