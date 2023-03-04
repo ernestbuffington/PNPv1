@@ -114,6 +114,7 @@ class sql_db
 
                     /* change character set to utf8 */
                     mysqli_set_charset($hornswonkle,"utf8");
+					mysqli_query($hornswonkle, "SET NAMES 'utf8' COLLATE 'utf8_general_ci';");
 					
 				}
 
