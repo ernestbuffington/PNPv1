@@ -1,5 +1,5 @@
 /**********************************************************************/
-/* PHP-Nuke Platinum v.7.6.b.4                               SECURITY */
+/* PHP-Nuke Platinum v.7.6.b.5                               SECURITY */
 /*                                                                    */
 /* Despite all security fixes, modifications, tweaks included in      */
 /* PHP-Nuke Platinum, essentially the security of your website comes  */
