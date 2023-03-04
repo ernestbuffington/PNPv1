@@ -127,7 +127,7 @@
 /*   - Upgraded Who Is Online W3C Compliance                          */
 /*   - Upgraded Your Account Administration W3C Compliance            */
 /*                                                                    */
-/* 7.6.0 -> 7.6.b BETA                           [ March, 2005] */
+/* 7.6.0 -> 7.6.b BETA                                 [ March, 2005] */
 /*   - Added Action Logging                                           */
 /*   - Added Common Replies                                           */
 /*   - Added Custom Head                                              */
