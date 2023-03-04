@@ -26,8 +26,8 @@ require_once("setup_config.php");
 require_once("functions.php");
 require_once(SETUP_NUKE_INCLUDES_DIR.'functions_selects.php');
 
-$nuke_name = "PHP-Nuke Platinum Dev 4 (US Version) ";
-$sql_version = '10.3.37-MariaDB'; //mysqli_get_server_info();
+$nuke_name = "PHP-Nuke Platinum (US Version) ";
+$sql_version = '10.3.38-MariaDB'; //mysqli_get_server_info();
 
 if (!isset($_SESSION['language']) || $_SESSION['language'] == 'english'){
     $_SESSION['language'] = $_POST['language'] ?? 'english';
