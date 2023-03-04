@@ -109,8 +109,12 @@ class sql_db
 				# not sure why this was removed i see no explanation, Thanks Dick!
 				if (version_compare($this->mysql_version, '4.1.3', '>='))
 				{
-					mysqli_query("SET NAMES 'utf8'", $this->db_connect_id);
-					mysqli_query("SET CHARACTER SET 'utf8'", $this->db_connect_id);
+					// Create connection
+                    $hornswonkle = mysqli_connect($this->server, $this->user, $this->password, $this->dbname);
+
+                    /* change character set to utf8 */
+                    mysqli_set_charset($hornswonkle,"utf8");
+					
 				}
 
 				$this->connect_id = $this->db_connect_id;
@@ -126,10 +130,6 @@ class sql_db
 	{
 		if($this->db_connect_id)
 		{
-			if($this->query_result)
-			{
-				//mysqli_free_result($this->query_result); # removed for php 8
-			}
 			$result = mysqli_close($this->db_connect_id);
 			return $result;
 		}
