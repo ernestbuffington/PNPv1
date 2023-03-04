@@ -56,4 +56,3 @@ global $AMZVer;
 	echo "}\n";
 	echo "//-->\n";
 	echo "</script>\n\n";
-?>
