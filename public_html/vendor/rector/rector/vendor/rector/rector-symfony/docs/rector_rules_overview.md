@@ -1,4 +1,4 @@
-# 72 Rules Overview
+# 79 Rules Overview
 
 ## ActionSuffixRemoverRector
 
@@ -185,6 +185,10 @@ Change XML loader to YAML in Bundle Extension
 - class: [`Rector\Symfony\Rector\Class_\ChangeFileLoaderInExtensionAndKernelRector`](../src/Rector/Class_/ChangeFileLoaderInExtensionAndKernelRector.php)
 
 ```php
+<?php
+
+declare(strict_types=1);
+
 use Rector\Config\RectorConfig;
 use Rector\Symfony\Rector\Class_\ChangeFileLoaderInExtensionAndKernelRector;
 
@@ -382,6 +386,28 @@ Turns old default value to parameter in `ContainerBuilder->build()` method in DI
 
 <br>
 
+## ContainerGetNameToTypeInTestsRector
+
+Change `$container->get("some_name")` to bare type, useful since Symfony 3.4
+
+- class: [`Rector\Symfony\Rector\Closure\ContainerGetNameToTypeInTestsRector`](../src/Rector/Closure/ContainerGetNameToTypeInTestsRector.php)
+
+```diff
+ use PHPUnit\Framework\TestCase;
+
+ final class SomeTest extends TestCase
+ {
+     public function run()
+     {
+         $container = $this->getContainer();
+-        $someClass = $container->get('some_name');
++        $someClass = $container->get(SomeType::class);
+     }
+ }
+```
+
+<br>
+
 ## ContainerGetToConstructorInjectionRector
 
 Turns fetching of dependencies via `$container->get()` in ContainerAware to constructor injection in Command and Controller in Symfony
@@ -403,6 +429,37 @@ Turns fetching of dependencies via `$container->get()` in ContainerAware to cons
 -        $this->container->get('some_service');
 +        $this->someService;
 +        $this->someService;
+     }
+ }
+```
+
+<br>
+
+## ContainerGetToRequiredDependencyAbstractClassRector
+
+Change `$this->get("some_service");` to `@required` dependency in an abstract class
+
+- class: [`Rector\Symfony\Rector\Class_\ContainerGetToRequiredDependencyAbstractClassRector`](../src/Rector/Class_/ContainerGetToRequiredDependencyAbstractClassRector.php)
+
+```diff
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+ abstract class CustomAbstractController extends AbstractController
+ {
++    private SomeService $someService;
++
++    /**
++     * @required
++     */
++    public function autowire(SomeService $someService)
++    {
++        $this->someService = $someService;
++    }
++
+     public function run()
+     {
+-        $this->get('some_service')->apply();
++        $this->someService->apply();
      }
  }
 ```
@@ -1019,6 +1076,30 @@ Turns old option names to new ones in FormTypes in Form in Symfony
 
 <br>
 
+## ParamConverterAttributeToMapEntityAttributeRector
+
+Replace ParamConverter attribute with mappings with the MapEntity attribute
+
+- class: [`Rector\Symfony\Rector\ClassMethod\ParamConverterAttributeToMapEntityAttributeRector`](../src/Rector/ClassMethod/ParamConverterAttributeToMapEntityAttributeRector.php)
+
+```diff
+ class SomeController
+ {
+     #[Route('/blog/{date}/{slug}/comments/{comment_slug}')]
+-    #[ParamConverter('post', options: ['mapping' => ['date' => 'date', 'slug' => 'slug']])]
+-    #[ParamConverter('comment', options: ['mapping' => ['comment_slug' => 'slug']])]
+     public function showComment(
+-        Post $post,
+-        Comment $comment
++        #[\Symfony\Bridge\Doctrine\Attribute\MapEntity(mapping: ['date' => 'date', 'slug' => 'slug'])] Post $post,
++        #[\Symfony\Bridge\Doctrine\Attribute\MapEntity(mapping: ['comment_slug' => 'slug'])] Comment $comment
+     ) {
+     }
+ }
+```
+
+<br>
+
 ## ParamTypeFromRouteRequiredRegexRector
 
 Complete strict param type declaration based on route annotation
@@ -1281,16 +1362,20 @@ Replace defined `service()` argument in Symfony PHP config
 - class: [`Rector\Symfony\Rector\FuncCall\ReplaceServiceArgumentRector`](../src/Rector/FuncCall/ReplaceServiceArgumentRector.php)
 
 ```php
+<?php
+
+declare(strict_types=1);
+
 use PhpParser\Node\Scalar\String_;
 use Rector\Config\RectorConfig;
 use Rector\Symfony\Rector\FuncCall\ReplaceServiceArgumentRector;
 use Rector\Symfony\ValueObject\ReplaceServiceArgument;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(
-        ReplaceServiceArgumentRector::class,
-        [new ReplaceServiceArgument('ContainerInterface', new String_('service_container', []))]
-    );
+    $rectorConfig->ruleWithConfiguration(ReplaceServiceArgumentRector::class, [
+        new ReplaceServiceArgument('ContainerInterface', new String_('service_container', [
+        ])),
+    ]);
 };
 ```
 
@@ -1402,6 +1487,26 @@ Change RouteCollectionBuilder to RoutingConfiguratorRector
 
 <br>
 
+## ServiceArgsToServiceNamedArgRector
+
+Converts order-dependent arguments `args()` to named arg `arg()`
+
+- class: [`Rector\Symfony\Rector\Closure\ServiceArgsToServiceNamedArgRector`](../src/Rector/Closure/ServiceArgsToServiceNamedArgRector.php)
+
+```diff
+ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+ return static function (ContainerConfigurator $containerConfigurator): void {
+     $services = $containerConfigurator->services();
+
+     $services->set(SomeClass::class)
+-        ->args(['some_value']);
++        ->arg('$someCtorParameter', 'some_value');
+ };
+```
+
+<br>
+
 ## ServiceSetStringNameToClassNameRector
 
 Change `$service->set()` string names to class-type-based names, to allow `$container->get()` by types in Symfony 2.8. Provide XML config via `$rectorConfig->symfonyContainerXml(...);`
@@ -1416,6 +1521,73 @@ Change `$service->set()` string names to class-type-based names, to allow `$cont
 
 -    $services->set('some_name', App\SomeClass::class);
 +    $services->set('app\\someclass', App\SomeClass::class);
+ };
+```
+
+<br>
+
+## ServiceSettersToSettersAutodiscoveryRector
+
+Change `$services->set(...,` ...) to `$services->load(...,` ...) where meaningful
+
+- class: [`Rector\Symfony\Rector\Closure\ServiceSettersToSettersAutodiscoveryRector`](../src/Rector/Closure/ServiceSettersToSettersAutodiscoveryRector.php)
+
+```diff
+ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+-use App\Services\FistService;
+-use App\Services\SecondService;
+-
+ return static function (ContainerConfigurator $containerConfigurator): void {
+     $parameters = $containerConfigurator->parameters();
+
+     $services = $containerConfigurator->services();
+
+-    $services->set(FistService::class);
+-    $services->set(SecondService::class);
++    $services->load('App\\Services\\', '../src/Services/*');
+ };
+```
+
+<br>
+
+## ServiceTagsToDefaultsAutoconfigureRector
+
+Change `$services->set(...,` ...)->tag(...) to `$services->defaults()->autodiscovery()` where meaningful
+
+- class: [`Rector\Symfony\Rector\Closure\ServiceTagsToDefaultsAutoconfigureRector`](../src/Rector/Closure/ServiceTagsToDefaultsAutoconfigureRector.php)
+
+```diff
+ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+ use App\Command\SomeCommand;
+
+ return static function (ContainerConfigurator $containerConfigurator): void {
+     $services = $containerConfigurator->services();
++    $services->defaults()
++        ->autoconfigure();
+
+-    $services->set(SomeCommand::class)
+-        ->tag('console.command');
++    $services->set(SomeCommand::class);
+ };
+```
+
+<br>
+
+## ServicesSetNameToSetTypeRector
+
+Change `$services->set("name_type",` SomeType::class) to bare type, useful since Symfony 3.4
+
+- class: [`Rector\Symfony\Rector\Closure\ServicesSetNameToSetTypeRector`](../src/Rector/Closure/ServicesSetNameToSetTypeRector.php)
+
+```diff
+ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+ return static function (ContainerConfigurator $containerConfigurator): void {
+     $services = $containerConfigurator->services();
+
+-    $services->set('some_name', App\SomeClass::class);
++    $services->set(App\SomeClass::class);
  };
 ```
 
@@ -1457,6 +1629,8 @@ Symplify form rendering by not calling `->createView()` on `render` function
 - class: [`Rector\Symfony\Rector\MethodCall\SimplifyFormRenderingRector`](../src/Rector/MethodCall/SimplifyFormRenderingRector.php)
 
 ```diff
+ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
  class ReplaceFormCreateViewFunctionCall extends AbstractController
  {
      public function form(): Response

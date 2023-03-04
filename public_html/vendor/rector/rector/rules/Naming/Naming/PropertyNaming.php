@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Naming\Naming;
 
-use RectorPrefix202301\Nette\Utils\Strings;
+use RectorPrefix202302\Nette\Utils\Strings;
 use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StaticType;
@@ -19,9 +19,6 @@ use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType;
 /**
- * @deprecated
- * @todo merge with very similar logic in
- * @see VariableNaming
  * @see \Rector\Tests\Naming\Naming\PropertyNamingTest
  */
 final class PropertyNaming

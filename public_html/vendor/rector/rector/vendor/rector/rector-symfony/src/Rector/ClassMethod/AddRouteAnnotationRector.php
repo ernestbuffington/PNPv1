@@ -67,9 +67,12 @@ final class AddRouteAnnotationRector extends AbstractRector
             return null;
         }
         $controllerReference = $this->resolveControllerReference($class, $node);
+        if (!$controllerReference) {
+            return null;
+        }
         // is there a route for this annotation?
-        $symfonyRoutes = $this->matchSymfonyRouteMetadataByControllerReference($controllerReference);
-        if ($symfonyRoutes === []) {
+        $symfonyRouteMetadatas = $this->matchSymfonyRouteMetadataByControllerReference($controllerReference);
+        if ($symfonyRouteMetadatas === []) {
             return null;
         }
         // skip if already has an annotation
@@ -78,8 +81,8 @@ final class AddRouteAnnotationRector extends AbstractRector
         if ($doctrineAnnotationTagValueNode !== null) {
             return null;
         }
-        foreach ($symfonyRoutes as $symfonyRoute) {
-            $items = $this->createRouteItems($symfonyRoute);
+        foreach ($symfonyRouteMetadatas as $symfonyRouteMetadata) {
+            $items = $this->createRouteItems($symfonyRouteMetadata);
             $symfonyRouteTagValueNode = $this->symfonyRouteTagValueNodeFactory->createFromItems($items);
             $phpDocInfo->addTagValueNode($symfonyRouteTagValueNode);
         }
@@ -113,10 +116,13 @@ final class SomeController extends AbstractController
 CODE_SAMPLE
 )]);
     }
-    private function resolveControllerReference(Class_ $class, ClassMethod $classMethod) : string
+    private function resolveControllerReference(Class_ $class, ClassMethod $classMethod) : ?string
     {
         $className = $this->nodeNameResolver->getName($class);
         $methodName = $this->nodeNameResolver->getName($classMethod);
+        if ($methodName === '__invoke') {
+            return $className;
+        }
         return $className . '::' . $methodName;
     }
     /**

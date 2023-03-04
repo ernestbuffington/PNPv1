@@ -7,7 +7,7 @@
     ],
     "require": {
         "php": "^7.2|^8.0",
-        "phpstan/phpstan": "^1.9.7"
+        "phpstan/phpstan": "^1.10.1"
     },
     "autoload": {
         "files": [
@@ -16,14 +16,13 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "0.14-dev"
+            "dev-main": "0.15-dev"
         }
     },
     "conflict": {
         "rector/rector-phpunit": "*",
         "rector/rector-symfony": "*",
         "rector/rector-doctrine": "*",
-        "rector/rector-php-parser": "*",
         "rector/rector-downgrade-php": "*"
     },
     "minimum-stability": "dev",

@@ -3,7 +3,7 @@
 declare (strict_types=1);
 namespace Rector\Renaming\NodeManipulator;
 
-use RectorPrefix202301\Nette\Utils\Strings;
+use RectorPrefix202302\Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\AttributeGroup;
 use PhpParser\Node\Expr\New_;
@@ -187,6 +187,10 @@ final class ClassRenamer
      */
     private function refactorName(Name $name, array $oldToNewClasses) : ?Name
     {
+        $parent = $name->getAttribute(AttributeKey::PARENT_NODE);
+        if ($parent instanceof Namespace_ && $parent->name === $name) {
+            return null;
+        }
         $stringName = $this->nodeNameResolver->getName($name);
         $newName = $oldToNewClasses[$stringName] ?? null;
         if ($newName === null) {

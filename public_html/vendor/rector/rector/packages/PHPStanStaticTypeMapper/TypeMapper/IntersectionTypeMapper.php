@@ -4,8 +4,8 @@ declare (strict_types=1);
 namespace Rector\PHPStanStaticTypeMapper\TypeMapper;
 
 use PhpParser\Node;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
-use PhpParser\Node\Name\FullyQualified;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\IntersectionType;
@@ -17,7 +17,7 @@ use Rector\Core\Php\PhpVersionProvider;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\PHPStanStaticTypeMapper\Contract\TypeMapperInterface;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
-use RectorPrefix202301\Symfony\Contracts\Service\Attribute\Required;
+use RectorPrefix202302\Symfony\Contracts\Service\Attribute\Required;
 /**
  * @implements TypeMapperInterface<IntersectionType>
  */
@@ -77,27 +77,27 @@ final class IntersectionTypeMapper implements TypeMapperInterface
     public function mapToPhpParserNode(Type $type, string $typeKind) : ?Node
     {
         if (!$this->phpVersionProvider->isAtLeastPhpVersion(PhpVersionFeature::INTERSECTION_TYPES)) {
-            return $this->matchMockObjectType($type);
+            return null;
         }
         $intersectionedTypeNodes = [];
         foreach ($type->getTypes() as $intersectionedType) {
             $resolvedType = $this->phpStanStaticTypeMapper->mapToPhpParserNode($intersectionedType, $typeKind);
-            if (!$resolvedType instanceof Name) {
-                continue;
+            if (!$resolvedType instanceof Name && !$resolvedType instanceof Identifier) {
+                return null;
             }
             $resolvedTypeName = (string) $resolvedType;
+            /**
+             * ObjectWithoutClassType can happen when use along with \PHPStan\Type\Accessory\HasMethodType
+             * Use "object" as returned type
+             */
             if ($intersectionedType instanceof ObjectWithoutClassType) {
                 return $resolvedType;
             }
-            /**
-             * $this->reflectionProvider->hasClass($resolvedTypeName) returns true on iterable type
-             * this ensure type is ObjectType early
-             */
             if (!$intersectionedType instanceof ObjectType) {
-                continue;
+                return null;
             }
             if (!$this->reflectionProvider->hasClass($resolvedTypeName)) {
-                continue;
+                return null;
             }
             $intersectionedTypeNodes[] = $resolvedType;
         }
@@ -108,18 +108,5 @@ final class IntersectionTypeMapper implements TypeMapperInterface
             return \current($intersectionedTypeNodes);
         }
         return new Node\IntersectionType($intersectionedTypeNodes);
-    }
-    private function matchMockObjectType(IntersectionType $intersectionType) : ?FullyQualified
-    {
-        // return mock object as the strict one
-        foreach ($intersectionType->getTypes() as $intersectionedType) {
-            if (!$intersectionedType instanceof ObjectType) {
-                continue;
-            }
-            if ($intersectionedType->getClassName() === 'PHPUnit\\Framework\\MockObject\\MockObject') {
-                return new FullyQualified($intersectionedType->getClassName());
-            }
-        }
-        return null;
     }
 }

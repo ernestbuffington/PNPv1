@@ -37,10 +37,10 @@ use Rector\PHPStanStaticTypeMapper\TypeAnalyzer\BoolUnionTypeAnalyzer;
 use Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeAnalyzer;
 use Rector\PHPStanStaticTypeMapper\TypeAnalyzer\UnionTypeCommonTypeNarrower;
 use Rector\PHPStanStaticTypeMapper\ValueObject\UnionTypeAnalysis;
-use function RectorPrefix202301\Symfony\Component\String\b;
-use RectorPrefix202301\Symfony\Contracts\Service\Attribute\Required;
-use RectorPrefix202301\Webmozart\Assert\Assert;
-use RectorPrefix202301\Webmozart\Assert\InvalidArgumentException;
+use function RectorPrefix202302\Symfony\Component\String\b;
+use RectorPrefix202302\Symfony\Contracts\Service\Attribute\Required;
+use RectorPrefix202302\Webmozart\Assert\Assert;
+use RectorPrefix202302\Webmozart\Assert\InvalidArgumentException;
 /**
  * @implements TypeMapperInterface<UnionType>
  */
@@ -129,7 +129,7 @@ final class UnionTypeMapper implements TypeMapperInterface
             return $arrayNode;
         }
         if ($this->boolUnionTypeAnalyzer->isNullableBoolUnionType($type) && !$this->phpVersionProvider->isAtLeastPhpVersion(PhpVersionFeature::UNION_TYPES)) {
-            return $this->resolveNullableType(new NullableType(new Name('bool')));
+            return $this->resolveNullableType(new NullableType(new Identifier('bool')));
         }
         if (!$this->phpVersionProvider->isAtLeastPhpVersion(PhpVersionFeature::UNION_TYPES) && $this->isFalseBoolUnion($type)) {
             // return new Bool
@@ -172,12 +172,25 @@ final class UnionTypeMapper implements TypeMapperInterface
         }
         return $this->resolveUnionTypes($phpParserUnionType);
     }
-    private function resolveNullableType(NullableType $nullableType) : ?NullableType
+    /**
+     * @return null|\PhpParser\Node\NullableType|PhpParserUnionType
+     */
+    private function resolveNullableType(NullableType $nullableType)
     {
         if (!$this->phpVersionProvider->isAtLeastPhpVersion(PhpVersionFeature::NULLABLE_TYPE)) {
             return null;
         }
-        return $nullableType;
+        /** @var PHPParserNodeIntersectionType|Identifier|Name $type */
+        $type = $nullableType->type;
+        if (!$type instanceof PHPParserNodeIntersectionType) {
+            return $nullableType;
+        }
+        if (!$this->phpVersionProvider->isAtLeastPhpVersion(PhpVersionFeature::INTERSECTION_TYPES)) {
+            return null;
+        }
+        $types = [$type];
+        $types[] = new Identifier('null');
+        return new PhpParserUnionType($types);
     }
     /**
      * @param TypeKind::* $typeKind
@@ -213,7 +226,7 @@ final class UnionTypeMapper implements TypeMapperInterface
         return $unionTypeAnalysis->hasArray();
     }
     /**
-     * @return \PhpParser\Node\Name|\PhpParser\Node\NullableType|null
+     * @return \PhpParser\Node\Identifier|\PhpParser\Node\NullableType|PhpParserUnionType|null
      */
     private function matchArrayTypes(UnionType $unionType)
     {
@@ -225,7 +238,7 @@ final class UnionTypeMapper implements TypeMapperInterface
         if ($unionTypeAnalysis->isNullableType()) {
             return $this->resolveNullableType(new NullableType($type));
         }
-        return new Name($type);
+        return new Identifier($type);
     }
     private function resolveUnionTypes(PhpParserUnionType $phpParserUnionType) : ?PhpParserUnionType
     {
@@ -323,7 +336,7 @@ final class UnionTypeMapper implements TypeMapperInterface
              *
              * @var Identifier|Name|null|PHPParserNodeIntersectionType $phpParserNode
              */
-            $phpParserNode = $unionedType instanceof NullType && $typeKind === TypeKind::PROPERTY ? new Name('null') : $this->phpStanStaticTypeMapper->mapToPhpParserNode($unionedType, $typeKind);
+            $phpParserNode = $unionedType instanceof NullType && $typeKind === TypeKind::PROPERTY ? new Identifier('null') : $this->phpStanStaticTypeMapper->mapToPhpParserNode($unionedType, $typeKind);
             if ($phpParserNode === null) {
                 return null;
             }

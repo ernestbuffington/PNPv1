@@ -1,4 +1,4 @@
-# 45 Rules Overview
+# 48 Rules Overview
 
 ## AddDoesNotPerformAssertionToNonAssertingTestRector
 
@@ -78,18 +78,21 @@ Change annotations with value to attribute
 - class: [`Rector\PHPUnit\Rector\Class_\AnnotationWithValueToAttributeRector`](../src/Rector/Class_/AnnotationWithValueToAttributeRector.php)
 
 ```php
+<?php
+
+declare(strict_types=1);
+
 use Rector\Config\RectorConfig;
 use Rector\PHPUnit\Rector\Class_\AnnotationWithValueToAttributeRector;
 use Rector\PHPUnit\ValueObject\AnnotationWithValueToAttribute;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(
-        AnnotationWithValueToAttributeRector::class,
-        [new AnnotationWithValueToAttribute('backupGlobals', 'PHPUnit\Framework\Attributes\BackupGlobals', [
+    $rectorConfig->ruleWithConfiguration(AnnotationWithValueToAttributeRector::class, [
+        new AnnotationWithValueToAttribute('backupGlobals', 'PHPUnit\Framework\Attributes\BackupGlobals', [
             true,
             false,
-        ])]
-    );
+        ]),
+    ]);
 };
 ```
 
@@ -119,6 +122,10 @@ Move array argument from tests into data provider [configurable]
 - class: [`Rector\PHPUnit\Rector\Class_\ArrayArgumentToDataProviderRector`](../src/Rector/Class_/ArrayArgumentToDataProviderRector.php)
 
 ```php
+<?php
+
+declare(strict_types=1);
+
 use Rector\Config\RectorConfig;
 use Rector\PHPUnit\Rector\Class_\ArrayArgumentToDataProviderRector;
 use Rector\PHPUnit\ValueObject\ArrayArgumentToDataProvider;
@@ -553,6 +560,29 @@ Replaces `createMock()` with `createStub()` when relevant
 
 <br>
 
+## DataProviderAnnotationToAttributeRector
+
+Change dataProvider annotations to attribute
+
+- class: [`Rector\PHPUnit\Rector\ClassMethod\DataProviderAnnotationToAttributeRector`](../src/Rector/ClassMethod/DataProviderAnnotationToAttributeRector.php)
+
+```diff
+ use PHPUnit\Framework\TestCase;
+
+ final class SomeTest extends TestCase
+ {
+-    /**
+-     * @dataProvider someMethod()
+-     */
++    #[\PHPUnit\Framework\Attributes\DataProvider('test')]
+     public function test(): void
+     {
+     }
+ }
+```
+
+<br>
+
 ## DelegateExceptionArgumentsRector
 
 Takes `setExpectedException()` 2nd and next arguments to own methods in PHPUnit.
@@ -564,6 +594,33 @@ Takes `setExpectedException()` 2nd and next arguments to own methods in PHPUnit.
 +$this->setExpectedException(SomeException::class);
 +$this->expectExceptionMessage('Message');
 +$this->expectExceptionCode('CODE');
+```
+
+<br>
+
+## DependsAnnotationWithValueToAttributeRector
+
+Change depends annotations with value to attribute
+
+- class: [`Rector\PHPUnit\Rector\ClassMethod\DependsAnnotationWithValueToAttributeRector`](../src/Rector/ClassMethod/DependsAnnotationWithValueToAttributeRector.php)
+
+```diff
+ use PHPUnit\Framework\TestCase;
+
+ final class SomeTest extends TestCase
+ {
+     public function testOne() {}
+     public function testTwo() {}
+-    /**
+-     * @depends testOne
+-     * @depends testTwo
+-     */
++    #[\PHPUnit\Framework\Attributes\Depends('testOne')]
++    #[\PHPUnit\Framework\Attributes\Depends('testTwo')]
+     public function testThree(): void
+     {
+     }
+ }
 ```
 
 <br>
@@ -773,6 +830,25 @@ Remove `"setMethods()"` method as never used
 -            ->setMethods(['run'])
              ->getMock();
      }
+ }
+```
+
+<br>
+
+## RemoveTestSuffixFromAbstractTestClassesRector
+
+Rename abstract test class suffix from "*Test" to "*TestCase"
+
+- class: [`Rector\PHPUnit\Rector\ClassLike\RemoveTestSuffixFromAbstractTestClassesRector`](../src/Rector/ClassLike/RemoveTestSuffixFromAbstractTestClassesRector.php)
+
+```diff
+-// tests/AbstractTest.php
++// tests/AbstractTestCase.php
+ use PHPUnit\Framework\TestCase;
+
+-abstract class AbstractTest extends TestCase
++abstract class AbstractTestCase extends TestCase
+ {
  }
 ```
 

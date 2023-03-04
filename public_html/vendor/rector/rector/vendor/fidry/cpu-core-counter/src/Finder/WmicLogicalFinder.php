@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 declare (strict_types=1);
-namespace RectorPrefix202301\Fidry\CpuCoreCounter\Finder;
+namespace RectorPrefix202302\Fidry\CpuCoreCounter\Finder;
 
 use function preg_match;
 /**
@@ -28,7 +28,7 @@ final class WmicLogicalFinder extends ProcOpenBasedFinder
     {
         return 'WmicLogicalFinder';
     }
-    public static function countCpuCores(string $process) : ?int
+    protected function countCpuCores(string $process) : ?int
     {
         if (0 === preg_match(self::CPU_CORE_COUNT_REGEX, $process, $matches)) {
             return parent::countCpuCores($process);
