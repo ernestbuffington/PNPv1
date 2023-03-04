@@ -2,6 +2,36 @@
 /* 7.6.b.5  (Feb 3rd, 2023)                                           */
 /*  - Updated Database Layer for PHP 8.2.3                            */
 /*  - Started Portinng Process for PHP 8.2.3                          */
+/*  - Updated Amazon Module Patched for PHP 8.2.3                     */
+/*  - Added Ruffle Support                                            */
+/*  - New Installer Created                                           */
+/*  - New Database Controller                                         */
+/*  - New Zend Caching Syetem (Zf1)                                   */
+/*  - New Google Site Map Module                                      */
+/*  - New Blog System                                                 */
+/*  - Added Bootstrap Support                                         */
+/*  - New WYSIWYG System                                              */
+/*  - Updated Sentinel                                                */
+/*  - Added New Error Logging System                                  */
+/*  - Added Ajax Support (Dran N' Drop)                               */
+/*  - Updated Your Account Module                                     */
+/*  - New Theme System (Supports XML/HTML all versions)               */
+/*  - Added Admin Module Honeypot v2.2 by CoRpSE                      */
+/*  - Added File Repository Module                                    */
+/*  - Added Image Hosting Module                                      */
+/*  - Added Mobile Detect Libraries                                   */
+/*  - Added php81_bc/strftime Library                                 */
+/*  - Added phpmailer/phpmailer v6.7.1 Library                        */
+/*  - Added swiftmailer/swiftmailer v6.2 Library                      */
+/*  - Added Symfony Mailer (Soon will replace Swiftmailer)            */
+/*  - Added rector/rector root Libraries (refactoring)                */
+/*  - Added Root / Composer Support                                   */
+/*  - Added includes Composer Support                                 */
+/*  - Added Network Support for The 86it Developers Network           */
+/*  - Added New Menu Block (Replaces Sommaire)                        */
+/*  - Added New Version Checking System                               */
+/*  - Added Platinum Developer Feeed to Admin Panel                   */
+/*                                                                    */
 /*                                                                    */
 /* 7.6b4 (March 19, 2006)                                             */
 /* Added the bbtonuke 2.0.19 update patch and fixes to date           */
