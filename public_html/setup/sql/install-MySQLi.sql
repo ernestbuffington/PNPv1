@@ -1,3 +1,79 @@
+CREATE TABLE IF NOT EXISTS `#prefix#_amazon_not_item` (
+  `iid` int(11) NOT NULL,
+  `asin` varchar(10) NOT NULL DEFAULT '',
+  `hits` int(11) NOT NULL DEFAULT 0,
+  `clicks` int(11) NOT NULL DEFAULT 0
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+CREATE TABLE IF NOT EXISTS `#prefix#_amazon_nodes` (
+  `nid` int(11) NOT NULL,
+  `catalog` varchar(30) NOT NULL DEFAULT '',
+  `description` varchar(50) NOT NULL DEFAULT '',
+  `node` int(10) NOT NULL DEFAULT 0,
+  `pnode` int(10) DEFAULT NULL,
+  `locale` char(2) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+CREATE TABLE IF NOT EXISTS `#prefix#_amazon_items` (
+  `iid` int(8) NOT NULL,
+  `asin` varchar(10) DEFAULT NULL,
+  `hits` mediumint(9) NOT NULL DEFAULT 0,
+  `category` varchar(50) NOT NULL DEFAULT '',
+  `clicks` mediumint(9) NOT NULL DEFAULT 0,
+  `imp` mediumint(9) NOT NULL DEFAULT 0
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+CREATE TABLE IF NOT EXISTS `#prefix#_amazon_department` (
+  `did` int(11) NOT NULL,
+  `r_catalog` varchar(30) NOT NULL DEFAULT '',
+  `items` int(11) NOT NULL DEFAULT 0
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+CREATE TABLE IF NOT EXISTS `#prefix#_amazon_cfg` (
+  `AMZVer` varchar(7) NOT NULL DEFAULT '',
+  `AMZModule_Name` varchar(255) NOT NULL DEFAULT '',
+  `AMZ_id` varchar(30) NOT NULL DEFAULT '',
+  `cache_maxtime` int(6) NOT NULL DEFAULT 14400,
+  `AMZMore` tinyint(1) NOT NULL DEFAULT 0,
+  `AMZSingle` tinyint(1) NOT NULL DEFAULT 0,
+  `AMZQuickAdd` tinyint(1) NOT NULL DEFAULT 0,
+  `AMZShowReview` tinyint(1) NOT NULL DEFAULT 0,
+  `AMZShowSimilar` tinyint(1) NOT NULL DEFAULT 0,
+  `AMZLocale` char(2) NOT NULL DEFAULT 'us',
+  `AMZReviewMod` tinyint(1) NOT NULL DEFAULT 0,
+  `ImageType` char(2) NOT NULL DEFAULT 'NO',
+  `default_asin` varchar(10) NOT NULL DEFAULT '',
+  `AMZ_Popular` tinyint(3) NOT NULL DEFAULT 25,
+  `AMZBuyBox` tinyint(1) NOT NULL DEFAULT 1,
+  `AMZShowXML` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+CREATE TABLE IF NOT EXISTS `#prefix#_amazon_catalog` (
+  `uid` int(11) NOT NULL,
+  `catalog` varchar(30) NOT NULL DEFAULT '',
+  `r_catalog` varchar(30) NOT NULL DEFAULT '',
+  `l_catalog` text NOT NULL,
+  `mode` varchar(20) NOT NULL DEFAULT '',
+  `button_image` varchar(255) NOT NULL DEFAULT '',
+  `no_image` varchar(255) NOT NULL DEFAULT '',
+  `locale` char(2) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+CREATE TABLE IF NOT EXISTS `#prefix#_amazon_cart` (
+  `id` int(11) NOT NULL,
+  `session` tinytext NOT NULL,
+  `asin` varchar(10) NOT NULL DEFAULT '',
+  `quantity` int(5) NOT NULL DEFAULT 0,
+  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+CREATE TABLE IF NOT EXISTS `#prefix#_amazon_cache` ( 
+  `cid` int(11) NOT NULL,
+  `time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `url` varchar(60) NOT NULL DEFAULT '',
+  `xml` longtext NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
 CREATE TABLE IF NOT EXISTS `#prefix#_admin_fc` (
   `fc_datetime` varchar(25) NOT NULL DEFAULT '',
   `fc_ip` varchar(255) NOT NULL DEFAULT '',

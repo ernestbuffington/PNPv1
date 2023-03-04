@@ -4439,6 +4439,185 @@ if ($can_proceed) {
 		$result=$db->sql_query($sql);
 }
 
+# Nuke Amazon Cache
+if ($can_proceed) {
+        $fp = fopen("sql/nuke_amazon_cache.sql","r"); 
+        $installscript = "";
+        while (!feof($fp)) $installscript .= fgets($fp,1000);
+        fclose($fp);
+        unset($fp);
+        $installscript = str_replace("#prefix#",$db_prefix,$installscript);
+        echo "<p>"._sql_amazon_cache;
+         if (!empty($installscript) && !$db->sql_query($installscript)) {
+                $can_proceed = false;
+                nuke_sqlerror(substr($installscript,0,100)."...");
+        } else echo "<font class=\"ok\">OK</font>";
+        echo "</p>\n";
+        unset($installscript);
+
+		$sql="ALTER TABLE ".$db_prefix."_amazon_cache 
+        ADD PRIMARY KEY (`cid`),
+        ADD KEY `cid` (`cid`),
+        ADD KEY `date_time` (`time`) ";
+		$result=$db->sql_query($sql);
+
+		$sql="ALTER TABLE ".$db_prefix."_amazon_cache MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28 ";
+		$result=$db->sql_query($sql);
+		
+}
+
+# Nuke Amazon Cart
+if ($can_proceed) {
+        echo "<p>"._sql_amazon_cart;
+		echo "<font class=\"ok\">OK</font>";
+
+		$sql="ALTER TABLE ".$db_prefix."_amazon_cart 
+        ADD PRIMARY KEY (`id`) ";
+		$result=$db->sql_query($sql);
+
+		$sql="ALTER TABLE ".$db_prefix."_amazon_cart MODIFY `id` int(11) NOT NULL AUTO_INCREMENT ";
+		$result=$db->sql_query($sql);
+}
+
+# Nuke Amazon Catalog
+if ($can_proceed) {
+        $fp = fopen("sql/nuke_amazon_catalog.sql","r"); 
+        $installscript = "";
+        while (!feof($fp)) $installscript .= fgets($fp,1000);
+        fclose($fp);
+        unset($fp);
+        $installscript = str_replace("#prefix#",$db_prefix,$installscript);
+        echo "<p>"._sql_amazon_catalog;
+         if (!empty($installscript) && !$db->sql_query($installscript)) {
+                $can_proceed = false;
+                nuke_sqlerror(substr($installscript,0,100)."...");
+        } else echo "<font class=\"ok\">OK</font>";
+        echo "</p>\n";
+        unset($installscript);
+
+		$sql="ALTER TABLE ".$db_prefix."_amazon_catalog 
+        ADD PRIMARY KEY (`uid`),
+        ADD KEY `catalog` (`catalog`),
+        ADD KEY `r_catalog` (`r_catalog`),
+        ADD KEY `locale` (`locale`) ";
+		$result=$db->sql_query($sql);
+
+		$sql="ALTER TABLE ".$db_prefix."_amazon_catalog MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23 ";
+		$result=$db->sql_query($sql);
+		
+}
+
+# Nuke Amazon Config
+if ($can_proceed) {
+        $fp = fopen("sql/nuke_amazon_cfg.sql","r"); 
+        $installscript = "";
+        while (!feof($fp)) $installscript .= fgets($fp,1000);
+        fclose($fp);
+        unset($fp);
+        $installscript = str_replace("#prefix#",$db_prefix,$installscript);
+        echo "<p>"._sql_amazon_config;
+         if (!empty($installscript) && !$db->sql_query($installscript)) {
+                $can_proceed = false;
+                nuke_sqlerror(substr($installscript,0,100)."...");
+        } else echo "<font class=\"ok\">OK</font>";
+        echo "</p>\n";
+        unset($installscript);
+
+		$sql="ALTER TABLE ".$db_prefix."_amazon_cfg 
+        ADD PRIMARY KEY (`AMZ_id`) ";
+		$result=$db->sql_query($sql);
+}
+
+# Nuke Amazon Department
+if ($can_proceed) {
+        $fp = fopen("sql/nuke_amazon_department.sql","r"); 
+        $installscript = "";
+        while (!feof($fp)) $installscript .= fgets($fp,1000);
+        fclose($fp);
+        unset($fp);
+        $installscript = str_replace("#prefix#",$db_prefix,$installscript);
+        echo "<p>"._sql_amazon_department;
+         if (!empty($installscript) && !$db->sql_query($installscript)) {
+                $can_proceed = false;
+                nuke_sqlerror(substr($installscript,0,100)."...");
+        } else echo "<font class=\"ok\">OK</font>";
+        echo "</p>\n";
+        unset($installscript);
+
+		$sql="ALTER TABLE ".$db_prefix."_amazon_department 
+        ADD PRIMARY KEY (`did`) ";
+		$result=$db->sql_query($sql);
+
+		$sql="ALTER TABLE ".$db_prefix."_amazon_department MODIFY `did` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17 ";
+		$result=$db->sql_query($sql);
+}
+
+# Nuke Amazon Items
+if ($can_proceed) {
+        $fp = fopen("sql/nuke_amazon_items.sql","r"); 
+        $installscript = "";
+        while (!feof($fp)) $installscript .= fgets($fp,1000);
+        fclose($fp);
+        unset($fp);
+        $installscript = str_replace("#prefix#",$db_prefix,$installscript);
+        echo "<p>"._sql_amazon_items;
+         if (!empty($installscript) && !$db->sql_query($installscript)) {
+                $can_proceed = false;
+                nuke_sqlerror(substr($installscript,0,100)."...");
+        } else echo "<font class=\"ok\">OK</font>";
+        echo "</p>\n";
+        unset($installscript);
+
+		$sql="ALTER TABLE ".$db_prefix."_amazon_items 
+        ADD PRIMARY KEY (`iid`),
+        ADD KEY `asin` (`asin`),
+        ADD KEY `category` (`category`) ";
+		$result=$db->sql_query($sql);
+
+		$sql="ALTER TABLE ".$db_prefix."_amazon_items MODIFY `iid` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14 ";
+		$result=$db->sql_query($sql);
+}
+
+# Nuke Amazon Nodes
+if ($can_proceed) {
+        $fp = fopen("sql/nuke_amazon_nodes.sql","r"); 
+        $installscript = "";
+        while (!feof($fp)) $installscript .= fgets($fp,1000);
+        fclose($fp);
+        unset($fp);
+        $installscript = str_replace("#prefix#",$db_prefix,$installscript);
+        echo "<p>"._sql_amazon_nodes;
+         if (!empty($installscript) && !$db->sql_query($installscript)) {
+                $can_proceed = false;
+                nuke_sqlerror(substr($installscript,0,100)."...");
+        } else echo "<font class=\"ok\">OK</font>";
+        echo "</p>\n";
+        unset($installscript);
+
+		$sql="ALTER TABLE ".$db_prefix."_amazon_nodes 
+        ADD PRIMARY KEY (`nid`),
+        ADD KEY `catalog` (`catalog`),
+        ADD KEY `locale` (`locale`) ";
+		$result=$db->sql_query($sql);
+
+		$sql="ALTER TABLE ".$db_prefix."_amazon_nodes MODIFY `nid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=309 ";
+		$result=$db->sql_query($sql);
+}
+
+# Nuke Amazon Not Item
+if ($can_proceed) {
+        echo "<p>"._sql_amazon_not_item;
+		echo "<font class=\"ok\">OK</font>";
+
+		$sql="ALTER TABLE ".$db_prefix."_amazon_not_item 
+        ADD PRIMARY KEY (`iid`),
+        ADD KEY `asin` (`asin`) ";
+		$result=$db->sql_query($sql);
+
+		$sql="ALTER TABLE ".$db_prefix."_amazon_not_item MODIFY `iid` int(11) NOT NULL AUTO_INCREMENT ";
+		$result=$db->sql_query($sql);
+}
+
 if ($can_proceed) {
         echo "<p>"._step4complete."</p>";
         echo "<p><input type=\"submit\" value=\""._nextstep."\" /></p>\n";

@@ -388,6 +388,14 @@ define("_sql_titanium_center_last_visitors", "Creating Default Titanium Last Vis
 
 define("_sql_titanium_welcome_pm", "Creating Default Titanium Welcome PM Table Settings...");
 
+define("_sql_amazon_cache", "Creating Default Amazon Cache Table Settings...");
+define("_sql_amazon_cart", "Creating Default Amazon Cart Table Settings...");
+define("_sql_amazon_catalog", "Creating Default Amazon Catalog Table Settings...");
+define("_sql_amazon_config", "Creating Default Amazon Config Table Settings...");
+define("_sql_amazon_department", "Creating Default Amazon Department Table Settings...");
+define("_sql_amazon_items", "Creating Default Amazon Items Table Settings...");
+define("_sql_amazon_nodes", "Creating Default Amazon Nodes Table Settings...");
+define("_sql_amazon_not_item", "Creating Default Amazon Not Item Table Settings...");
 
 // Step  5
 define("_step5", "Step 5: PHP-Nuke Platinum Configuration");

@@ -1,0 +1,17 @@
+INSERT INTO `#prefix#_amazon_department` (`did`, `r_catalog`, `items`) VALUES
+(1, 'apparel', 0),
+(2, 'book', 0),
+(3, 'dvd', 1),
+(4, 'electronics', 7),
+(5, 'lawn & patio', 0),
+(6, 'kitchen', 0),
+(7, 'magazine', 0),
+(8, 'music', 1),
+(9, 'personal computer', 0),
+(10, 'photo', 0),
+(11, 'software', 2),
+(12, 'toy', 0),
+(13, 'home improvement', 0),
+(14, 'video', 0),
+(15, 'video games', 1),
+(16, 'baby', 0);
