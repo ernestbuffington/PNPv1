@@ -8,7 +8,7 @@ use Rector\Set\ValueObject\LevelSetList;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
-		  __DIR__ . '/includes/NukeAmazon/functions.php',
+		  __DIR__ . '/includes/NukeAmazon/class.AmazonLiteXMLParser.php',
     ]);
 
     // register a single rule
