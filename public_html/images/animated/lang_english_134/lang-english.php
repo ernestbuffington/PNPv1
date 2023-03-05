@@ -1,6 +1,6 @@
 <?php
 /*======================================================================= 
-  PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
+  PHP-Nuke Titanium | Nuke-Evolution Xtreme : PHP-Nuke Web Portal System
  =======================================================================*/
 
 /**************************************************************************/
