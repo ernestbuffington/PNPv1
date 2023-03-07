@@ -268,7 +268,7 @@ $result = $db->sql_query($sql);
 
 while ($row = $db->sql_fetchrow($result)) {
 
-    $title2 = preg_replace('#_#m', " ", (string) $row[\TITLE]);
+    $title2 = preg_replace('#_#m', " ", (string) $row['title']);
 
    // $content .= "<strong><big>&middot;</big></strong>&nbsp;$a: <a href=\"modules.php?name=Downloads&amp;d_op=viewdownloaddetails&amp;lid=$row[lid]&amp;title=$row[title]\">$title2</a><br>";
 	$content .= "<strong><big>&middot;</big></strong>&nbsp;<a href=\"modules.php?name=Downloads&amp;d_op=viewdownloaddetails&amp;lid=$row[lid]&amp;title=$row[title]\"><img src=\"themes/Mech/images/spacer.gif\" border=0></a> $a: <a href=\"modules.php?name=Downloads&amp;d_op=viewdownloaddetails&amp;lid=$row[lid]&amp;title=$row[title]\">$title2</a></span><br>";
@@ -301,13 +301,13 @@ if ($banners == 1) {
 
     $row = $db->sql_fetchrow($result); 
 
-    $bid = $row[\BID]; 
+    $bid = $row['bid']; 
 
-    $imageurl = $row[\IMAGEURL]; 
+    $imageurl = $row['imageurl']; 
 
-    $clickurl = $row[\CLICKURL]; 
+    $clickurl = $row['clickurl']; 
 
-    $alttext = $row[\ALTTEXT]; 
+    $alttext = $row['alttext']; 
 
     if (!is_admin($admin)) { 
 
@@ -323,15 +323,15 @@ if ($banners == 1) {
 
    $row2 = $db->sql_fetchrow($result2); 
 
-   $cid = $row2[\CID]; 
+   $cid = $row2['cide']; 
 
-   $imptotal = $row2[\IMPTOTAL]; 
+   $imptotal = $row2['imptotal']; 
 
-   $impmade = $row2[\IMPMADE]; 
+   $impmade = $row2['impmade']; 
 
-   $clicks = $row2[\CLICKS]; 
+   $clicks = $row2['clicks']; 
 
-   $date = $row2[\DATE]; 
+   $date = $row2['date']; 
 
 /* Check if this impression is the last one and print the banner */ 
    if ($imptotal <= $impmade && $imptotal != 0) { 
@@ -344,11 +344,11 @@ if ($banners == 1) {
 
        $row3 = $db->sql_fetchrow($result3); 
 
-       $c_name = $row3[\NAME]; 
+       $c_name = $row3['name']; 
 
-       $c_contact = $row3[\CONTACT]; 
+       $c_contact = $row3['contact']; 
 
-       $c_email = $row3[\EMAIL]; 
+       $c_email = $row3['email']; 
 
        if ($c_email != "") { 
 
