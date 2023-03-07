@@ -313,7 +313,7 @@ define("_THEMES_ADV_OPTS", "Advanced Theme Options");
 define("_THEMES_ADV_COMP", "Your theme is compatible with Advanced Features");
 define("_THEMES_DEF_LOADED", "Default options are loaded below.");
 define("_THEMES_REST_DEF", "Restore Default");
-define("_THEMES_NOT_COMPAT", "<font color='red'>Your theme is not compatible with Advanced Features</font><br /><a href='http://evolution-xtremethemes.co.cc' target='_blank'>Evolution Xtreme Themes</a>");
+define("_THEMES_NOT_COMPAT", "<font color='red'>Your theme is not compatible with Advanced Features</font><br /><a href='http://platinum.coders.exchange' target='_blank'>PHP-Nuke Platinum Themes</a>");
 define("_THEMES_PERMISSIONS", "Permissions");
 define("_THEMES_LIST", "Return to Theme List");
 define('_THEMES_DOWNLOAD_FILES','Download & Back up Theme');
