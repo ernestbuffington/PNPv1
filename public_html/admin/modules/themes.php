@@ -791,8 +791,11 @@ function install_save($post){
             $theme_info = implode(':::', $default);
         }
     }
-
-    $sql = "REPLACE INTO " . $prefix . "_themes VALUES('" . $post['theme_name'] . "', '" . $post['groups'] . "', '" . $post['permissions'] . "', '" . $post['custom_name'] . "', '" . $post['active'] . "', '" . $theme_info . "')";
+	
+	if(!isset($theme_info))
+	$theme_info = '';
+	
+    $sql = "REPLACE INTO ".$prefix."_themes VALUES('".$post['theme_name']."', '".$post['groups']."', '".$post['permissions']."', '".$post['custom_name']."', '".$post['active']."', '".$theme_info."')";
 	
     if ($db->sql_query($sql))
 	{

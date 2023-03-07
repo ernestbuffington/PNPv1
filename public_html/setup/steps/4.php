@@ -4618,6 +4618,28 @@ if ($can_proceed) {
 		$result=$db->sql_query($sql);
 }
 
+# Nuke Platinum Theme Control Panel
+if ($can_proceed) {
+        $fp = fopen("sql/nuke_themecp.sql","r"); 
+        $installscript = "";
+        while (!feof($fp)) $installscript .= fgets($fp,1000);
+        fclose($fp);
+        unset($fp);
+        $installscript = str_replace("#prefix#",$db_prefix,$installscript);
+        echo "<p>"._sql_amazon_nodes;
+         if (!empty($installscript) && !$db->sql_query($installscript)) {
+                $can_proceed = false;
+                nuke_sqlerror(substr($installscript,0,100)."...");
+        } else echo "<font class=\"ok\">OK</font>";
+        echo "</p>\n";
+        unset($installscript);
+
+		$sql="ALTER TABLE ".$db_prefix."_themecp 
+        ADD PRIMARY KEY (`msg1`) ";
+		$result=$db->sql_query($sql);
+}
+
+
 if ($can_proceed) {
         echo "<p>"._step4complete."</p>";
         echo "<p><input type=\"submit\" value=\""._nextstep."\" /></p>\n";

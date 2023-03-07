@@ -229,7 +229,7 @@ function FormatStory($thetext, $notes, $aid, $informant) {
 
     $datekey = date("F j");
 
-    $rcode = hexdec(md5($_SERVER[HTTP_USER_AGENT] . $sitekey . $random_num . $datekey));
+    $rcode = hexdec(md5($_SERVER['HTTP_USER_AGENT'] . $sitekey . $random_num . $datekey));
 
     $code = substr($rcode, 2, 6);
 
@@ -272,39 +272,23 @@ function FormatStory($thetext, $notes, $aid, $informant) {
 $sql = "SELECT msg1, msg2, msg3, link1, link2, link3, link4, link5, link1url, link2url, link3url, link4url, link5url, searchbox, flash FROM ".$prefix."_themecp";
 
 $result = $db->sql_query($sql);
-
 $row = $db->sql_fetchrow($result);
 
-$msg1 = $row[msg1];
-
-$msg2 = $row[msg2];
-
-$msg3 = $row[msg3];
-
-$link1 = $row[link1];
-
-$link2 = $row[link2];
-
-$link3 = $row[link3];
-
-$link4 = $row[link4];
-
-$link5 = $row[link5];
-
-$link1url = $row[link1url];
-
-$link2url = $row[link2url];
-
-$link3url = $row[link3url];
-
-$link4url = $row[link4url];
-
-$link5url = $row[link5url];
-
-$searchbox = $row[searchbox];
-
-$flash = $row[flash];
-
+$msg1 = $row['msg1'];
+$msg2 = $row['msg2'];
+$msg3 = $row['msg3'];
+$link1 = $row['link1'];
+$link2 = $row['link2'];
+$link3 = $row['link3'];
+$link4 = $row['link4'];
+$link5 = $row['link5'];
+$link1url = $row['link1url'];
+$link2url = $row['link2url'];
+$link3url = $row['link3url'];
+$link4url = $row['link4url'];
+$link5url = $row['link5url'];
+$searchbox = $row['searchbox'];
+$flash = $row['flash'];
 $public_msg = public_message(); 
 
 echo "$public_msg";
@@ -361,7 +345,7 @@ echo "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" ali
 
 } else { 
 
-blocks(left); 
+blocks('left'); 
 
 } 
 

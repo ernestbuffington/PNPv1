@@ -1,3 +1,21 @@
+CREATE TABLE IF NOT EXISTS `#prefix#_themecp` (
+  `msg1` varchar(209) NOT NULL DEFAULT '',
+  `msg2` varchar(209) NOT NULL DEFAULT '',
+  `msg3` varchar(209) NOT NULL DEFAULT '',
+  `link1` varchar(25) NOT NULL DEFAULT '',
+  `link2` varchar(25) NOT NULL DEFAULT '',
+  `link3` varchar(25) NOT NULL DEFAULT '',
+  `link4` varchar(25) NOT NULL DEFAULT '',
+  `link5` varchar(25) NOT NULL DEFAULT '',
+  `link1url` varchar(255) NOT NULL DEFAULT '',
+  `link2url` varchar(255) NOT NULL DEFAULT '',
+  `link3url` varchar(255) NOT NULL DEFAULT '',
+  `link4url` varchar(255) NOT NULL DEFAULT '',
+  `link5url` varchar(255) NOT NULL DEFAULT '',
+  `searchbox` tinyint(1) NOT NULL DEFAULT 1,
+  `flash` tinyint(1) NOT NULL DEFAULT 1
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
 CREATE TABLE IF NOT EXISTS `#prefix#_amazon_not_item` (
   `iid` int(11) NOT NULL,
   `asin` varchar(10) NOT NULL DEFAULT '',
