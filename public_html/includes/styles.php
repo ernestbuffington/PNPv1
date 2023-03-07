@@ -71,6 +71,8 @@ $core_css .= '.helpline           { cursor: help; width: 99.8% !important; paddi
  * Customize css: Style individual font awesome icons.
  * @since 2.0.9e
  */
+if(!isset($ThemeInfo['uitotophover'])) $ThemeInfo['uitotophover'] = '';
+
 $core_css .= '.fa                       {font-size:16px; transition: all 0.3s ease-in-out;}';
 $core_css .= '.fa-trash-alt:hover       {color: red !important;}';
 $core_css .= '.fa-times-circle:hover    {color: red !important;}';
