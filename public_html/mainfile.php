@@ -1432,7 +1432,7 @@ function blog_signature($aid)
 	 if($name == 'Francisco Burzi')
 	 $aid .= 'Adiós Cordialmente,<br />';				   
      else	 
-     $aid .= 'Sincerely,<br />';
+     $aid .= 'MmmmmHum,<br />';
      $aid .= $name.'<br />';				   				   
      $aid .= '<br />';				   
      $aid .= '<table border="0" cellpadding="0" cellspacing="0" width="100%" height="0">';

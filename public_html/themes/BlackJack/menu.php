@@ -15,14 +15,14 @@
 # Created On: 05/04/2021 Tuesday 12:54am (v1.0)                                         #
 #                                                                                       #
 #                                                                                       #
-# Read CHANGELOG File for Updates & Upgrades Info                                       ## Designed By: Ernest Buffington                                                        #
+# Read CHANGELOG File for Updates & Upgrades Info                                       ## Designed By: Ernest Buffington #
 # Web Site: https://www.theghost.86it.us                                                #
-# Purpose: PHP-Nuke Platinum v4.0.2                                                     #
+# Purpose: PHP-Nuke Platinum v7.6.5                                                     #
 #---------------------------------------------------------------------------------------#
 # CMS INFO                                                                              #
 # PHP-Nuke Copyright (c) 2002    : Francisco Burzi phpnuke.org                          #
-# Nuke Evolution Xtreme (c) 2010 : Enhanced PHP-Nuke Titanium                  #
-# PHP-Nuke Platinum (c) 2022     : Enhanced and Advanced PHP-Nuke Titanium     #
+# Nuke Evolution Xtreme (c) 2010 : Enhanced PHP-Nuke Titanium                           #
+# PHP-Nuke Platinum (c) 2022     : Enhanced and Advanced PHP-Nuke Titanium              #
 #---------------------------------------------------------------------------------------#
 # Special Honorable Mentions                                                            #
 #---------------------------------------------------------------------------------------#

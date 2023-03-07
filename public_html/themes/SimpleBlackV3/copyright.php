@@ -15,7 +15,7 @@ echo '<br /><i class="bi bi-arrow-right-square-fill"></i> Copyright: <i class="f
 echo '<br /><i class="bi bi-arrow-right-square-fill"></i> Creation Date: '.THEME_DATE.''.PHP_EOL;
 echo '<br /><i class="bi bi-arrow-right-square-fill"></i> Author: '.THEME_AUTHOR.''.PHP_EOL;
 echo '<br /><i class="bi bi-arrow-right-square-fill"></i> License: GNU General Public License'.PHP_EOL;
-echo '<br /><i class="bi bi-arrow-right-square-fill"></i> Core Support: PHP-Nuke Platinum v4.0.2 <> 4.x.x'.PHP_EOL;
+echo '<br /><i class="bi bi-arrow-right-square-fill"></i> Core Support: PHP-Nuke Platinum v7.6.0 <> 7.6.x'.PHP_EOL;
 echo '</h1>'.PHP_EOL;
 echo '</div>'.PHP_EOL;
 echo '<div class="modal-body">'.PHP_EOL;
