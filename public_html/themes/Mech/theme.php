@@ -1,4 +1,22 @@
 <?php
+/*******************************
+ Applied rules:
+ * CombinedAssignRector
+ * JoinStringConcatRector
+ * SimplifyIfElseToTernaryRector
+ * AbsolutizeRequireAndIncludePathRector (https://github.com/symplify/CodingStandard#includerequire-should-be-followed-by-absolute-path)
+ * LogicalToBooleanRector (https://stackoverflow.com/a/5998330/1348344)
+ * CommonNotEqualRector (https://stackoverflow.com/a/4294663/1348344)
+ * LongArrayToShortArrayRector
+ * AddDefaultValueForUndefinedVariableRector (https://github.com/vimeo/psalm/blob/29b70442b11e3e66113935a2ee22e165a70c74a4/docs/fixing_code.md#possiblyundefinedvariable)
+ * EregToPregMatchRector (http://php.net/reference.pcre.pattern.posix https://stackoverflow.com/a/17033826/1348344 https://docstore.mik.ua/orelly/webprog/pcook/ch13_02.htm)
+ * RandomFunctionRector
+ * ListToArrayDestructRector (https://wiki.php.net/rfc/short_list_syntax https://www.php.net/manual/en/migration71.new-features.php#migration71.new-features.symmetric-array-destructuring)
+ * SensitiveConstantNameRector (https://wiki.php.net/rfc/case_insensitive_constant_deprecation)
+ * AddLiteralSeparatorToNumberRector (https://wiki.php.net/rfc/numeric_literal_separator)
+ * NullToStrictStringFuncCallArgRector
+ *******************************/
+
 /************************************************************/
 /* Theme Colors Definition                                  */
 /************************************************************/
@@ -171,15 +189,7 @@ function FormatStory($thetext, $notes, $aid, $informant) {
 
     global $anonymous;
 
-    if ($notes != "") {
-
-        $notes = "<br><br><b>"._NOTE."</b> <i>$notes</i>\n";
-
-    } else {
-
-        $notes = "";
-
-    }
+    $notes = $notes != "" ? "<br><br><b>"._NOTE."</b> <i>$notes</i>\n" : "";
 
     if ("$aid" == "$informant") {
 
@@ -215,17 +225,18 @@ function FormatStory($thetext, $notes, $aid, $informant) {
 
     function themeheader() {
 
+    $r_file = null;
     global $user, $cookie, $sitekey, $prefix, $name, $db;
 
     
 
     cookiedecode($user);
 
-    mt_srand ((double)microtime()*1000000);
+    mt_srand ((double)microtime()*1_000_000);
 
-    $maxran = 1000000;
+    $maxran = 1_000_000;
 
-    $random_num = mt_rand(0, $maxran);
+    $random_num = random_int(0, $maxran);
 
     $datekey = date("F j");
 
@@ -341,7 +352,7 @@ echo "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" ali
 
 		."<td width=\"165\" valign=\"top\">\n";
 
-    if (($name=='Forums') OR ($name=='Private_Messages') OR ($name=='Members_List') OR ($name=='Shopping_Cart') OR ($name=='Your_Account')) { 
+    if ($name=='Forums' || $name=='Private_Messages' || $name=='Members_List' || $name=='Shopping_Cart' || $name=='Your_Account') { 
 
 } else { 
 
@@ -377,6 +388,12 @@ $foot4 = "test";
 
 function themefooter() {
 
+    $show = null;
+    $content = null;
+    $admin = null;
+    $sitename = null;
+    $adminmail = null;
+    $nukeurl = null;
     global $index, $banners, $prefix, $dbi, $total_time, $start_time, $foot1, $foot2, $foot3, $foot4;
 
 $footer_message = $foot1. "<br>" . $foot2 . "<br>" . $foot3 . "<br>" . $foot4;
@@ -391,9 +408,9 @@ $a = 1;
 
 $result = sql_query("select lid, title, hits from ".$prefix."_links_links order by date DESC limit 0,$maxshow", $dbi);
 
-while(list($lid, $title, $hits) = sql_fetch_row($result, $dbi)) {
+while([$lid, $title, $hits] = sql_fetch_row($result, $dbi)) {
 
-    $title2 = ereg_replace("_", " ", "$title");
+    $title2 = preg_replace('#_#m', " ", "$title");
 
     $show .= "&nbsp;&nbsp;&nbsp;$a: <a href=\"modules.php?name=Web_Links&amp;l_op=viewlinkdetails&amp;lid=$lid&amp;ttitle=$title\">$title2</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font class=\"content\">$hits<font class=\"copyright\"> times<br>";
 
@@ -421,7 +438,7 @@ $result = $db->sql_query($sql);
 
 while ($row = $db->sql_fetchrow($result)) {
 
-    $title2 = ereg_replace("_", " ", $row[title]);
+    $title2 = preg_replace('#_#m', " ", (string) $row[\TITLE]);
 
    // $content .= "<strong><big>&middot;</big></strong>&nbsp;$a: <a href=\"modules.php?name=Downloads&amp;d_op=viewdownloaddetails&amp;lid=$row[lid]&amp;title=$row[title]\">$title2</a><br>";
 
@@ -447,11 +464,11 @@ if ($banners == 1) {
 
     if ($numrows>1) { 
 
-   $numrows = $numrows-1; 
+   $numrows -= 1; 
 
-   mt_srand((double)microtime()*1000000); 
+   mt_srand((double)microtime()*1_000_000); 
 
-   $bannum = mt_rand(0, $numrows); 
+   $bannum = random_int(0, $numrows); 
 
     } else { 
 
@@ -465,13 +482,13 @@ if ($banners == 1) {
 
     $row = $db->sql_fetchrow($result); 
 
-    $bid = $row[bid]; 
+    $bid = $row[\BID]; 
 
-    $imageurl = $row[imageurl]; 
+    $imageurl = $row[\IMAGEURL]; 
 
-    $clickurl = $row[clickurl]; 
+    $clickurl = $row[\CLICKURL]; 
 
-    $alttext = $row[alttext]; 
+    $alttext = $row[\ALTTEXT]; 
 
     
 
@@ -489,15 +506,15 @@ if ($banners == 1) {
 
    $row2 = $db->sql_fetchrow($result2); 
 
-   $cid = $row2[cid]; 
+   $cid = $row2[\CID]; 
 
-   $imptotal = $row2[imptotal]; 
+   $imptotal = $row2[\IMPTOTAL]; 
 
-   $impmade = $row2[impmade]; 
+   $impmade = $row2[\IMPMADE]; 
 
-   $clicks = $row2[clicks]; 
+   $clicks = $row2[\CLICKS]; 
 
-   $date = $row2[date]; 
+   $date = $row2[\DATE]; 
 
 
 
@@ -505,7 +522,7 @@ if ($banners == 1) {
 
 
 
-   if (($imptotal <= $impmade) AND ($imptotal != 0)) { 
+   if ($imptotal <= $impmade && $imptotal != 0) { 
 
        $db->sql_query("UPDATE ".$prefix."_banner SET active='0' WHERE bid='$bid'"); 
 
@@ -515,11 +532,11 @@ if ($banners == 1) {
 
        $row3 = $db->sql_fetchrow($result3); 
 
-       $c_name = $row3[name]; 
+       $c_name = $row3[\NAME]; 
 
-       $c_contact = $row3[contact]; 
+       $c_contact = $row3[\CONTACT]; 
 
-       $c_email = $row3[email]; 
+       $c_email = $row3[\EMAIL]; 
 
        if ($c_email != "") { 
 
@@ -571,17 +588,13 @@ if ($banners == 1) {
 
     if ($index == 1) {
 
-echo"</td>"
-
-  . "    <td width=\"170\" valign=\"top\">"
-
- ."";
+echo'</td>    <td width="170" valign="top">';
 
 
 
 
 
-    blocks(right);
+    blocks(\RIGHT);
 
 
 
@@ -601,7 +614,7 @@ echo"</td>"
 
    
 
-    include("themes/Mech/footer.php");
+    include(__DIR__ . "/themes/Mech/footer.php");
 
     
 
@@ -619,6 +632,8 @@ echo"</td>"
 
 function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext, $notes, $morelink, $topicname, $topicimage, $topictext) {
 
+    $timezone = null;
+    $r_file = null;
     global $anonymous, $tipath;
 
 
@@ -635,15 +650,7 @@ $ThemeSel = get_theme();
 
 }
 
-    if ($notes != "") {
-
-        $notes = "<br><br><b>"._NOTE."</b> $notes\n";
-
-    } else {
-
-        $notes = "";
-
-    }
+    $notes = $notes != "" ? "<br><br><b>"._NOTE."</b> $notes\n" : "";
 
     if ("$aid" == "$informant") {
 
@@ -701,6 +708,9 @@ $ThemeSel = get_theme();
 
 function themearticle ($aid, $informant, $datetime, $title, $thetext, $topic, $topicname, $topicimage, $topictext) {
 
+    $notes = null;
+    $anonymous = null;
+    $r_file = null;
     global $admin, $sid, $tipath;
 
 $ThemeSel = get_theme();
@@ -719,15 +729,7 @@ $ThemeSel = get_theme();
 
     $posted .= get_author($aid);
 
-    if ($notes != "") {
-
-        $notes = "<br><br><b>"._NOTE."</b> <i>$notes</i>\n";
-
-    } else {
-
-        $notes = "";
-
-    }
+    $notes = $notes != "" ? "<br><br><b>"._NOTE."</b> <i>$notes</i>\n" : "";
 
     if ("$aid" == "$informant") {
 
@@ -775,6 +777,7 @@ $ThemeSel = get_theme();
 
 function themesidebox($title, $content) {
 
+    $r_file = null;
     $tmpl_file = "themes/Mech/blocks.html";
 
     $thefile = implode("", file($tmpl_file));
