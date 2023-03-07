@@ -1,3 +1,33 @@
+CREATE TABLE IF NOT EXISTS `#prefix#_downloads_downloads` (
+  `lid` int(11) NOT NULL,
+  `cid` int(11) NOT NULL DEFAULT 0,
+  `sid` int(11) NOT NULL DEFAULT 0,
+  `title` varchar(100) NOT NULL DEFAULT '',
+  `url` varchar(100) NOT NULL DEFAULT '',
+  `description` text NOT NULL,
+  `date` datetime DEFAULT NULL,
+  `name` varchar(100) NOT NULL DEFAULT '',
+  `email` varchar(100) NOT NULL DEFAULT '',
+  `hits` int(11) NOT NULL DEFAULT 0,
+  `submitter` varchar(60) NOT NULL DEFAULT '',
+  `downloadratingsummary` double(6,4) NOT NULL DEFAULT 0.0000,
+  `totalvotes` int(11) NOT NULL DEFAULT 0,
+  `totalcomments` int(11) NOT NULL DEFAULT 0,
+  `filesize` int(11) NOT NULL DEFAULT 0,
+  `version` varchar(10) NOT NULL DEFAULT '',
+  `homepage` varchar(200) NOT NULL DEFAULT '',
+  `ns_compat` varchar(30) NOT NULL DEFAULT '',
+  `ns_des_img` varchar(100) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+
+CREATE TABLE IF NOT EXISTS `#prefix#_downloads_categories` (
+  `cid` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL DEFAULT '',
+  `cdescription` text NOT NULL,
+  `parentid` int(11) NOT NULL DEFAULT 0
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
 CREATE TABLE IF NOT EXISTS `#prefix#_themeconsole` (
   `marq1` varchar(255) NOT NULL DEFAULT 'This is line 1 from ThemeConsole mod so you can change and edit this message with simplicity.',
   `marq2` varchar(255) NOT NULL DEFAULT 'This is line 2 from ThemeConsole mod so you can change and edit this message with simplicity.',
