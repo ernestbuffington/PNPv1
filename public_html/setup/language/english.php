@@ -397,6 +397,9 @@ define("_sql_amazon_items", "Creating Default Amazon Items Table Settings...");
 define("_sql_amazon_nodes", "Creating Default Amazon Nodes Table Settings...");
 define("_sql_amazon_not_item", "Creating Default Amazon Not Item Table Settings...");
 
+define("_sql_nuke_themeconsole", "Creating Default Platinum Theme Console Table Settings...");
+define("_sql_themecp", "Creating Default Platinum Theme Control Panel Settings...");
+
 // Step  5
 define("_step5", "Step 5: PHP-Nuke Platinum Configuration");
 
