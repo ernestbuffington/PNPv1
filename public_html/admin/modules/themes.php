@@ -456,6 +456,9 @@ function theme_edit($theme_name)
 		href=\"$admin_file.php?op=theme_uninstall&amp;theme=" . $theme_info['theme_name'] . "\">" . _THEMES_UNINSTALL . "</a> ]</td>\n";
     }
     
+	if(!isset($disabled))
+	$disabled = '';
+	
 	echo "</tr>\n";
     echo "<tr>\n";                     # CUSTOM THEME NAME
     echo "<td bgcolor='$bgcolor2'>" . _THEMES_CUSTOMNAME . "</td>\n";
