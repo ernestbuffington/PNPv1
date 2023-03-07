@@ -1,3 +1,32 @@
+CREATE TABLE IF NOT EXISTS `#prefix#_themeconsole` (
+  `marq1` varchar(255) NOT NULL DEFAULT 'This is line 1 from ThemeConsole mod so you can change and edit this message with simplicity.',
+  `marq2` varchar(255) NOT NULL DEFAULT 'This is line 2 from ThemeConsole mod so you can change and edit this message with simplicity.',
+  `marq3` varchar(255) NOT NULL DEFAULT 'This is line 2 from ThemeConsole mod so you can change and edit this message with simplicity.',
+  `marq4` varchar(255) NOT NULL DEFAULT 'This is line 4 from ThemeConsole mod so you can change and edit this message with simplicity.',
+  `marq5` varchar(255) NOT NULL DEFAULT 'This is line 5 from ThemeConsole mod so you can change and edit this message with simplicity.',
+  `marqstyle` int(2) NOT NULL DEFAULT 99,
+  `hlink1` varchar(255) NOT NULL DEFAULT 'Home',
+  `hlinkurl1` varchar(255) NOT NULL DEFAULT 'index.php',
+  `hlink2` varchar(255) NOT NULL DEFAULT 'Downloads',
+  `hlinkurl2` varchar(255) NOT NULL DEFAULT 'modules.php?name=Downloads',
+  `hlink3` varchar(255) NOT NULL DEFAULT 'Forums',
+  `hlinkurl3` varchar(255) NOT NULL DEFAULT 'modules.php?name=Forums',
+  `hlink4` varchar(255) NOT NULL DEFAULT 'Statistics',
+  `hlinkurl4` varchar(255) NOT NULL DEFAULT 'modules.php?name=Statistics',
+  `hlink5` varchar(255) NOT NULL DEFAULT 'Web Links',
+  `hlinkurl5` varchar(255) NOT NULL DEFAULT 'modules.php?name=Web_Links',
+  `searchbox` int(1) NOT NULL DEFAULT 1,
+  `flashswitch` int(1) NOT NULL DEFAULT 1,
+  `disrightclick` int(1) NOT NULL DEFAULT 1,
+  `adminright` int(1) NOT NULL DEFAULT 0,
+  `disselectall` int(1) NOT NULL DEFAULT 1,
+  `adminselect` int(1) NOT NULL DEFAULT 0,
+  `themename` varchar(255) NOT NULL DEFAULT '',
+  `encrypt` int(1) NOT NULL DEFAULT 1,
+  `pubbox` varchar(10) NOT NULL DEFAULT '#1C1E2C',
+  `pubboxtext` varchar(7) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
 CREATE TABLE IF NOT EXISTS `#prefix#_themecp` (
   `msg1` varchar(209) NOT NULL DEFAULT '',
   `msg2` varchar(209) NOT NULL DEFAULT '',
