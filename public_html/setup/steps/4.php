@@ -4626,7 +4626,7 @@ if ($can_proceed) {
         fclose($fp);
         unset($fp);
         $installscript = str_replace("#prefix#",$db_prefix,$installscript);
-        echo "<p>"._sql_amazon_nodes;
+        echo "<p>"._sql_themecp;
          if (!empty($installscript) && !$db->sql_query($installscript)) {
                 $can_proceed = false;
                 nuke_sqlerror(substr($installscript,0,100)."...");
@@ -4638,6 +4638,28 @@ if ($can_proceed) {
         ADD PRIMARY KEY (`msg1`) ";
 		$result=$db->sql_query($sql);
 }
+
+# Nuke Platinum Theme Console
+if ($can_proceed) {
+        $fp = fopen("sql/nuke_themeconsole.sql","r"); 
+        $installscript = "";
+        while (!feof($fp)) $installscript .= fgets($fp,1000);
+        fclose($fp);
+        unset($fp);
+        $installscript = str_replace("#prefix#",$db_prefix,$installscript);
+        echo "<p>"._sql_nuke_themeconsole;
+         if (!empty($installscript) && !$db->sql_query($installscript)) {
+                $can_proceed = false;
+                nuke_sqlerror(substr($installscript,0,100)."...");
+        } else echo "<font class=\"ok\">OK</font>";
+        echo "</p>\n";
+        unset($installscript);
+
+		$sql="ALTER TABLE ".$db_prefix."_themeconsole 
+        ADD KEY `themename` (`themename`) ";
+		$result=$db->sql_query($sql);
+}
+
 
 
 if ($can_proceed) {
