@@ -1,0 +1,2 @@
+INSERT INTO `#prefix#_downloads_downloads` (`lid`, `cid`, `sid`, `title`, `url`, `description`, `date`, `name`, `email`, `hits`, `submitter`, `downloadratingsummary`, `totalvotes`, `totalcomments`, `filesize`, `version`, `homepage`, `ns_compat`, `ns_des_img`) VALUES
+(1, 1, 0, 'Test', 'http://www.futurenuke.com/addons/WebSearch.zip', 'This is a test of the Download functions.', '2005-11-03 18:02:55', 'Loki', 'loki@futurenuke.com', 1, 'Loki', 0.0000, 0, 0, 12024, '1', '', 'any', '');
