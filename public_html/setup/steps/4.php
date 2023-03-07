@@ -4660,6 +4660,60 @@ if ($can_proceed) {
 		$result=$db->sql_query($sql);
 }
 
+# Nuke Platinum Downloads Categories
+if ($can_proceed) {
+        $fp = fopen("sql/nuke_downloads_categories.sql","r"); 
+        $installscript = "";
+        while (!feof($fp)) $installscript .= fgets($fp,1000);
+        fclose($fp);
+        unset($fp);
+        $installscript = str_replace("#prefix#",$db_prefix,$installscript);
+        echo "<p>"._sql_nuke_downloads_categories;
+         if (!empty($installscript) && !$db->sql_query($installscript)) {
+                $can_proceed = false;
+                nuke_sqlerror(substr($installscript,0,100)."...");
+        } else echo "<font class=\"ok\">OK</font>";
+        echo "</p>\n";
+        unset($installscript);
+
+		$sql="ALTER TABLE ".$db_prefix."_downloads_categories 
+        ADD PRIMARY KEY (`cid`),
+        ADD KEY `cid` (`cid`),
+        ADD KEY `title` (`title`) ";
+		$result=$db->sql_query($sql);
+
+		$sql="ALTER TABLE ".$db_prefix."_downloads_categories MODIFY `cid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2 ";
+		$result=$db->sql_query($sql);
+}
+
+# Nuke Platinum Downloads Downloads
+if ($can_proceed) {
+        $fp = fopen("sql/nuke_downloads_downloads.sql","r"); 
+        $installscript = "";
+        while (!feof($fp)) $installscript .= fgets($fp,1000);
+        fclose($fp);
+        unset($fp);
+        $installscript = str_replace("#prefix#",$db_prefix,$installscript);
+        echo "<p>"._sql_nuke_downloads_downloads;
+         if (!empty($installscript) && !$db->sql_query($installscript)) {
+                $can_proceed = false;
+                nuke_sqlerror(substr($installscript,0,100)."...");
+        } else echo "<font class=\"ok\">OK</font>";
+        echo "</p>\n";
+        unset($installscript);
+
+		$sql="ALTER TABLE ".$db_prefix."_downloads_downloads 
+        ADD PRIMARY KEY (`lid`),
+        ADD KEY `lid` (`lid`),
+        ADD KEY `cid` (`cid`),
+        ADD KEY `sid` (`sid`),
+        ADD KEY `title` (`title`) ";
+		$result=$db->sql_query($sql);
+
+		$sql="ALTER TABLE ".$db_prefix."_downloads_downloads MODIFY `lid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2 ";
+		$result=$db->sql_query($sql);
+}
+
 
 
 if ($can_proceed) {
