@@ -301,13 +301,13 @@ if ($banners == 1) {
 
     $row = $db->sql_fetchrow($result); 
 
-    $bid = $row['bid']; 
+    $bid = $row['bid'] ?? ''; 
 
-    $imageurl = $row['imageurl']; 
+    $imageurl = $row['imageurl'] ?? ''; 
 
-    $clickurl = $row['clickurl']; 
+    $clickurl = $row['clickurl'] ?? ''; 
 
-    $alttext = $row['alttext']; 
+    $alttext = $row['alttext'] ?? ''; 
 
     if (!is_admin($admin)) { 
 
