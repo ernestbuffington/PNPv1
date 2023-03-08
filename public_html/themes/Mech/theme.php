@@ -371,29 +371,21 @@ function FormatStory($thetext, $notes, $aid, $informant) {
 
     $r_file = null;
     
-	global $user, $cookie, $sitekey, $prefix, $name, $db;
+	global $userinfo, $cookie, $prefix, $name, $db;
 
-    $username = $cookie[1];
+    # Check if a Registered User is Logged-In
+    $username = is_user() ? $userinfo['username'] : _ANONYMOUS;
 
-    if ($username == "") {
-        $username = "Anonymous";
-    }
+    $theuser = '';
+    $scrollmsg = '';
+    $moreuser_info = '';
+    $marquee_one = '';
+    $date = '';
 
-    if ($username == "Anonymous") {
-        $theuser = "<form action=\"modules.php?name=Your_Account\" method=\"post\"><input type=\"text\" name=\"username\" value=\"username\" onFocus=\"if(this.value=='username')this.value='';\" value style=\"width:90;height:18;\" class=1>
-  <input type=\"password\" name=\&quot;user_password\&quot; value=\"password\" onFocus=\"if(this.value=='password')this.value='';\" style=\"width:90;height:18;\" class=1>
-  <input type=\"hidden\" name=\"random_num\" value=\"$random_num\">
-  <input type=\"hidden\" name=\"gfx_check\" value=\"$code\">
-  <input type=\"hidden\" name=\"op\" value=\"login\">
-  <input type=\"image\" value=\"login\" class=\"noborder\" src=\"themes/Mech/images/login.gif\" border=\"0\" alt=login>
-  <a href=\"modules.php?name=Your_Account&op=new_user\"><img src=\"themes/Mech/images/reg.gif\" border=0 alt=register></a></td> 
-</form>
-
-<p>\n"; } else { $theuser = "<img src=\"themes/Mech/images/spacer.gif\" border=0 width=4 height=1><font class=copyright>Welcome 
+    $theuser = "<img src=\"themes/Mech/images/spacer.gif\" border=0 width=4 height=1><font class=copyright>Welcome 
 
   $username</font><a href=\"modules.php?name=Your_Account&op=logout\"><img src=\"themes/Mech/images/logout.gif\" border=0 alt=logout></a></TD>\n"; 
-  }
-
+  
 $sql = "SELECT msg1, msg2, msg3, link1, link2, link3, link4, link5, link1url, link2url, link3url, link4url, link5url, searchbox, flash FROM ".$prefix."_themecp";
 
 $result = $db->sql_query($sql);
