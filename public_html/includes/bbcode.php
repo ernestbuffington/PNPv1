@@ -91,89 +91,89 @@ function prepare_bbcode_template($bbcode_tpl)
 {
     global $lang, $board_config;
 
-    $bbcode_tpl['olist_open'] = str_replace('{LIST_TYPE}','\\1',$bbcode_tpl['olist_open']);
+    $bbcode_tpl['olist_open'] = str_replace('{LIST_TYPE}','\\1',$bbcode_tpl['olist_open'] ?? '');
 
-    $bbcode_tpl['color_open'] = str_replace('{COLOR}','\\1',$bbcode_tpl['color_open']);
+    $bbcode_tpl['color_open'] = str_replace('{COLOR}','\\1',$bbcode_tpl['color_open'] ?? '');
     # ----- new bbcode addition to v3 ----- START
-    $bbcode_tpl['highlight_open'] = str_replace('{COLOR}','\\1',$bbcode_tpl['highlight_open']);
+    $bbcode_tpl['highlight_open'] = str_replace('{COLOR}','\\1',$bbcode_tpl['highlight_open'] ?? '');
     # ----- new bbcode addition to v3 ----- END
 
     // $bbcode_tpl['size_open'] = str_replace('{SIZE}', '\\1', $bbcode_tpl['size_open']);
     // $bbcode_tpl['quote_open'] = str_replace('{L_QUOTE}', $lang['Quote'], $bbcode_tpl['quote_open']);
-    $bbcode_tpl['quote_username_open'] = str_replace('{L_QUOTE}',$lang['Quote'],$bbcode_tpl['quote_username_open']);
-    $bbcode_tpl['quote_username_open'] = str_replace('{L_WROTE}',$lang['wrote'],$bbcode_tpl['quote_username_open']);
-    $bbcode_tpl['quote_username_open'] = str_replace('{USERNAME}',UsernameColor('\\1'),$bbcode_tpl['quote_username_open']);
+    $bbcode_tpl['quote_username_open'] = str_replace('{L_QUOTE}',$lang['Quote'],$bbcode_tpl['quote_username_open'] ?? '');
+    $bbcode_tpl['quote_username_open'] = str_replace('{L_WROTE}',$lang['wrote'],$bbcode_tpl['quote_username_open'] ?? '');
+    $bbcode_tpl['quote_username_open'] = str_replace('{USERNAME}',UsernameColor('\\1'),$bbcode_tpl['quote_username_open'] ?? '');
     
 	
 	// $bbcode_tpl['quote_close'] = str_replace('{USERNAME}', UsernameColor('\\1'), $bbcode_tpl['quote_close']);
 
     # Mod: Extended Quote Tag v1.0.0 START
-    $bbcode_tpl['quote_post_open'] = str_replace('{L_QUOTE}',$lang['Quote'],$bbcode_tpl['quote_post_open']);
+    $bbcode_tpl['quote_post_open'] = str_replace('{L_QUOTE}',$lang['Quote'],$bbcode_tpl['quote_post_open'] ?? '');
     $temp_url = append_sid('show_post.php?p=\\1');
     
 	$bbcode_tpl['quote_post_open'] = str_replace('{U_VIEW_POST}', '<a href="'.$temp_url.'" onClick=
-	"javascript:open_postreview( \''.$temp_url.'\' );">'.$lang['View_post'].'</a>', $bbcode_tpl['quote_post_open']);
+	"javascript:open_postreview( \''.$temp_url.'\' );">'.$lang['View_post'].'</a>', $bbcode_tpl['quote_post_open'] ?? '');
 
-    $bbcode_tpl['quote_username_post_open'] = str_replace('{L_QUOTE}',$lang['Quote'],$bbcode_tpl['quote_username_post_open']);
-    $bbcode_tpl['quote_username_post_open'] = str_replace('{L_WROTE}', $lang['wrote'],$bbcode_tpl['quote_username_post_open']);
-    $bbcode_tpl['quote_username_post_open'] = str_replace('{USERNAME}','\\1',$bbcode_tpl['quote_username_post_open']);
+    $bbcode_tpl['quote_username_post_open'] = str_replace('{L_QUOTE}',$lang['Quote'],$bbcode_tpl['quote_username_post_open'] ?? '');
+    $bbcode_tpl['quote_username_post_open'] = str_replace('{L_WROTE}', $lang['wrote'],$bbcode_tpl['quote_username_post_open'] ?? '');
+    $bbcode_tpl['quote_username_post_open'] = str_replace('{USERNAME}','\\1',$bbcode_tpl['quote_username_post_open'] ?? '');
     $temp_url = append_sid('show_post.php?p=\\2');
     $bbcode_tpl['quote_username_post_open'] = str_replace('{U_VIEW_POST}', '<a href="'.$temp_url.'" onClick=
-	"javascript:open_postreview( \''.$temp_url.'\' );">'.$lang['View_post'] . '</a>',$bbcode_tpl['quote_username_post_open']);
+	"javascript:open_postreview( \''.$temp_url.'\' );">'.$lang['View_post'] . '</a>',$bbcode_tpl['quote_username_post_open'] ?? '');
 
     # Mod: Advanced Username Color v1.0.5 START
-    $bbcode_tpl['quote_username_post_open'] = str_replace('{USERNAME}', UsernameColor('\\1'), $bbcode_tpl['quote_username_post_open']);
+    $bbcode_tpl['quote_username_post_open'] = str_replace('{USERNAME}', UsernameColor('\\1'), $bbcode_tpl['quote_username_post_open'] ?? '');
     # Mod: Advanced Username Color v1.0.5 END
 
     $temp_url = append_sid('show_post.php?p=\\2');
     $bbcode_tpl['quote_username_post_open'] = str_replace('{U_VIEW_POST}', '<a href="#_somewhat" onClick=
-	"javascript:open_postreview( \''.$temp_url.'\' );">'.$lang['View_post'].'</a>', $bbcode_tpl['quote_username_post_open']);
+	"javascript:open_postreview( \''.$temp_url.'\' );">'.$lang['View_post'].'</a>', $bbcode_tpl['quote_username_post_open'] ?? '');
     # Mod: Extended Quote Tag v1.0.0 END
 
-    $bbcode_tpl['code_open'] = str_replace('{L_CODE}', $lang['Code'], $bbcode_tpl['code_open']);
+    $bbcode_tpl['code_open'] = str_replace('{L_CODE}', $lang['Code'], $bbcode_tpl['code_open'] ?? '');
 
 /*****[BEGIN]******************************************
  [ Mod:     PHP Syntax Highlighter BBCode      v3.0.7 ]
  ******************************************************/
-    $bbcode_tpl['php_open'] = str_replace('{L_PHP}', $lang['PHPCode'], $bbcode_tpl['php_open']); // PHP MOD
+    $bbcode_tpl['php_open'] = str_replace('{L_PHP}', $lang['PHPCode'], $bbcode_tpl['php_open'] ?? ''); // PHP MOD
 /*****[END]********************************************
  [ Mod:     PHP Syntax Highlighter BBCode      v3.0.7 ]
  ******************************************************/
 
-    $bbcode_tpl['img'] = str_replace('{URL}', '\\1', $bbcode_tpl['img']);
+    $bbcode_tpl['img'] = str_replace('{URL}', '\\1', $bbcode_tpl['img'] ?? '');
 
     // We do URLs in several different ways..
-    $bbcode_tpl['url1'] = str_replace('{URL}', '\\1', $bbcode_tpl['url']);
-    $bbcode_tpl['url1'] = str_replace('{DESCRIPTION}', '\\1', $bbcode_tpl['url1']);
+    $bbcode_tpl['url1'] = str_replace('{URL}', '\\1', $bbcode_tpl['url'] ?? '');
+    $bbcode_tpl['url1'] = str_replace('{DESCRIPTION}', '\\1', $bbcode_tpl['url1'] ?? '');
 
-    $bbcode_tpl['url2'] = str_replace('{URL}', 'http://\\1', $bbcode_tpl['url']);
-    $bbcode_tpl['url2'] = str_replace('{DESCRIPTION}', '\\1', $bbcode_tpl['url2']);
+    $bbcode_tpl['url2'] = str_replace('{URL}', 'http://\\1', $bbcode_tpl['url'] ?? '');
+    $bbcode_tpl['url2'] = str_replace('{DESCRIPTION}', '\\1', $bbcode_tpl['url2'] ?? '');
 
-    $bbcode_tpl['url3'] = str_replace('{URL}', '\\1', $bbcode_tpl['url']);
-    $bbcode_tpl['url3'] = str_replace('{DESCRIPTION}', '\\2', $bbcode_tpl['url3']);
+    $bbcode_tpl['url3'] = str_replace('{URL}', '\\1', $bbcode_tpl['url'] ?? '');
+    $bbcode_tpl['url3'] = str_replace('{DESCRIPTION}', '\\2', $bbcode_tpl['url3'] ?? '');
 
-    $bbcode_tpl['url4'] = str_replace('{URL}', 'http://\\1', $bbcode_tpl['url']);
-    $bbcode_tpl['url4'] = str_replace('{DESCRIPTION}', '\\3', $bbcode_tpl['url4']);
+    $bbcode_tpl['url4'] = str_replace('{URL}', 'http://\\1', $bbcode_tpl['url'] ?? '');
+    $bbcode_tpl['url4'] = str_replace('{DESCRIPTION}', '\\3', $bbcode_tpl['url4'] ?? '');
 
-    $bbcode_tpl['url5'] = str_replace('{URL}', 'http://\\1', $bbcode_tpl['url']);
-    $bbcode_tpl['url5'] = str_replace('{DESCRIPTION}', '\\2', $bbcode_tpl['url5']);
+    $bbcode_tpl['url5'] = str_replace('{URL}', 'http://\\1', $bbcode_tpl['url'] ?? '');
+    $bbcode_tpl['url5'] = str_replace('{DESCRIPTION}', '\\2', $bbcode_tpl['url5'] ?? '');
 
 /*****[BEGIN]******************************************
  [ Mod:     Anti-Spam                         v.1.1.0 ]
  ******************************************************/
-    $bbcode_tpl['email'] = str_replace('{EMAIL1}', '\\1', $bbcode_tpl['email']);
-    $bbcode_tpl['email'] = str_replace('{EMAIL2}', '\\2', $bbcode_tpl['email']);
-    $bbcode_tpl['email'] = str_replace('{EMAIL3}', '\\3', $bbcode_tpl['email']);
+    $bbcode_tpl['email'] = str_replace('{EMAIL1}', '\\1', $bbcode_tpl['email'] ?? '');
+    $bbcode_tpl['email'] = str_replace('{EMAIL2}', '\\2', $bbcode_tpl['email'] ?? '');
+    $bbcode_tpl['email'] = str_replace('{EMAIL3}', '\\3', $bbcode_tpl['email'] ?? '');
 /*****[END]********************************************
  [ Mod:     Anti-Spam                         v.1.1.0 ]
  ******************************************************/
 
-    $bbcode_tpl['email'] = str_replace('{EMAIL}', '\\1', $bbcode_tpl['email']);
+    $bbcode_tpl['email'] = str_replace('{EMAIL}', '\\1', $bbcode_tpl['email'] ?? '');
 
 /*****[BEGIN]******************************************
  [ Mod:    Hide Mod                            v1.2.0 ]
  ******************************************************/
-    $bbcode_tpl['show'] = str_replace('{HTEXTE}', '\\1', $bbcode_tpl['show']);
+    $bbcode_tpl['show'] = str_replace('{HTEXTE}', '\\1', $bbcode_tpl['show'] ?? '');
 /*****[END]********************************************
  [ Mod:    Hide Mod                            v1.2.0 ]
  ******************************************************/
@@ -181,20 +181,20 @@ function prepare_bbcode_template($bbcode_tpl)
 /*****[BEGIN]******************************************
  [ Mod:     Advanced BBCode Box               v5.0.0a ]
  ******************************************************/
-    $bbcode_tpl['spoil_open'] = str_replace('{L_BBCODEBOX_HIDDEN}', $lang['BBCode_box_hidden'], $bbcode_tpl['spoil_open']);
-    $bbcode_tpl['spoil_open'] = str_replace('{L_BBCODEBOX_VIEW}', $lang['BBcode_box_view'], $bbcode_tpl['spoil_open']);
-    $bbcode_tpl['spoil_open'] = str_replace('{L_BBCODEBOX_HIDE}', $lang['BBcode_box_hide'], $bbcode_tpl['spoil_open']);
-    $bbcode_tpl['align_open'] = str_replace('{ALIGN}', '\\1', $bbcode_tpl['align_open']);
+    $bbcode_tpl['spoil_open'] = str_replace('{L_BBCODEBOX_HIDDEN}', $lang['BBCode_box_hidden'], $bbcode_tpl['spoil_open'] ?? '');
+    $bbcode_tpl['spoil_open'] = str_replace('{L_BBCODEBOX_VIEW}', $lang['BBcode_box_view'], $bbcode_tpl['spoil_open'] ?? '');
+    $bbcode_tpl['spoil_open'] = str_replace('{L_BBCODEBOX_HIDE}', $lang['BBcode_box_hide'], $bbcode_tpl['spoil_open'] ?? '');
+    $bbcode_tpl['align_open'] = str_replace('{ALIGN}', '\\1', $bbcode_tpl['align_open'] ?? '');
     // $bbcode_tpl['marq_open'] = str_replace('{MARQ}', '\\1', $bbcode_tpl['marq_open']);
     // $bbcode_tpl['table_open'] = str_replace('{TABLE}', '\\1', $bbcode_tpl['table_open']);
     // $bbcode_tpl['cell_open'] = str_replace('{CELL}', '\\1', $bbcode_tpl['cell_open']);
-    $bbcode_tpl['font_open'] = str_replace('{FONT}', '\\1', $bbcode_tpl['font_open']);
+    $bbcode_tpl['font_open'] = str_replace('{FONT}', '\\1', $bbcode_tpl['font_open'] ?? '');
     /* ----- This code is no longer used in V3 of Xtreme, was only left here for those videos already submitted into the forums -----*/
-    $bbcode_tpl['youtubeV209'] = str_replace('{YOUTUBE}', '\\1', $bbcode_tpl['youtubeV209']);
-    $bbcode_tpl['youtubeV209'] = str_replace('{WATCH_YOUTUBE}', _WATCH_YOUTUBE, $bbcode_tpl['youtubeV209']);
+    $bbcode_tpl['youtubeV209'] = str_replace('{YOUTUBE}', '\\1', $bbcode_tpl['youtubeV209'] ?? '');
+    $bbcode_tpl['youtubeV209'] = str_replace('{WATCH_YOUTUBE}', _WATCH_YOUTUBE, $bbcode_tpl['youtubeV209'] ?? '');
 
-    $bbcode_tpl['youtubeV209'] = str_replace('{YT_VIDEO_WIDTH}', $board_config['youtube_width'], $bbcode_tpl['youtubeV209']);
-    $bbcode_tpl['youtubeV209'] = str_replace('{YT_VIDEO_HEIGHT}', $board_config['youtube_height'], $bbcode_tpl['youtubeV209']);
+    $bbcode_tpl['youtubeV209'] = str_replace('{YT_VIDEO_WIDTH}', $board_config['youtube_width'], $bbcode_tpl['youtubeV209'] ?? '');
+    $bbcode_tpl['youtubeV209'] = str_replace('{YT_VIDEO_HEIGHT}', $board_config['youtube_height'], $bbcode_tpl['youtubeV209'] ?? '');
 
     /* ----- This code is no longer used in V3 of Xtreme, was only left here for those videos already submitted into the forums -----*/
     define("BBCODE_TPL_READY", true);
@@ -385,79 +385,79 @@ function bbencode_second_pass($text, $uid)
 
     // New one liner to deal with opening quotes with usernames...
     // replaces the two line version that I had here before..
-    $text = preg_replace("/\[quote:$uid=\"(.*?)\"\]/si", $bbcode_tpl['quote_username_open'], $text);
+    $text = preg_replace("/\[quote:$uid=\"(.*?)\"\]/si", $bbcode_tpl['quote_username_open'] ?? '', $text);
 
     //Fix for the destroyed quotes Technocrat
-    $text = preg_replace("/\[quote:$uid=&quot;(.*?)&quot;\]/si", $bbcode_tpl['quote_username_open'], $text);
+    $text = preg_replace("/\[quote:$uid=&quot;(.*?)&quot;\]/si", $bbcode_tpl['quote_username_open'] ?? '', $text);
 
     // [list] and [list=x] for (un)ordered lists.
     # unordered lists
-    $text = str_replace("[list:$uid]", $bbcode_tpl['ulist_open'], $text);
+    $text = str_replace("[list:$uid]", $bbcode_tpl['ulist_open'] ?? '', $text);
     
     # li tags
-    $text = str_replace("[*:$uid]", $bbcode_tpl['listitem'], $text);
+    $text = str_replace("[*:$uid]", $bbcode_tpl['listitem'] ?? '', $text);
 
     # ending tags
-    $text = str_replace("[/list:u:$uid]", $bbcode_tpl['ulist_close'], $text);
-    $text = str_replace("[/list:o:$uid]", $bbcode_tpl['olist_close'], $text);
+    $text = str_replace("[/list:u:$uid]", $bbcode_tpl['ulist_close'] ?? '', $text);
+    $text = str_replace("[/list:o:$uid]", $bbcode_tpl['olist_close'] ?? '', $text);
 
     # Ordered lists
-    $text = preg_replace("/\[list=([ai1]):$uid\]/si", $bbcode_tpl['olist_open'], $text);
+    $text = preg_replace("/\[list=([ai1]):$uid\]/si", $bbcode_tpl['olist_open'] ?? '', $text);
 
     # size
     // $text = preg_replace("/\[size=([1-2]?[0-9]):$uid\]/si", $bbcode_tpl['size_open'], $text);
     // $text = str_replace("[/size:$uid]", $bbcode_tpl['size_close'], $text);
 
     # [b] and [/b] for bolding text.
-    $text = str_replace("[b:$uid]", $bbcode_tpl['b_open'], $text);
-    $text = str_replace("[/b:$uid]", $bbcode_tpl['b_close'], $text);
+    $text = str_replace("[b:$uid]", $bbcode_tpl['b_open'] ?? '', $text);
+    $text = str_replace("[/b:$uid]", $bbcode_tpl['b_close'] ?? '', $text);
 
     # [u] and [/u] for underlining text.
-    $text = str_replace("[u:$uid]", $bbcode_tpl['u_open'], $text);
-    $text = str_replace("[/u:$uid]", $bbcode_tpl['u_close'], $text);
+    $text = str_replace("[u:$uid]", $bbcode_tpl['u_open'] ?? '', $text);
+    $text = str_replace("[/u:$uid]", $bbcode_tpl['u_close'] ?? '', $text);
 
     # [i] and [/i] for italicizing text.
-    $text = str_replace("[i:$uid]", $bbcode_tpl['i_open'], $text);
-    $text = str_replace("[/i:$uid]", $bbcode_tpl['i_close'], $text);
+    $text = str_replace("[i:$uid]", $bbcode_tpl['i_open'] ?? '', $text);
+    $text = str_replace("[/i:$uid]", $bbcode_tpl['i_close'] ?? '', $text);
 
     # [strike]Strikethrough[/strike] code..
-    $text = str_replace("[s:$uid]", $bbcode_tpl['s_open'], $text);
-    $text = str_replace("[/s:$uid]", $bbcode_tpl['s_close'], $text);
+    $text = str_replace("[s:$uid]", $bbcode_tpl['s_open'] ?? '', $text);
+    $text = str_replace("[/s:$uid]", $bbcode_tpl['s_close'] ?? '', $text);
 
     /* ----- this is support for bbcode used by a previous version of SCEditor ----- */
     # [center]text[/center] code..
-    $text = preg_replace("/\[center\]/si", $bbcode_tpl['center_open'], $text);
-    $text = str_replace("[/center]", $bbcode_tpl['center_close'], $text);
+    $text = preg_replace("/\[center\]/si", $bbcode_tpl['center_open'] ?? '', $text);
+    $text = str_replace("[/center]", $bbcode_tpl['center_close'] ?? '', $text);
 
     # [right]text[/right] code..
-    $text = preg_replace("/\[right\]/si", $bbcode_tpl['right_open'], $text);
-    $text = str_replace("[/right]", $bbcode_tpl['right_close'], $text);
+    $text = preg_replace("/\[right\]/si", $bbcode_tpl['right_open'] ?? '', $text);
+    $text = str_replace("[/right]", $bbcode_tpl['right_close'] ?? '', $text);
 
     # [left]text[/left] code..
-    $text = preg_replace("/\[left\]/si", $bbcode_tpl['left_open'], $text);
-    $text = str_replace("[/left]", $bbcode_tpl['left_close'], $text);
+    $text = preg_replace("/\[left\]/si", $bbcode_tpl['left_open'] ?? '', $text);
+    $text = str_replace("[/left]", $bbcode_tpl['left_close'] ?? '', $text);
 
     # [justify]text[/justify] code..
-    $text = preg_replace("/\[justify\]/si", $bbcode_tpl['justify_open'], $text);
-    $text = str_replace("[/justify]", $bbcode_tpl['justify_close'], $text);
+    $text = preg_replace("/\[justify\]/si", $bbcode_tpl['justify_open'] ?? '', $text);
+    $text = str_replace("[/justify]", $bbcode_tpl['justify_close'] ?? '', $text);
     /* ----- this is support for bbcode used by a previous version of SCEditor ----- */
 
     # [align=left/center/right/justify]Formatted Code[/align] code..
-    $text = preg_replace("/\[align=(left|right|center|justify):$uid\]/si", $bbcode_tpl['align_open'], $text);
-    $text = str_replace("[/align:$uid]", $bbcode_tpl['align_close'], $text);
+    $text = preg_replace("/\[align=(left|right|center|justify):$uid\]/si", $bbcode_tpl['align_open'] ?? '', $text);
+    $text = str_replace("[/align:$uid]", $bbcode_tpl['align_close'] ?? '', $text);
 
     # [font=fonttype]text[/font] code..
-    $text = preg_replace("/\[font=(.*?):$uid\]/si", $bbcode_tpl['font_open'], $text);
-    $text = str_replace("[/font:$uid]", $bbcode_tpl['font_close'], $text);
+    $text = preg_replace("/\[font=(.*?):$uid\]/si", $bbcode_tpl['font_open'] ?? '', $text);
+    $text = str_replace("[/font:$uid]", $bbcode_tpl['font_close'] ?? '', $text);
 
     # colours
-    $text = preg_replace("/\[color=(\#[0-9A-F]{6}|[a-z\-]+):$uid\]/si", $bbcode_tpl['color_open'], $text);
-    $text = str_replace("[/color:$uid]", $bbcode_tpl['color_close'], $text);
+    $text = preg_replace("/\[color=(\#[0-9A-F]{6}|[a-z\-]+):$uid\]/si", $bbcode_tpl['color_open'] ?? '', $text);
+    $text = str_replace("[/color:$uid]", $bbcode_tpl['color_close'] ?? '', $text);
 
     /* ----- new bbcode addition to v3 ----- */
     # highlight
-    $text = preg_replace("/\[highlight=(\#[0-9A-F]{6}|[a-z\-]+):$uid\]/si", $bbcode_tpl['highlight_open'], $text);
-    $text = str_replace("[/highlight:$uid]", $bbcode_tpl['highlight_close'], $text);
+    $text = preg_replace("/\[highlight=(\#[0-9A-F]{6}|[a-z\-]+):$uid\]/si", $bbcode_tpl['highlight_open'] ?? '', $text);
+    $text = str_replace("[/highlight:$uid]", $bbcode_tpl['highlight_close'] ?? '', $text);
     /* ----- new bbcode addition to v3 ----- */
 
     // Patterns and replacements for URL and email tags..
@@ -542,8 +542,8 @@ function bbencode_second_pass($text, $uid)
     // $text = str_replace("[/sup:$uid]", '</sup>', $text);
 
     // [spoil]Spoiler[/spoil] code..
-    $text = str_replace("[spoil:$uid]", $bbcode_tpl['spoil_open'], $text);
-    $text = str_replace("[/spoil:$uid]", $bbcode_tpl['spoil_close'], $text);
+    $text = str_replace("[spoil:$uid]", $bbcode_tpl['spoil_open'] ?? '', $text);
+    $text = str_replace("[/spoil:$uid]", $bbcode_tpl['spoil_close'] ?? '', $text);
 
     /* ----- This code is no longer used in V3 of Xtreme, was only left here for those videos already submitted into the forums -----*/
     $patterns[] = "#\[youtube\]([0-9A-Za-z-_]{11})[^[]*\[/youtube\]#is";
