@@ -10,7 +10,8 @@ use Rector\TypeDeclaration\Rector\Property\TypedPropertyFromStrictConstructorRec
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([
-		  __DIR__ . '/themes/Mech/theme.php', # PHP 8.2.3
+		  //__DIR__ . '/themes/Mech/theme.php', # PHP 8.2.3
+		  //__DIR__ . '/themes/Mech/theme_info.php', # PHP 8.2.3
     ]);
 
     // register a single rule
