@@ -370,7 +370,10 @@ while ( $row = $db->sql_fetchrow($result) )
 
         $row_color = ( $$which_counter % 2 ) ? $theme['td_color1'] : $theme['td_color2'];
         $row_class = ( $$which_counter % 2 ) ? $theme['td_class1'] : $theme['td_class2'];
-
+        
+		if(!isset($user_id))
+		$user_id = 1;
+		
         $template->assign_block_vars("$which_row", array(
             'ROW_COLOR' => '#' . $row_color,
             'ROW_CLASS' => $row_class,
