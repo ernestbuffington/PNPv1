@@ -3,7 +3,6 @@
   PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
-
 /***************************************************************************
  *                            viewtopic_quickreply.php
  *                            -------------------
@@ -287,7 +286,7 @@ else
 
 $template->assign_vars([
     'U_POST_SQR_TOPIC' => 'javascript:sqr_show_hide();',
-    'SQR_IMG' => $images['quickreply'],
+    'SQR_IMG' => $images['quickreply'] ?? '',
     'L_POST_SQR_TOPIC' => $lang['Show_hide_quick_reply_form'],
     'BB_BOX' => ( $userdata['user_quickreply_mode'] == 1 ) ? Make_TextArea_Ret('message', '', 'post', '99.4%', '200px', true) : '<textarea data-autoresize id="message" name="message" style="resize: none; width: 100% !important; height: 200px; min-height: 200px;"></textarea>',
     'L_EMPTY_MESSAGE' => $lang['Empty_message'],
