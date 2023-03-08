@@ -79,6 +79,9 @@ $has_subforums  = '';
 else
 $has_subforums = 0;
 
+if(!isset($images['icon_miniforum']))
+$images['icon_miniforum'] = '';
+
 if ($forum_link && $forum_id)
 {
 	$sql = "UPDATE " . FORUMS_TABLE . "
@@ -688,17 +691,19 @@ $images['Mini_Arcade'] = '';
 																? $forum_data[$j]['post_username'] . ' ' : $lang['Guest'] . ' ' ) : '<a 
 																href="' . append_sid("profile.$phpEx?mode=viewprofile&amp;" . POST_USERS_URL . '='  . $forum_data[$j]['user_id']) . 
 																'">' . UsernameColor($forum_data[$j]['username']) . '</a> ';
-                                                         /*****[END]********************************************
+                                                          /*****[END]********************************************
                                                           [ Mod:    Advanced Username Color             v1.0.5 ]
                                                           ******************************************************/
-                                                                $last_post = '<a href="'.append_sid("viewtopic.$phpEx?".POST_POST_URL.'='.$forum_data[$j]['forum_last_post_id']).'#'.$forum_data[$j]['forum_last_post_id'].'"><i class="fa fa-arrow-right tooltip-html-side-interact" aria-hidden="true" title="'.$lang['View_latest_post'].'"></i></a>';
-                                                          /*****[BEGIN]******************************************
-                                                           [ Mod:    Simple Subforums                    v1.0.1 ]
-                                                           ******************************************************/
-																$last_post_sub = '<a href="' . append_sid("viewtopic.$phpEx?"  . POST_POST_URL . '=' . $forum_data[$j]['forum_last_post_id']) . '#' . $forum_data[$j]['forum_last_post_id'] . '"><img src="' . ($unread_topics ? $images['icon_miniforum_new'] : $images['icon_miniforum']) . '" border="0" alt="' . $lang['View_latest_post'] . '" title="' . $lang['View_latest_post'] . '" /></a>';
-                                                           /*****[END]********************************************
-                                                            [ Mod:    Simple Subforums                    v1.0.1 ]
-                                                            ******************************************************/
+$last_post = '<a href="'.append_sid("viewtopic.$phpEx?".POST_POST_URL.'='.$forum_data[$j]['forum_last_post_id']).'#'.$forum_data[$j]['forum_last_post_id'].'"><i 
+class="fa fa-arrow-right tooltip-html-side-interact" aria-hidden="true" title="'.$lang['View_latest_post'].'"></i></a>';
+/*****[BEGIN]******************************************
+[ Mod:    Simple Subforums                    v1.0.1 ]
+******************************************************/
+$last_post_sub = '<a href="'.append_sid("viewtopic.$phpEx?".POST_POST_URL.'='.$forum_data[$j]['forum_last_post_id']).'#'.$forum_data[$j]['forum_last_post_id'].'"><img 
+src="'.($unread_topics ? $images['icon_miniforum_new'] : $images['icon_miniforum']).'" border="0" alt="'. $lang['View_latest_post'].'" title="'. $lang['View_latest_post'].'" /></a>';
+/*****[END]********************************************
+[ Mod:    Simple Subforums                    v1.0.1 ]
+ ******************************************************/
                                                         }
                                                         else
                                                         {
@@ -707,7 +712,7 @@ $images['Mini_Arcade'] = '';
                                                            /*****[BEGIN]******************************************
                                                             [ Mod:    Simple Subforums                    v1.0.1 ]
                                                             ******************************************************/
-															$last_post_sub = '<img src="' . $images['icon_miniforum'] . '" border="0" alt="' . $lang['No_Posts'] . '" title="' . $lang['No_Posts'] . '" />';
+															$last_post_sub = '<img src="'.$images['icon_miniforum'].'" border="0" alt="'.$lang['No_Posts'].'" title="'.$lang['No_Posts'].'" />';
 															$last_post_time = '';
                                                             /*****[END]********************************************
                                                              [ Mod:    Simple Subforums                    v1.0.1 ] 
