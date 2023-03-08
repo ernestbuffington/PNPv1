@@ -133,7 +133,14 @@ function ThemeGetGroups($groups) {
         $result = $db->sql_query($sql);
         $row = $db->sql_fetchrow($result);
         $db->sql_freeresult($result);
-        $return_groups .= $row['group_name'] . $comma;
+        
+		if(!isset($return_groups))
+		$return_groups = '';
+		
+		if(!isset($row['group_name']))
+		$row['group_name'] = 'None';
+		
+		$return_groups .= $row['group_name'] . $comma;
     }
     if (empty($return_groups)) { $return_groups = _THEMES_NONE; }
     return $return_groups;
