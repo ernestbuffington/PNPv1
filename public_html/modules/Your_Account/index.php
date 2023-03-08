@@ -209,7 +209,7 @@ switch($op):
 		if(isset($redirect))
 		$forward = str_replace("redirect=", "", "$redirect");
         
-		if (preg_match("#privmsg#", $forward)): 
+		if (preg_match("#privmsg#", $forward ?? '')): 
 		$pm_login = "active";
 		endif; 
         
