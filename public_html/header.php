@@ -82,7 +82,34 @@ function head()
  	title_and_meta_tags();
 
 	echo "\n<!-- Loadiing includes/ruffle-core/ruffle.js from header.php -->\n";
-	echo '<script src="includes/ruffle-core/ruffle.js"></script>'."\n"; 
+	echo '<script src="includes/ruffle-core/ruffle.js"></script>'."\n";
+	
+	echo '
+	<script>
+    window.RufflePlayer = window.RufflePlayer || {};
+    window.RufflePlayer.config = {
+    "publicPath": undefined,
+    "polyfills": true,
+    "autoplay": "on",
+    "unmuteOverlay": "hidden",
+    "backgroundColor": null,
+    "wmode": "window",
+    "letterbox": "fullscreen",
+    "warnOnUnsupportedContent": true,
+    "contextMenu": true,
+    "showSwfDownload": false,
+    "upgradeToHttps": window.location.protocol === "https:",
+    "maxExecutionDuration": {"secs": 15, "nanos": 0},
+    "logLevel": "error",
+    "base": null,
+    "menu": true,
+    "salign": "",
+    "scale": "showAll",
+    "forceScale": false,
+    "quality": "high",
+    "splashScreen": false,
+    };    
+    </script>'; 
 
 	#################################################################
 	echo "\n<!-- Loadiing class.browsers.php from header.php -->\n";#
