@@ -15,6 +15,9 @@
 <br>
 <hr>                                                                    
 <strong><i class="bi bi-calendar-check"> </i><span class="bold-version" style="font-weight: bold; color: #0F0;">[ Feb 3rd, 2023 ] 7.6.b.4 -> 7.6.5b BETA</span></strong>   <br>
+<i class="bi bi-backspace-reverse"></i> Ported Platinum Downloads for PHP 8.2.3                         <br>
+<i class="bi bi-backspace-reverse"></i> Ported Platinum Theme Console for PHP 8.2.3                     <br>
+<i class="bi bi-backspace-reverse"></i> Ported Platinum Theme Control Panel for PHP 8.2.3               <br>
 <i class="bi bi-backspace-reverse"></i> Updated Database Layer for PHP 8.2.3                            <br>
 <i class="bi bi-backspace-reverse"></i> Started Portinng Process for PHP 8.2.3                          <br>
 <i class="bi bi-backspace-reverse"></i> Updated Amazon Module Patched for PHP 8.2.3                     <br>
@@ -469,17 +472,17 @@
 <i class="bi bi-backspace-reverse"></i> Tweaked Web Links                                              <br>
 <i class="bi bi-backspace-reverse"></i> Upgraded phpBB 2.0.10                                          <br>
 <i class="bi bi-backspace-reverse"></i> Upgraded PHP-Nuke 7.5                                          <br>
-<hr>                                                                                                   <br>
- The New PHP-Nuke Platinum 7.6.5 PNPv3 package was created by TheGhost (Ernest Allen Buffington)       <br>
+<hr>                                                                                                   
+The New PHP-Nuke Platinum 7.6.5 PNPv3 package was created by TheGhost (Ernest Allen Buffington)       <br>
  Copyright (c) 2023 by Brandon Maintenance Management, LLC            <br>
  Core Developer - Graeme Allan                                        <br>
  Core Developer - Ernest Allen Buffington                             <br> 
-<hr><br>                                                                 
+<hr>                                                                 
  Original Platinum 7.6 package was created by TechGfX                 <br>
  Copyright (c) 2004 - 2006 by http://www.techgfx.com                  <br>
  Graeme Allan - Techgfx (goose@techgfx.com)                           <br>
-<hr>                                                                  <br>
- His old webiste was Nukeplanet.com, old version of Platinum 7.6.b.3  <br>
+<hr>                                                                  
+His old webiste was Nukeplanet.com, old version of Platinum 7.6.b.3  <br>
  Scott Partee - <span class="loki">Loki</span> http://www.nukeplanet.com (loki@nukeplanet.com <br>
                                                                       <br>
  TechGFX: Your dreams, Our imagination                                <br>
