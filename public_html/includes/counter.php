@@ -43,7 +43,7 @@ else:
 endif;
 
 $now = explode('-',date('d-m-Y-H'));
-$result = $db->sql_query('UPDATE '.$prefix."_counter SET count=count+1 WHERE (var='$browser' AND type='browser') OR (var='$os' AND type='os') OR (type='total' AND var='hits')");
+$result = $db->sql_query('UPDATE '.$prefix."_counter SET count=count+1 WHERE (var='$browser' AND type='browser') || (var='$os' AND type='os') || (type='total' AND var='hits')");
 $db->sql_freeresult($result);
 
 if (!$db->sql_query('UPDATE '.$prefix."_stats_hour SET hits=hits+1 WHERE (year='$now[2]') AND (month='$now[1]') AND (date='$now[0]') AND (hour='$now[3]')") || !$db->sql_affectedrows()) {
