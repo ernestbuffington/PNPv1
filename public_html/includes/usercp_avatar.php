@@ -290,12 +290,12 @@ function display_avatar_gallery($mode,
 				$user_open_quickreply, 
 				          $session_id, 
 				        $xdata = null, 
-					           $rname, 
-						  $extra_info, 
-						  $newsletter, 
-						 $hide_images, 
-						      $gender, 
-							$facebook)
+					    $rname = null, 
+				   $extra_info = null, 
+				   $newsletter = null, 
+				  $hide_images = null, 
+					   $gender = null, 
+					 $facebook = null)
 /*****[END]********************************************
  [ Mod:     Birthdays                          v3.0.0 ]
  [ Mod:     Gender                             v1.2.6 ]
@@ -401,7 +401,54 @@ function display_avatar_gallery($mode,
  [ Mod:     Gender                             v1.2.6 ]
  [ Mod:     Birthdays                          v3.0.0 ]
  ******************************************************/
-		$params = array('coppa', 'user_id', 'username', 'email', 'current_email', 'cur_password', 'new_password', 'password_confirm', 'website', 'location', 'user_flag', 'occupation', 'interests', 'glance_show', 'signature', 'viewemail', 'notifypm', 'allow_mass_pm', 'popup_pm', 'notifyreply', 'attachsig', 'allowhtml', 'allowbbcode', 'allowsmilies', 'showavatars', 'showsignatures', 'hideonline', 'style', 'wrap', 'language', 'bday_month', 'bday_day', 'bday_year', 'birthday_display', 'birthday_greeting', 'timezone', 'time_mode', 'dst_time_lag', 'dateformat', 'show_quickreply', 'quickreply_mode', 'rname', 'extra_info', 'newsletter', 'hide_images', 'user_open_quickreply', 'gender', 'facebook');
+		$params = array('coppa', 
+		              'user_id', 
+					 'username', 
+					    'email', 
+				'current_email', 
+				 'cur_password', 
+				 'new_password', 
+			 'password_confirm', 
+			          'website', 
+					 'location', 
+					'user_flag', 
+				   'occupation', 
+				    'interests', 
+				  'glance_show', 
+				    'signature', 
+				    'viewemail', 
+					 'notifypm', 
+				'allow_mass_pm', 
+				     'popup_pm', 
+				  'notifyreply', 
+				    'attachsig', 
+					'allowhtml', 
+				  'allowbbcode', 
+				 'allowsmilies', 
+				  'showavatars', 
+			   'showsignatures', 
+			       'hideonline', 
+				        'style', 
+						 'wrap', 
+					 'language', 
+				   'bday_month', 
+				     'bday_day', 
+					'bday_year', 
+			 'birthday_display', 
+			'birthday_greeting', 
+			         'timezone', 
+					'time_mode', 
+				 'dst_time_lag', 
+				   'dateformat', 
+			  'show_quickreply', 
+			  'quickreply_mode', 
+			            'rname', 
+				   'extra_info', 
+				   'newsletter', 
+				  'hide_images', 
+		 'user_open_quickreply', 
+		               'gender', 
+					 'facebook');
 /*****[END]********************************************
  [ Mod:     Birthdays                          v3.0.0 ]
  [ Mod:     Gender                             v1.2.6 ]
@@ -461,4 +508,3 @@ function display_avatar_gallery($mode,
 		return;
 }
 
-?>
