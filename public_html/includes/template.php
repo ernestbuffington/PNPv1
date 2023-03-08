@@ -372,10 +372,10 @@ class Template {
 	 */
 	function load_replacements($file)
 	{
-		if(@file_exists($file))
+		if(file_exists($file))
 		{
 			$replace = array();
-			@include($file);
+			include($file);
 			$this->replace = array_merge($this->replace, $replace);
 		}
 	}
@@ -439,7 +439,7 @@ class Template {
 		{
 			$sub_templates_cfg = $this->root . '/sub_templates.cfg';
 		}
-		@include($sub_templates_cfg);
+		include($sub_templates_cfg);
 		if ( isset($sub_templates) )
 		{
 			// search an id
@@ -710,7 +710,7 @@ class Template {
 				{
 					$sav_images = $images;
 					$images = array();
-					@include($root_template_path . '/' . $sub_templates[$key]['imagefile']);
+					include($root_template_path . '/' . $sub_templates[$key]['imagefile']);
 					$img_lang = ( file_exists($root_template_path . '/images/lang_' . $board_config['default_lang']) ) ? $board_config['default_lang'] : 'english';
 					foreach($images as $key => $value)
 					{
