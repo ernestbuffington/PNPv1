@@ -19,6 +19,7 @@
 /* so your entry will look like: This is \"double quoted\" text.          */
 /* And, if you use HTML code, please double check it.                     */
 /**************************************************************************/
+define('_THEMES_NONE','No Themes');
 # Modules group mod v1.0 START
 define('_GAINACCESS',' group to gain access!');
 define('_MUSTJOIN','You must join the ');
