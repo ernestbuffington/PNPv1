@@ -393,20 +393,18 @@ if ($banners == 1) {
     }
 
 }
-    if ($index == 1) {
 
+if(blocks_visible('right'))  {
 echo'</td>    <td width="170" valign="top">';
-
     blocks('right');
-
-	}
+}
 
 echo"</td>"
   . "    <td width=\"31\" valign=\"top\" background=\"themes/Mech/images/rightB.jpg\"><img src=\"themes/Mech/images/rightB.jpg\" width=\"31\" height=\"30\"></td>"
   . "  </tr>"
   . "</table>"
  ."";
-    include(__DIR__ . "/themes/Mech/footer.php");
+    include("themes/Mech/footer.php");
 }
 
 /************************************************************/
