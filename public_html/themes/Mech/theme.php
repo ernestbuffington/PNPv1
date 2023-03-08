@@ -150,7 +150,7 @@ echo "<!-- Setting THEME Xtreme Conversion to FALSE in themes/".$theme_name."/th
 $make_xtreme_avatar_small = true;
 echo "<!-- Setting THEME avatar to SMALL in themes/".$theme_name."/theme.php -->\n";
 
-$avatar_overide_size = '150'; # do not add px to the end!
+$avatar_overide_size = '100'; # do not add px to the end!
 echo "<!-- Setting THEME Avatar Override size to ".$avatar_overide_size." in themes/".$theme_name."/theme.php -->\n";
 
 $use_xtreme_voting = false;
@@ -233,14 +233,14 @@ echo "<!-- Setting Loading themes/".$theme_name."/css/full_screen_video_backgrou
 //addPHPCSSToHead(theme_phpstyle_dir.'scss_menu.php','file'); # enable for SCSS drop_down_menu         
 //echo "<!-- Setting Loading themes/".$theme_name."/css/scss_menu.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
 
-addPHPCSSToHead(theme_phpstyle_dir.'css3_menu.php','file'); # enable for css3 menu
-echo "<!-- Setting Loading themes/".$theme_name."/css/css3_menu.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
+//addPHPCSSToHead(theme_phpstyle_dir.'css3_menu.php','file'); # enable for css3 menu
+//echo "<!-- Setting Loading themes/".$theme_name."/css/css3_menu.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
 
 addPHPCSSToHead(theme_phpstyle_dir.'css_toolbox.php','file');  
 echo "<!-- Setting Loading themes/".$theme_name."/css/css_toolbox.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
 
-addPHPCSSToHead(theme_phpstyle_dir.'arcade_tables.php','file');  
-echo "<!-- Setting Loading themes/".$theme_name."/css/arcade_tables.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
+//addPHPCSSToHead(theme_phpstyle_dir.'arcade_tables.php','file');  
+//echo "<!-- Setting Loading themes/".$theme_name."/css/arcade_tables.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
 
 addPHPCSSToHead(theme_phpstyle_dir.'CKeditor.php','file');   
 echo "<!-- Setting Loading themes/".$theme_name."/css/CKeditor.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
@@ -251,8 +251,8 @@ echo "<!-- Setting Loading themes/".$theme_name."/css/links.php in themes/".$the
 //addJSToBody(theme_phpinclude_js_dir.'drop_down_menu.js','file'); # enable for drop_down_menu  
 //echo "<!-- Setting Loading themes/".$theme_name."/includes/js/drop_down_menu.js in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
 
-addJSToBody(theme_phpinclude_js_dir.'css3_menu.js','file'); # enable for css3 menu
-echo "<!-- Setting Loading themes/".$theme_name."/includes/js/css3_menu.js in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
+//addJSToBody(theme_phpinclude_js_dir.'css3_menu.js','file'); # enable for css3 menu
+//echo "<!-- Setting Loading themes/".$theme_name."/includes/js/css3_menu.js in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
 
 addJSToBody(theme_phpinclude_js_dir.'Hover.js','file'); # jQuery Hover
 echo "<!-- Setting Loading themes/".$theme_name."/includes/js/Hover.js in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
@@ -264,6 +264,9 @@ echo "<!-- Setting Loading themes/".$theme_name."/includes/js/Hover.js in themes
 addPHPCSSToHead(theme_phpstyle_dir.'jquery_floating_admin.php','file');  
 echo "<!-- Setting Loading themes/".$theme_name."/css/jquery_floating_admin.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
 
+addPHPCSSToHead(theme_phpstyle_dir.'body.php','file'); 
+echo "<!-- Setting Loading themes/".$theme_name."/css/body.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
+
 /************************************************************/
 /* OpenTable Functions                                      */
 /*                                                          */
@@ -273,8 +276,9 @@ function OpenTable() {
     global $tableStatus;
 
 if ($tableStatus != "open"){
-    ?>
-<br>
+?>
+<div style="padding-top:3px;"></div>
+<div align="center">
 <table border="0" align=center cellpadding="0" cellspacing="0" width="100%">
   <!--DWLayoutTable-->
   <tr> 
@@ -330,6 +334,8 @@ if ($tableStatus == "open"){
     <td><img src="themes/Mech/images/Hm.jpg" alt="" width="1" height="1"></td>
   </tr>
 </table>
+</div>
+<div style="padding-top:10px;"></div>
 <?
 $tableStatus = "closed";
 }
@@ -420,7 +426,7 @@ global $locked_width, $ThemeInfo, $sitename, $theme_name;
 
 echo '<div align="center">';
 
-echo '<table width="'.$locked_width.'" cellpadding="0" cellspacing="0" border="0" align="center">
+echo '<table class="tablebackgroundfix" width="'.$locked_width.'" cellpadding="0" cellspacing="0" border="0" align="center">
 		<tr valign="top">
         <td width="31" valign="top" background="themes/Mech/images/leftB.jpg"><img src="themes/Mech/images/leftB.jpg" width="31" height="200" border="0"></td>
 		<td width="165" valign="top">';
