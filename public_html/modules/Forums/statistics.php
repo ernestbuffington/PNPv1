@@ -33,17 +33,20 @@ if (!defined('MODULE_FILE')) {
    die ("You can't access this file directly...");
 }
 
-//$module_name = basename(__DIR__);
+global $phpEx;
+
+if(!isset($phpEx))
+$phpEx = 'php';
+
+$module_name = basename(__DIR__);
 
 define('IN_PHPBB', false);
 
 include(NUKE_BASE_DIR . '/header.'.$phpEx);
 
-
-
-
-
-
+OpenTable();
+echo '<div align="center"><strong>Platinum '.$module_name.' Statistics Coming Soon!</strong></div>';
+CloseTable();
 
 include(NUKE_BASE_DIR . '/footer.'.$phpEx);
 
