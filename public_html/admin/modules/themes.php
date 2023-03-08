@@ -689,6 +689,10 @@ function theme_install($theme_name)
 
 function update_theme($post)
 {
+    $params = [];
+    $default = null;
+    $sql = [];	
+
     global $db, $prefix, $user_prefix, $admin_file, $cache;
 	
     $error = false;
@@ -698,7 +702,7 @@ function update_theme($post)
         $post['groups'] = implode('-', $post['groups']);
     }
 	
-    $theme_info = array();
+    $theme_info = [];
 	
     if (file_exists(NUKE_THEMES_DIR.$post['theme_name'].'/theme_info.php'))
 	{
@@ -718,20 +722,22 @@ function update_theme($post)
         }
     }
 
-    $sql[] = "UPDATE " . $prefix . "_themes SET custom_name = '" . $post['custom_name'] . "' WHERE theme_name = '" . $post['theme_name'] . "'";
-    $sql[] = "UPDATE " . $prefix . "_themes SET active = '" . $post['active'] . "' WHERE theme_name = '" . $post['theme_name'] . "'";
-    $sql[] = "UPDATE " . $prefix . "_themes SET permissions = '" . $post['permissions'] . "' WHERE theme_name = '" . $post['theme_name'] . "'";
-    $sql[] = "UPDATE " . $prefix . "_themes SET theme_info = '" . $theme_info . "' WHERE theme_name = '" . $post['theme_name'] . "'";
+    $sql[] = "UPDATE ".$prefix."_themes SET custom_name = '".$post['custom_name']."' WHERE theme_name = '".$post['theme_name']."'";
+    $sql[] = "UPDATE ".$prefix."_themes SET active = '".$post['active']."' WHERE theme_name = '".$post['theme_name']."'";
+    $sql[] = "UPDATE ".$prefix."_themes SET permissions = '".$post['permissions']."' WHERE theme_name = '".$post['theme_name']."'";
+    $sql[] = "UPDATE ".$prefix."_themes SET theme_info = '".$theme_info."' WHERE theme_name = '".$post['theme_name']."'";
+	
+	
 	
     if (($post['permissions'] > 1) || ($post['active'] != 1))
 	{
-        $sql[] = "UPDATE " . $user_prefix . "_users SET theme = '" . get_default() . "' WHERE theme = '" . $post['theme_name'] . "'";
+        $sql[] = "UPDATE ".$user_prefix."_users SET theme = '".get_default()."' WHERE theme = '".$post['theme_name']."'";
     }
 	
 	if(!isset($post['groups']))
 	$post['groups'] = '';
 	
-    $sql[] = "UPDATE " . $prefix . "_themes SET groups = '" . $post['groups'] . "' WHERE theme_name = '" . $post['theme_name'] . "'";
+    $sql[] = "UPDATE ".$prefix."_themes SET groups = '".$post['groups']."' WHERE theme_name = '".$post['theme_name']."'";
     
 	foreach($sql as $query)
 	{
