@@ -771,16 +771,16 @@ $reply_img = ($forum_topic_data['forum_status'] == FORUM_LOCKED || $forum_topic_
 $reply_alt = ($forum_topic_data['forum_status'] == FORUM_LOCKED || $forum_topic_data['topic_status'] == TOPIC_LOCKED) ? $lang['Topic_locked'] : $lang['Reply_to_topic'];
 $post_img = ($forum_topic_data['forum_status'] == FORUM_LOCKED) ? $images['post_locked'] : $images['post_new'];
 $post_alt = ($forum_topic_data['forum_status'] == FORUM_LOCKED) ? $lang['Forum_locked'] : $lang['Post_new_topic'];
-$whoview_img = $images['icon_view'];
+$whoview_img = $images['icon_view'] ?? '';
 $whoview_alt = $lang['Topic_view_users'];
 
 # Mod: Thank You Mod v1.1.8 START
-$thank_img = $images['thanks'];
+$thank_img = $images['thanks'] ?? '';
 $thank_alt = $lang['thanks_alt'];
 # Mod: Thank You Mod v1.1.8 END
 
 # Mod: Printer Topic v1.0.8 START
-$printer_img = $images['printer'];
+$printer_img = $images['printer'] ?? '';
 $printer_alt = $lang['printertopic_button'];
 # Mod: Printer Topic v1.0.8 END
 
@@ -1670,6 +1670,7 @@ $leave_out['show_sig_once'] = false;
            $offline_color = '';
 
            if(isset($online_status_img)):
+		   global $theme_name;
 		   $online_status_img = '<span class="tooltip-html copyright" title="'.sprintf($lang['is_offline'],$row['username']).'"'.$offline_color.'><img 
 	       alt="online" src="themes/'.$theme_name.'/forums/images/status/offline_bgcolor_one.gif" /></span>';
            endif;
@@ -2066,6 +2067,9 @@ $leave_out['show_sig_once'] = false;
        # Mod: Super Quick Reply v1.3.2 END
 
        # Mod: Report Posts v1.0.2 START
+	   if(!isset($images['icon_report']))
+	   $images['icon_report'] = '';
+	   
        if($userdata['session_logged_in']):
           $report_url = append_sid('viewtopic.'.$phpEx.'?report=true&amp;'.POST_POST_URL.'='.$postrow[$i]['post_id']);
           $report_img = '<a href="'.append_sid('viewtopic.'.$phpEx.'?report=true&amp;'.POST_POST_URL.'='.$postrow[$i]['post_id']).'"><img 
