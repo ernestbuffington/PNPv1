@@ -355,9 +355,18 @@ $mode == 'register' ):
 	# Mod: Member Country Flags v2.0.7 END
 
     # Mod: Advanced Time Management v2.2.0 START
+	if(!isset($_POST['time_mode']))    //platinum themes compatibility
+	$_POST['time_mode'] = '';          //platinum themes compatibility
+
+	if(!isset($_POST['dst_time_lag'])) //platinum themes compatibility
+	$_POST['dst_time_lag'] = '';       //platinum themes compatibility
+
+	if(!isset($dst_time_lag))          //platinum themes compatibility
+	$dst_time_lag = '60';              //platinum themes compatibility
+	
 	$time_mode = (isset($_POST['time_mode'])) ? intval($_POST['time_mode']) : $board_config['default_time_mode'];
 
-	if(preg_match("/[^0-9]/i",$_POST['dst_time_lag']) || $dst_time_lag<0 || $dst_time_lag>120):
+	if(preg_match("/[^0-9]/i",$_POST['dst_time_lag'] ?? '') || $dst_time_lag < 0 || $dst_time_lag > 120):
 	
 		$error = TRUE;
 		$error_msg .= ((isset($error_msg)) ? '<br />' : '' ).$lang['dst_time_lag_error'];
@@ -642,6 +651,9 @@ if(isset($_POST['submit'])):
 				$error_msg .= ( ( !empty($error_msg) ) ? '<br />' : '' ) . sprintf($lang['Birthday_range'],$board_config['bday_min'],$board_config['bday_max']);
 			endif;
 	endswitch;
+    if(!isset($bday_month)) $bday_month = ''; // platinum themes compatibility
+    if(!isset($bday_day)) $bday_day = '';     // platinum themes compatibility
+    if(!isset($bday_year)) $bday_year = '';   // platinum themes compatibility
 
 	$user_birthday = sprintf('%02d%02d%04d',$bday_month,$bday_day,$bday_year);
 	$user_birthday2 = ($birthday_display 
@@ -797,6 +809,10 @@ if(isset($_POST['submit'])):
             # Mod: Member Country Flags v2.0.7 START
             # Mod: Gender v1.2.6 START
             # Mod: Birthdays v3.0.0 START
+			if (!isset($facebook)) $facebook = '';       // platinum themes compatibility
+			if (!isset($website)) $website = '';         // platinum themes compatibility
+			if (!isset($glance_show)) $glance_show = ''; // platinum themes compatibility
+
 			$sql = "UPDATE ".USERS_TABLE."
 			SET ".$username_sql.$passwd_sql." user_email = '".str_replace("\'", "''", $email)."', ".$birthday_sql
 			."birthday_display = $birthday_display, birthday_greeting = $birthday_greeting, user_facebook = '"
