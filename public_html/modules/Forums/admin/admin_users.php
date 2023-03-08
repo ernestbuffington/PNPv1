@@ -1385,41 +1385,43 @@ if ( $mode == 'edit' || $mode == 'save' && ( isset($_POST['username']) || isset(
 
         if( isset($_POST['avatargallery']) && !$error )
         {
-                if( !$error )
+          if( !$error )
+          {
+             $user_id = (int) $_POST['id'];
+
+             $template->set_filenames(["body" => "admin/user_avatar_gallery.tpl"]
+             );
+
+             $dir = opendir("../" . $board_config['avatar_gallery_path']);
+
+             $avatar_images = [];
+             
+			 while( $file = readdir($dir) )
+             {
+                if( $file != "." && $file != ".." && !is_file(phpbb_realpath("./../".$board_config['avatar_gallery_path']."/".$file)) && !is_link(phpbb_realpath("./../".$board_config['avatar_gallery_path']."/".$file)))
                 {
-                        $user_id = (int) $_POST['id'];
+                   $sub_dir = opendir("../" . $board_config['avatar_gallery_path'] . "/" . $file);
 
-                        $template->set_filenames(["body" => "admin/user_avatar_gallery.tpl"]
-                        );
+                   $avatar_row_count = 0;
+                   $avatar_col_count = 0;
 
-                        $dir = opendir("../" . $board_config['avatar_gallery_path']);
+                   while( $sub_file = readdir($sub_dir) )
+                   {
+                       if( preg_match("/(\.gif$|\.png$|\.jpg)$/is", $sub_file) )
+                       {
+                          $avatar_images[$file][$avatar_row_count][$avatar_col_count] = $sub_file;
 
-                        $avatar_images = [];
-                        while( $file = readdir($dir) )
-                        {
-                                if( $file != "." && $file != ".." && !is_file(phpbb_realpath("./../" . $board_config['avatar_gallery_path'] . "/" . $file)) && !is_link(phpbb_realpath("./../" . $board_config['avatar_gallery_path'] . "/" . $file)) )
-                                {
-                                        $sub_dir = opendir("../" . $board_config['avatar_gallery_path'] . "/" . $file);
-
-                                        $avatar_row_count = 0;
-                                        $avatar_col_count = 0;
-
-                                        while( $sub_file = readdir($sub_dir) )
-                                        {
-                                                if( preg_match("/(\.gif$|\.png$|\.jpg)$/is", $sub_file) )
-                                                {
-                                                        $avatar_images[$file][$avatar_row_count][$avatar_col_count] = $sub_file;
-
-                                                        $avatar_col_count++;
-                                                        if( $avatar_col_count == 5 )
-                                                        {
-                                                                $avatar_row_count++;
-                                                                $avatar_col_count = 0;
-                                                        }
-                                                }
-                                        }
-                                }
-                        }
+                          $avatar_col_count++;
+                          
+						  if( $avatar_col_count == 5 )
+                          {
+                             $avatar_row_count++;
+                             $avatar_col_count = 0;
+                          }
+                       }
+                 }
+              }
+          }
 
                         closedir($dir);
 
