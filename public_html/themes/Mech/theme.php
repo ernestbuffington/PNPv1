@@ -58,7 +58,7 @@ include(NUKE_THEMES_DIR.$theme_name.'/theme_info.php');
 # Theme Copyright Information #
 #-----------------------------#
 //$locked_width = "1890px"; The is the only size this theme supports
-$locked_width = "1890px";
+$locked_width = "1880px";
 echo "<!-- Setting locked THEME width to ".$locked_width," in themes/".$theme_name."/theme.php -->\n";
 
 $side_block_width = "295px";
@@ -275,7 +275,7 @@ function OpenTable() {
 if ($tableStatus != "open"){
     ?>
 <br>
-<table border="0" align=center cellpadding="0" cellspacing="0" width="98%">
+<table border="0" align=center cellpadding="0" cellspacing="0" width="100%">
   <!--DWLayoutTable-->
   <tr> 
     <td width="23" height="23" valign="top"><img src="themes/Mech/images/ttl.jpg" width="23" height="23"></td>
@@ -382,60 +382,60 @@ function FormatStory($thetext, $notes, $aid, $informant) {
     $marquee_one = '';
     $date = '';
 
-    $theuser = "<img src=\"themes/Mech/images/spacer.gif\" border=0 width=4 height=1><font class=copyright>Welcome 
-
-  $username</font><a href=\"modules.php?name=Your_Account&op=logout\"><img src=\"themes/Mech/images/logout.gif\" border=0 alt=logout></a></TD>\n"; 
+    $theuser = "<img src=\"themes/Mech/images/spacer.gif\" border=0 width=4 height=1><font class=copyright>Welcome $username</font><a href=\"modules.php?name=Your_Account&op=logout\"><img 
+	src=\"themes/Mech/images/logout.gif\" border=0 alt=logout></a></td>\n"; 
   
-$sql = "SELECT msg1, msg2, msg3, link1, link2, link3, link4, link5, link1url, link2url, link3url, link4url, link5url, searchbox, flash FROM ".$prefix."_themecp";
+    $sql = "SELECT msg1, msg2, msg3, link1, link2, link3, link4, link5, link1url, link2url, link3url, link4url, link5url, searchbox, flash FROM ".$prefix."_themecp";
 
-$result = $db->sql_query($sql);
-$row = $db->sql_fetchrow($result);
+    $result = $db->sql_query($sql);
+    $row = $db->sql_fetchrow($result);
 
-$msg1 = $row['msg1'];
-$msg2 = $row['msg2'];
-$msg3 = $row['msg3'];
-$link1 = $row['link1'];
-$link2 = $row['link2'];
-$link3 = $row['link3'];
-$link4 = $row['link4'];
-$link5 = $row['link5'];
-$link1url = $row['link1url'];
-$link2url = $row['link2url'];
-$link3url = $row['link3url'];
-$link4url = $row['link4url'];
-$link5url = $row['link5url'];
-$searchbox = $row['searchbox'];
-$flash = $row['flash'];
-$public_msg = public_message(); 
+    $msg1 = $row['msg1'];
+    $msg2 = $row['msg2'];
+    $msg3 = $row['msg3'];
+    $link1 = $row['link1'];
+    $link2 = $row['link2'];
+    $link3 = $row['link3'];
+    $link4 = $row['link4'];
+    $link5 = $row['link5'];
+    $link1url = $row['link1url'];
+    $link2url = $row['link2url'];
+    $link3url = $row['link3url'];
+    $link4url = $row['link4url'];
+    $link5url = $row['link5url'];
+    $searchbox = $row['searchbox'];
+    $flash = $row['flash'];
+    $public_msg = public_message(); 
 
-echo "$public_msg";
+    echo "$public_msg";
 
-if ($searchbox == 1) {	
-	$search1 ="<form action=\"modules.php?op=modload&name=Search&file=index\" method=\"post\"><input type=\"text\" name=\"query\" value=\"type search here\" onFocus=\"if(this.value=='type search here')this.value='';\" value style=\"width:120;height:18;\" class=1>&nbsp;<input type=\"image\" class=\"noborder\" value=\"search\" src=\"themes/Mech/images/search.gif\" border=\"0\" alt=\"submit search\"></TD></form>\n";
-} else {
-	$search1 ="&nbsp;</td>\n";
-}
-   echo "<body topmargin=\"0\" leftmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">";
-    $tmpl_file = "themes/Mech/header.html";
-    $thefile = implode("", file($tmpl_file));
-    $thefile = addslashes($thefile);
-    $thefile = "\$r_file=\"".$thefile."\";";
-    eval($thefile);
-    print $r_file;
+//if ($searchbox == 1) {	
+//	$search1 ="<form action=\"modules.php?op=modload&name=Search&file=index\" method=\"post\"><input type=\"text\" name=\"query\" value=\"type search here\" onFocus=\"if(this.value=='type search here')this.value='';\" value style=\"width:120;height:18;\" class=1>&nbsp;<input type=\"image\" class=\"noborder\" value=\"search\" src=\"themes/Mech/images/search.gif\" border=\"0\" alt=\"submit search\"></TD></form>\n";
+//} else {
+//	$search1 ="&nbsp;</td>\n";
+//}
+    include_once(theme_dir.'platinum_header.php');
 //LEFT SIDE BACKGROUND
+global $locked_width, $ThemeInfo, $sitename, $theme_name;
 
-echo "<table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\" align=\"center\">\n"
-		."<tr valign=\"top\">\n"
-        ."<td width=\"31\" valign=\"top\" background=\"themes/Mech/images/leftB.jpg\"><img src=\"themes/Mech/images/leftB.jpg\" width=\"31\" height=\"200\" border=\"0\"></td>\n"
-		."<td width=\"165\" valign=\"top\">\n";
+echo '<div align="center">';
 
-    if ($name=='Forums' || $name=='Private_Messages' || $name=='Members_List' || $name=='Shopping_Cart' || $name=='Your_Account') { 
-} else { 
-blocks('left'); 
-} 
-    echo "</td>\n"
-    	."<td width=\"0\" valign=\"top\" background=\"themes/Mech/images/spacer2.gif\"><img src=\"themes/Mech/images/spacer2.gif\" width=\"0\" height=\"1\" border=\"0\"></td>\n"
-    	."<td width=\"100%\">\n";
+echo '<table width="'.$locked_width.'" cellpadding="0" cellspacing="0" border="0" align="center">
+		<tr valign="top">
+        <td width="31" valign="top" background="themes/Mech/images/leftB.jpg"><img src="themes/Mech/images/leftB.jpg" width="31" height="200" border="0"></td>
+		<td width="165" valign="top">';
+
+    if ($name == 'Forums' || $name == 'Private_Messages' || $name == 'Members_List' || $name == 'Shopping_Cart' || $name == 'Your_Account') 
+	{ 
+    
+	}   
+    else 
+    { 
+     blocks('left'); 
+    } 
+    echo '</td>
+    	  <td width="0" valign="top" background="themes/Mech/images/spacer2.gif"><img src="themes/Mech/images/spacer2.gif" width="0" height="1" border="0"></td>
+    	  <td width="100%">';
 }
 
 /************************************************************/
@@ -458,7 +458,7 @@ function themefooter() {
 
 $footer_message = $foot1. "<br>" . $foot2 . "<br>" . $foot3 . "<br>" . $foot4;
 
-$showsub = "<FORM action=modules.php?op=modload&amp;name=Newsletter&amp;file=index&amp;func=action method=post><font class=copyright>&nbsp;<b>Email</b><br>&nbsp;<INPUT maxLength=100 size=20 class=\"sub\" name=new_email value=\"Your Email\" onFocus=\"if(this.value=='Your Email')this.value='';\" value style=\"width:150;height:18;FONT-SIZE: 9px;\"><BR><BR>&nbsp;<SELECT name=new_sub><OPTION value=sub selected>Subscribe<OPTION value=unsub>Unsubscribe</OPTION></SELECT><BR><BR>&nbsp;<SELECT name=new_type><OPTION value=0 selected>Text<OPTION value=1>HTML</OPTION></SELECT><br><br>&nbsp;<INPUT type=image class=\"liteoption1\" value=Submit src=\"themes/MStudioV2/images/submit.gif\" border=\"0\"></font></FORM>";
+$showsub = "<form action=modules.php?op=modload&amp;name=Newsletter&amp;file=index&amp;func=action method=post><font class=copyright>&nbsp;<b>Email</b><br>&nbsp;<input maxLength=100 size=20 class=\"sub\" name=new_email value=\"Your Email\" onFocus=\"if(this.value=='Your Email')this.value='';\" value style=\"width:150;height:18;font-size: 9px;\"><br><br>&nbsp;<select name=new_sub><option value=sub selected>Subscribe<option value=unsub>Unsubscribe</option></slect><br><br>&nbsp;<select name=new_type><option value=0 selected>Text<option value=1>HTML</option></select><br><br>&nbsp;<input type=image class=\"liteoption1\" value=Submit src=\"themes/MStudioV2/images/submit.gif\" border=\"0\"></font></form>";
 
 $maxshow = 10;	// Number of downloads to dispaly in the block.
 
@@ -622,7 +622,10 @@ echo"</td>"
   . "  </tr>"
   . "</table>"
  ."";
-    include("themes/Mech/footer.php");
+ 
+ echo '</div>';
+ 
+    include("themes/Mech/platinum_footer.php");
 }
 
 /************************************************************/
@@ -635,7 +638,7 @@ function themeindex ($aid, $informant, $time, $title, $counter, $topic, $thetext
     $r_file = null;
     global $anonymous, $tipath;
 
-$ThemeSel = get_theme();
+    $ThemeSel = get_theme();
 
     if (file_exists("themes/$ThemeSel/images/topics/$topicimage")) {
         $t_image = "themes/$ThemeSel/images/topics/$topicimage";
@@ -764,4 +767,3 @@ function themesidebox($title, $content) {
     print $r_file;
 }
 
-?>
