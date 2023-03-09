@@ -251,10 +251,12 @@ function head()
 	echo "\n<!-- Loading Primary Body Tag from header.php -->\n";
 	echo "<body>\n";
 	
+	if (defined('facebook')):
 	echo "\n<!-- Loadiing Facebook Root from header.php -->\n";
 	global $appID;
     echo '<div id="fb-root"></div>' . "\n";
     echo '<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=' . $appID . '&autoLogAppEvents=1" nonce="uoLAf2EF"></script>' . "\n\n";
+    endif;
 
     themeheader();
 
