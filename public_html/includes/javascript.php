@@ -212,12 +212,10 @@ if (defined('ADMIN_FILE') && defined('USE_DRAG_DROP')) {
 
         global $g2;
         $script_out .= (!$g2) ? "DragDrop.makeListContainer( list, 'g1' );\n" : "DragDrop.makeListContainer( list, 'g2' );\n";
-        // $script_out .= "list.onDragOver = function() { this.style[\"background\"] = \"#EEF\"; };\n";
         $script_out .= "list.onDragOut = function() {this.style[\"background\"] = \"none\"; };\n\n\n";
         $script_out .= "list.onDragDrop = function() {onDrop(); };\n";
     }
 
-    //echo "<link rel=\"stylesheet\" href=\"includes/ajax/lists.css\" type=\"text/css\">";
     echo "<script src=\"includes/ajax/coordinates.js\" defer></script>\n";
     echo "<script src=\"includes/ajax/drag.js\" defer></script>\n";
     echo "<script src=\"includes/ajax/dragdrop.js\" defer></script>\n";
@@ -264,6 +262,7 @@ if ($collapse)
 /*****[END]********************************************
  [ Base:    Switch Content Script              v2.0.0 ]
  ******************************************************/
+
 /*****[BEGIN]******************************************
  [ Mod:     jQuery                             v1.5.0 ]
  ******************************************************/
