@@ -57,6 +57,18 @@ function head()
 
 	$ThemeSel = get_theme();
 	
+  /**
+   * Doctype/Mime Type auto selector - This checks each theme as it is switched and will load a mimetype.php from the thmes includes folder.
+   * This allows for many different doctypes to be used on the Fly by whichever theme is selected.
+   * This is great for porting Legacy themes or even just to show the versatility of PHP-Nuke Platinum.
+   * If a mimetype.php file is not detected it uses the default doctype of HTML 4.0.1 Transitional (Loose)
+   *
+   * @since PHP-Nuke Titanium v1.6 
+   *
+   * @author Ernest Alle Bufffington aka TheGhost
+   * @version 1.0
+   * @license GPL-3.0
+   */
 	echo "<!-- Loading Auto MimeType v1.0.0 from header.php -->\n";
 	if (file_exists(NUKE_THEMES_DIR.$ThemeSel.'/includes/mimetype.php')):  
     include(NUKE_THEMES_DIR.$ThemeSel.'/includes/mimetype.php');
@@ -78,9 +90,32 @@ function head()
 	echo "<!-- Loading dynamic meta tags from database from includes/meta.php -->\n";
     include_once(NUKE_INCLUDE_DIR.'meta.php');
 
+  /**
+   * This is used to add the appropriate information for any and all scrapers.
+   * Currently Supports: Facebook ToDo: Add Twitter 
+   * When you share a link to your website with friends on facebook it will load a cover image automaticly for the link and post.
+   *
+   * @since PHP-Nuke Titanium v1.2 
+   *
+   * @author Ernest Alle Bufffington aka TheGhost
+   * @version 1.2
+   * @license GPL-3.0
+   */
 	echo "\n<!-- Loadiing function title_and_meta_tags(); from header.php -->\n";
  	title_and_meta_tags();
 
+  /**
+   * Ruffle Flash player support written in Rust
+   * Used to display flash file that reside in Legacy themes.
+   * Used to play Flash games. (SWF) Shockwave fileplayer.
+   * No browsr extension needed, we fix that for you on the fly!
+   *
+   * @since 31 December 2020 
+   *
+   * @author(s) Community Based
+   * @version Nightly Build Updates
+   * @license GPL and MIT
+   */
 	echo "\n<!-- Loadiing includes/ruffle-core/ruffle.js from header.php -->\n";
 	echo '<script src="includes/ruffle-core/ruffle.js"></script>'."\n";
 	
@@ -438,9 +473,9 @@ function online()
     $ctime = time();
 
     /**
-     * A replace into sql command was added, to prevent the duplication of users, This also saves on several lines of code.
-     *
-     * @since 2.0.9E
+     * This sql REPLACE INTO 
+     * THis has been done ever since I moved this from mainfile.php dome many years back.
+     * @since 2017
      */
     $db->sql_query("REPLACE INTO `".$prefix."_session` (uname, 
 	                                                     time, 
@@ -474,9 +509,15 @@ function online()
 
 online();
 
-/*****[BEGIN]******************************************
- [ Mod:    NSN Center Blocks                   v2.2.1 ]
- ******************************************************/
+/** 
+* Bob Marion is awesome and this was one of his babys from way back!
+* This was left in just for nostalgic reasons as we really have no use for it because
+* our block system allows you to add anything you like on the fly and place it wherever
+* you would like it to show up.
+*
+* @Author: Bob Marion of NukeScripts.Net (https://www.nukescripts.86t.us)
+* @version: NSN Center Blocks v2.2.1
+*/
 if (!defined('ADMIN_FILE')):
 	include_once(NUKE_INCLUDE_DIR.'counter.php');
 	if (defined('HOME_FILE')):
@@ -487,6 +528,3 @@ if (!defined('ADMIN_FILE')):
 		include(NUKE_INCLUDE_DIR.'cblocks2.php');
     endif;
 endif;
-/*****[END]********************************************
- [ Mod:    NSN Center Blocks                   v2.2.1 ]
- ******************************************************/
