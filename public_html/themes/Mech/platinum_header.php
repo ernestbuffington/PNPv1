@@ -7,13 +7,9 @@ var message="";function clickIE() {if (document.all) {(message);return false;}}f
 global $locked_width, $ThemeInfo, $sitename, $theme_name;
 
 echo '<div align="center">';
-
-//t1o
 echo '<table width="'.$locked_width.'" border="0" cellpadding="0" cellspacing="0" background="themes/'.$theme_name.'/images/h2m.jpg">';
 echo '<tr> ';
 echo '<td width="222" height="314" valign="top">';
-
-//t2o
 echo '<table width="100%" border="0" cellpadding="0" cellspacing="0">';
 echo '<tr>'; 
 echo '<td width="222" height="260" valign="top">';
@@ -24,7 +20,6 @@ echo '<param name="wmode" value="gpu">';
 echo '<embed src="themes/'.$theme_name.'/images/h2l.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="529" height="314"></embed></object></td>';
 echo '</tr>';
 echo '</table>';
-
 echo '</td>';
 echo '<td width="100%" align="center" valign="top"><img src="themes/'.$theme_name.'/images/h2m.jpg" width="2" height="314"></td>';
 echo '<td width="274" valign="top"><table width="470" border="0" cellpadding="0" cellspacing="0" background="themes/'.$theme_name.'/images/h2r.jpg">';
@@ -35,8 +30,6 @@ echo '<tr>';
 echo '<td height="301" align="center" valign="top"><font color="#FBC404" size="-1">'.$theuser.'</font></td>';
 echo '</tr>';
 echo '</table></td>'; //t1c
-
 echo '</tr>';
 echo '</table>'; //t2c
 
-echo '</div>';

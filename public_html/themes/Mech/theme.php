@@ -298,21 +298,17 @@ function FormatStory($thetext, $notes, $aid, $informant) {
 
     include_once(theme_dir.'copyright.php');
 
-    $r_file = null;
-    
-	global $userinfo, $cookie, $prefix, $name, $db;
+	global $userinfo, $cookie, $prefix, $name, $db, $theme_name;
+    global $locked_width, $ThemeInfo, $sitename;
 
     # Check if a Registered User is Logged-In
     $username = is_user() ? $userinfo['username'] : _ANONYMOUS;
 
     $theuser = '';
-    $scrollmsg = '';
     $moreuser_info = '';
-    $marquee_one = '';
-    $date = '';
 
-    $theuser = "<img src=\"themes/Mech/images/spacer.gif\" border=0 width=4 height=1><font class=copyright>Welcome $username</font><a href=\"modules.php?name=Your_Account&op=logout\"><img 
-	src=\"themes/Mech/images/logout.gif\" border=0 alt=logout></a></td>\n"; 
+    $theuser = "<img src=\"themes/".$theme_name."/images/spacer.gif\" border=0 width=4 height=1><font class=copyright>Welcome ".$username."</font><a href=\"modules.php?name=Your_Account&op=logout\"><img 
+	src=\"themes/".$theme_name."/images/logout.gif\" border=0 alt=logout></a></td>\n"; 
   
     $sql = "SELECT msg1, msg2, msg3, link1, link2, link3, link4, link5, link1url, link2url, link3url, link4url, link5url, searchbox, flash FROM ".$prefix."_themecp";
 
@@ -334,69 +330,36 @@ function FormatStory($thetext, $notes, $aid, $informant) {
     $link5url = $row['link5url'];
     $searchbox = $row['searchbox'];
     $flash = $row['flash'];
-    $public_msg = public_message(); 
-
-    echo "$public_msg";
-
-//if ($searchbox == 1) {	
-//	$search1 ="<form action=\"modules.php?op=modload&name=Search&file=index\" method=\"post\"><input type=\"text\" name=\"query\" value=\"type search here\" onFocus=\"if(this.value=='type search here')this.value='';\" value style=\"width:120;height:18;\" class=1>&nbsp;<input type=\"image\" class=\"noborder\" value=\"search\" src=\"themes/Mech/images/search.gif\" border=\"0\" alt=\"submit search\"></TD></form>\n";
-//} else {
-//	$search1 ="&nbsp;</td>\n";
-//}
+	
     include_once(theme_dir.'platinum_header.php');
-//LEFT SIDE BACKGROUND
-global $locked_width, $ThemeInfo, $sitename, $theme_name;
 
-echo '<div align="center">';
-
-echo '<table class="tablebackgroundfix" width="'.$locked_width.'" cellpadding="0" cellspacing="0" border="0" align="center">
+   //LEFT SIDE BACKGROUND
+   echo '<table class="tablebackgroundfix" width="'.$locked_width.'" cellpadding="0" cellspacing="0" border="0" align="center">
 		<tr valign="top">
-        <td width="31" valign="top" background="themes/Mech/images/leftB.jpg"><img src="themes/Mech/images/leftB.jpg" width="31" height="200" border="0"></td>
+        <td width="31" height=\"29\" valign="top" background="themes/Mech/images/leftB.jpg"><img src="themes/Mech/images/leftB.jpg" width="31" height=\"29\" border="0"></td>
 		<td width="165" valign="top">';
 
-    if ($name == 'Forums' || $name == 'Private_Messages' || $name == 'Members_List' || $name == 'Shopping_Cart' || $name == 'Your_Account') 
-	{ 
-    
-	}   
-    else 
-    { 
-     blocks('left'); 
+   if(blocks_visible('left'))  {    
+       blocks('left'); 
     } 
-    echo '</td>
-    	  <td width="0" valign="top" background="themes/Mech/images/spacer2.gif"><img src="themes/Mech/images/spacer2.gif" width="0" height="1" border="0"></td>
-    	  <td width="100%">';
+	    
+    echo '</td><td width="100%">';
 }
-
-/************************************************************/
-/* Function themefooter()                                   */
-/************************************************************/
-$foot1 = "test";
-$foot2 = "test";
-$foot3 = "test";
-$foot4 = "test";
 
 function themefooter() {
 
-    $show = null;
-    $content = null;
-    $admin = null;
-    $sitename = null;
-    $adminmail = null;
-    $nukeurl = null;
-    global $db, $theme_name, $index, $banners, $prefix, $dbi, $total_time, $start_time, $foot1, $foot2, $foot3, $foot4;
+global $theme_name;
 
 if(blocks_visible('right'))  {
-echo'</td>    <td width="170" valign="top">';
+echo'</td><td width="170" valign="top">';
     blocks('right');
 }
 
-echo"</td>"
-  . "    <td width=\"31\" valign=\"top\" background=\"themes/Mech/images/rightB.jpg\"><img src=\"themes/Mech/images/rightB.jpg\" width=\"31\" height=\"30\"></td>"
-  . "  </tr>"
+echo "</td>"
+  . "<td width=\"31\" height=\"29\" valign=\"top\" background=\"themes/".$theme_name."/images/rightB.jpg\"><img src=\"themes/Mech/images/rightB.jpg\" width=\"31\" height=\"29\"></td>"
+  . "</tr>"
   . "</table>"
  ."";
- 
- echo '</div>';
  
     include("themes/".$theme_name."/platinum_footer.php");
 }

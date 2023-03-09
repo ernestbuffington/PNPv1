@@ -1,8 +1,6 @@
 <?php
 global $use_cache, $usrclearcache, $locked_width, $theme_author, $theme_business, $theme_date, $theme_download_link, $theme_title, $ThemeInfo, $sitename, $theme_name;
 
-echo '<div align="center">';
-
 echo '<table width="'.$locked_width.'" height="172" border="0" cellpadding="0" cellspacing="0" background="themes/'.$theme_name.'/images/fm.jpg">';
 echo '<tr>';
 echo '<td width="244" height="175" colspan="1" rowspan="1" valign="top"><table width="244" border="0" cellpadding="0" cellspacing="0" background="themes/'.$theme_name.'/images/fl.jpg">';
@@ -32,8 +30,6 @@ echo '<input type="hidden" name="clear_cache" value="1">';
 echo '</span> <a class="poweredby" href="javascript:clear_cache.submit()">CLICK HERE TO CLEAR CACHE</a>';
 echo '</form>';
 endif;
-
-
 // About Us - Disclimer Statement - Privacy Statement - Terms Of Use
 echo '[ ';
 echo '<a class="themecopy" href="'.HTTPS.'"modules.php?name=Network&file=about">';
@@ -47,11 +43,10 @@ echo 'Terms of Use</a> ]<br>';
 // Theme Copyright
 echo '<a class="tooltip-html themecopy" href="'.$theme_download_link.'" data-toggle="modal" data-target="'.$theme_download_link.'" title="'.$theme_title; 
 echo '<br/>Designed By '.$theme_author.'<br />Created '.$theme_date.'<br />'.$theme_business.'<br/>All Rights Reserved">'.$theme_title.'</a><br />';
-echo '<div style="padding-top:63px;"></div>';
+echo '<div style="padding-top:30px;"></div>';
 
 echo '</td>';
 echo '<td width="240" valign="top"> <img src="themes/'.$theme_name.'/images/fr.jpg" width="240" height="175"></td>';
-echo '</tr><tr><td height="1"><img src="themes/'.$theme_name.'/images/spacer.gif" alt="" width="244" height="1"></td><td></td><td><img src="themes/Mech/'.$theme_name.'/spacer.gif" alt="" width="240" height="1"></td></tr>';
-echo '</rable>';
-
+echo '</tr><tr><td height="1"><img src="themes/'.$theme_name.'/images/spacer.gif" alt="" width="244" height="1"></td><td></td><td><img src="themes/'.$theme_name.'/spacer.gif" alt="" width="240" height="1"></td></tr>';
+echo '</table>';
 echo '</div>';
