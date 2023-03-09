@@ -12,6 +12,31 @@ if(empty($screen_height))
 $screen_height = '1024px';
 
 ?>
+/* Copyright and bottom info */
+.themecopy{
+FONT-SIZE: 12px; 
+COLOR: #999999; 
+FONT-FAMILY:  arial, helvetica, verdana, sans-serif; 
+TEXT-DECORATION: none;
+}
+a.themecopy:visted{
+FONT-SIZE: 12px; 
+COLOR: #999999; 
+FONT-FAMILY:  arial, helvetica, verdana, sans-serif; 
+TEXT-DECORATION: none;
+}
+a.themecopy:active{
+FONT-SIZE: 12px; 
+COLOR: #999999; 
+FONT-FAMILY:  arial, helvetica, verdana, sans-serif; 
+TEXT-DECORATION: none;
+}
+a.themecopy:hover{
+FONT-SIZE: 12px; 
+COLOR: yellow; 
+FONT-FAMILY:  arial, helvetica, verdana, sans-serif; 
+TEXT-DECORATION: none;
+}
 
 A:link {
 FONT-SIZE: 12px; 
@@ -37,6 +62,7 @@ COLOR: #FDD802;
 FONT-FAMILY:  arial, helvetica, verdana, sans-serif; 
 TEXT-DECORATION: none;
 }
+
 BODY {
 FONT-SIZE: 12px; 
 CURSOR: default; 
@@ -388,13 +414,6 @@ BORDER-LEFT: #0000001px solid;
 BORDER-RIGHT: #777781 1px solid;
 BACKGROUND: #434343;
 }
-
-
-/* Copyright and bottom info */
-.copyright		{ font-size: 10px; font-family: Verdana, Arial, Helvetica, sans-serif; color: #FFFFFF; letter-spacing: 0px;}
-a.copyright		{ color: #FFFFFF; text-decoration: none;}
-a.copyright:hover { color: #3D4743; text-decoration: NONE;}
-
 
 /* Form elements */
 input {

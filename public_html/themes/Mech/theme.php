@@ -64,25 +64,25 @@ echo "<!-- Setting locked THEME width to ".$locked_width," in themes/".$theme_na
 $side_block_width = "295px";
 echo "<!-- Setting Side Block THEME width to ".$side_block_width," in themes/".$theme_name."/theme.php -->\n";
 
-$theme_business = 'Brandon Maintenance Management, LLC';
+$theme_business = 'DESTINE DESIGNS';
 echo "<!-- Setting THEME Business to ".$theme_business," in themes/".$theme_name."/theme.php -->\n";
 
 # Theme Name
-$theme_title = '<u>BlackJack Theme v1.0 &copy; 2022</u>';
+$theme_title = '<u>Mech Theme v1.0 &copy; 2004</u>';
 echo "<!-- Setting THEME name to ".$theme_title," in themes/".$theme_name."/theme.php -->\n";
 define('THEME', $theme_title);
 
-$theme_overview = 'BOOTSTRAP 3.4.1 / HTML5 / XHTML5';
+$theme_overview = 'BOOTSTRAP 3.4.1 / HTML 4.01 / XML';
 echo "<!-- Setting Features to ".$theme_overview," in themes/".$theme_name."/theme.php -->\n";
 define('THEME_OVERVIEW', $theme_overview);
 
 # Theme Author
-$theme_author = 'Ernest Allen Buffington';
+$theme_author = 'Mustang & Vision';
 echo "<!-- Setting THEME Author to ".$theme_author," in themes/".$theme_name."/theme.php -->\n";
 define('THEME_AUTHOR', $theme_author);
 
 # Theme creation date
-$theme_date = '11/29/2022';
+$theme_date = '1/1/2004';
 echo "<!-- Setting THEME DATE to ".$theme_date," in themes/".$theme_name."/theme.php -->\n";
 define('THEME_DATE', $theme_date);
 
@@ -218,29 +218,11 @@ echo "<!-- Setting Loading themes/".$theme_name."/css/buttons.php in themes/".$t
 addPHPCSSToHead(theme_phpstyle_dir.'scrollbars.php','file'); 
 echo "<!-- Setting Loading themes/".$theme_name."/css/scrollbars.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
 
-//addPHPCSSToHead(theme_phpstyle_dir.'sideblocks.php','file'); 
-//echo "<!-- Setting Loading themes/".$theme_name."/css/sideblocks.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
-
 addPHPCSSToHead(theme_phpstyle_dir.'full_screen_video_background.php','file');       
 echo "<!-- Setting Loading themes/".$theme_name."/css/full_screen_video_background.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
 
-//addPHPCSSToHead(theme_phpstyle_dir.'footer.php','file'); 
-//echo "<!-- Setting Loading themes/".$theme_name."/css/footer.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
-
-//addPHPCSSToHead(theme_phpstyle_dir.'drop_down_menu.php','file'); # enable for drop_down_menu         
-//echo "<!-- Setting Loading themes/".$theme_name."/css/drop_down_menu.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
-
-//addPHPCSSToHead(theme_phpstyle_dir.'scss_menu.php','file'); # enable for SCSS drop_down_menu         
-//echo "<!-- Setting Loading themes/".$theme_name."/css/scss_menu.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
-
-//addPHPCSSToHead(theme_phpstyle_dir.'css3_menu.php','file'); # enable for css3 menu
-//echo "<!-- Setting Loading themes/".$theme_name."/css/css3_menu.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
-
 addPHPCSSToHead(theme_phpstyle_dir.'css_toolbox.php','file');  
 echo "<!-- Setting Loading themes/".$theme_name."/css/css_toolbox.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
-
-//addPHPCSSToHead(theme_phpstyle_dir.'arcade_tables.php','file');  
-//echo "<!-- Setting Loading themes/".$theme_name."/css/arcade_tables.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
 
 addPHPCSSToHead(theme_phpstyle_dir.'CKeditor.php','file');   
 echo "<!-- Setting Loading themes/".$theme_name."/css/CKeditor.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
@@ -248,18 +230,8 @@ echo "<!-- Setting Loading themes/".$theme_name."/css/CKeditor.php in themes/".$
 addPHPCSSToHead(theme_phpstyle_dir.'links.php','file'); 
 echo "<!-- Setting Loading themes/".$theme_name."/css/links.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
 
-//addJSToBody(theme_phpinclude_js_dir.'drop_down_menu.js','file'); # enable for drop_down_menu  
-//echo "<!-- Setting Loading themes/".$theme_name."/includes/js/drop_down_menu.js in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
-
-//addJSToBody(theme_phpinclude_js_dir.'css3_menu.js','file'); # enable for css3 menu
-//echo "<!-- Setting Loading themes/".$theme_name."/includes/js/css3_menu.js in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
-
 addJSToBody(theme_phpinclude_js_dir.'Hover.js','file'); # jQuery Hover
 echo "<!-- Setting Loading themes/".$theme_name."/includes/js/Hover.js in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
-
-//addCSSToHead(theme_style_dir.'style.css','file');
-
-//addCSSToHead(theme_style_dir.'menu.css','file');
 
 addPHPCSSToHead(theme_phpstyle_dir.'jquery_floating_admin.php','file');  
 echo "<!-- Setting Loading themes/".$theme_name."/css/jquery_floating_admin.php in themes/".$theme_name."/theme.php (PHP FlyKit v1.0 Mod) -->\n";
@@ -269,7 +241,6 @@ echo "<!-- Setting Loading themes/".$theme_name."/css/body.php in themes/".$them
 
 /************************************************************/
 /* OpenTable Functions                                      */
-/*                                                          */
 /************************************************************/
 function OpenTable() {
 
