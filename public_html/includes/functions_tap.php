@@ -22,7 +22,7 @@ if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
     exit('Access Denied');
 }
 
-define('TAP_PREFIX', 'Titanium-');
+define('TAP_PREFIX', 'Platinum-');
 
 define('TAP_SCOPE','[a-z0-9_-]');
 
