@@ -23,7 +23,7 @@ RewriteEngine on
 RewriteBase /
 
 ##################################################################################################
-# Force SSL - no insecure data connections!                                                      ##### Added By Ernest Allen Buffington 08/05/2019
+# Force SSL - no insecure data connections!                                                      #
 ##################################################################################################
 RewriteCond %{HTTPS} off
 #RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
@@ -32,7 +32,7 @@ RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ 
 RewriteRule (.*) https://%{HTTP_HOST}:443%{REQUEST_URI}
 
 ##################################################################################################
-# Force WWW - this is only needed for root domains...                                            ##### Added By Ernest Allen Buffington 03/16/2021
+# Force WWW - this is only needed for root domains...                                            #
 ##################################################################################################
 RewriteCond %{HTTP_HOST} !=""
 RewriteCond %{HTTP_HOST} !^www\. [NC]
@@ -59,22 +59,22 @@ RewriteRule ^.*$ http://127.0.0.1/ [R=301,L]
 # Lazy Google Tap
 # -------------------------------------------
 
-RewriteRule ^Titanium-(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)\.html$ /modules.php?name=$1&$2=$3&$4=$5&$6=$7&$8=$9 [L]
+RewriteRule ^Platinum-(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)\.html$ /modules.php?name=$1&$2=$3&$4=$5&$6=$7&$8=$9 [L]
 
-RewriteRule ^Titanium-(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)\.html#(.*)$ /modules.php?name=$1&$2=$3&$4=$5&$6=$7#$8 [L]
-RewriteRule ^Titanium-(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)\.html$ /modules.php?name=$1&$2=$3&$4=$5&$6=$7 [L]
+RewriteRule ^Platinum-(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)\.html#(.*)$ /modules.php?name=$1&$2=$3&$4=$5&$6=$7#$8 [L]
+RewriteRule ^Platinum-(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)\.html$ /modules.php?name=$1&$2=$3&$4=$5&$6=$7 [L]
 
-RewriteRule ^Titanium-(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)\.html#(.*)$ /modules.php?name=$1&$2=$3&$4=$5#$6 [L]
-RewriteRule ^Titanium-(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)\.html$ /modules.php?name=$1&$2=$3&$4=$5 [L]
+RewriteRule ^Platinum-(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)\.html#(.*)$ /modules.php?name=$1&$2=$3&$4=$5#$6 [L]
+RewriteRule ^Platinum-(.*)_-_(.*)_-_(.*)_-_(.*)_-_(.*)\.html$ /modules.php?name=$1&$2=$3&$4=$5 [L]
 
-RewriteRule ^Titanium-(.*)_-_(.*)_-_(.*)\.html#(.*)$ /modules.php?name=$1&$2=$3#$4 [L]
-RewriteRule ^Titanium-(.*)_-_(.*)_-_(.*)\.html$ /modules.php?name=$1&$2=$3 [L]
+RewriteRule ^Platinum-(.*)_-_(.*)_-_(.*)\.html#(.*)$ /modules.php?name=$1&$2=$3#$4 [L]
+RewriteRule ^Platinum-(.*)_-_(.*)_-_(.*)\.html$ /modules.php?name=$1&$2=$3 [L]
 
-RewriteRule ^Titanium-index.html#(.*)$ /index.php#$1 [L]
-RewriteRule ^Titanium-index.html$ /index.php [L]
+RewriteRule ^Platinum-index.html#(.*)$ /index.php#$1 [L]
+RewriteRule ^Platinum-index.html$ /index.php [L]
 
-RewriteRule ^Titanium-(.*)\.html#(.*)$ /modules.php?name=$1#$2 [L]
-RewriteRule ^Titanium-(.*)\.html$ /modules.php?name=$1 [L]
+RewriteRule ^Platinum-(.*)\.html#(.*)$ /modules.php?name=$1#$2 [L]
+RewriteRule ^Platinum-(.*)\.html$ /modules.php?name=$1 [L]
 
 RewriteCond %{HTTP_USER_AGENT} ^libwww-perl
 RewriteRule ^.*$ http://127.0.0.1 [R,L]
