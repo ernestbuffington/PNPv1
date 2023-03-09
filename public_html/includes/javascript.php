@@ -337,20 +337,6 @@ include(NUKE_JQUERY_INCLUDE_DIR.'jquery.colorbox.php');
 include(NUKE_JQUERY_INCLUDE_DIR.'jquery.lightbox-lite.php');
 
 /**
- * Live feed from Evolution Xtreme.
- *
- * Shows the latest live news coming from the Evolution Xtreme site,
- * It is designed to keep you up to date on changes to the CMS, Blocks, Modules & Themes.
- *
- * @since 2.0.9e 
- *
- * @author Lonestar <https://lonestar-modules.com>
- * @version 1.0.0
- * @license GPL-3.0
- */
-include(NUKE_JQUERY_INCLUDE_DIR.'jquery.live.feed.php');
-
-/**
  * Scroll back to top script.
  *
  * A floating button link will appear when you scroll down the page.
@@ -428,10 +414,7 @@ echo "\n<!--
    ::    ::   :::   :: ::::   ::: ::::  ::   :::  ::::: ::  :::: ::      ::    
    :      :   : :  : :: ::    :: :: :    :   : :   : :  :   :: : :       :     
                                                                                 -->\n";
-# Easter Egg Hunt added by who I'm not sure but it's cute
-# addJSToBody(NUKE_JQUERY_SCRIPTS_DIR.'Evo.EE.js','file');
-# addJSToBody(NUKE_JQUERY_SCRIPTS_DIR.'Evo.EE.CMD.js','file');
-echo "\n<!-- Ernest Allen Buffington aka TheGhost was here 11/20/2022 -->\n\n";
+echo "\n<!-- Ernest Allen Buffington ernest.buffington@gmail.com - If you have any questions just ask me. CELL 1+ 813-846-2865 -->\n\n";
 
 global $analytics;
 
