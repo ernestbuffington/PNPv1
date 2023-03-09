@@ -230,29 +230,28 @@ background-color: black;
 #borderFunctionOpenTable {
 margin-left: 6px;
 margin-right: 6px;
-border: 4px solid <?=$bgcolor5?>;
-border-radius: 11px;
+border: 5px solid grey;
+border-radius: 21px;
 padding: 16px;
-background-color: black;
+background-color: #2d2d2d;
 }
-
 
 #borderThemeIndex {
 margin-left: 6px;
 margin-right: 6px;
-border: 4px solid <?=$bgcolor5?>;
+border: 4px solid #2e2e2e;
 border-radius: 11px;
-padding: 16px;
-background-color: black;
+padding: 1px;
+background-color: #2e2e2e;
 }
 
 #borderThemeArticle {
 margin-left: 6px;
 margin-right: 6px;
-border: 4px solid <?=$bgcolor5?>;
+border: 4px solid #2e2e2e;
 border-radius: 11px;
-padding: 16px;
-background-color: black;
+padding: 1px;
+background-color: #2e2e2e;
 }
 
 /* New Pagination */
