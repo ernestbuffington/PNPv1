@@ -82,11 +82,12 @@ function title_and_meta_tags() {
 
     # if the user is visiting a module, change the page title to the module name.
     else:
-    if ($appID > 0):
+	if (defined('facebook')): 
+      if ($appID > 0):
         $facebookappid = "<meta property=\"fb:app_id\" content=\"" . $appID . "\">\n";
         $facebook_admin = "<meta property=\"fb:admins\" content=\"" . $facebook_admin_id_number . "\">"; # TheGhost's facebook user ID
-    endif;    
-    
+      endif;    
+    endif;
     $facebook_page_type = "<meta property=\"og:type\" content=\"website\">\n";
 
         if (!defined('HOME_FILE')):
