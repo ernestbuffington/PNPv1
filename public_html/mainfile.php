@@ -491,7 +491,44 @@ $sitekey = md5((string) $_SERVER['HTTP_HOST']);
 $gfx_chk = 0;
 $tipath = 'modules/Blog_Topics/images/topics/';
 $reasons = ['As Is', 'Offtopic', 'Flamebait', 'Troll', 'Redundant', 'Insighful', 'Interesting', 'Informative', 'Funny', 'Overrated', 'Underrated'];
-$AllowableHTML = ['p'=>1, 'b'=>1, 'i'=>1, 'a'=>2, 'em'=>1, 'br'=>1, 'strong'=>1, 'figure'=>1, 'blockquote'=>1, 'tt'=>1, 'li'=>1, 'ol'=>1, 'ul'=>1, 'pre'=>1];
+$AllowableHTML = array(
+	'a' => array('class' => 1, 'style' => 1, 'id' => 1, 'href' => 1, 'target' => 1, 'title' => array('minlen' => 4, 'maxlen' => 120)),
+	'b' => array(),
+	'blockquote' => array('class' => 1, 'style' => 1, 'id' => 1),
+	'br' => array(),
+	'center' => array(),
+	'div' => array('class' => 1, 'style' => 1, 'id' => 1, 'align' => 1),
+	'em' => array('class' => 1, 'style' => 1, 'id' => 1),
+	'font' => array('face' => 1, 'style' => 1, 'color' => 1, 'size' => array('minval' => 1, 'maxval' => 7)),
+	'h1'=>array('class' => 1, 'style' => 1, 'id' => 1),
+	'h2'=>array('class' => 1, 'style' => 1, 'id' => 1),
+	'h3'=>array('class' => 1, 'style' => 1, 'id' => 1),
+	'h4'=>array('class' => 1, 'style' => 1, 'id' => 1),
+	'h5'=>array('class' => 1, 'style' => 1, 'id' => 1),
+	'h6'=>array('class' => 1, 'style' => 1, 'id' => 1),
+	'hr' => array(),
+	'i' => array(),
+	'img' => array('class' => 1, 'style' => 1, 'id' => 1, 'alt' => 1, 'src' => 1, 'hspace' => 1, 'vspace' => 1, 'width' => 1, 'height' => 1, 'border' => 1, 'align' => 1),
+	'li' => array('class' => 1, 'style' => 1, 'id' => 1),
+	'ol' => array('class' => 1, 'style' => 1, 'id' => 1),
+	'p' => array('class' => 1, 'style' => 1, 'id' => 1, 'align' => 1),
+	'pre' => array('style' => 1, 'id' => 1, 'align' => 1, 'class' => 1, 'title' => array('minlen' => 4, 'maxlen' => 120)),
+	'span' =>array('id' => 1, 'class' => 1, 'style' => array('font-family' => 1, 'color' => 1)),
+	'strong' => array(),
+	'strike'=>array(),
+	'sub'=>array(),
+	'sup'=>array(),
+	'table' => array('class' => 1, 'style' => 1, 'id' => 1, 'align' => 1, 'border' => 1, 'cell' => 1, 'width' => 1, 'cellspacing' => 1, 'cellpadding' => 1),
+	'tbody'=>array('class' => 1, 'style' => 1, 'id' => 1),
+	'td' => array('class' => 1, 'style' => 1, 'id' => 1, 'align' => 1, 'width' => 1, 'valign' => 1, 'height' => 1, 'rowspan' => 1, 'colspan' => 1 ),
+	'tfoot'=>array('class' => 1, 'style' => 1, 'id' => 1),
+	'th' => array('class' => 1, 'style' => 1, 'id' => 1, 'align' => 1, 'scope' => 1, 'width' => 1, 'valign' => 1, 'height' => 1, 'rowspan' => 1, 'colspan' => 1),
+	'thead'=>array('class' => 1, 'style' => 1, 'id' => 1),
+	'tr' => array('class' => 1, 'style' => 1, 'id' => 1, 'align' => 1),
+	'tt'=>array(),
+	'u' => array(),
+	'ul' => array('class' => 1, 'style' => 1, 'id' => 1),
+);
 
 $nukeconfig = load_nukeconfig();
 
