@@ -601,44 +601,25 @@ $board_config = load_board_config();
 # Mod: Color Toggle v1.0.0 START
 # Mod: Lazy Google Tap v1.0.0 START
 # Base: Switch Content Script v2.0.0 START
-if(isset($evoconfig['lock_modules']))
-$lock_modules = (int) $evoconfig['lock_modules'];
-if(isset($evoconfig['queries_count']))
-$queries_count = (int) $evoconfig['queries_count'];
-if(isset($evoconfig['adminssl']))
-$adminssl = (int) $evoconfig['adminssl'];
-if(isset($evoconfig['censor_words']))
-$censor_words = $evoconfig['censor_words'];
-if(isset($evoconfig['censor']))
-$censor = (int) $evoconfig['censor'];
-if(isset($evoconfig['usrclearcache']))
-$usrclearcache = (int) $evoconfig['usrclearcache'];
-if(isset($evoconfig['use_colors']))
-$use_colors = (int) $evoconfig['use_colors'];
-if(isset($evoconfig['lazy_tap']))
-$lazy_tap = (int) $evoconfig['lazy_tap'];
-if(isset($evoconfig['img_resize']))
-$img_resize = (int) $evoconfig['img_resize'];
-if(isset($evoconfig['img_width']))
-$img_width = (int) $evoconfig['img_width'];
-if(isset($evoconfig['img_height']))
-$img_height = (int) $evoconfig['img_height'];
-if(isset($evoconfig['textarea']))
-$wysiwyg = $evoconfig['textarea'];
-if(isset($evoconfig['capfile']))
-$capfile = $evoconfig['capfile'];
-if(isset($evoconfig['collapse']))
-$collapse = (int) $evoconfig['collapse'];
-if(isset($evoconfig['collapsetype']))
-$collapsetype = (int) $evoconfig['collapsetype'];
-if(isset($evoconfig['module_collapse']))
-$module_collapse = (int) $evoconfig['module_collapse'];
-if(isset($evoconfig['evouserinfo_ec']))
-$evouserinfo_ec = (int) $evoconfig['evouserinfo_ec'];
-if(isset($evoconfig['analytics']))
-$analytics = $evoconfig['analytics'];
-if(isset($evoconfig['html_auth']))
-$html_auth = $evoconfig['html_auth'];
+if(isset($evoconfig['lock_modules'])) $lock_modules = (int) $evoconfig['lock_modules'];
+if(isset($evoconfig['queries_count'])) $queries_count = (int) $evoconfig['queries_count'];
+if(isset($evoconfig['adminssl'])) $adminssl = (int) $evoconfig['adminssl'];
+if(isset($evoconfig['censor_words'])) $censor_words = $evoconfig['censor_words'];
+if(isset($evoconfig['censor'])) $censor = (int) $evoconfig['censor'];
+if(isset($evoconfig['usrclearcache'])) $usrclearcache = (int) $evoconfig['usrclearcache'];
+if(isset($evoconfig['use_colors'])) $use_colors = (int) $evoconfig['use_colors'];
+if(isset($evoconfig['lazy_tap'])) $lazy_tap = (int) $evoconfig['lazy_tap'];
+if(isset($evoconfig['img_resize'])) $img_resize = (int) $evoconfig['img_resize'];
+if(isset($evoconfig['img_width'])) $img_width = (int) $evoconfig['img_width'];
+if(isset($evoconfig['img_height'])) $img_height = (int) $evoconfig['img_height'];
+if(isset($evoconfig['textarea'])) $wysiwyg = $evoconfig['textarea'];
+if(isset($evoconfig['capfile'])) $capfile = $evoconfig['capfile'];
+if(isset($evoconfig['collapse'])) $collapse = (int) $evoconfig['collapse'];
+if(isset($evoconfig['collapsetype'])) $collapsetype = (int) $evoconfig['collapsetype'];
+if(isset($evoconfig['module_collapse'])) $module_collapse = (int) $evoconfig['module_collapse'];
+if(isset($evoconfig['evouserinfo_ec'])) $evouserinfo_ec = (int) $evoconfig['evouserinfo_ec'];
+if(isset($evoconfig['analytics'])) $analytics = $evoconfig['analytics'];
+if(isset($evoconfig['html_auth'])) $html_auth = $evoconfig['html_auth'];
 
 $more_js = '';
 $more_styles = '';
@@ -1073,7 +1054,7 @@ function blocks($side, $count=false)
     return;
 } 
 
-function blockfileinc($blockfiletitle, $blockfile, $side=1,$bid = 0) {
+function blockfileinc($blockfiletitle, $blockfile, $side=1, $bid = 0) {
     global $collapse;
 
     if (!file_exists(NUKE_BLOCKS_DIR.$blockfile)) {
