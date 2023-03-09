@@ -139,15 +139,13 @@ if(get_evo_option('recap_site_key') && get_evo_option('recap_priv_key'))
 /*****[BEGIN]******************************************
  [ Mod:     Arcade                             v1.0.0 ]
  ******************************************************/
-# Fixed 10/08/2022 START
 # PHP Deprecated:  Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)`
-$arcade_on = ((isset($_GET['file']) && $_GET['file'] == 'arcade_games') ? true : ((isset($_POST['file']) && $_POST['file'] == 'arcade_games') ?  true : false)); //Fixed TheGhost
+$arcade_on = ((isset($_GET['file']) && $_GET['file'] == 'arcade_games') ? true : ((isset($_POST['file']) && $_POST['file'] == 'arcade_games') ?  true : false));
 
 if (!$arcade_on) {
-    $arcade_on = ((isset($_GET['do']) && $_GET['do'] == 'newscore') ? true : ((isset($_POST['do']) && $_POST['do'] == 'newscore') ? true : false)); //Fixed TheGhost
+    $arcade_on = ((isset($_GET['do']) && $_GET['do'] == 'newscore') ? true : ((isset($_POST['do']) && $_POST['do'] == 'newscore') ? true : false));
 }
 # PHP Deprecated:  Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)`
-# Fixed 10/08/2022 END
 /*****[END]********************************************
  [ Mod:     Arcade                             v1.0.0 ]
  ******************************************************
@@ -438,4 +436,4 @@ if (!empty($more_js)) {
 //DO NOT PUT ANYTHING AFTER THIS LINE
 echo "<!--[if IE]><script>womOn();</script><![endif]-->\n";
 
-?>
+
