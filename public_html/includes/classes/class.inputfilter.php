@@ -51,10 +51,10 @@ class InputFilter {
 			         'xml');
 								 
     var $attrBlacklist = array('action', 
-	                       'background', 
-						     'codebase', 
-							   'dynsrc', 
-							   'lowsrc');  # also will strip ALL event handlers
+	                   'background', 
+			     'codebase', 
+			       'dynsrc', 
+			       'lowsrc');  # also will strip ALL event handlers
     var $current_string;
 
     /*****[BEGIN]******************************************
