@@ -2153,13 +2153,13 @@ function encode_mail($email) {
 
 /**
  * @get user name colors
- * @Alternative, saves user colors in seperate cache files!
+ * @Alternative, saves user colors in separate cache files!
  * @version 4.0.3
  * @cache zf1-future
  * @author Ernest Allen Buffington
  */
 function UsernameColorBBC($username, $old_name = false) {
-    global $db, $user_prefix, $use_colors, $cache;
+    global $db, $user_prefix, $user_color, $cache;
 
     $cached_names = [];
     static $cached_names;
@@ -2190,7 +2190,7 @@ function UsernameColorBBC($username, $old_name = false) {
 
 /**
  * @Horndonkle user name colors
- * @saves user colors in seperate cache files!
+ * @saves user colors in separate cache files!
  * @version 4.0.3
  * @cache zf1-future
  * @author Ernest Allen Buffington
@@ -2203,8 +2203,9 @@ function UsernameColor($username, $old_name = false) {
 
     $cached_names = [];
 
-    if (!isset($plain_username))
+    if (!isset($plain_username)) {
         $plain_username = '';
+    }
 
     if ($old_name):
         $username = $old_name;
