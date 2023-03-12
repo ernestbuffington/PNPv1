@@ -929,7 +929,7 @@ function blocks_visible($side): bool {
         return false;
     endif;
 
-    # If in the admin show l blocks
+    # If in the admin show l block
     if (defined('ADMIN_FILE')):
         return true;
     endif;
@@ -1144,17 +1144,17 @@ function blog_ultramode() {
     }
 
     $sql = "SELECT `s`.`sid`, 
-	             `s`.`catid`, 
-				   `s`.`aid`, 
-				 `s`.`title`, 
-		 `s`.`datePublished`, 
-		  `s`.`dateModified`, 
-		      `s`.`hometext`, 
-			  `s`.`comments`, 
-			     `s`.`topic`, 
-				 `s`.`ticon`, 
-		     `t`.`topictext`, 
-		    `t`.`topicimage` 
+	         `s`.`catid`, 
+		   `s`.`aid`, 
+		 `s`.`title`, 
+	 `s`.`datePublished`, 
+	  `s`.`dateModified`, 
+	      `s`.`hometext`, 
+	      `s`.`comments`, 
+	         `s`.`topic`, 
+		 `s`.`ticon`, 
+	     `t`.`topictext`, 
+	    `t`.`topicimage` 
 			
 	FROM `" . $prefix . "_blogs` `s` 
 	
