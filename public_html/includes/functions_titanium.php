@@ -92,7 +92,7 @@ function forum_icon_img_path($icon='', $mymodule='', $empty=true)
      
 	    closedir($dir); 
 	}
-	
+	if(isset($forum_icon_path))
 	return($forum_icon_path);
 }
 

@@ -40,7 +40,7 @@ $dbhost = 'localhost';
 | The name of your database that holds your tables        |
 |                                                         |
 ---------------------------------------------------------*/
-$dbname = '';
+$dbname = 'platinum_test';
 
 /*----[ $dbuname ] ---------------------------------------
 |                                                         |
@@ -48,7 +48,7 @@ $dbname = '';
 | permissions                                             |
 |                                                         |
 ---------------------------------------------------------*/
-$dbuname = '';
+$dbuname = 'platinum_db';
 
 /*----[ $dbpass ] ----------------------------------------
 |                                                         |
@@ -68,7 +68,7 @@ $dbpass = '';
 | Default: mysqli                                         |
 |                                                         |
 ---------------------------------------------------------*/
-$dbtype = 'mysqli';
+$dbtype = 'MySQLi';
 
 /*----[ $prefix ] ----------------------------------------
 |                                                         |
@@ -178,4 +178,5 @@ $persistency = false;
 /* Thanks for choosing PHP-Nuke Platinum, we hope you enjoy using it! */
 /*                                                                    */
 /**********************************************************************/
+
 ?>

@@ -1,0 +1,58 @@
+/*********************************************************/
+/   Nuke-EvolutionThemes - www.nuke-evolutionthemes.com   /
+/*********************************************************/
+/                Theme Instalation Guide                  /
+/*********************************************************/
+
+
+Installing themes is really simple to do. 
+All the themes downloaded from www.nuke-evolutionthemes.com are 
+now packaged the same way, So they can now be installed the same way.
+
+
+Step 1.
+
+Read this giude completely before atempting a theme install.
+
+Step 2.
+
+In the same folder you found this guide you will find a folder called root
+open it and inside you will find a folder called root open it and you will
+see a folder called themes,open the folder.
+
+Step 3.
+
+You should now be looking at a folder which has your chosen theme name on it,
+You are now ready to upload and install your theme.
+
+Step 4. (uploading your theme)
+
+Open your site up in your chosen FTP software,find the folder called themes and
+open it,now find the theme on your computer and upload it to the themes folder
+on your server.
+
+Step 5. (installing your theme)
+
+Log-in to your Sites Admin Panel Then click on the Theme Management icon,you
+will then see one section with your installed theme(s) - (Chromo)and on the 
+2nd half it will have a section called Uninstalled Themes. 
+The theme you just uploaded should be listed there. Now click the "INSTALL" link. 
+This will take you to the next page, towards the bottom it will have an "INSTALL" button.
+Click that and it should now say.... 
+
+Theme Installed .... 
+Return to Theme Management
+
+Step 6. (Default theme)
+
+If you wish to make your theme the default you now need to click the default button next
+to your theme,if you don't then go straight to Step 7.
+
+Step 7 
+
+That has installed the theme. Now just go to your Your_Account page and click on the "Select Theme".
+You will now see the theme in the drop-down list ready for you to select.
+
+ 
+
+That's it your theme is installed and ready for use on your site.

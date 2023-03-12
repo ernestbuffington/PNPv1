@@ -284,6 +284,8 @@ else
 $nav_links_html = '';
 $nav_link_proto = '<link rel="%s" href="%s" title="%s" />' . "\n";
 
+$nav_links = [];
+
 foreach ($nav_links as $nav_item => $nav_array)
 {
     if ( !empty($nav_array['url']) )

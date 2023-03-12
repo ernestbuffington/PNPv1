@@ -258,7 +258,7 @@ for ($i=0; $i < count($ranks); $i++)
     if ($std_rank_max_users != 0)
     {
         $template->assign_block_vars('ranks.userlist', array(
-            'USERS_LIST' => $ranks[$i]['users_list'],
+            'USERS_LIST' => $ranks[$i]['users_list'] ?? '',
             )
         );
     }

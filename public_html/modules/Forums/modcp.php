@@ -88,8 +88,11 @@ include("includes/functions_log.$phpEx");
 //
 if (isset($_REQUEST['mode']) && is_array($_REQUEST['mode']))
 {
-	$mode = request_var('mode', array(''));
-	list($mode, ) = each($mode);
+// -$mode = request_var('mode', array('')); #OLD OODE
+// -list($mode, ) = each($mode);}           #OLD CODE
+
+	$mode = request_var('mode', ['']);      #NEW CODE
+	$mode = key($mode);                     #NEW CODE
 }
 else
 {
@@ -105,15 +108,15 @@ $forum_id = request_var('f', 0);
 if(isset($_POST['confirm']))
 $confirm = $_POST['confirm'];
 
-if(isset($HTTP_GET_VARS['confirm']))
-$confirm = $HTTP_GET_VARS['confirm'];
+if(isset($_GET['confirm']))
+$confirm = $_GET['confirm'];
 
 //$confirm = ( $_POST['confirm'] ) ? TRUE : 0;
 
 //
 // Continue var definitions
 //
-$start = ( isset($HTTP_GET_VARS['start']) ) ? intval($HTTP_GET_VARS['start']) : 0;
+$start = ( isset($_GET['start']) ) ? intval($_GET['start']) : 0;
 
 $start = ($start < 0) ? 0 : $start;
 
@@ -135,7 +138,7 @@ $cement = ( isset($_POST['cement']) ) ? true : false;
 
 if (isset($_REQUEST['mode']))
 {
-	$mode		= ($delete && $start) ? 'delete' : request_var('mode', '');
+	$mode = ($delete && $start) ? 'delete' : request_var('mode', '');
 }
 else
 {
@@ -174,9 +177,10 @@ else
 // session id check
 if (isset($_REQUEST['sid']) && is_array($_REQUEST['sid']))
 {
-	$sid = request_var('sid', array(''));
-
-	list($sid, ) = each($sid);
+	//-$sid = request_var('sid', array('')); #OLD CODE
+	$sid = request_var('sid', ['']);         #NEW CODE
+	//-list($sid, ) = each($sid);            #OLD CODE
+	$sid = key($sid);                        #NEW CODE
 }
 else
 {
@@ -303,7 +307,7 @@ if ( !$is_auth['auth_mod'] )
 //
 // Do major work ...
 //
-switch( $mode )
+switch($mode)
 {
         case 'delete':
                 if (!$is_auth['auth_delete'])
@@ -767,7 +771,7 @@ switch( $mode )
 
                 include("includes/page_header.$phpEx");
 
-                if ( $confirm )
+                if (isset($confirm))
                 {
                         if ( empty($_POST['topic_id_list']) && empty($topic_id) )
                         {
@@ -1230,7 +1234,7 @@ switch( $mode )
 
                                 $sql_where = (!empty($_POST['split_type_beyond'])) ? " post_time >= '$post_time' AND topic_id = '$topic_id'" : "post_id IN ($post_id_sql)";
 
-                                $sql =         "UPDATE " . POSTS_TABLE . "
+                                $sql =  "UPDATE " . POSTS_TABLE . "
 
                                         SET topic_id = '$new_topic_id', forum_id = '$new_forum_id'
 
@@ -1401,7 +1405,7 @@ switch( $mode )
 
                 include("includes/page_header.$phpEx");
 
-                $rdns_ip_num = ( isset($HTTP_GET_VARS['rdns']) ) ? $HTTP_GET_VARS['rdns'] : "";
+                $rdns_ip_num = ( isset($_GET['rdns']) ) ? $_GET['rdns'] : "";
 
                 if ( !$post_id )
                 {

@@ -6,10 +6,7 @@
 /************************************************************************
    Theme Management
    ============================================
-   Copyright (c) 2023 by The Titanium Group
-
    Filename      : themes.php
-   Author        : Ernest Buffington (TheGhost), JeFFb68CAM
    Version       : 4.0.3
    Date          : 01.05.2023 (mm.dd.yyyy)
 
@@ -19,7 +16,9 @@
 /*****[CHANGES]**********************************************************
 -=[Base]=-
       Nuke Patched                             v3.1.0       06/26/2005
+	  PHP 8.2.3 Patched                        v1.0.0       01/01/2022
  ************************************************************************/
+
 if (!defined('ADMIN_FILE')) 
 {
   die ("Illegal File Access");
@@ -35,7 +34,7 @@ function theme_header()
 	
     OpenTable();
 	
-	echo "<div align=\"center\">\n"; #OD
+	echo "<div align=\"center\">\n"; 
     
 	echo "<a href=\"$admin_file.php?op=themes\">"._THEMES_HEADER."</a>\n";
     echo "<br /><br />\n";
@@ -73,7 +72,7 @@ function theme_header()
 	echo "[ <a href=\"$admin_file.php?op=themes\">Themes Main</a> | <a href=\"$admin_file.php?op=theme_users\">"._THEMES_USER_OPTIONS."</a> | <a 
 	href=\"$admin_file.php?op=theme_options\">"._THEMES_OPTIONS."</a> | <a href=\"$admin_file.php\">". $admlang['global']['header_return']."</a> ]\n";
 	
-	echo "</div>\n"; #CD
+	echo "</div>\n"; 
 		
     CloseTable();
 }
@@ -123,7 +122,7 @@ function InstallTheme()
 					
 					if (!$valid)
 					{	
-						@unlink('themes/'.$_FILES['file']['name']);
+						unlink('themes/'.$_FILES['file']['name']);
 						ThemeError('Not a valid theme zip file, make sure your zip file only includes theme folder with forums/user_delete_body.tpl and all other files inside it!');
 					}
 					
@@ -133,7 +132,7 @@ function InstallTheme()
 					
 					if ($valid == true)
 					{
-						@unlink('themes/'.$_FILES['file']['name']);			
+						unlink('themes/'.$_FILES['file']['name']);			
 						$theme = substr($filename, 0, -4);
 						redirect($admin_file.'.php?op=theme_quickinstall&amp;theme='.$theme);
 					}		
@@ -208,7 +207,7 @@ function downloadTheme($theme)
 
 function theme_footer()
 {
-    echo "<div align='right'>&copy; <a href='http://platinum.coders.exchange/modules.php?name=Forums&file=viewforum&f=5' target='_blank'>Theme Management</a>&nbsp;&nbsp;</div>\n"; #OD #CD
+    echo "<div align='right'>&copy; <a href='http://platinum.coders.exchange/modules.php?name=Forums&file=viewforum&f=5' target='_blank'>Theme Management</a>&nbsp;&nbsp;</div>\n";  
 }
 
 function display_main()
@@ -276,7 +275,7 @@ function display_main()
 	{
         global $bgcolor3;
 		
-		echo "<div align align=\"center\">"; #OD
+		echo "<div align align=\"center\">"; 
         
 		echo "<table border='0' align='center' width='99%' class='bodyline'>\n";
         echo "<tr>";
@@ -295,13 +294,13 @@ function display_main()
 	{
         echo  "</table>\n";
 		
-	    echo "</div>"; #CD
+	    echo "</div>"; 
 
     }
 
     OpenTable();
 
-	echo "<div align align=\"center\">"; #OD
+	echo "<div align align=\"center\">"; 
 
 	echo "<table border='0' align='center' width='99%' cellpadding='4' cellspacing='1' class='forumline'>\n";
 	echo '<tr>';
@@ -335,9 +334,9 @@ function display_main()
 	}
 	echo "</table><br />\n";
 
-	echo "</div>"; #CD
+	echo "</div>"; 
 	
-	echo "<div align align=\"center\">"; #OD
+	echo "<div align align=\"center\">"; 
 	
 	echo "<table border='0' align='center' width='99%' cellpadding='4' cellspacing='1' class='forumline'>\n";
 	echo "<tr>\n";
@@ -369,12 +368,12 @@ function display_main()
 	}
 	echo "</table><br />\n";
 
-	echo "</div>"; #CD
+	echo "</div>"; 
 	
 	echo "<form method='post' action='' enctype='multipart/form-data'>\n";
 	echo "<input type='hidden' name='op' value='InstallTheme' />\n";
 	
-	echo "<div align align=\"center\">"; #OD
+	echo "<div align align=\"center\">"; 
 	
 	echo "<table border='0' align='center' width='99%' cellpadding='4' cellspacing='1' class='forumline'>\n";
 	echo "<tr>\n";
@@ -388,7 +387,7 @@ function display_main()
 	echo "</tr>\n";
 	echo "</table>\n";
 
-	echo "</div>"; #CD
+	echo "</div>"; 
 
 	echo "</form>\n";
 
@@ -429,7 +428,7 @@ function theme_edit($theme_name)
         echo "<input type='hidden' name='permissions' value='1' />\n";
     }
 
-	echo "<div align align=\"center\">"; #OD
+	echo "<div align align=\"center\">"; 
 
     echo "<table border='0' cellpadding='4' cellspacing='1' class='col-8' style='margin: auto;'>\n";
     echo "<tr>\n";
@@ -506,7 +505,7 @@ function theme_edit($theme_name)
 	echo "<fieldset>\n";
     echo "<legend>" . _THEMES_ADV_OPTS . "</legend>\n"; # Your theme is compatible with Advanced Features
     
-	echo "<div align align=\"center\">"; #OD
+	echo "<div align align=\"center\">"; 
 	
 	echo "<table border='0' width='100%'>\n";
     
@@ -552,7 +551,7 @@ function theme_edit($theme_name)
     }
     echo "</table>\n";
 
-    echo "</div>"; #CD
+    echo "</div>"; 
     
 	echo "</fieldset>\n";
     echo "<br />\n";
@@ -562,7 +561,7 @@ function theme_edit($theme_name)
     
 	echo "</table>\n";
 
-	echo "</div>"; #CD
+	echo "</div>"; 
 
 	echo "</form>\n";
 	
@@ -579,7 +578,7 @@ function theme_install($theme_name)
 	echo "<input type='hidden' name='theme_name' value='" . $theme_name . "' />";
 	echo "<input type='hidden' name='op' value='theme_install_save' />";
 
-	echo "<div align align=\"center\">"; #OD
+	echo "<div align align=\"center\">"; 
 
 	echo "<table border='0' cellpadding='2' cellspacing='2' style='margin: auto; width: 50%'>\n";
 	echo "<tr>\n";
@@ -626,7 +625,7 @@ function theme_install($theme_name)
     echo "<fieldset>\n";
     echo "<legend>" . _THEMES_ADV_OPTS . "</legend>\n";
     
-	echo "<div align align=\"center\">"; #OD
+	echo "<div align align=\"center\">"; 
 
 	echo "<table border='0' width='100%'>\n";
     
@@ -668,7 +667,7 @@ function theme_install($theme_name)
     }
     echo "</table>\n"; 
 	
-	echo "</div>"; #CD
+	echo "</div>"; 
 	
     echo "</fieldset>\n";
 	echo "</td>\n";
@@ -679,7 +678,7 @@ function theme_install($theme_name)
 
 	echo "</table>";
 
-	echo "</div>"; #CD
+	echo "</div>"; 
 
 	echo "</form>";
 	
@@ -692,6 +691,7 @@ function update_theme($post)
     $params = [];
     $default = null;
     $sql = [];	
+    $theme_info = [];
 
     global $db, $prefix, $user_prefix, $admin_file, $cache;
 	
@@ -702,7 +702,6 @@ function update_theme($post)
         $post['groups'] = implode('-', $post['groups']);
     }
 	
-    $theme_info = [];
 	
     if (file_exists(NUKE_THEMES_DIR.$post['theme_name'].'/theme_info.php'))
 	{
@@ -753,10 +752,10 @@ function update_theme($post)
 	{
         OpenTable();
 		
-		echo "<div align='center'>\n"; #OD
+		echo "<div align='center'>\n"; 
 		echo "<span style=\"font-weight: bold\">" . _THEMES_UPDATED . "</span><br /><br />\n";
 		echo "<a href=\"$admin_file.php?op=themes\">" . _THEMES_RETURN . "</a>\n";
-		echo "</div>\n"; #CD
+		echo "</div>\n"; 
 		
         CloseTable();
     } 
@@ -764,10 +763,10 @@ function update_theme($post)
 	{
         OpenTable();
 		
-		echo "<div align='center'>\n"; #OD
+		echo "<div align='center'>\n"; 
 		echo "<span style=\"font-weight: bold\"><font color='red'>" . _THEMES_UPDATEFAILED . "</font></span><br /><br />\n";
 		echo "<a href=\"$admin_file.php?op=themes\">" . _THEMES_RETURN . "</a>\n";
-		echo "</div>\n"; #CD
+		echo "</div>\n"; 
 			
         CloseTable();
     }
@@ -810,10 +809,10 @@ function install_save($post){
 	{
         OpenTable();
 		
-		echo "<div align='center'>\n"; #OD
+		echo "<div align='center'>\n"; 
 		echo "<span style=\"font-weight: bold\">" . _THEMES_THEME_INSTALLED . "</span><br /><br />\n";
 		echo "<a href=\"$admin_file.php?op=themes\">" . _THEMES_RETURN . "</a>\n";
-		echo "</div>\n"; #CD
+		echo "</div>\n"; 
 		
         CloseTable();
     } 
@@ -821,10 +820,10 @@ function install_save($post){
 	{
         OpenTable();
 		
-		echo "<div align='center'>\n"; #OD
+		echo "<div align='center'>\n"; 
 		echo "<span style=\"font-weight: bold\"><font color='red'>" . _THEMES_THEME_INSTALLED_FAILED . "</font></span><br /><br />\n";
 		echo "<a href=\"$admin_file.php?op=themes\">" . _THEMES_RETURN . "</a>\n";
-		echo "</div>\n"; #CD
+		echo "</div>\n"; 
 			
         CloseTable();
     }
@@ -840,10 +839,10 @@ function uninstall_theme($theme)
 		
         OpenTable();
 		
-		echo "<div align='center'>\n"; #OD
+		echo "<div align='center'>\n"; 
 		echo "<span style=\"font-weight: bold\">" . _THEMES_THEME_UNINSTALLED . "</span><br /><br />\n";
 		echo "<a href=\"$admin_file.php?op=themes\">" . _THEMES_RETURN . "</a>\n";
-		echo "</div>\n"; #CD
+		echo "</div>\n"; 
 		
         CloseTable();
     }
@@ -854,10 +853,10 @@ function uninstall_theme($theme)
 		
         OpenTable();
 		
-		echo "<div align='center'>\n"; #OD
+		echo "<div align='center'>\n"; 
 		echo "<span style=\"font-weight: bold\">" . _THEMES_THEME_UNINSTALLED_FAILED . "</span><br /><br />\n";
 		echo "<a href=\"$admin_file.php?op=themes\">" . _THEMES_RETURN . "</a>\n";
-		echo "</div>\n"; #CD
+		echo "</div>\n"; 
 			
         CloseTable();
     }
@@ -871,7 +870,7 @@ function uninstall_theme($theme)
 		echo "<input type='hidden' name='op' value='theme_uninstall' />";
 		echo "<input type='hidden' name='confirm' value='1' />";
 		
-		echo "<div align='center'>\n"; #OD
+		echo "<div align='center'>\n"; 
 		
 		echo "<span style=\"font-weight: bold\">" . _THEMES_UNINSTALL1 . "</span><br /><br />\n";
 		echo _THEMES_UNINSTALL2 . "<br />\n";
@@ -879,7 +878,7 @@ function uninstall_theme($theme)
 		echo "<a href=\"javascript:document.forms['confirm_uninstall'].submit()\">" . _THEMES_THEME_UNINSTALL . "</a><br /><br />\n";
 		echo "<a href=\"$admin_file.php?op=themes\">" . _THEMES_RETURN . "</a>\n";
 		
-		echo "</div>\n"; #CD
+		echo "</div>\n"; 
 		
 		echo "</form>\n";
 			
@@ -940,10 +939,10 @@ function theme_deactivate($theme)
 		
         OpenTable();
 		
-		echo "<div align='center'>\n"; #OD
+		echo "<div align='center'>\n"; 
 		echo "<span style=\"font-weight: bold\">" . _THEMES_THEME_DEACTIVATED . "</span><br /><br />\n";
 		echo "<a href=\"$admin_file.php?op=themes\">" . _THEMES_RETURN . "</a>\n";
-		echo "</div>\n"; #CD
+		echo "</div>\n"; 
 			
         CloseTable();
     }
@@ -954,10 +953,10 @@ function theme_deactivate($theme)
 		
         OpenTable();
 		
-		echo "<div align='center'>\n"; #OD
+		echo "<div align='center'>\n"; 
 		echo "<span style=\"font-weight: bold\">" . _THEMES_THEME_DEACTIVATED_FAILED . "</span><br /><br />\n";
 		echo "<a href=\"$admin_file.php?op=themes\">" . _THEMES_RETURN . "</a>\n";
-		echo "</div>\n"; #CD
+		echo "</div>\n"; 
 		
         CloseTable();
     }
@@ -971,14 +970,14 @@ function theme_deactivate($theme)
 		echo "<input type='hidden' name='op' value='theme_deactivate' />";
 		echo "<input type='hidden' name='confirm' value='1' />";
 		
-		echo "<div align='center'>\n"; #OD
+		echo "<div align='center'>\n"; 
 		
 		echo "<span style=\"font-weight: bold\">" . _THEMES_DEACTIVATE1 . "</span><br /><br />\n";
 		echo _THEMES_DEACTIVATE2 . "<br /><br />";
 		echo "<a href=\"javascript:document.forms['confirm_deactivate'].submit()\">" . _THEMES_THEME_DEACTIVATE . "</a><br /><br />\n";
 		echo "<a href=\"$admin_file.php?op=themes\">" . _THEMES_RETURN . "</a>\n";
 		
-		echo "</div>\n"; #CD
+		echo "</div>\n"; 
 		
 		echo "</form>\n";
 		
@@ -1024,7 +1023,7 @@ function theme_options($mode, $post)
 			echo "<input type='hidden' name='op' value='theme_options' />\n";
 			echo "<input type='hidden' name='act' value='save' />\n";
 			
-			echo "<div align='center'>\n"; #OD
+			echo "<div align='center'>\n"; 
 			
 			echo "<span style=\"font-weight: bold\">" . _THEMES_MANG_OPTIONS . "</span><br /><br />\n";
 			echo "[ <a href='" . $admin_file . ".php?op=theme_transfer'>" . _THEMES_TRANSFER . "</a> ]<br /><br />\n";
@@ -1044,7 +1043,7 @@ function theme_options($mode, $post)
 			echo "</tr>\n";
 			echo "</table>\n";
 			
-			echo "</div>\n"; #CD
+			echo "</div>\n"; 
 			
 			echo "</form>\n";
 				
@@ -1055,12 +1054,12 @@ function theme_options($mode, $post)
 			
             OpenTable();
 			
-			echo "<div align='center'>\n"; #OD
+			echo "<div align='center'>\n"; 
 			
 			echo "<span style=\"font-weight: bold\">" . _THEMES_SETTINGS_UPDATED . "</span><br /><br />\n";
 			echo "<a href=\"$admin_file.php?op=themes\">" . _THEMES_RETURN . "</a>\n";
 			
-			echo "</div>\n"; #CD
+			echo "</div>\n"; 
 			
             CloseTable();
         break;
@@ -1082,7 +1081,7 @@ function theme_transfer()
 		echo "<input type='hidden' name='transfer' value='1' />\n";
 		echo "<input type='hidden' name='op' value='theme_transfer' />\n";
 		
-		echo "<div align='center'>\n"; #OD
+		echo "<div align='center'>\n"; 
 		
 		echo "<span style=\"font-weight: bold\">" . _THEMES_THEME_TRANSFER . "</span><br />\n";
 		echo "[ <a href='" . $admin_file . ".php?op=theme_options'>" . _THEMES_RETURN_OPTIONS . "</a> ]<br /><br />\n";
@@ -1121,7 +1120,7 @@ function theme_transfer()
 		echo "</tr>\n";
 		echo "</table>\n";
 		
-		echo "</div>\n"; #CD
+		echo "</div>\n"; 
 		
 		echo "</form>\n";
 			
@@ -1136,12 +1135,12 @@ function theme_transfer()
 		
         OpenTable();
 		
-		echo "<div align='center'>\n"; #OD
+		echo "<div align='center'>\n"; 
 		
 		echo "<span style=\"font-weight: bold\">$count " . _THEMES_TRANSFER_UPDATED . "</span><br /><br />\n";
 		echo "<a href=\"$admin_file.php?op=themes\">" . _THEMES_RETURN . "</a>\n";
 		
-		echo "</div>\n"; #CD
+		echo "</div>\n"; 
 			
         CloseTable();
     }
@@ -1155,7 +1154,7 @@ function users_themes()
 	
     echo "<form method='post' action='".$admin_file.".php'>\n";
     
-	echo "<div align='center'>\n"; #OD
+	echo "<div align='center'>\n"; 
 
 	echo "<table border='2' align='center' width='100%'>\n";
 
@@ -1222,7 +1221,7 @@ function users_themes()
     }
     echo "</table>\n";
 
-	echo "</div>\n"; #CD
+	echo "</div>\n"; 
     
 	echo "</form>\n";
 
@@ -1232,7 +1231,7 @@ function users_themes()
  ******************************************************/
 	OpenTable();
 
-	echo "<div align='center'>\n"; #OD
+	echo "<div align='center'>\n"; 
 	
 	if ($pagination->getCurrent() == 1)
 	{
@@ -1280,7 +1279,7 @@ function users_themes()
 	// Print the values determined by the if statements above.
 	echo $first . " " . $prev . " " . $next . " " . $last;
 
-	echo "</div>\n"; #CD
+	echo "</div>\n"; 
 	
 	CloseTable();
 /*****[END]********************************************
@@ -1306,7 +1305,7 @@ function theme_users_modify($user_id, $username, $theme)
 	{
         OpenTable();
 		
-	    echo "<div align='center'>\n"; #OD
+	    echo "<div align='center'>\n"; 
 		
         echo"<table border='2' align='center' width='100%'>\n";
 		echo "<tr>\n";
@@ -1347,7 +1346,7 @@ function theme_users_modify($user_id, $username, $theme)
         }
         echo "</table>";
 
-	    echo "</div>\n"; #CD
+	    echo "</div>\n"; 
 		
         CloseTable();
     } 
@@ -1453,7 +1452,7 @@ if (is_admin())
 		// 	theme_header();
 		// 	downloadTheme($theme);
 		// 	theme_footer();
-  //       break;
+        //  break;
         default:
             theme_header();
             display_main();

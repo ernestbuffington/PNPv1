@@ -1,0 +1,38 @@
+/*********************************************************/
+/   Nuke-EvolutionThemes - www.nuke-evolutionthemes.com   /
+/*********************************************************/
+/        This Theme Has Been Upgraded By: Wolfstar        /
+/*********************************************************/
+/
+/ Theme Name: EI-Blackened
+/ Created By: Fury Designs - www.t3clans.com
+/
+/******************-|  CHANGELOG  |-**********************/
+/ Changelog that will be updated everytime the theme gets /
+/ updated and/or fixed by: www.nuke-evolutionthemes.com   /
+/*********************************************************/
+
+Rev 2.6 -- 02/13/2009
+        -  Upgraded to Evo Xtreme 2.0.7         (Wolfstar)
+
+Rev 2.5 -- 06/15/2008
+        -  Upgraded to Evo version 2.0.7        (Wolfstar)
+
+/*********************************************************/
+/              Previous Conversions/Upgrades              /
+/*********************************************************/
+
+Rev 2.4 -- 10/05/2007
+         - Upgraded to version 2.0.4 (Evo-United Team)
+
+Rev 2.2 -- 03/15/2007
+        - Upgraded to version 2.0.3 (Evo-United Team)
+        - Upgraded to ATO Compliant (Evo-United Team)
+
+
+REV 1.1 -- 07/02/2007
+		- Upgraded to version 2.0.2 (The Mortal)
+
+REV 1.0 -- 12/27/2006
+		- Converted to Nuke-Evo version 2.0.2 (The Mortal)
+

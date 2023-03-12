@@ -24,7 +24,7 @@
           <td colspan="3" width="175" class="row2">
             <table cellspacing="0" cellpadding="1" border="0">
               <tr>
-                <td bgcolor="{T_TD_COLOR2}"><img src="themes/chromo/forums/images/spacer.gif" width="{ATTACHBOX_LIMIT_IMG_WIDTH}" height="8" alt="{ATTACH_LIMIT_PERCENT}" /></td>
+                <td bgcolor="{T_TD_COLOR2}"><img src="themes/chromoV3/forums/images/spacer.gif" width="{ATTACHBOX_LIMIT_IMG_WIDTH}" height="8" alt="{ATTACH_LIMIT_PERCENT}" /></td>
               </tr>
             </table>
           </td>

@@ -699,6 +699,9 @@ class="fa fa-arrow-right tooltip-html-side-interact" aria-hidden="true" title="'
 /*****[BEGIN]******************************************
 [ Mod:    Simple Subforums                    v1.0.1 ]
 ******************************************************/
+if(!isset($images['icon_miniforum_new']))
+$images['icon_miniforum_new'] = '';
+
 $last_post_sub = '<a href="'.append_sid("viewtopic.$phpEx?".POST_POST_URL.'='.$forum_data[$j]['forum_last_post_id']).'#'.$forum_data[$j]['forum_last_post_id'].'"><img 
 src="'.($unread_topics ? $images['icon_miniforum_new'] : $images['icon_miniforum']).'" border="0" alt="'. $lang['View_latest_post'].'" title="'. $lang['View_latest_post'].'" /></a>';
 /*****[END]********************************************

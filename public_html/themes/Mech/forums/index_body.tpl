@@ -1,108 +1,129 @@
-<table width="100%" cellspacing="0" cellpadding="4" border="0" align="center">
-   <tr>
-      <td width="100%" colspan="2" valign="top">
-      <!-- MOD GLANCE BEGIN -->
-      {GLANCE_OUTPUT}
-      <!-- MOD GLANCE END -->
-   </tr>
-</table>
-<table width="100%" cellspacing="0" cellpadding="2" border="0" align="center">
+<div style="text-align: left; width: 100%;" align="center">
+<table width="98%" height:100%;" class="forumline rounded-corners" align="center" border="5" cellpadding="15" cellspacing="20" dir="ltr" id="viewforum">
+<tbody>
+<tr>
+<td align="center">
+
+<!--MOD GLANCE BEGIN -->{GLANCE_OUTPUT}<!-- MOD GLANCE END -->
+<!-- BEGIN show_global_marquee -->
+<table style="text-align: left; width: 100%;" cellpadding="3" cellspacing="1" border="0" class="forumline rounded-corners"> 
   <tr> 
-	<td align="left" valign="bottom"><span class="gensmall">
-	<!-- BEGIN switch_user_logged_in -->
-	{LAST_VISIT_DATE}<br />
-	<!-- END switch_user_logged_in -->
-	{CURRENT_TIME}<br /></span><span class="nav"><a href="{U_INDEX}" class="nav">{L_INDEX}</a></span></td>
-	<td align="right" valign="bottom" class="gensmall">
-		<!-- BEGIN switch_user_logged_in -->
-		<a href="{U_SEARCH_NEW}" class="gensmall">{L_SEARCH_NEW}</a><br /><a href="{U_SEARCH_SELF}" class="gensmall">{L_SEARCH_SELF}</a><br />
-		<a href="{U_SEARCH_STARTEDTOPICS}" class="gensmall">{L_SEARCH_STARTEDTOPICS}</a><br />
-		<!-- END switch_user_logged_in -->
-		<a href="{U_SEARCH_UNANSWERED}" class="gensmall">{L_SEARCH_UNANSWERED}</a></td>
-  </tr>
+     <td class="catHead"><span class="cattitle">{GLOBAL_TITLE}</span></td> 
+  </tr> 
+  <tr> 
+     <td class="row1">
+     	<div class="messages<!-- BEGIN enable --> imarquee<!-- END enable --><!-- BEGIN disable --> acenter<!-- END disable -->">{GLOBAL_ANNOUNCEMENT}</div>     	
+     </td> 
+  </tr> 
 </table>
 
-<table width="100%" cellpadding="3" cellspacing="1" border="0" class="forumline">
- <tr> 
-	<th colspan="2" class="thCornerL" height="25" nowrap="nowrap">{L_FORUM}</th>
-	<th width="50" class="thTop" nowrap="nowrap"> {L_TOPICS} </th>
-	<th width="50" class="thTop" nowrap="nowrap"> {L_POSTS} </th>
-	<th class="thCornerR" nowrap="nowrap"> {L_LASTPOST} </th>
-  </tr>
+<!-- END show_global_marquee -->
+
+<table style="text-align: left; width: 100%;" cellpadding="4" cellspacing="1" border="0" class="forumline rounded-corners">
   <!-- BEGIN catrow -->
   <tr> 
-<td class="catLeft" colspan="2" height="28"><span class="cattitle"><a href="{catrow.U_VIEWCAT}" class="cattitle">{catrow.CAT_DESC}</a></span></td>
-<td class="rowpic" colspan="3" align="right">&nbsp;</td>
+    <td class="catHead cattitle3" colspan="<!-- IF SHOW_LAST_POST_AVATAR == 1 -->6<!-- ELSE -->5<!-- ENDIF -->"><span class="cattitle3">{catrow.CAT_DESC}</span></td>
   </tr>
   <!-- BEGIN forumrow -->
-  <tr> 
-	<td class="row1" align="center" valign="middle" height="50"><img src="{catrow.forumrow.FORUM_FOLDER_IMG}" alt="{catrow.forumrow.L_FORUM_FOLDER_ALT}" title="{catrow.forumrow.L_FORUM_FOLDER_ALT}" /></td>
-	<td class="row2" width="100%" height="50" onMouseOver=this.style.backgroundColor="#353535" onMouseOut=this.style.backgroundColor="#434343"  onclick="window.location.href='{catrow.forumrow.U_VIEWFORUM}'"><span class="forumlink"> <a href="{catrow.forumrow.U_VIEWFORUM}" class="forumlink">{catrow.forumrow.FORUM_NAME}</a><br />
-	  </span> <span class="genmed">{catrow.forumrow.FORUM_DESC}<br />
-	  </span><span class="gensmall">{catrow.forumrow.L_MODERATOR} {catrow.forumrow.MODERATORS}</span></td>
-	<td class="row2" align="center" valign="middle" height="50"><span class="gensmall">{catrow.forumrow.TOPICS}</span></td>
-	<td class="row2" align="center" valign="middle" height="50"><span class="gensmall">{catrow.forumrow.POSTS}</span></td>
-	<td class="row2" align="center" valign="middle" height="50" nowrap="nowrap"> <span class="gensmall">{catrow.forumrow.LAST_POST}</span></td>
+  <!-- IF ! forumrow.PARENT -->
+  <tr>  	
+	<td class="row1 acenter" style="width: 72px;"><img src="{catrow.forumrow.FORUM_FOLDER_IMG}" alt="{catrow.forumrow.L_FORUM_FOLDER_ALT}" title="{catrow.forumrow.L_FORUM_FOLDER_ALT}" /></td>
+
+  <!-- IF catrow.forumrow.FORUM_ICON_IMG -->
+	<td class="row1 acenter" style="width: 72px;">{catrow.forumrow.FORUM_ICON_IMG}</td>
+	<!-- ENDIF -->
+	<td class="row1"
+    <!-- IF ! catrow.forumrow.FORUM_ICON_IMG --> colspan="2"
+    <!-- ENDIF -->>
+	  <a{catrow.forumrow.FORUM_COLOR} href="{catrow.forumrow.U_VIEWFORUM}"
+      <!-- IF catrow.forumrow.FORUM_LINK_COUNT --> target="_blank"
+      <!-- ENDIF -->>
+      {catrow.forumrow.FORUM_NAME}</a><br />
+	  <span class="cattitle">{catrow.forumrow.FORUM_DESC}</span>
+	  <!-- IF catrow.forumrow.MODERATORS -->
+	  <br />{catrow.forumrow.L_MODERATOR} {catrow.forumrow.MODERATORS}<br />
+    <!-- ELSE -->
+    <br />
+	  <!-- ENDIF -->
+	  <!-- BEGIN sub -->
+	  <!-- DEFINE $HAS_SUB = 1 -->
+	  <!-- IF catrow.forumrow.sub.NUM > 0 -->
+	  <!-- ELSE -->
+	  {L_SUBFORUMS}:
+	  <!-- <br /> -->
+	  <!-- ENDIF -->
+	  {catrow.forumrow.sub.LAST_POST_SUB} <a href="{catrow.forumrow.sub.U_VIEWFORUM}" <!-- IF catrow.forumrow.sub.UNREAD -->class="topic-new"<!-- ENDIF --> {catrow.forumrow.sub.FORUM_COLOR} title="{catrow.forumrow.sub.FORUM_DESC_HTML}">{catrow.forumrow.sub.FORUM_NAME}</a>&nbsp;
+	  <!-- END sub -->
+	</td>
+	<!-- BEGIN switch_forum_link_off -->
+	<!-- <td class="row2 acenter">{catrow.forumrow.TOTAL_TOPICS}</td>
+	<td class="row2 acenter">{catrow.forumrow.TOTAL_POSTS}</td> -->
+	<td class="row1 acenter" style="width: 120px;">{catrow.forumrow.TOTAL_TOPICS} Topics<br />{catrow.forumrow.TOTAL_POSTS} Posts</td>
+	<!-- IF SHOW_LAST_POST_AVATAR && catrow.forumrow.LAST_POST_COUNT != 0 -->
+	<td class="row1 acenter" style="width: 72px;"><img class="rounded-corners-last-post" src="{catrow.forumrow.LAST_POST_AVATAR}" style="max-width: 48px; max-height: 48px" border="0"></td>
+	<!-- ENDIF -->  
+    <td class="row1 lastpost"<!-- IF catrow.forumrow.LAST_POST_COUNT == 0 && SHOW_LAST_POST_AVATAR == 1 --> colspan="2"<!-- ELSE -->  style="width: 250px;"<!-- ENDIF --> nowrap="nowrap">{catrow.forumrow.LAST_POST}{catrow.forumrow.LAST_POSTTIME}<br />{catrow.forumrow.LAST_POST_USERNAME}</td>
+	<!-- END switch_forum_link_off -->
+	<!-- BEGIN switch_forum_link_on -->
+	<td class="row1" align="center" valign="middle" height="50" colspan="<!-- IF SHOW_LAST_POST_AVATAR == 1 -->3<!-- ELSE -->2<!-- ENDIF -->">{catrow.forumrow.FORUM_LINK_COUNT}</td>
+	<!-- END switch_forum_link_on -->	
   </tr>
+  <!-- ENDIF -->  
   <!-- END forumrow -->
+
   <!-- END catrow -->
 </table>
-<table width="100%" cellspacing="0" border="0" align="center" cellpadding="2">
+
+<div style="padding-top:15px; padding-bottom:15px; text-align: center;">
+<!-- BEGIN switch_user_logged_in -->
+<a class="buttonlink" href="{U_MARK_READ}">{L_MARK_FORUMS_READ}</a><!-- END switch_user_logged_in -->
+</div>
+
+<table style="text-align: left; background-color :transparent;" class="forumline rounded-corners">
   <tr> 
-	<td align="left"><span class="gensmall"><a href="{U_MARK_READ}" class="gensmall">{L_MARK_FORUMS_READ}</a></span></td>
-	<td align="right"><span class="gensmall">{S_TIMEZONE}</span></td>
+    <td class="catHead"><a style="text-align: center; background-color :#000000;" class="SMALLbuttonlink" href="{U_VIEWONLINE}">{L_WHO_IS_ONLINE}</a></td>
   </tr>
-</table>
-<table width="100%" cellpadding="3" cellspacing="1" border="0" class="forumline">
   <tr> 
-	<td class="catHead" colspan="2" height="28"><span class="cattitle"><a href="{U_VIEWONLINE}" class="cattitle">{L_WHO_IS_ONLINE}</a></span></td>
+    <td class="row1">{TOTAL_POSTS}<br />{TOTAL_USERS}<br />{NEWEST_USER}</td>
   </tr>
   <tr> 
-<td class="row1" align="center" valign="middle" rowspan="2"><img src="themes/Mech/forums/images/whosonline.gif" alt="{L_WHO_IS_ONLINE}" /></td>
-	<td class="row1" align="left" width="100%"><span class="gensmall">{TOTAL_POSTS}<br />{TOTAL_USERS}<br />{NEWEST_USER}</span>
+    <td class="row1">{TOTAL_USERS_ONLINE}<br />{L_ONLINE_EXPLAIN}<br /><br />{RECORD_USERS}<br /><br />{L_LEGEND}: <!-- BEGIN colors -->{colors.GROUPS}<!-- END colors --><br /><br />{LOGGED_IN_USER_LIST}</td>
+  </tr>
+  <tr> 
+	<td class="row1">{USERS_OF_THE_DAY_LIST}</td>
+  </tr>
+  <!-- BEGIN birthdays -->
+  <tr>
+	<td class="catHead">{L_TODAYS_BIRTHDAYS}</td>
+  </tr>
+  <tr> 
+	<td class="row1">
+	  <table cellpadding="0" cellspacing="0" border="0">
+		<tr>
+			<td align="left" width="100%">{BIRTHDAYS}<!-- BEGIN upcoming --><br />{UPCOMING}<!-- END upcoming --></td>
+	  	</tr>
+	  </table>
 	</td>
   </tr>
+  <!-- END birthdays -->
+</table>
+
+
+
+<table style="text-align: left;" class="" border="0" cellpadding="4" cellspacing="1" style="margin: auto">
   <tr> 
-	<td class="row1" align="left"><span class="gensmall">{TOTAL_USERS_ONLINE} [ {L_WHOSONLINE_ADMIN} ] [ {L_WHOSONLINE_MOD} ]
-	<!-- BEGIN colors -->
-	{colors.GROUPS}
-	<!-- END colors -->
-	<br />{RECORD_USERS}<br />{LOGGED_IN_USER_LIST}</span></td>
+    <td width="20" align="center"><img width="34" src="{FORUM_IMG}" alt="{L_NO_NEW_POSTS}" /></td>
+    <td>&nbsp;&nbsp;{L_NO_NEW_POSTS}</td>
+    <td>&nbsp;&nbsp;</td>
+    <td width="20" align="center"><img width="34" src="{FORUM_NEW_IMG}" alt="{L_NEW_POSTS}"/></td>
+    <td>&nbsp;&nbsp;{L_NEW_POSTS}</td>
+    <td>&nbsp;&nbsp;</td>    
+    <td width="20" align="center"><img width="34" src="{FORUM_LOCKED_IMG}" alt="{L_FORUM_LOCKED}" /></td>
+    <td>&nbsp;&nbsp;{L_FORUM_LOCKED}</td>
   </tr>
 </table>
 
-<table width="100%" cellpadding="1" cellspacing="1" border="0">
-	<td align="left" valign="top"><span class="gensmall">{L_ONLINE_EXPLAIN}</span></td>
+</tr>
+</tbody>
 </table>
-<!-- BEGIN switch_user_logged_out -->
-<form method="post" action="{S_LOGIN_ACTION}">
-  <table width="100%" cellpadding="3" cellspacing="1" border="0" class="forumline">
-	<tr> 
-	  <td class="catHead" height="28"><a name="login"></a><span class="cattitle">{L_LOGIN_LOGOUT}</span></td>
-	</tr>
-	<tr> 
-	  <td class="row1" align="center" valign="middle" height="28"><span class="gensmall">{L_USERNAME}: 
-		<input class="post" type="text" name="username" size="10" />
-		   {L_PASSWORD}: 
-		<input class="post" type="password" name="password" size="10" />
-		     {L_AUTO_LOGIN} 
-		<input class="text" type="checkbox" name="autologin" />
-		<input type="submit" class="mainoption" name="login" value="{L_LOGIN}" />
-		</span> </td>
-	</tr>
-  </table>
-</form>
-<!-- END switch_user_logged_out -->
-<br clear="all" />
-<table cellspacing="3" border="0" align="center" cellpadding="0">
-  <tr> 
-	<td width="20" align="center"><img src="themes/Mech/forums/images/folder_new.gif" alt="{L_NEW_POSTS}"/></td>
-	<td><span class="gensmall">{L_NEW_POSTS}</span></td>
-    <td>&nbsp;</td>
-    <td width="20" align="center"><img src="themes/Mech/forums/images/folder.gif" alt="{L_NO_NEW_POSTS}" /></td>
-	<td><span class="gensmall">{L_NO_NEW_POSTS}</span></td>
-    <td>&nbsp;</td>
-	<td width="20" align="center"><img src="themes/Mech/forums/images/folder_lock.gif" alt="{L_FORUM_LOCKED}" /></td>
-	<td><span class="gensmall">{L_FORUM_LOCKED}</span></td>
-  </tr>
-</table>
+</div>

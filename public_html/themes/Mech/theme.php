@@ -54,41 +54,11 @@ define('pagination', 'enabled');
 echo "<!-- Loading theme_info.php from themes/".$theme_name."/theme.php -->\n";
 include(NUKE_THEMES_DIR.$theme_name.'/theme_info.php');
 
-#-----------------------------#
-# Theme Copyright Information #
-#-----------------------------#
 //$locked_width = "1890px"; The is the only size this theme supports
 $locked_width = "1880px";
 echo "<!-- Setting locked THEME width to ".$locked_width," in themes/".$theme_name."/theme.php -->\n";
-
 $side_block_width = "295px";
 echo "<!-- Setting Side Block THEME width to ".$side_block_width," in themes/".$theme_name."/theme.php -->\n";
-
-$theme_business = 'DESTINE DESIGNS';
-echo "<!-- Setting THEME Business to ".$theme_business," in themes/".$theme_name."/theme.php -->\n";
-
-# Theme Name
-$theme_title = '<u>Mech Theme v1.0 &copy; 2004</u>';
-echo "<!-- Setting THEME name to ".$theme_title," in themes/".$theme_name."/theme.php -->\n";
-define('THEME', $theme_title);
-
-$theme_overview = 'BOOTSTRAP 3.4.1 / HTML 4.01 / XML';
-echo "<!-- Setting Features to ".$theme_overview," in themes/".$theme_name."/theme.php -->\n";
-define('THEME_OVERVIEW', $theme_overview);
-
-# Theme Author
-$theme_author = 'Mustang & Vision';
-echo "<!-- Setting THEME Author to ".$theme_author," in themes/".$theme_name."/theme.php -->\n";
-define('THEME_AUTHOR', $theme_author);
-
-# Theme creation date
-$theme_date = '1/1/2004';
-echo "<!-- Setting THEME DATE to ".$theme_date," in themes/".$theme_name."/theme.php -->\n";
-define('THEME_DATE', $theme_date);
-
-$theme_download_link = '#myCopyRight';
-echo "<!-- Setting THEME DOWNLOAD LINK to ".$theme_download_link," in themes/".$theme_name."/theme.php -->\n";
-define('THEME_DOWNLOAD_LINK', $theme_download_link);
 
 #--------------------------#
 # Theme Management Section #
@@ -129,7 +99,7 @@ echo "<!-- Setting THEME digits text color to ".$digits_txt_color." in themes/".
 $digits_color ='#FF0000';     # How many reads
 echo "<!-- Setting THEME digits color to ".$digits_color." in themes/".$theme_name."/theme.php -->\n";
 
-$poweredby_color = 'grey';
+$poweredby_color = 'silver';
 echo "<!-- Setting THEME Powered By Text color to ".$poweredby_color." in themes/".$theme_name."/theme.php -->\n";
 
 $poweredby_hover_color = '#337ab7';

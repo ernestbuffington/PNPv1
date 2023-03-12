@@ -98,15 +98,5 @@ function evouserinfo_block_display()
 	return $content;
 }
 
-// $content = '
-// <style>
-
-// hr:last-of-type {
-// 	margin-bottom:5px;
-// }
-
-// </style>
-// ';
 $content = evouserinfo_block_display();
 $content .= '<br />';
-?>

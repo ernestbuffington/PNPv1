@@ -7,10 +7,15 @@
  *                              admin_users.php
  *                            -------------------
  *   begin                : Saturday, Feb 13, 2001
- *   copyright            : (C) 2001 The phpBB Group
- *   email                : support@phpbb.com
+ *   last update          : Saturday, Mar 11, 2023
+ *   copyright            : (C) 2023 The phpBB Titanium Group
+ *   email                : support@coders.exchange
  *
- *   Id: admin_users.php,v 1.57.2.27 2005/07/19 20:01:07 acydburn Exp
+ *
+ *   Original copyright   : (C) 2001 The phpBB Group
+ *   Original email       : support@phpbb.com
+ *
+ *   Id: admin_users.php,v 7.6.2.25 2023/03/11 20:01:07 acydburn Exp TheGhost
  *
  ***************************************************************************/
 
@@ -52,10 +57,9 @@ if (!defined('IN_PHPBB')) define('IN_PHPBB', true);
 
 if( !empty($setmodules) )
 {
-        $filename = basename(__FILE__);
-        $module['Users']['Manage'] = $filename;
-
-        return;
+  $filename = basename(__FILE__);
+  $module['Users']['Manage'] = $filename;
+  return;
 }
 
 $phpbb_root_path = './../';
@@ -66,9 +70,7 @@ require(__DIR__ . "/../../../includes/functions_post.php");
 require(__DIR__ . "/../../../includes/functions_selects.php");
 require(__DIR__ . "/../../../includes/functions_validate.php");
 
-/*****[BEGIN]******************************************
- [ Mod:    Advanced Time Management            v2.2.0 ]
- ******************************************************/
+# Mod: Advanced Time Management v2.2.0 START
 if ( !file_exists(phpbb_realpath($phpbb_root_path . 'language/lang_' . $board_config['default_lang'] . '/lang_adv_time.' . $phpEx)) )
 {
     include_once($phpbb_root_path . 'language/lang_english/lang_adv_time.' . $phpEx);
@@ -76,16 +78,12 @@ if ( !file_exists(phpbb_realpath($phpbb_root_path . 'language/lang_' . $board_co
 {
     include_once($phpbb_root_path . 'language/lang_' . $board_config['default_lang'] . '/lang_adv_time.' . $phpEx);
 }
-/*****[END]********************************************
- [ Mod:    Advanced Time Management            v2.2.0 ]
- ******************************************************/
+# Mod: Advanced Time Management v2.2.0 END
 
 $html_entities_match = ['#<#', '#>#'];
 $html_entities_replace = ['&lt;', '&gt;'];
 
-//
-// Set mode
-//
+# Set mode
 if( isset( $_POST['mode'] ) || isset( $_GET['mode'] ) )
 {
         $mode = $_POST['mode'] ?? $_GET['mode'];
