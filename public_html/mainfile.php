@@ -118,7 +118,7 @@ endif;
 $start_mem = function_exists('memory_get_usage') ? memory_get_usage() : 0;
 $start_time = get_microtime();
 
-# Stupid handle to create REQUEST_URI for IIS 5 servers
+# Create REQUEST_URI for IIS servers
 if (preg_match('/IIS/', $_SERVER['SERVER_SOFTWARE']) && isset($_SERVER['SCRIPT_NAME'])):
     $requesturi = $_SERVER['SCRIPT_NAME'];
     if (isset($_SERVER['QUERY_STRING'])):
