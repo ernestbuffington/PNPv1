@@ -244,6 +244,7 @@ define('PLATINUM_FORUMS_ADMIN_HREF_DIR', $href_path . '/modules/Forums/admin/');
 define('PLATINUM_RSS_DIR', PLATINUM_INCLUDE_DIR . 'rss/');
 define('PLATINUM_STATS_DIR', PLATINUM_THEMES_DIR);
 # Absolute Path Mod - 01/01/2012 by Ernest Allen Buffington END
+ 
 # Inspired by phoenix-cms at website-portals.net
 # Absolute Nuke directory
 define('NUKE_BASE_DIR', __DIR__ . '/');
