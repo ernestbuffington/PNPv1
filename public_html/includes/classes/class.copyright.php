@@ -55,88 +55,88 @@ class cr
         
 		if($this->type == THEME_TITANIUM) 
 		{
-          define('THEME', $theme_title);
-          define('THEME_AUTHOR', $theme_author);
+                  define('THEME', $theme_title);
+                  define('THEME_AUTHOR', $theme_author);
 		  define('THEME_PORTED_BY', $theme_ported_by);
-          define('THEME_BUSINESS', $theme_business);
+                  define('THEME_BUSINESS', $theme_business);
 		  define('THEME_DATE', $theme_date);
-          define('THEME_DOWNLOAD_LINK', $theme_download_link);
-          define('THEME_OVERVIEW', $theme_overview);
-          define('THEME_MARKUP_LANG', $theme_markup_lang);
-          define('THEME_REPOSITORY_DOWNLOAD', $theme_file_repository_download_link);
+                  define('THEME_DOWNLOAD_LINK', $theme_download_link);
+                  define('THEME_OVERVIEW', $theme_overview);
+                  define('THEME_MARKUP_LANG', $theme_markup_lang);
+                  define('THEME_REPOSITORY_DOWNLOAD', $theme_file_repository_download_link);
 		} 
 		elseif($this->type == THEME_PLATINUM) 
 		{
-          define('THEME', $theme_title);
-          define('THEME_AUTHOR', $theme_author);
+                  define('THEME', $theme_title);
+                  define('THEME_AUTHOR', $theme_author);
 		  define('THEME_PORTED_BY', $theme_ported_by);
-          define('THEME_BUSINESS', $theme_business);
+                  define('THEME_BUSINESS', $theme_business);
 		  define('THEME_DATE', $theme_date);
-          define('THEME_DOWNLOAD_LINK', $theme_download_link);
-          define('THEME_OVERVIEW', $theme_overview);
-          define('THEME_MARKUP_LANG', $theme_markup_lang);
-          define('THEME_REPOSITORY_DOWNLOAD', $theme_file_repository_download_link);
+                  define('THEME_DOWNLOAD_LINK', $theme_download_link);
+                  define('THEME_OVERVIEW', $theme_overview);
+                  define('THEME_MARKUP_LANG', $theme_markup_lang);
+                  define('THEME_REPOSITORY_DOWNLOAD', $theme_file_repository_download_link);
 		} 
 		elseif($this->type == THEME_EVO_XTREME) 
 		{
-          define('THEME', $theme_title);
-          define('THEME_AUTHOR', $theme_author);
+                  define('THEME', $theme_title);
+                  define('THEME_AUTHOR', $theme_author);
 		  define('THEME_PORTED_BY', $theme_ported_by);
-          define('THEME_BUSINESS', $theme_business);
+                  define('THEME_BUSINESS', $theme_business);
 		  define('THEME_DATE', $theme_date);
-          define('THEME_DOWNLOAD_LINK', $theme_download_link);
-          define('THEME_OVERVIEW', $theme_overview);
-          define('THEME_MARKUP_LANG', $theme_markup_lang);
-          define('THEME_REPOSITORY_DOWNLOAD', $theme_file_repository_download_link);
+                  define('THEME_DOWNLOAD_LINK', $theme_download_link);
+                  define('THEME_OVERVIEW', $theme_overview);
+                  define('THEME_MARKUP_LANG', $theme_markup_lang);
+                  define('THEME_REPOSITORY_DOWNLOAD', $theme_file_repository_download_link);
 		} 
 		elseif($this->type == THEME_NUKE) 
 		{
-          define('THEME', $theme_title);
-          define('THEME_AUTHOR', $theme_author);
+                  define('THEME', $theme_title);
+                  define('THEME_AUTHOR', $theme_author);
 		  define('THEME_PORTED_BY', $theme_ported_by);
-          define('THEME_BUSINESS', $theme_business);
+                  define('THEME_BUSINESS', $theme_business);
 		  define('THEME_DATE', $theme_date);
-          define('THEME_DOWNLOAD_LINK', $theme_download_link);
-          define('THEME_OVERVIEW', $theme_overview);
-          define('THEME_MARKUP_LANG', $theme_markup_lang);
-          define('THEME_REPOSITORY_DOWNLOAD', $theme_file_repository_download_link);
-        } 
+                  define('THEME_DOWNLOAD_LINK', $theme_download_link);
+                  define('THEME_OVERVIEW', $theme_overview);
+                  define('THEME_MARKUP_LANG', $theme_markup_lang);
+                  define('THEME_REPOSITORY_DOWNLOAD', $theme_file_repository_download_link);
+                } 
 		elseif($this->type == THEME_EVO_BASIC) 
 		{
-          define('THEME', $theme_title);
-          define('THEME_AUTHOR', $theme_author);
+                  define('THEME', $theme_title);
+                  define('THEME_AUTHOR', $theme_author);
 		  define('THEME_PORTED_BY', $theme_ported_by);
-          define('THEME_BUSINESS', $theme_business);
+                  define('THEME_BUSINESS', $theme_business);
 		  define('THEME_DATE', $theme_date);
-          define('THEME_DOWNLOAD_LINK', $theme_download_link);
-          define('THEME_OVERVIEW', $theme_overview);
-          define('THEME_MARKUP_LANG', $theme_markup_lang);
-          define('THEME_REPOSITORY_DOWNLOAD', $theme_file_repository_download_link);
-        }
+                  define('THEME_DOWNLOAD_LINK', $theme_download_link);
+                  define('THEME_OVERVIEW', $theme_overview);
+                  define('THEME_MARKUP_LANG', $theme_markup_lang);
+                  define('THEME_REPOSITORY_DOWNLOAD', $theme_file_repository_download_link);
+                }
 		elseif($this->type == COPYRIGHT_ON) 
 		{
-          define('THEME', 'The CopyRight System is Turned On!');
-          define('THEME_AUTHOR', 'No Author Set');
+                  define('THEME', 'The CopyRight System is Turned On!');
+                  define('THEME_AUTHOR', 'No Author Set');
 		  define('THEME_PORTED_BY', 'No Port Auhtor Set');
-          define('THEME_BUSINESS', 'No Bussiness Set');
+                  define('THEME_BUSINESS', 'No Bussiness Set');
 		  define('THEME_DATE', 'No Date Set');
-          define('THEME_DOWNLOAD_LINK', '#myCopyRight');
-          define('THEME_OVERVIEW', 'No Overview Set');
-          define('THEME_MARKUP_LANG', 'No Markup Lnaguage Set');
-          define('THEME_REPOSITORY_DOWNLOAD', 'No Repository Download Link Set');
-        }
+                  define('THEME_DOWNLOAD_LINK', '#myCopyRight');
+                  define('THEME_OVERVIEW', 'No Overview Set');
+                  define('THEME_MARKUP_LANG', 'No Markup Lnaguage Set');
+                  define('THEME_REPOSITORY_DOWNLOAD', 'No Repository Download Link Set');
+                }
 		elseif($this->type == COPYRIGHT_OFF) 
 		{
-          define('THEME', 'The CopyRight System is Turned Off!');
-          define('THEME_AUTHOR', 'No Author Set');
+                  define('THEME', 'The CopyRight System is Turned Off!');
+                  define('THEME_AUTHOR', 'No Author Set');
 		  define('THEME_PORTED_BY', 'No Port Auhtor Set');
-          define('THEME_BUSINESS', 'No Bussiness Set');
+                  define('THEME_BUSINESS', 'No Bussiness Set');
 		  define('THEME_DATE', 'No Date Set');
-          define('THEME_DOWNLOAD_LINK', '#myCopyRight');
-          define('THEME_OVERVIEW', 'No Overview Set');
-          define('THEME_MARKUP_LANG', 'No Markup Lnaguage Set');
-          define('THEME_REPOSITORY_DOWNLOAD', 'No Repository Download Link Set');
-        }
+                  define('THEME_DOWNLOAD_LINK', '#myCopyRight');
+                  define('THEME_OVERVIEW', 'No Overview Set');
+                  define('THEME_MARKUP_LANG', 'No Markup Lnaguage Set');
+                  define('THEME_REPOSITORY_DOWNLOAD', 'No Repository Download Link Set');
+                }
 
     }
 }
