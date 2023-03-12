@@ -278,8 +278,11 @@ define('GZIPSUPPORT', extension_loaded('zlib'));
 define('GDSUPPORT', extension_loaded('gd'));
 define('CAN_MOD_INI', !stristr(ini_get('disable_functions'), 'ini_set'));
 
-# If a class hasn't been loaded yet find the required file on the server and load
-# it in using the special autoloader detection built into PHP5+
+/**
+ * @Auto Class Loading v1.0
+ * If a class hasn't been loaded yet find the required file on the server and load
+ * it in using the special autoloader detection built into PHP
+ */
 if (!function_exists('classAutoloader')):
 
     function classAutoloader($class) {
