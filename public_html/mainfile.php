@@ -2056,8 +2056,8 @@ function validate_mail($email) {
 function encode_mail($email) {
     $finished = '';
 
-    //for($i=0, $j = strlen($email); $i<$j; ++$i):
-    //      $n = mt_rand(0, 1);
+    //for($i=0, $j = strlen($email); $i<$j; ++$i): TheGhost
+    //      $n = mt_rand(0, 1);                    TheGhost
 
     for ($i = 0, $j = strlen((string) $email); $i < $j; ++$i):
         $n = random_int(0, 1);
