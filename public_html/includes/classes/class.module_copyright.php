@@ -54,16 +54,18 @@ class mcr
 		if($this->type == MODULE_TITANIUM) 
 		{
                   define('MODULE', $module_title);
+                  define('MODULE_NAME', $module_name);
                   define('MODULE_AUTHOR', $module_author);
                   define('MODULE_BUSINESS', $module_business);
 		  define('MODULE_DATE', $module_date);
                   define('MODULE_DOWNLOAD_LINK', $module_download_link);
                   define('MODULE_OVERVIEW', $module_overview);
-                  define('MODULE_MARKUP_LANG', $markup_lang);
+                  define('MODULE_MARKUP_LANG', $module_markup_lang);
 		} 
 		elseif($this->type == MODULE_PLATINUM) 
 		{
                   define('MODULE', $module_title);
+                  define('MODULE_NAME', $module_name);
                   define('MODULE_AUTHOR', $module_author);
                   define('MODULE_BUSINESS', $module_business);
 		  define('MODULE_DATE', $module_date);
@@ -74,6 +76,7 @@ class mcr
 		elseif($this->type == MODULE_EVO_XTREME) 
 		{
                   define('MODULE', $module_title);
+                  define('MODULE_NAME', $module_name);
                   define('MODULE_AUTHOR', $module_author);
                   define('MODULE_BUSINESS', $module_business);
 		  define('MODULE_DATE', $module_date);
@@ -84,6 +87,7 @@ class mcr
 		elseif($this->type == MODULE_NUKE) 
 		{
                   define('MODULE', $module_title);
+                  define('MODULE_NAME', $module_name);
                   define('MODULE_AUTHOR', $module_author);
                   define('MODULE_BUSINESS', $module_business);
 		  define('MODULE_DATE', $module_date);
@@ -94,6 +98,7 @@ class mcr
 		elseif($this->type == MODULE_EVO_BASIC) 
 		{
                   define('MODULE', $module_title);
+                  define('MODULE_NAME', $module_name);
                   define('MODULE_AUTHOR', $module_author);
                   define('MODULE_BUSINESS', $module_business);
 		  define('MODULE_DATE', $module_date);
@@ -104,6 +109,7 @@ class mcr
 		elseif($this->type == COPYRIGHT_ON) 
 		{
                   define('MODULE', 'The Module CopyRight System is Turned On!');
+                  define('MODULE_NAME', 'Module Name Not Set');
                   define('MODULE_AUTHOR', 'No Author Set');
                   define('MODULE_BUSINESS', 'No Bussiness Set');
 		  define('MODULE_DATE', 'No Date Set');
@@ -114,6 +120,7 @@ class mcr
 		elseif($this->type == COPYRIGHT_OFF) 
 		{
                   define('MODULE', 'The Module CopyRight System is Turned Off!');
+                  define('MODULE_NAME', 'Module Name Not Set');
                   define('MODULE_AUTHOR', 'No Author Set');
                   define('MODULE_BUSINESS', 'No Bussiness Set');
 		  define('MODULE_DATE', 'No Date Set');
