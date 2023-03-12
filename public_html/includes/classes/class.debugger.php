@@ -77,4 +77,3 @@ class error_handler {
 
 $debugger = new error_handler($debug);
 
-?>
