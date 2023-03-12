@@ -71,6 +71,7 @@
  * @license http://www.opensource.org/licenses/bsd-license.php BSD License
  * @todo phpDoc comments
  */
+use function PHP81_BC\strftime;
 
 /**
  * SimplePie Name
