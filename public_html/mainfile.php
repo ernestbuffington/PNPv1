@@ -1362,8 +1362,7 @@ function actualTime() {
     return $actualTime_tempdate;
 }
 
-# formatTimestamp function by ReOrGaNiSaTiOn
-
+# formatTimestamp function by ReOrGaNiSaTiOn and TheGhost
 function formatTimestamp($time, $format = '', $dateonly = '') {
     global $datetime, $locale, $userinfo, $board_config;
 
@@ -1395,8 +1394,8 @@ function formatTimestamp($time, $format = '', $dateonly = '') {
         $adate = date_create($time); //date format that you don't want
         $mysqldate = $adate->format($format); //date format that you do want
         $datetime = $mysqldate;
-    //preg_match('/(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})/', (string) $time, $datetime);
-    //$time = gmmktime($datetime[4],$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]);
+     // preg_match('/(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})/', (string) $time, $datetime);
+     // $time = gmmktime($datetime[4],$datetime[5],$datetime[6],$datetime[2],$datetime[3],$datetime[1]);
     else:
         $datetime = FormatDate($format, $time, $tz);
     endif;
