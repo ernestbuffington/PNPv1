@@ -637,7 +637,7 @@ $more_styles = '';
 # Mod: Lazy Google Tap v1.0.0 END
 # Base: Switch Content Script v2.0.0 END
 
-# # Mod: Browsers v1.0 START
+# Mod: Browsers v1.0 START
 # Mod: Lazy Google Tap v1.0.0 START
 # Base: Theme Management v1.0.2 START
 # Base: NukeSentinel v2.5.08 START
