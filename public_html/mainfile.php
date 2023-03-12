@@ -728,6 +728,9 @@ function is_admin($trash = 0) {
 }
 
 function is_god_admin($trash = 0) {
+    if (!isset($trash)) {
+        $trash = 0;
+    }
     static $godadminstatus;
 
     if (isset($godadminstatus)):
