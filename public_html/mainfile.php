@@ -490,11 +490,11 @@ $AllowableHTML = array(
     'ul' => array('class' => 1, 'style' => 1, 'id' => 1),
 );
 
-/* * *******************************************************************************
+/** 
  * Pagination Control:
  * Currently only implemented for the News module, but may be added
  * elsewhere in future releases.
- * ******************************************************************************** */
+ */
 $usePaginatorControl = true;  // Setting this to "true" turns on the pagination links
 $cfgPaginatorControl = array(// Do NOT remove any of these options, just change the settings!
     'bShowPageOf' => true, // "true" = show Page n of NN, "false" = do not show
