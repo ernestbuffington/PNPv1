@@ -497,15 +497,15 @@ $AllowableHTML = array(
  * Currently only implemented for the News module, but may be added
  * elsewhere in future releases.
  */
-$usePaginatorControl = true;  // Setting this to "true" turns on the pagination links
-$cfgPaginatorControl = array(// Do NOT remove any of these options, just change the settings!
-    'bShowPageOf' => true, // "true" = show Page n of NN, "false" = do not show
+$usePaginatorControl = true;   // Setting this to "true" turns on the pagination links
+$cfgPaginatorControl = array(  // Do NOT remove any of these options, just change the settings!
+    'bShowPageOf' => true,     // "true" = show Page n of NN, "false" = do not show
     'bShowTotalItems' => true, // "true" = show out of total items, "false" = do not show
-    'bShowJumpTo' => true, // "true" = show Jump to page, "false" = do not show
-    'iJumpType' => 1, // 0 = user enters page number and clicks a GO button, 1 = shows a drop down of page numbers to jump to automatically.
-    'bNoFollow' => true, // "true" = will add rel="nofollow" to the links, "false" = does not add
-    'iMaxPages' => 5, // Number of pages to show before and after the current page
-    'iPosition' => 2, // 0 = show pagination controls only at the top, 1 = only at the bottom, 2 = both top and bottom
+    'bShowJumpTo' => true,     // "true" = show Jump to page, "false" = do not show
+    'iJumpType' => 1,          // 0 = user enters page number and clicks a GO button, 1 = shows a drop down of page numbers to jump to automatically.
+    'bNoFollow' => true,       // "true" = will add rel="nofollow" to the links, "false" = does not add
+    'iMaxPages' => 5,          // Number of pages to show before and after the current page
+    'iPosition' => 2,          // 0 = show pagination controls only at the top, 1 = only at the bottom, 2 = both top and bottom
 );
 
 $nukeconfig = load_nukeconfig();
