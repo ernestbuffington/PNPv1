@@ -682,11 +682,13 @@ if (!defined('FORUM_ADMIN')):
 endif;
 # Base: Admin File Check v3.0.0 END
 
+# Base: Define Once Check v1.0.1 START
 function define_once($constant, $value) {
     if (!defined($constant)):
         define($constant, $value);
     endif;
 }
+# Base: Define Once Check v1.0.1 END
 
 function is_admin($trash = 0) {
     static $adminstatus;
