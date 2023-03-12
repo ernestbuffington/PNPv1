@@ -1,9 +1,9 @@
 <?php
 /************************************************************************/
-/* Discord Block				                                        */
+/* Discord Block				                        */
 /* ==============================                                       */
 /*                                                                      */
-/* Copyright (c) 2003 - 2018 coRpSE	                                    */
+/* Copyright (c) 2003 - 2018 coRpSE	                                */
 /* http://www.headshotdomain.net                                        */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
