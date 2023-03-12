@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace titanium\fileLogger {
     
     use Exception;
@@ -42,7 +44,7 @@ namespace titanium\fileLogger {
         /**
          * Opens the file handle.
          * 
-         * @param string $logfile The path to the loggable file.
+         * @param string $logfile The path to the log able file.
          */
         public function __construct($logfile) {
             if($this->fileHandle == NULL){
