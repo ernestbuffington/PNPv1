@@ -74,8 +74,9 @@ class DB {
 
         if(GZIPSUPPORT): 
 		
-          while(ob_end_clean());
+          while(ob_end_clean()):
             header('Content-Encoding:');
+          endwhile;
          
 		else: 
             $compress = false;
