@@ -1304,10 +1304,10 @@ Global $AMZLocale;
 	$AMZCurrency = "$";
 	$AMZCurrency = match ($AMZLocale) {
      "us" => "$",
-     "uk" => "£",
+     "uk" => "ï¿½",
      "ca" => "$",
      "de" => "EUR ",
-     "jp" => "¥",
+     "jp" => "ï¿½",
      "fr" => "$",
      default => $AMZCurrency,
  };
@@ -3000,65 +3000,65 @@ function AMZ_URL_Verify($url)
 	$url = str_replace ("'", "", $url);
 	$url = str_replace ("&", "", $url);
 	$url = str_replace ("  ", " ", $url);
-	$url = str_replace ("Ä", "AE", $url);
-	$url = str_replace ("Æ", "AE", $url);
-	$url = str_replace ("ä", "ae", $url);
-	$url = str_replace ("æ", "ae", $url);
-	$url = str_replace ("à", "a", $url);
-	$url = str_replace ("á", "a", $url);
-	$url = str_replace ("â", "a", $url);
-	$url = str_replace ("â", "a", $url);
-	$url = str_replace ("ã", "a", $url);
-	$url = str_replace ("å", "a", $url);
-	$url = str_replace ("À", "A", $url);
-	$url = str_replace ("Á", "A", $url);
-	$url = str_replace ("Â", "A", $url);
-	$url = str_replace ("Ã", "A", $url);
-	$url = str_replace ("Å", "A", $url);
-	$url = str_replace ("Ç", "C", $url);
-	$url = str_replace ("ç", "c", $url);
-	$url = str_replace ("è", "e", $url);
-	$url = str_replace ("é", "e", $url);
-	$url = str_replace ("ê", "e", $url);
-	$url = str_replace ("ë", "e", $url);
-	$url = str_replace ("È", "E", $url);
-	$url = str_replace ("É", "E", $url);
-	$url = str_replace ("Ê", "E", $url);
-	$url = str_replace ("Ë", "E", $url);
-	$url = str_replace ("Ì", "I", $url);
-	$url = str_replace ("Í", "I", $url);
-	$url = str_replace ("Î", "I", $url);
-	$url = str_replace ("Ï", "I", $url);
-	$url = str_replace ("ì", "i", $url);
-	$url = str_replace ("í", "i", $url);
-	$url = str_replace ("î", "i", $url);
-	$url = str_replace ("ï", "i", $url);
-	$url = str_replace ("Ñ", "N", $url);
-	$url = str_replace ("ñ", "n", $url);
-	$url = str_replace ("Ö", "OE", $url);
-	$url = str_replace ("ö", "oe", $url);
-	$url = str_replace ("Ò", "O", $url);
-	$url = str_replace ("Ó", "O", $url);
-	$url = str_replace ("Ô", "O", $url);
-	$url = str_replace ("Õ", "O", $url);
-	$url = str_replace ("ò", "o", $url);
-	$url = str_replace ("ó", "o", $url);
-	$url = str_replace ("ô", "o", $url);
-	$url = str_replace ("õ", "o", $url);
-	$url = str_replace ("ß", "ss", $url);
-	$url = str_replace ("Ù", "U", $url);
-	$url = str_replace ("Ú", "U", $url);
-	$url = str_replace ("Û", "U", $url);
-	$url = str_replace ("Ü", "U", $url);
-	$url = str_replace ("ù", "u", $url);
-	$url = str_replace ("ú", "u", $url);
-	$url = str_replace ("û", "u", $url);
-	$url = str_replace ("û", "u", $url);
-	$url = str_replace ("ü", "u", $url);
-	$url = str_replace ("Ý", "Y", $url);
-	$url = str_replace ("ý", "y", $url);
-	$url = str_replace ("ÿ", "y", $url);
-	$url = str_replace ("Ð", "D", $url);
+	$url = str_replace ("ï¿½", "AE", $url);
+	$url = str_replace ("ï¿½", "AE", $url);
+	$url = str_replace ("ï¿½", "ae", $url);
+	$url = str_replace ("ï¿½", "ae", $url);
+	$url = str_replace ("ï¿½", "a", $url);
+	$url = str_replace ("ï¿½", "a", $url);
+	$url = str_replace ("ï¿½", "a", $url);
+	$url = str_replace ("ï¿½", "a", $url);
+	$url = str_replace ("ï¿½", "a", $url);
+	$url = str_replace ("ï¿½", "a", $url);
+	$url = str_replace ("ï¿½", "A", $url);
+	$url = str_replace ("ï¿½", "A", $url);
+	$url = str_replace ("ï¿½", "A", $url);
+	$url = str_replace ("ï¿½", "A", $url);
+	$url = str_replace ("ï¿½", "A", $url);
+	$url = str_replace ("ï¿½", "C", $url);
+	$url = str_replace ("ï¿½", "c", $url);
+	$url = str_replace ("ï¿½", "e", $url);
+	$url = str_replace ("ï¿½", "e", $url);
+	$url = str_replace ("ï¿½", "e", $url);
+	$url = str_replace ("ï¿½", "e", $url);
+	$url = str_replace ("ï¿½", "E", $url);
+	$url = str_replace ("ï¿½", "E", $url);
+	$url = str_replace ("ï¿½", "E", $url);
+	$url = str_replace ("ï¿½", "E", $url);
+	$url = str_replace ("ï¿½", "I", $url);
+	$url = str_replace ("ï¿½", "I", $url);
+	$url = str_replace ("ï¿½", "I", $url);
+	$url = str_replace ("ï¿½", "I", $url);
+	$url = str_replace ("ï¿½", "i", $url);
+	$url = str_replace ("ï¿½", "i", $url);
+	$url = str_replace ("ï¿½", "i", $url);
+	$url = str_replace ("ï¿½", "i", $url);
+	$url = str_replace ("ï¿½", "N", $url);
+	$url = str_replace ("ï¿½", "n", $url);
+	$url = str_replace ("ï¿½", "OE", $url);
+	$url = str_replace ("ï¿½", "oe", $url);
+	$url = str_replace ("ï¿½", "O", $url);
+	$url = str_replace ("ï¿½", "O", $url);
+	$url = str_replace ("ï¿½", "O", $url);
+	$url = str_replace ("ï¿½", "O", $url);
+	$url = str_replace ("ï¿½", "o", $url);
+	$url = str_replace ("ï¿½", "o", $url);
+	$url = str_replace ("ï¿½", "o", $url);
+	$url = str_replace ("ï¿½", "o", $url);
+	$url = str_replace ("ï¿½", "ss", $url);
+	$url = str_replace ("ï¿½", "U", $url);
+	$url = str_replace ("ï¿½", "U", $url);
+	$url = str_replace ("ï¿½", "U", $url);
+	$url = str_replace ("ï¿½", "U", $url);
+	$url = str_replace ("ï¿½", "u", $url);
+	$url = str_replace ("ï¿½", "u", $url);
+	$url = str_replace ("ï¿½", "u", $url);
+	$url = str_replace ("ï¿½", "u", $url);
+	$url = str_replace ("ï¿½", "u", $url);
+	$url = str_replace ("ï¿½", "Y", $url);
+	$url = str_replace ("ï¿½", "y", $url);
+	$url = str_replace ("ï¿½", "y", $url);
+	$url = str_replace ("ï¿½", "D", $url);
 
 	$url = urlencode ($url);
 	return $url;
@@ -3128,7 +3128,7 @@ function AMZ_file_get_contents($filename)
 	return $temp;
 }
 
-# $Log $
+# $Log $ 
 # Revision 2.7 ejd
 #	- Fixed bug in accessories not showing correct items.
 #	- Fixed bug not showing sub_catalog if not an admin.
