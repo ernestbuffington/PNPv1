@@ -310,6 +310,7 @@ if (file_exists(NUKE_VENDOR_DIR . 'autoload.php')):
     require_once(NUKE_VENDOR_DIR . 'autoload.php');
 endif;
 # Vendor Autoload - only if vendor directory exists with an autoload file! END
+
 # Enable 86it Network Support START
 if (file_exists(NUKE_BASE_DIR . 'nconfig.php')):
     global $dbpass2, $dbhost2, $dbname2, $dbuname2, $db2, $network_prefix;
