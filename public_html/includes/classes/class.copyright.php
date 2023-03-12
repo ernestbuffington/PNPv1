@@ -40,16 +40,16 @@ class cr
     function __construct($set_theme_copyright) {
 
                  global $set_theme_copyright, 
-		                  $theme_markup_lang, 
-			                 $theme_overview, 
-			                 $theme_business, 
-			                    $theme_title, 
-				               $theme_author, 
-				                 $theme_date, 
-				                 $theme_name,
-				            $theme_ported_by,
-	    $theme_file_repository_download_link, 
-		                $theme_download_link; // copyright system
+		          $theme_markup_lang, 
+		             $theme_overview, 
+		             $theme_business, 
+		                $theme_title, 
+		               $theme_author, 
+		                 $theme_date, 
+		                 $theme_name,
+		            $theme_ported_by,
+        $theme_file_repository_download_link, 
+	                $theme_download_link; // copyright system
 
         $this->type = $set_theme_copyright;
         
