@@ -2256,8 +2256,9 @@ function GroupColor($group_name, $short = 0) {
     global $db, $use_colors, $cache;
     static $cached_groups;
     $cached_groups = [];
-    if (!$use_colors)
+    if (!$use_colors) {
         return $group_name;
+    }
     $plaingroupname = ( $short != 0 ) ? $group_name . '_short' : $group_name;
     if (!empty($cached_groups[$plaingroupname])) {
         return $cached_groups[$plaingroupname];
