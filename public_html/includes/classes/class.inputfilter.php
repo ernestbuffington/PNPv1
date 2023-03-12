@@ -69,7 +69,7 @@ class InputFilter {
             log_write('error', $logdata, 'Script Attack');
 			log_write('error', $logdata, 'Suck it Tonight Fargnoggel!');
         } else {
-            @include_once(NUKE_INCLUDE_DIR.'log.php');
+            include_once(NUKE_INCLUDE_DIR.'log.php');
             log_write('error', $logdata, 'Script Attack');
 			log_write('error', $logdata, 'Suck it Tonight Fargnoggel!');
         }
@@ -127,12 +127,14 @@ class InputFilter {
             return $source;
         # clean this string
         } 
-		elseif (is_string($source) && !empty ($source)) {
+ elseif (is_string($source) && !empty($source)) {
             # filter source for XSS and other 'bad' code etc.
             $this->current_string = $source;
             return $this->remove($this->decode($source));
-        # return parameter as given
-        } else return $source;
+            # return parameter as given
+        } else {
+            return $source;
+        }
     }
 
     /**
@@ -479,20 +481,24 @@ class InputFilter {
         if (is_array($source)) 
 		{
         
-		    foreach($source as $key => $value)
-		        # filter element for SQL injection
-                if (is_string($value)) $source[$key] = $this->quoteSmart($this->decode($value), $connection);
-                return $source;
+            foreach ($source as $key => $value) {
+            # filter element for SQL injection
+            if (is_string($value)) {
+                    $source[$key] = $this->quoteSmart($this->decode($value), $connection);
+                }
+            }
+            return $source;
         # clean this string
         } 
-		elseif(is_string($source)) 
-		{
+ elseif (is_string($source)) {
             # filter source for SQL injection
-            if (is_string($source)) return $this->quoteSmart($this->decode($source), $connection);
-        # return parameter as given
-        } 
-		else 
-		return $source;
+            if (is_string($source)) {
+                return $this->quoteSmart($this->decode($source), $connection);
+            }
+            # return parameter as given
+        } else {
+            return $source;
+        }
     }
 
     /**
@@ -506,9 +512,11 @@ class InputFilter {
     function quoteSmart($source, &$connection) {
         
 		# strip slashes
-        if (get_magic_quotes_gpc()) $source = stripslashes($source);
-        
-		# quote both numeric and text
+                if (get_magic_quotes_gpc()) {
+            $source = stripslashes($source);
+        }
+
+        # quote both numeric and text
         $source = $this->escapeString($source, $connection);
         return $source;
     }
@@ -522,13 +530,16 @@ class InputFilter {
       * @return String $source
       */
     function escapeString($string, &$connection) 
-	{
+    {
         # depreciated function
-        if (version_compare(phpversion(),"4.3.0", "<")) 
-		mysql_escape_string($string);
-		# current function
-        else mysql_real_escape_string($string);
+        if (version_compare(phpversion(), "4.3.0", "<")) {
+            mysql_escape_string($string);
+        }
+        # current function
+        else {
+            mysql_real_escape_string($string);
+        }
         return $string;
     }
 }
-?>
+
