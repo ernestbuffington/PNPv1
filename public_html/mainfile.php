@@ -1,10 +1,9 @@
 <?php
-
-/* ======================================================================= 
+/*======================================================================= 
   PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
-  ======================================================================= */
+  =======================================================================*/
 
-/* * ********************************************************************* */
+/************************************************************************/
 /* PHP-NUKE: Advanced Content Management System                         */
 /* ============================================                         */
 /*                                                                      */
@@ -14,9 +13,9 @@
 /* This program is free software. You can redistribute it and/or modify */
 /* it under the terms of the GNU General Public License as published by */
 /* the Free Software Foundation; either version 2 of the License.       */
-/* * ********************************************************************* */
+/************************************************************************/
 
-/* * ***[CHANGES]**********************************************************
+/*****[CHANGES]**********************************************************
   -=[Base]=-
   NukeSentinel                             v2.5.08      07/11/2006
   Nuke Patched                             v3.1.0       06/26/2005
@@ -54,9 +53,10 @@
   Blog Signature                           v1.0.0       04/24/2021
   SiteMap Mod                              v1.0.0       04/26/2021
   Dynamic CSS, JS and PHPCSS               v1.0.0       04/29/2021
- * ********************************************************************** */
-if ((defined('NUKE_TITANIUM')) || (defined('NUKE_PLATINUM'))):
-    return;
+ ************************************************************************/
+
+if (defined('NUKE_PLATINUM')):
+    echo 'HERE I AM FUCK FACE';
 endif;
 
 if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])):
@@ -304,8 +304,6 @@ if (file_exists(NUKE_VENDOR_DIR . 'autoload.php')):
     require_once(NUKE_VENDOR_DIR . 'autoload.php');
 endif;
 # Vendor Autoload - only if vendor directory exists with an autoload file! END
-
-use function PHP81_BC\strftime;
 
 # Enable 86it Network Support START
 if (file_exists(NUKE_BASE_DIR . 'nconfig.php')):
