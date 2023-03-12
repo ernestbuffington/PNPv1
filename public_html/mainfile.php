@@ -1172,7 +1172,6 @@ function blog_ultramode() {
         $rsid = $row['sid'];
         $raid = $row['aid'];
         $rtitle = htmlspecialchars(stripslashes((string) $row['title']));
-
         $rtime = $row['datePublished'];
         $rmodified = $row['dateModified'];
         $rcomments = $row['comments'];
