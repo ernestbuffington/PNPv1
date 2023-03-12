@@ -56,6 +56,7 @@ class cr
 		if($this->type == THEME_TITANIUM) 
 		{
                   define('THEME', $theme_title);
+                  define('THEME_NAME', $theme_name);
                   define('THEME_AUTHOR', $theme_author);
 		  define('THEME_PORTED_BY', $theme_ported_by);
                   define('THEME_BUSINESS', $theme_business);
@@ -68,6 +69,7 @@ class cr
 		elseif($this->type == THEME_PLATINUM) 
 		{
                   define('THEME', $theme_title);
+                  define('THEME_NAME', $theme_name);
                   define('THEME_AUTHOR', $theme_author);
 		  define('THEME_PORTED_BY', $theme_ported_by);
                   define('THEME_BUSINESS', $theme_business);
@@ -80,6 +82,7 @@ class cr
 		elseif($this->type == THEME_EVO_XTREME) 
 		{
                   define('THEME', $theme_title);
+                  define('THEME_NAME', $theme_name);
                   define('THEME_AUTHOR', $theme_author);
 		  define('THEME_PORTED_BY', $theme_ported_by);
                   define('THEME_BUSINESS', $theme_business);
@@ -92,6 +95,7 @@ class cr
 		elseif($this->type == THEME_NUKE) 
 		{
                   define('THEME', $theme_title);
+                  define('THEME_NAME', $theme_name);
                   define('THEME_AUTHOR', $theme_author);
 		  define('THEME_PORTED_BY', $theme_ported_by);
                   define('THEME_BUSINESS', $theme_business);
@@ -104,6 +108,7 @@ class cr
 		elseif($this->type == THEME_EVO_BASIC) 
 		{
                   define('THEME', $theme_title);
+                  define('THEME_NAME', $theme_name);
                   define('THEME_AUTHOR', $theme_author);
 		  define('THEME_PORTED_BY', $theme_ported_by);
                   define('THEME_BUSINESS', $theme_business);
@@ -116,26 +121,28 @@ class cr
 		elseif($this->type == COPYRIGHT_ON) 
 		{
                   define('THEME', 'The CopyRight System is Turned On!');
-                  define('THEME_AUTHOR', 'No Author Set');
-		  define('THEME_PORTED_BY', 'No Port Auhtor Set');
-                  define('THEME_BUSINESS', 'No Bussiness Set');
-		  define('THEME_DATE', 'No Date Set');
+                  define('THEME_NAME', 'Theme Name Not Set!');
+                  define('THEME_AUTHOR', 'No Author Set!');
+		  define('THEME_PORTED_BY', 'No Port Auhtor Set!');
+                  define('THEME_BUSINESS', 'No Bussiness Set!');
+		  define('THEME_DATE', 'No Date Set!');
                   define('THEME_DOWNLOAD_LINK', '#myCopyRight');
-                  define('THEME_OVERVIEW', 'No Overview Set');
-                  define('THEME_MARKUP_LANG', 'No Markup Lnaguage Set');
-                  define('THEME_REPOSITORY_DOWNLOAD', 'No Repository Download Link Set');
+                  define('THEME_OVERVIEW', 'No Overview Set!');
+                  define('THEME_MARKUP_LANG', 'No Markup Lnaguage Set!');
+                  define('THEME_REPOSITORY_DOWNLOAD', 'No Repository Download Link Set!');
                 }
 		elseif($this->type == COPYRIGHT_OFF) 
 		{
                   define('THEME', 'The CopyRight System is Turned Off!');
-                  define('THEME_AUTHOR', 'No Author Set');
-		  define('THEME_PORTED_BY', 'No Port Auhtor Set');
-                  define('THEME_BUSINESS', 'No Bussiness Set');
-		  define('THEME_DATE', 'No Date Set');
+                  define('THEME_NAME', 'Theme Name Not Set!');
+                  define('THEME_AUTHOR', 'No Author Set!');
+		  define('THEME_PORTED_BY', 'No Port Auhtor Set!');
+                  define('THEME_BUSINESS', 'No Bussiness Set!');
+		  define('THEME_DATE', 'No Date Set!');
                   define('THEME_DOWNLOAD_LINK', '#myCopyRight');
-                  define('THEME_OVERVIEW', 'No Overview Set');
-                  define('THEME_MARKUP_LANG', 'No Markup Lnaguage Set');
-                  define('THEME_REPOSITORY_DOWNLOAD', 'No Repository Download Link Set');
+                  define('THEME_OVERVIEW', 'No Overview Set!');
+                  define('THEME_MARKUP_LANG', 'No Markup Lnaguage Set!');
+                  define('THEME_REPOSITORY_DOWNLOAD', 'No Repository Download Link Set!');
                 }
 
     }
