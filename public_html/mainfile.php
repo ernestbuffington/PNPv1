@@ -2248,7 +2248,7 @@ function get_plus_minus_image() {
         endif;
     endif;
 
-    //$theme_folder = (!empty($theme)) ? ((defined(NUKE_THEMES_DIR)) ? NUKE_THEMES_DIR.$theme.'/images/' : dirname(__FILE__) . '/themes/'.$theme.'/images/') : '';
+    //$theme_folder = (!empty($theme)) ? ((defined(NUKE_THEMES_DIR)) ? NUKE_THEMES_DIR.$theme.'/images/' : dirname(__FILE__) . '/themes/'.$theme.'/images/') : ''; TheGhost
     $theme_folder = (!empty($theme)) ? ((defined(NUKE_THEMES_DIR)) ? NUKE_THEMES_DIR . $theme . '/images/' : __DIR__ . '/themes/' . $theme . '/images/') : '';
 
     $image['plus'] = (file_exists($theme_folder . 'plus.gif')) ? 'themes/' . $theme . '/images/plus.gif' : 'images/plus.gif';
