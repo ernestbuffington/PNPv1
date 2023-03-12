@@ -2020,12 +2020,12 @@ function get_theme() {
 
 // Function to translate Datestrings
 function translate($phrase) {
-    //switch($phrase): TheGhost
+    //switch($phrase):                                      TheGhost
     //  case'xdatestring': $tmp='%A, %B %d @ %T %Z'; break; TheGhost
-    //  case'linksdatestring': $tmp='%d-%b-%Y'; break; TheGhost
-    //  case'xdatestring2': $tmp='%A, %B %d'; break; TheGhost
-    //  default: $tmp=$phrase; break; TheGhost
-    //endswitch;
+    //  case'linksdatestring': $tmp='%d-%b-%Y'; break;      TheGhost
+    //  case'xdatestring2': $tmp='%A, %B %d'; break;        TheGhost
+    //  default: $tmp=$phrase; break;                       TheGhost
+    //endswitch;                                            TheGhost
 
     $tmp = match ($phrase) {
         'xdatestring' => '%A, %B %d @ %T %Z',
