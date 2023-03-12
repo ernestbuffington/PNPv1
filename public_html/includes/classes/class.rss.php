@@ -5,7 +5,7 @@
 
 
 /*********************************************
-  CPG Dragonfly™ CMS
+  CPG Dragonflyï¿½ CMS
   ********************************************
   Copyright (c) 2004 - 2005 by CPG-Nuke Dev Team
   http://dragonflycms.org
@@ -148,6 +148,9 @@ class RSS {
         return $file;
     }
 
+    public static function read($url) {
+        
+    }
+
 }
 
-?>
