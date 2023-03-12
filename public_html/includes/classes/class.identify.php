@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /*======================================================================= 
   PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
@@ -47,18 +49,21 @@ class identify {
 	{
         static $visitor_ip;
     
-	    if (!empty($visitor_ip)) 
-	    return $visitor_ip; 
-        
-		$visitor_ip = (empty($_SERVER['REMOTE_ADDR'])) ? $_ENV['REMOTE_ADDR'] : $_SERVER['REMOTE_ADDR'];
+        if (!empty($visitor_ip)) {
+            return $visitor_ip;
+        }
+
+        $visitor_ip = (empty($_SERVER['REMOTE_ADDR'])) ? $_ENV['REMOTE_ADDR'] : $_SERVER['REMOTE_ADDR'];
         $ips = [];
         
-		if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] != 'unknown') 
-        $ips = explode(', ', (string) $_SERVER['HTTP_X_FORWARDED_FOR']);
-        
-		if (!empty($_SERVER['HTTP_CLIENT_IP']) && $_SERVER['HTTP_CLIENT_IP'] != 'unknown') 
-        $ips[] = $_SERVER['HTTP_CLIENT_IP'];
-  $ipsCount = count($ips);
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR']) && $_SERVER['HTTP_X_FORWARDED_FOR'] != 'unknown') {
+            $ips = explode(', ', (string) $_SERVER['HTTP_X_FORWARDED_FOR']);
+        }
+
+        if (!empty($_SERVER['HTTP_CLIENT_IP']) && $_SERVER['HTTP_CLIENT_IP'] != 'unknown') {
+            $ips[] = $_SERVER['HTTP_CLIENT_IP'];
+        }
+        $ipsCount = count($ips);
         
 		for ($i = 0; $i < $ipsCount; $i++) 
 		{
