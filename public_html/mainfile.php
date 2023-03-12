@@ -1075,6 +1075,9 @@ function blockfileinc($blockfiletitle, $blockfile, $side = 1, $bid = 0) {
 }
 
 function rss_content($url) {
+    
+    $i = [];
+    
     if (!web_site_up($url)):
         return false;
     endif;
@@ -1186,6 +1189,7 @@ function blog_ultramode() {
         $topictext = $row['topictext'];
         $topicimage = ($row['ticon']) ? stripslashes((string) $row['topicimage']) : '';
         $rtime = formatTimestamp($rtime, 'l, F d');
+        $rmodified = formatTimestamp($rmodified, 'l, F d');
         $content .= "%%\n" . $rtitle . "\n/modules.php?name=Blogs&file=article&sid=" . $rsid . "\n" . $rtime . "\n" . $raid . "\n" . $topictext . "\n" . $rcomments . "\n" . $topicimage . "\n";
     endwhile;
 
@@ -1202,25 +1206,26 @@ function blog_ultramode() {
 }
 
 function ultramode() {
-    global $db, $prefix, $multilingual, $currentlang;
+    global $db, $prefix, $multilingual;
 
-    if ($multilingual == 1)
+    if ($multilingual == 1) {
         $querylang = '';
-    else
+    } else {
         $querylang = "AND s.alanguage = ''";
+    }
 
     $sql = "SELECT `s`.`sid`, 
-	             `s`.`catid`, 
-				   `s`.`aid`, 
-				 `s`.`title`, 
-		 `s`.`datePublished`, 
-		  `s`.`dateModified`, 
-		      `s`.`hometext`, 
-			  `s`.`comments`, 
-			     `s`.`topic`, 
-				 `s`.`ticon`, 
-		     `t`.`topictext`, 
-		    `t`.`topicimage` 
+	         `s`.`catid`, 
+		   `s`.`aid`, 
+		 `s`.`title`, 
+	 `s`.`datePublished`, 
+	  `s`.`dateModified`, 
+	      `s`.`hometext`, 
+	      `s`.`comments`, 
+		 `s`.`topic`, 
+		 `s`.`ticon`, 
+	     `t`.`topictext`, 
+	    `t`.`topicimage` 
 			
 	FROM `" . $prefix . "_blogs` `s` 
 	
