@@ -831,12 +831,12 @@ function cookiedecode($trash = 0) {
     return false;
 }
 
-/* IMAGE HACK
- * You can't run Rector on mainfile.php it has no earthly idea
- * what to do when it gets to this function as it has never seen anything
- * like this and is unable to factor or refactor from here!
+/* 
+ * Remove Titles from old modules
+ * @author Ernest Allen Buffington
+ * @version 1.0.0
+ * 
  */
-
 function title($text) {
     if (isset($text)) {
         return;
