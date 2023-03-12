@@ -1050,6 +1050,7 @@ function blockfileinc($blockfiletitle, $blockfile, $side = 1, $bid = 0) {
     if (empty($content)) {
         $content = _BLOCKPROBLEM2;
     }
+    
     # Mod: Switch Content Script v2.0.0 START
     if ($collapse) {
         $content = "&nbsp;<div id=\"block" . $bid . "\" class=\"switchcontent\">" . $content . "</div>";
