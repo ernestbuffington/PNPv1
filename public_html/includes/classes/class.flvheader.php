@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  *   FLVMetaData - This tiny class is provided to parse FLV file header and
  *   get the most common metadata like the width, height, framerate, duration and etc.
@@ -110,9 +113,10 @@ class FLVMetaData {
 /**
  * Gets metadata of FLV file
  *
- * @return array $this->metaData : matadata of FLV
+ * @return array $this->metaData : metadata of FLV
  */
     public function getMetaData(){
+        
         if(!file_exists($this->fileName)){
             echo "Error! {$this->fileName} does not exist.<br />";
             return false;
@@ -149,8 +153,8 @@ class FLVMetaData {
             echo "Error! No MetaData Exists.<br />";
             return false;
         }  
-
-        foreach($this->metaData as $k=>$v){
+        $v = [];
+        foreach($this->metaData as $k => $v){
             $this->parseBuffer($k);
         }
 
@@ -160,7 +164,7 @@ class FLVMetaData {
 /**
  * Takes a field name of metadata, retrieve it's value and set it in $this->metaData
  *
- * @param string $fieldName : matadata field name
+ * @param string $fieldName : metadata field name
  */
     private function parseBuffer($fieldName){
         $fieldPos = strpos($this->buffer, $fieldName);  //get the field position
