@@ -9,7 +9,7 @@ namespace titanium\fileLogger {
     /**
      * Compatibility class
      * 
-     * For non-supported enviroments.
+     * For non-supported environments.
      */
     class Compatibility {
         
