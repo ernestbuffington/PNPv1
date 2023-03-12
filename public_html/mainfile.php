@@ -765,6 +765,10 @@ function is_god_admin($trash = 0) {
 }
 
 function is_user($trash = 0) {
+    if (!isset($trash)) {
+        $trash = 0;
+    }
+ 
     static $userstatus;
 
     if (isset($userstatus)):
@@ -795,6 +799,9 @@ function is_user($trash = 0) {
 }
 
 function cookiedecode($trash = 0) {
+    if (!isset($trash)) {
+        $trash = 0;
+    }
     global $cookie;
 
     static $rcookie;
@@ -1413,16 +1420,17 @@ function blog_signature($aid) {
     endif;
 
     # webmaster
-    [$username, $avatar, $email, $name, $bio, $admin_notes, $user_occ] = $db->sql_ufetchrow('SELECT `username`,
-		                                         `user_avatar`, 
-												  `user_email`, 
-												        `name`, 
-														 `bio`, 
-											`user_admin_notes`,
-											        `user_occ` 
-
-											FROM `' . $user_prefix . '_users` WHERE `username`="' . $aid . '"', SQL_NUM);
-    # added for blog preview START     
+    [$avatar, $email, $name, $bio, $user_occ] = $db->sql_ufetchrow('SELECT `username`,
+		                                                        `user_avatar`, 
+									 `user_email`, 
+									       `name`, 
+									        `bio`, 
+								   `user_admin_notes`,
+								            `user_occ` 
+                                                                            
+    FROM `' . $user_prefix . '_users` WHERE `username`="' . $aid . '"', SQL_NUM);
+    
+# added for blog preview START     
     if (!isset($name)) {
         $name = $userinfo['username'];
     }
