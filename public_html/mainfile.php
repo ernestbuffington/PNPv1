@@ -360,10 +360,10 @@ include_once(NUKE_INCLUDE_DIR . 'abstract/abstract.exception.php');
 require_once(NUKE_DB_DIR . 'db.php');
 require_once(NUKE_DB_DIR . 'MysqliDb.php');
 # $db->debug = true;
+
 # Include Error Logger and identify class
 require_once(NUKE_CLASSES_DIR . 'class.identify.php');
 global $agent;
-
 $identify = new identify();
 $agent = $identify->identify_agent();
 
