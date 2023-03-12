@@ -620,10 +620,8 @@ if (isset($evoconfig['analytics'])) {
 if (isset($evoconfig['html_auth'])) {
     $html_auth = $evoconfig['html_auth'];
 }
-
 $more_js = '';
 $more_styles = '';
-
 # Mod: Lock Modules v1.0.0 END
 # Mod: Queries Count v2.0.0 END
 # Other: SSL Administration v1.0.0 END
