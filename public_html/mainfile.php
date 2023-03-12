@@ -1050,15 +1050,12 @@ function blockfileinc($blockfiletitle, $blockfile, $side = 1, $bid = 0) {
     if (empty($content)) {
         $content = _BLOCKPROBLEM2;
     }
-    /*     * ***[BEGIN]******************************************
-      [ Mod:     Switch Content Script              v2.0.0 ]
-     * **************************************************** */
+    # Mod: Switch Content Script v2.0.0 START
     if ($collapse) {
         $content = "&nbsp;<div id=\"block" . $bid . "\" class=\"switchcontent\">" . $content . "</div>";
     }
-    /*     * ***[END]********************************************
-      [ Mod:     Switch Content Script              v2.0.0 ]
-     * **************************************************** */
+    # Mod: Switch Content Script v2.0.0 END
+    
     if ($side == 'r' || $side == 'l') {
         themesidebox($blockfiletitle, $content, $bid);
     } else {
@@ -1280,7 +1277,6 @@ function Remove_Slashes($str) {
  * @Date 01/25/2023 1:44 am
  * @Since v4.0.3
  * */
-
 function check_words($message) {
     global $censor_words;
 
