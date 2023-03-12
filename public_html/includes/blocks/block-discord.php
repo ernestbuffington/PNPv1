@@ -1,9 +1,9 @@
 <?PHP
 /************************************************************************/
-/* Discord Block				                                        */
+/* Discord Block				                        */
 /* ==============================                                       */
 /*                                                                      */
-/* Copyright (c) 2003 - 2019 coRpSE	                                    */
+/* Copyright (c) 2003 - 2019 coRpSE	                                */
 /* http://www.headshotdomain.net                                        */
 /*                                                                      */
 /* This program is free software. You can redistribute it and/or modify */
@@ -329,4 +329,4 @@ foreach ($discord->members as $mem) {
 	}else{
 print '<div style="width:100%; color:#F00; font-size:18px; text-align:center; border:2px solid #F00; background-color:#000; border-radius:10px;">Database does not exist.</div>';
 	}
-?>
+
