@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 # $Author: ejd $
 # $Date: 2004/2/7 12:25:00 $
@@ -28,7 +28,7 @@
 /* NSN Weather for PHP-Nuke 5.5.0-6.0.0                 */
 /* By: NukeScripts Network (nukescripts@netzero.net)    */
 /* http://www.nukescripts.net                           */
-/* Copyright © 2002 by NukeScripts Network              */
+/* Copyright ï¿½ 2002 by NukeScripts Network              */
 /********************************************************/
 global $AMZVer;
 	echo "<script language=\"JavaScript\" type=\"text/javascript\">\n";
