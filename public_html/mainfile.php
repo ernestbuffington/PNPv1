@@ -1249,6 +1249,7 @@ function ultramode() {
         $topictext = $row['topictext'];
         $topicimage = ($row['ticon']) ? stripslashes($row['topicimage']) : '';
         $rtime = formatTimestamp($rtime, 'l, F d');
+        $rmodified = formatTimestamp($rmodified, 'l, F d');
         $content .= "%%\n" . $rtitle . "\n/modules.php?name=News&file=article&sid=" . $rsid . "\n" . $rtime . "\n" . $raid . "\n" . $topictext . "\n" . $rcomments . "\n" . $topicimage . "\n";
     endwhile;
 
