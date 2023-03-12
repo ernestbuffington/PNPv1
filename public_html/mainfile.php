@@ -2236,8 +2236,9 @@ function UsernameColor($username, $old_name = false) {
             [$user_color, $uname] = $db->sql_ufetchrow("SELECT `user_color_gc`, `username` FROM `" . $user_prefix . "_users` WHERE `username` = '" . str_replace("'", "\'", (string) $username) . "'", SQL_NUM);
             $uname = (empty($uname)) ? $username : $uname;
             $username = (strlen((string) $user_color) == 6) ? '<span style="color: #' . $user_color . '">' . $uname . '</span>' : $uname;
-            if (!empty($username))
+            if (!empty($username)) {
                 $cached_names[$plain_username] = $username;
+            }
             $cache->save('Horndonkle_UserNameColors_' . $horndonkle_name, 'config', $cached_names);
         endif;
     endif;
