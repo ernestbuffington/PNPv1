@@ -691,6 +691,10 @@ function define_once($constant, $value) {
 # Base: Define Once Check v1.0.1 END
 
 function is_admin($trash = 0) {
+    if (!isset($trash)) {
+        $trash = 0;
+    }
+
     static $adminstatus;
 
     if (isset($adminstatus)):
