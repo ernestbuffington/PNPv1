@@ -1832,7 +1832,6 @@ function addPHPCSSToHead($content, $type = 'file') {
 
     return;
 }
-
 # END for Theme Fly Kit by Ernest Buffington - 09/02/2019
 
 function addCSSToHead($content, $type = 'file') {
@@ -1863,13 +1862,11 @@ function addJSToBody($content, $type = 'file') {
     global $bodyJS;
 
     if (($type == 'file') && (is_array($bodyJS) && count($bodyJS) > 0)
-            //&& (in_array(array($type, $content), $bodyJS))):
             && (in_array([$type, $content], $bodyJS))):
 
         return;
     endif;
 
-    //$bodyJS[] = array($type, $content);
     $bodyJS[] = [$type, $content];
 
     return;
@@ -1957,18 +1954,18 @@ function makePass() {
     $vocs = 'aeiou';
 
     for ($x = 0; $x < 6; $x++):
-        //mt_srand ((double) microtime() * 1000000);
+        // mt_srand ((double) microtime() * 1000000); TheGhost
         mt_srand(0, MT_RAND_MT19937);
-        //$con[$x] = substr($cons, mt_rand(0, strlen($cons)-1), 1);
-        //$voc[$x] = substr($vocs, mt_rand(0, strlen($vocs)-1), 1);
+        // $con[$x] = substr($cons, mt_rand(0, strlen($cons)-1), 1); TheGhost
+        // $voc[$x] = substr($vocs, mt_rand(0, strlen($vocs)-1), 1); TheGhost
         $con[$x] = substr($cons, random_int(0, strlen($cons) - 1), 1);
         $voc[$x] = substr($vocs, random_int(0, strlen($vocs) - 1), 1);
     endfor;
 
-    //mt_srand((double)microtime()*1000000);
+    // mt_srand((double)microtime()*1000000); TheGhost
     mt_srand(0, MT_RAND_MT19937);
-    //$num1 = mt_rand(0, 9);
-    //$num2 = mt_rand(0, 9);
+    // $num1 = mt_rand(0, 9); TheGhost
+    // $num2 = mt_rand(0, 9); TheGhost
     $num1 = random_int(0, 9);
     $num2 = random_int(0, 9);
     $makepass = $con[0] . $voc[0] . $con[2] . $num1 . $num2 . $con[3] . $voc[3] . $con[4];
