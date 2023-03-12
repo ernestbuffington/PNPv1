@@ -1973,11 +1973,8 @@ function makePass() {
     return $makepass;
 }
 
-/* * ***[BEGIN]******************************************
-  [ Base:    Theme Management                   v1.0.2 ]
-  [ Base:    Evolution Functions                v1.5.0 ]
- * **************************************************** */
-
+# Base: Theme Management v1.0.2 START
+# Base: Evolution Functions v1.5.0 START
 function get_theme() {
     global $Default_Theme, $cookie;
 
@@ -1998,7 +1995,7 @@ function get_theme() {
         $ThemeSel = $_REQUEST['tpreview'];
 
         if (!is_user()):
-            //setcookie('guest_theme', $ThemeSel, time()+84600);
+            //setcookie('guest_theme', $ThemeSel, time()+84600); TheGhost
             setcookie('guest_theme', (string) $ThemeSel, ['expires' => time() + 84600]);
 
         endif;
@@ -2013,16 +2010,13 @@ function get_theme() {
     endif;
 
     #New feature to grab a backup theme if the one we are trying to use does not exist, no more missing theme errors :)
-    //$ThemeSel = (ThemeAllowed($nTheme = (isset($cookie[9]) ? $cookie[9] : $Default_Theme))) ? $nTheme : ThemeBackup($nTheme);
+    //$ThemeSel = (ThemeAllowed($nTheme = (isset($cookie[9]) ? $cookie[9] : $Default_Theme))) ? $nTheme : ThemeBackup($nTheme); TheGhost
     $ThemeSel = (ThemeAllowed($nTheme = ($cookie[9] ?? $Default_Theme))) ? $nTheme : ThemeBackup($nTheme);
 
     return $ThemeSel;
 }
-
-/* * ***[END]********************************************
-  [ Base:    Theme Management                   v1.0.2 ]
-  [ Base:    Evolution Functions                v1.5.0 ]
- * **************************************************** */
+# Base: Theme Management v1.0.2 END
+# Base: Evolution Functions v1.5.0 END
 
 // Function to translate Datestrings
 function translate($phrase) {
