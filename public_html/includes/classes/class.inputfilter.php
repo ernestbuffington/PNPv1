@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /*======================================================================= 
   PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
@@ -26,27 +28,27 @@ class InputFilter {
 
     var $xssAuto;           # default = 1
     var $tagBlacklist = array('applet', 
-	                            'body', 
-							 'bgsound', 
-							    'base', 
-							'basefont', 
-							   'embed', 
-							   'frame', 
-							'frameset', 
-							    'head', 
-								'html', 
-								  'id', 
-							  'iframe', 
-							  'ilayer', 
-							   'layer', 
-							    'link', 
-								'meta', 
-								'name', 
-							  'object', 
-							  'script', 
-							   'style', 
-							   'title', 
-							     'xml');
+	                        'body', 
+			     'bgsound', 
+			        'base', 
+			    'basefont', 
+		               'embed', 
+			       'frame', 
+			    'frameset', 
+			        'head', 
+			        'html', 
+				  'id', 
+			      'iframe', 
+			      'ilayer', 
+			       'layer', 
+			        'link', 
+				'meta', 
+				'name', 
+			      'object', 
+			      'script', 
+			       'style', 
+			       'title', 
+			         'xml');
 								 
     var $attrBlacklist = array('action', 
 	                       'background', 
