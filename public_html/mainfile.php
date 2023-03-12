@@ -54,6 +54,7 @@
   Blog Signature                           v1.0.0       04/24/2021
   SiteMap Mod                              v1.0.0       04/26/2021
   Dynamic CSS, JS and PHPCSS               v1.0.0       04/29/2021
+  PHP 8.2.3 Patched                        v1.0.0       03/12/2023
 **************************************************************************/
 
 if (defined('NUKE_PLATINUM')):
@@ -2257,9 +2258,9 @@ function get_plus_minus_image() {
 }
 
 $plus_minus_images = get_plus_minus_image();
-/* * ***[END]********************************************
-  [ Base:    Switch Content Script              v2.0.0 ]
- * **************************************************** */
+/*****[END]********************************************
+ [ Base:    Switch Content Script              v2.0.0 ]
+ ******************************************************/
 
 referer();
 
@@ -2270,23 +2271,23 @@ function block_vpn_proxy_user() {
 }
 
 /*****[BEGIN]******************************************
-  [ Mod:    NSN Center Blocks                    v2.2.1 ]
+[ Mod:    NSN Center Blocks                    v2.2.1 ]
  ******************************************************/
 include_once(NUKE_INCLUDE_DIR . "nsncb_func.php");
 /*****[END]********************************************
-  [ Mod:    NSN Center Blocks                    v2.2.1 ]
+ [ Mod:    NSN Center Blocks                   v2.2.1 ]
  ******************************************************/
 
 /*****[BEGIN]******************************************
-  [ Module:  Network Projects                v11.11.11 ]
+ [ Module:  Network Projects                v11.11.11 ]
  ******************************************************/
 include_once(NUKE_INCLUDE_DIR . 'nsnpj_func.php');
-/* * ***[END]********************************************
-  [ Module:  Network Projects                v11.11.11 ]
+/*****[END]********************************************
+ [ Module:  Network Projects                v11.11.11 ]
  ******************************************************/
 
 /*****[BEGIN]******************************************
-  [ Include:  Zip Class                                ]
+ [ Include:  Zip Class                                ]
  ******************************************************/
 include_once(NUKE_CLASSES_DIR . 'class.zip.php');
 /*****[END]********************************************
