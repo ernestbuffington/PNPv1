@@ -821,33 +821,9 @@ function cookiedecode($trash = 0) {
  */
 
 function title($text) {
-    return;
-
-    global $name;
-
-    # Opera Hack as images were not showing up
-    if ($name == 'Advertising'):
-        $icon = img('AdvertisngFixed.png', $name);
-    # Opera Hack as images were not showing up
-    elseif ($name == 'Network_Advertising'):
-        $icon = img('NetworkAdvertisingFixed.png', $name);
-    else:
-
-        if (!isset($name) || empty($name)):
-        # Index Hack as images were not showing up	   
-        else:
-            $icon = img($name . '.png', $name);
-        endif;
-
-    endif;
-
-    if (!isset($name) || empty($name)):
-    # Index Hack as images were not showing up
-    else:
-        OpenTable();
-        echo '<br /><div align="center"><a alt="' . $text . '" href="modules.php?name=' . $name . '"><img alt="' . $text . '" style="height: 50px;" src="' . $icon . '" border="0"></a></div><br/>';
-        CloseTable();
-    endif;
+    if (isset($text)) {
+        return;
+    }
 }
 
 /**
