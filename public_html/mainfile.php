@@ -1820,18 +1820,14 @@ if (!function_exists('themecenterbox')) {
  */
 
 # START for Theme Fly Kit by Ernest Buffington - 09/02/2019
-
 function addPHPCSSToHead($content, $type = 'file') {
     global $headPHPCSS;
 
     if (($type == 'file') && (is_array($headPHPCSS)
-//	&& count($headPHPCSS) > 0) 
-//	&& (in_array(array($type, $content), $headPHPCSS))): 
             && $headPHPCSS !== []) && (in_array([$type, $content], $headPHPCSS))):
         return;
     endif;
 
-//	$headPHPCSS[] = array($type, $content);
     $headPHPCSS[] = [$type, $content];
 
     return;
