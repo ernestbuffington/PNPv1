@@ -379,7 +379,7 @@ $do_gzip_compress = false;
 if (GZIPSUPPORT && !ini_get('zlib.output_compression') && isset($_SERVER['HTTP_ACCEPT_ENCODING']) && preg_match('/gzip/i', $_SERVER['HTTP_ACCEPT_ENCODING'])):
 
     if (version_compare(PHPVERS, '8.0.0', '>=')):
-        ob_end_clean();
+        ob_end_clean(); // TheGhost
         ob_start('ob_gzhandler');
     else:
         $do_gzip_compress = true;
