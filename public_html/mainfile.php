@@ -1675,19 +1675,19 @@ function network_ads($position) {
 
         $sql2 = "SELECT `cid`, 
 	           `imptotal`, 
-			    `impmade`, 
-				 `clicks`, 
-				   `date`, 
-			   `ad_class`, 
-			    `ad_code`, 
-			   `ad_width`, 
-			  `ad_height` 
-			  
-			  FROM `" . $network_prefix . "_banner` WHERE `bid`='$bid'";
+		    `impmade`, 
+		     `clicks`, 
+		       `date`, 
+		   `ad_class`, 
+		    `ad_code`, 
+		   `ad_width`, 
+		  `ad_height` 
+		  
+	FROM `" . $network_prefix . "_banner` WHERE `bid`='$bid'";
 
         $result2 = $db2->sql_query($sql2);
 
-        [$cid, $imptotal, $impmade, $clicks, $date, $ad_class, $ad_code, $ad_width, $ad_height] = $db2->sql_fetchrow($result2, SQL_NUM);
+        [$cid, $imptotal, $impmade, $clicks, $ad_class, $ad_code, $ad_width, $ad_height] = $db2->sql_fetchrow($result2, SQL_NUM);
 
         $cid = (int) $cid;
         $imptotal = (int) $imptotal;
@@ -1708,7 +1708,7 @@ function network_ads($position) {
             if (!empty($c_email)):
                 $from = $sitename . ' <' . $adminmail . '>';
                 $to = $c_contact . ' <' . $c_email . '>';
-                $message = _HELLO . " $c_contact:\n\n";
+                $message = _HELLO . "($c_name) $c_contact:\n\n";
                 $message .= _THISISAUTOMATED . "\n\n";
                 $message .= _THERESULTS . "\n\n";
                 $message .= _TOTALIMPRESSIONS . " $imptotal\n";
