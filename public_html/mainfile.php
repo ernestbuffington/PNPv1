@@ -831,11 +831,10 @@ function cookiedecode($trash = 0) {
     return false;
 }
 
-/* 
+/** 
  * Remove Titles from old modules
  * @author Ernest Allen Buffington
  * @version 1.0.0
- * 
  */
 function title($text) {
     if (isset($text)) {
