@@ -832,7 +832,7 @@ function cookiedecode($trash = 0) {
 }
 
 /** 
- * Remove Titles from old modules
+ * @Remove Titles from old modules
  * @author Ernest Allen Buffington
  * @version 1.0.0
  */
