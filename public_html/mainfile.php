@@ -554,7 +554,8 @@ endif;
 $evoconfig = load_evoconfig();
 $board_config = load_board_config();
 # Base: Evolution Functions v1.5.0 END
-# Mod: Lock Modules v1.0.0 START
+
+# # Mod: Lock Modules v1.0.0 START
 # Mod: Queries Count v2.0.0 START
 # Other: SSL Administration v1.0.0 START
 # Base: Censor v1.0.0 START
