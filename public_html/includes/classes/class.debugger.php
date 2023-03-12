@@ -62,6 +62,7 @@ class error_handler {
     }
 
     function return_errors() {
+        $key = [];
         if($this->debug) {
             if(is_array($this->errors)) {
                 foreach ($this->errors as $key => $value) {
