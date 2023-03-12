@@ -65,7 +65,7 @@ if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])):
     exit('Access Denied');
 endif;
 
-# Define File
+# Define CMS Versions and Editions 
 define('NUKE_TITANIUM', '4.0.4');
 define('NUKE_PLATINUM', '7.6.5');
 define('PHPBB_TITANIUM', '2.0.25');
@@ -1415,7 +1415,6 @@ function get_microtime() {
 }
 
 # Mod: Blog Signature v1.0.0 START
-
 function blog_signature($aid) {
     global $user_prefix, $db, $userinfo;
     static $users;
@@ -1475,7 +1474,6 @@ function blog_signature($aid) {
 
     return $aid . '</table>';
 }
-
 # Mod: Blog Signature v1.0.0 END
 
 function get_author($aid) {
