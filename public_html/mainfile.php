@@ -1,21 +1,22 @@
 <?php
+
 /*======================================================================= 
   PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
   =======================================================================*/
 
-/************************************************************************/
-/* PHP-NUKE: Advanced Content Management System                         */
-/* ============================================                         */
-/*                                                                      */
-/* Copyright (c) 2002 by Francisco Burzi                                */
-/* http://phpnuke.org                                                   */
-/*                                                                      */
-/* This program is free software. You can redistribute it and/or modify */
-/* it under the terms of the GNU General Public License as published by */
-/* the Free Software Foundation; either version 2 of the License.       */
-/************************************************************************/
+/**************************************************************************/
+/* PHP-NUKE: Advanced Content Management System                           */
+/* ============================================                           */
+/*                                                                        */
+/* Copyright (c) 2002 by Francisco Burzi                                  */
+/* http://phpnuke.org                                                     */
+/*                                                                        */
+/* This program is free software. You can redistribute it and/or modify   */
+/* it under the terms of the GNU General Public License as published by   */
+/* the Free Software Foundation; either version 2 of the License.         */
+/**************************************************************************/
 
-/*****[CHANGES]**********************************************************
+/*******[CHANGES]**********************************************************
   -=[Base]=-
   NukeSentinel                             v2.5.08      07/11/2006
   Nuke Patched                             v3.1.0       06/26/2005
@@ -53,7 +54,7 @@
   Blog Signature                           v1.0.0       04/24/2021
   SiteMap Mod                              v1.0.0       04/26/2021
   Dynamic CSS, JS and PHPCSS               v1.0.0       04/29/2021
- ************************************************************************/
+**************************************************************************/
 
 if (defined('NUKE_PLATINUM')):
     echo 'HERE I AM FUCK FACE';
@@ -304,7 +305,6 @@ if (file_exists(NUKE_VENDOR_DIR . 'autoload.php')):
     require_once(NUKE_VENDOR_DIR . 'autoload.php');
 endif;
 # Vendor Autoload - only if vendor directory exists with an autoload file! END
-
 # Enable 86it Network Support START
 if (file_exists(NUKE_BASE_DIR . 'nconfig.php')):
     global $dbpass2, $dbhost2, $dbname2, $dbuname2, $db2, $network_prefix;
@@ -331,7 +331,6 @@ if (file_exists(NUKE_BASE_DIR . 'nconfig.php')):
     endif;
 endif;
 # Enable 86it Network Support END 
-
 # Include config file
 require_once(NUKE_BASE_DIR . 'config.php');
 
@@ -404,13 +403,11 @@ require_once(NUKE_INCLUDE_DIR . 'functions_cache.php');
 require_once(NUKE_INCLUDE_DIR . 'functions_platinum.php');
 require_once(NUKE_INCLUDE_DIR . 'functions_platinum_custom.php');
 # PHP-Nuke Platinum v7.6.b.5 END
-
 # PHP-Nuke Titanium v4.0.4 START
 require_once(NUKE_INCLUDE_DIR . 'function_img.php');
 require_once(NUKE_INCLUDE_DIR . 'functions_titanium.php');
 require_once(NUKE_INCLUDE_DIR . 'functions_titanium_custom.php');
 # PHP-Nuke Titanium v4.0.4 END
-
 # PHP-Nuke Evolution v2.0.9f START
 require_once(NUKE_INCLUDE_DIR . 'functions_evo.php');
 require_once(NUKE_INCLUDE_DIR . 'functions_evo_custom.php');
@@ -563,47 +560,67 @@ $board_config = load_board_config();
 # Mod: Color Toggle v1.0.0 START
 # Mod: Lazy Google Tap v1.0.0 START
 # Base: Switch Content Script v2.0.0 START
-if (isset($evoconfig['lock_modules']))
+if (isset($evoconfig['lock_modules'])) {
     $lock_modules = (int) $evoconfig['lock_modules'];
-if (isset($evoconfig['queries_count']))
+}
+if (isset($evoconfig['queries_count'])) {
     $queries_count = (int) $evoconfig['queries_count'];
-if (isset($evoconfig['adminssl']))
+}
+if (isset($evoconfig['adminssl'])) {
     $adminssl = (int) $evoconfig['adminssl'];
-if (isset($evoconfig['censor_words']))
+}
+if (isset($evoconfig['censor_words'])) {
     $censor_words = $evoconfig['censor_words'];
-if (isset($evoconfig['censor']))
+}
+if (isset($evoconfig['censor'])) {
     $censor = (int) $evoconfig['censor'];
-if (isset($evoconfig['usrclearcache']))
+}
+if (isset($evoconfig['usrclearcache'])) {
     $usrclearcache = (int) $evoconfig['usrclearcache'];
-if (isset($evoconfig['use_colors']))
+}
+if (isset($evoconfig['use_colors'])) {
     $use_colors = (int) $evoconfig['use_colors'];
-if (isset($evoconfig['lazy_tap']))
+}
+if (isset($evoconfig['lazy_tap'])) {
     $lazy_tap = (int) $evoconfig['lazy_tap'];
-if (isset($evoconfig['img_resize']))
+}
+if (isset($evoconfig['img_resize'])) {
     $img_resize = (int) $evoconfig['img_resize'];
-if (isset($evoconfig['img_width']))
+}
+if (isset($evoconfig['img_width'])) {
     $img_width = (int) $evoconfig['img_width'];
-if (isset($evoconfig['img_height']))
+}
+if (isset($evoconfig['img_height'])) {
     $img_height = (int) $evoconfig['img_height'];
-if (isset($evoconfig['textarea']))
+}
+if (isset($evoconfig['textarea'])) {
     $wysiwyg = $evoconfig['textarea'];
-if (isset($evoconfig['capfile']))
+}
+if (isset($evoconfig['capfile'])) {
     $capfile = $evoconfig['capfile'];
-if (isset($evoconfig['collapse']))
+}
+if (isset($evoconfig['collapse'])) {
     $collapse = (int) $evoconfig['collapse'];
-if (isset($evoconfig['collapsetype']))
+}
+if (isset($evoconfig['collapsetype'])) {
     $collapsetype = (int) $evoconfig['collapsetype'];
-if (isset($evoconfig['module_collapse']))
+}
+if (isset($evoconfig['module_collapse'])) {
     $module_collapse = (int) $evoconfig['module_collapse'];
-if (isset($evoconfig['evouserinfo_ec']))
+}
+if (isset($evoconfig['evouserinfo_ec'])) {
     $evouserinfo_ec = (int) $evoconfig['evouserinfo_ec'];
-if (isset($evoconfig['analytics']))
+}
+if (isset($evoconfig['analytics'])) {
     $analytics = $evoconfig['analytics'];
-if (isset($evoconfig['html_auth']))
+}
+if (isset($evoconfig['html_auth'])) {
     $html_auth = $evoconfig['html_auth'];
+}
 
 $more_js = '';
 $more_styles = '';
+
 # Mod: Lock Modules v1.0.0 END
 # Mod: Queries Count v2.0.0 END
 # Other: SSL Administration v1.0.0 END
@@ -612,7 +629,8 @@ $more_styles = '';
 # Mod: Color Toggle v1.0.0 END
 # Mod: Lazy Google Tap v1.0.0 END
 # Base: Switch Content Script v2.0.0 END
-# Mod: Browsers v1.0 START
+
+# # Mod: Browsers v1.0 START
 # Mod: Lazy Google Tap v1.0.0 START
 # Base: Theme Management v1.0.2 START
 # Base: NukeSentinel v2.5.08 START
@@ -676,7 +694,7 @@ function is_admin($trash = 0) {
         return $adminstatus;
     endif;
 
-    $admincookie = $_COOKIE['admin'] ?? false;
+    $admincookie = $_COOKIE['admin'] ?? 'false';
 
     if (!$admincookie):
         return $adminstatus = 0;
@@ -948,7 +966,9 @@ function blocks_visible($side): bool {
  */
 function blocks($side, $count = false) {
     global $prefix, $multilingual, $currentlang, $db, $userinfo, $cache;
-
+    
+    $i = [];
+    
     static $blocks;
 
     $querylang = ($multilingual) ? 'AND (`blanguage`="' . $currentlang . '" OR `blanguage`="")' : '';
@@ -975,7 +995,8 @@ function blocks($side, $count = false) {
 
     $blockrow = $blocks[$side] ?? [];
 
-    foreach ($blockrow as $i => $singleBlockrow) {
+    foreach ($blockrow as $i => $singleBlockrow) 
+    {
         $bid = (int) $singleBlockrow['bid'];
         $view = $singleBlockrow['view'];
         $expire = isset($singleBlockrow['expire']) ? (int) $singleBlockrow['expire'] : '';
@@ -1022,6 +1043,7 @@ function blocks($side, $count = false) {
             }
         endif;
     }
+    
     return;
 }
 
@@ -1059,7 +1081,7 @@ function rss_content($url) {
 
     require_once(NUKE_CLASSES_DIR . 'class.rss.php');
 
-    if ($rss = RSS::read($url)):
+    if ($rss === RSS::read($url)):
 
         $items = & $rss['items'];
         $site_link = & $rss['link'];
@@ -1120,12 +1142,13 @@ function headlines($bid, $side = 0, $row = '') {
 function blog_ultramode() {
     $content = null;
 
-    global $db, $prefix, $multilingual, $currentlang;
+    global $db, $prefix, $multilingual;
 
-    if ($multilingual == 1)
+    if ($multilingual == 1) {
         $querylang = '';
-    else
+    } else {
         $querylang = "AND s.alanguage = ''";
+    }
 
     $sql = "SELECT `s`.`sid`, 
 	             `s`.`catid`, 
@@ -1459,7 +1482,7 @@ function blog_signature($aid) {
 
 function get_author($aid) {
     global $user_prefix, $db;
-    
+
     if (!isset($users)) {
         $users = '';
     }
