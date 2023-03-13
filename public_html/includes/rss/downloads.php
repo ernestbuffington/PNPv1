@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /*======================================================================= 
   PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
@@ -117,5 +119,3 @@ while(list($did, $title, $description, $date, $submitter) = $db->sql_fetchrow($r
 endwhile;
 echo '</channel>';
 echo '</rss>';
-
-?>
