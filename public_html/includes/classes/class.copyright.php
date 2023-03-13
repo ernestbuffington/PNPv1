@@ -23,8 +23,8 @@ if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
     exit('Access Denied');
 }
 
-define_once("COPYRIGHT_ON", 0);
-define_once("COPYRIGHT_OFF", 1);
+define_once("COPYRIGHT_OFF", 0);
+define_once("COPYRIGHT_ON", 1);
 
 define("THEME_TITANIUM", 2);
 define("THEME_PLATINUM", 3);
@@ -51,9 +51,23 @@ class cr
         $theme_file_repository_download_link, 
 	                $theme_download_link; // copyright system
 
-        $this->type = $set_theme_copyright;
-        
-		if($this->type == THEME_TITANIUM) 
+        if ($this->type == COPYRIGHT_OFF) 
+        {
+          define('THEME', 'The CopyRight System is Turned Off!');
+          define('THEME_NAME', 'Theme Name Not Set!');
+          define('THEME_AUTHOR', 'No Author Set!');
+          define('THEME_PORTED_BY', 'No Port Auhtor Set!');
+          define('THEME_BUSINESS', 'No Bussiness Set!');
+	  define('THEME_DATE', 'No Date Set!');
+          define('THEME_DOWNLOAD_LINK', '#myCopyRight');
+          define('THEME_OVERVIEW', 'No Overview Set!');
+          define('THEME_MARKUP_LANG', 'No Markup Lnaguage Set!');
+          define('THEME_REPOSITORY_DOWNLOAD', 'No Repository Download Link Set!');
+        } else {
+            $this->type = $set_theme_copyright;
+        }
+
+               if($this->type == THEME_TITANIUM) 
 		{
                   define('THEME', $theme_title);
                   define('THEME_NAME', $theme_name);
@@ -121,19 +135,6 @@ class cr
 		elseif($this->type == COPYRIGHT_ON) 
 		{
                   define('THEME', 'The CopyRight System is Turned On!');
-                  define('THEME_NAME', 'Theme Name Not Set!');
-                  define('THEME_AUTHOR', 'No Author Set!');
-		  define('THEME_PORTED_BY', 'No Port Auhtor Set!');
-                  define('THEME_BUSINESS', 'No Bussiness Set!');
-		  define('THEME_DATE', 'No Date Set!');
-                  define('THEME_DOWNLOAD_LINK', '#myCopyRight');
-                  define('THEME_OVERVIEW', 'No Overview Set!');
-                  define('THEME_MARKUP_LANG', 'No Markup Lnaguage Set!');
-                  define('THEME_REPOSITORY_DOWNLOAD', 'No Repository Download Link Set!');
-                }
-		elseif($this->type == COPYRIGHT_OFF) 
-		{
-                  define('THEME', 'The CopyRight System is Turned Off!');
                   define('THEME_NAME', 'Theme Name Not Set!');
                   define('THEME_AUTHOR', 'No Author Set!');
 		  define('THEME_PORTED_BY', 'No Port Auhtor Set!');
