@@ -1449,12 +1449,16 @@ function blog_signature($aid) {
     }
     # added for blog preview END     
 
-    $aid = '';
+    $aid = ''; 
 
     if ($name == 'Francisco Burzi') {
         $aid .= 'Adiós Cordialmente,<br />';
-    } else {
-        $aid .= 'MmmmmHum,<br />';
+    } elseif ($name == 'Ernest Allen Buffington'){
+        $aid .= 'Sincerely,<br />';
+    }
+    else
+    {
+      $aid .= 'Regards,<br />';  
     }
     $aid .= $name . '<br />';
     $aid .= '<br />';
