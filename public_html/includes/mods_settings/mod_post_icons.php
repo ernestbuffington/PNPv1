@@ -23,14 +23,13 @@ if (!defined('IN_PHPBB')) {
 include_once( NUKE_INCLUDE_DIR.'functions_mods_settings.'.$phpEx);
 # mod definition
 $mod_name = 'Icons_settings';
-$config_fields = array(
-	'icon_per_row' => array(
+$config_fields = ['icon_per_row' => array(
 		'lang_key'	=> 'Icons_per_row',
 		'explain'	=> 'Icons_per_row_explain',
 		'type'		=> 'TINYINT',
 		'default'	=> '10',
 		),
-);
+               ];
 # init config table
 init_board_config($mod_name, $config_fields);
 
