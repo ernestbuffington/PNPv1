@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /*======================================================================= 
   PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
@@ -590,5 +592,3 @@ function entity_to_hex_value($string) {
     }
     return $str;
 }*/
-
-?>
