@@ -339,11 +339,11 @@ function nd(time) {
 	if (olLoaded && !isExclusive()) {
 		hideDelay(time);  // delay popup close if time specified
 
-		if (o3_removecounter >= 1) { o3_showingsticky = 0 };
+		if (o3_removecounter >= 1) { o3_showingsticky = 0; };
 
 		if (o3_showingsticky === 0) {
 			o3_allowmove = 0;
-			if (over !== null && o3_timerid == 0) runHook("hideObject", FREPLACE, over);
+			if (over !== null && o3_timerid === 0) runHook("hideObject", FREPLACE, over);
 		} else {
 			o3_removecounter++;
 		}
@@ -444,7 +444,7 @@ function olMain() {
 	runHook("disp", FREPLACE, o3_status);
 	runHook("olMain", FAFTER);
 
-	return (olOp && event && event.type === 'mouseover' && !o3_status) ? '' : (o3_status != '');
+	return (olOp && event && event.type === 'mouseover' && !o3_status) ? '' : (o3_status !== '');
 }
 
 ////////
