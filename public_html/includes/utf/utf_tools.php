@@ -1920,4 +1920,3 @@ function utf8_wordwrap($string, $width = 75, $break = "\n", $cut = false)
   return implode($break, $new_lines);
 }
 
-?>
