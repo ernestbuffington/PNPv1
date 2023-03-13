@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /*=======================================================================
  PHP-Nuke Platinum | Nuke-Evolution Basic : Enhanced and Advanced
  =======================================================================*/
@@ -103,4 +105,4 @@ while ($row = $db->sql_fetchrow($result))
 
 echo "</channel>\n";
 echo "</rss>\n";
-?>
+
