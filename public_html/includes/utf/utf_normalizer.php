@@ -1511,4 +1511,3 @@ class utf_normalizer
   }
 }
 
-?>
