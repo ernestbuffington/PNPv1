@@ -103,4 +103,4 @@ while ($row = $db->sql_fetchrow($result))
 
 echo "</channel>\n";
 echo "</rss>\n";
-?>
+
