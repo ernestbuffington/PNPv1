@@ -1,4 +1,4 @@
-/* global o3_dragimg, COMPATMODE, CLOSETITLE, MOUSEOFF, FOLLOWMOUSE, WRAP, RELY, RELX, CELLPAD */
+/* global o3_dragimg, COMPATMODE, CLOSETITLE, MOUSEOFF, FOLLOWMOUSE, WRAP, RELY, RELX, CELLPAD, DONOTHING */
 
 //\/////
 //\  overLIB 4.21 - You may not remove or change this notice.
@@ -684,7 +684,7 @@ function parseTokens(pf, ar) {
             mode = 0;
         } else {
             // Note: NS4 doesn't like switch cases with vars.
-            if (ar[i] >= pmCount || ar[i]===DONOTHING) { continue; }
+            if (ar[i] >= pmCount || ar[i] === DONOTHING) { continue; }
             if (ar[i]===INARRAY) { fnMark = 0; eval(pf+'text=ol_texts['+ar[++i]+'].toString()'); continue; }
             if (ar[i]===CAPARRAY) { eval(pf+'cap=ol_caps['+ar[++i]+'].toString()'); continue; }
             if (ar[i]===STICKY) { if (pf!=='ol_') eval(pf+'sticky=1'); continue; }
