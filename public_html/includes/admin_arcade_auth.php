@@ -19,7 +19,9 @@
       Group Colors                             v1.0.0       10/20/2005
  ************************************************************************/  
 
-if (!defined('IN_PHPBB')) define('IN_PHPBB', true);
+if (!defined('IN_PHPBB')) {
+    define('IN_PHPBB', true);
+}
 
 if( !empty($setmodules) )
 {
