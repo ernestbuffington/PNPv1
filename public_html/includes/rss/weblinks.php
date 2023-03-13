@@ -3,7 +3,6 @@
   PHP-Nuke Platinum | Nuke-Evolution Xtreme | PHP-Nuke Titanium
  =======================================================================*/
 
-
 /************************************************************************
    Nuke-Evolution: News Feed 2.0
    ============================================
@@ -115,5 +114,3 @@ while(list($lid, $title, $description, $date) = $db->sql_fetchrow($result)) {
 }
 echo "</channel>\n\n";
 echo "</rss>\n";
-
-?>
